@@ -123,6 +123,8 @@ body {
   border: 4px solid var(--ocean-blue);
   box-shadow: 0 8px 32px rgba(16,185,129,0.25);
   display: block;
+  overflow: hidden;
+  flex-shrink: 0;
 }
 .about-photo-name {
   font-family: var(--ff-display);
@@ -291,9 +293,11 @@ body {
     <!-- LEFT: PHOTO + IDENTITY -->
     <div class="about-photo-col">
       <img
-        src="DReidPhotoWebsite.PNG"
+        src="dreidphotowebsite.png"
         alt="Dean Reid — Fractional CMO"
         class="about-photo"
+        width="200"
+        height="200"
         onerror="this.style.background='#1E2937';this.style.border='4px solid #10B981';"
       >
       <p class="about-photo-name">Dean <span>Reid</span></p>
