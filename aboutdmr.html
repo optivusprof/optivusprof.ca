@@ -267,6 +267,73 @@ body {
   .nav-links { display: none; }
   .about-footer { padding: 32px 16px; }
 }
+
+/* ── HAMBURGER + DRAWER ── */
+.nav-hamburger {
+  display: none;
+  flex-direction: column; justify-content: center; align-items: center;
+  gap: 5px; width: 44px; height: 44px;
+  background: none; border: none; cursor: pointer; padding: 0;
+  margin-left: auto;
+  -webkit-tap-highlight-color: transparent;
+}
+.nav-hamburger span {
+  display: block; width: 22px; height: 2px;
+  background: #ffffff; border-radius: 2px;
+  transition: transform 0.28s ease, opacity 0.28s ease, width 0.28s ease;
+  transform-origin: center;
+}
+.nav-hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; width: 0; }
+.nav-hamburger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+#nav-drawer {
+  position: fixed; top: 0; right: 0; bottom: 0;
+  width: min(320px, 85vw);
+  background: var(--ink-mid);
+  z-index: 400;
+  transform: translateX(100%);
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  border-left: 2px solid var(--ocean-blue);
+  overflow-y: auto;
+}
+#nav-drawer.open { transform: translateX(0); }
+.drawer-inner { display: flex; flex-direction: column; padding: 20px 0 40px; min-height: 100%; }
+.drawer-close {
+  align-self: flex-end; margin: 8px 20px 0;
+  background: none; border: none; cursor: pointer;
+  color: #94a3b8; font-size: 20px; padding: 8px; border-radius: 4px;
+  transition: color 0.2s;
+}
+.drawer-close:hover { color: #ffffff; }
+.drawer-links { list-style: none; margin-top: 16px; flex: 1; }
+.drawer-links li { border-bottom: 1px solid rgba(52,211,153,0.08); }
+.drawer-links a {
+  display: flex; align-items: center; padding: 16px 28px;
+  font-size: 16px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+  color: rgba(255,255,255,0.9); text-decoration: none;
+  transition: color 0.2s, padding-left 0.2s; min-height: 52px;
+}
+.drawer-links a:hover { color: var(--soft-cyan); padding-left: 36px; }
+.drawer-cta {
+  display: flex; align-items: center; justify-content: center;
+  margin: 32px 24px 0;
+  background: var(--ocean-blue); color: #ffffff;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 15px 20px; border-radius: 6px; text-decoration: none;
+  transition: background 0.2s; min-height: 48px;
+}
+.drawer-cta:hover { background: var(--dark-blue); }
+#nav-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.55); z-index: 350;
+  opacity: 0; transition: opacity 0.32s ease;
+}
+#nav-overlay.visible { display: block; opacity: 1; }
+@media (max-width: 768px) {
+  .nav-links { display: none !important; }
+  .nav-cta { display: none !important; }
+  .nav-hamburger { display: flex !important; }
+}
 </style>
 </head>
 <body>
@@ -285,8 +352,28 @@ body {
     <li><a href="index.html#thought-leadership">Thought Leadership</a></li>
     <li><a href="aboutdmr.html" class="active">About</a></li>
   </ul>
+  <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="nav-drawer">
+    <span></span><span></span><span></span>
+  </button>
   <a href="https://calendly.com/dean-reid-optivusprof" target="_blank" rel="noopener" class="nav-cta">BOOK A 30 MIN DISCOVERY CALL</a>
 </nav>
+<div id="nav-drawer" role="dialog" aria-label="Navigation menu" aria-hidden="true">
+  <div class="drawer-inner">
+    <button class="drawer-close" aria-label="Close menu">&#x2715;</button>
+    <ul class="drawer-links">
+      <li><a href="index.html#fractional-cmo">Fractional CMO</a></li>
+      <li><a href="index.html#board-advisor">Board Advisor</a></li>
+      <li><a href="index.html#growth-playbook">Growth Playbook</a></li>
+      <li><a href="index.html#cx-audit">CX Audit</a></li>
+      <li><a href="index.html#ai-marketing">AI for Marketing</a></li>
+      <li><a href="index.html#thought-leadership">Thought Leadership</a></li>
+      <li><a href="marketing_channel_support_vf.html">Diagnostic</a></li>
+      <li><a href="aboutdmr.html">About</a></li>
+    </ul>
+    <a href="https://calendly.com/dean-reid-optivusprof" target="_blank" rel="noopener" class="drawer-cta">BOOK A 30 MIN DISCOVERY CALL</a>
+  </div>
+</div>
+<div id="nav-overlay" aria-hidden="true"></div>
 
 <!-- PAGE CONTENT -->
 <main class="page-wrap">
@@ -356,5 +443,37 @@ body {
   </p>
 </footer>
 
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var hamburger = document.querySelector('.nav-hamburger');
+  var drawer    = document.getElementById('nav-drawer');
+  var overlay   = document.getElementById('nav-overlay');
+  var drawerLinks = drawer.querySelectorAll('.drawer-links a, .drawer-cta');
+  var closeBtn  = drawer.querySelector('.drawer-close');
+
+  function openDrawer() {
+    drawer.classList.add('open');
+    overlay.classList.add('visible');
+    hamburger.setAttribute('aria-expanded', 'true');
+    drawer.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    overlay.classList.remove('visible');
+    hamburger.setAttribute('aria-expanded', 'false');
+    drawer.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+  hamburger.addEventListener('click', function() {
+    hamburger.getAttribute('aria-expanded') === 'true' ? closeDrawer() : openDrawer();
+  });
+  closeBtn.addEventListener('click', closeDrawer);
+  overlay.addEventListener('click', closeDrawer);
+  drawerLinks.forEach(function(a) { a.addEventListener('click', closeDrawer); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeDrawer(); });
+});
+</script>
 </body>
 </html>

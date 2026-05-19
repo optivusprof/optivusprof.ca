@@ -354,7 +354,7 @@ body {
   opacity: 0;
   transition: opacity 0.32s ease;
 }
-#nav-overlay.visible { opacity: 1; }
+#nav-overlay.visible { display: block; opacity: 1; }
 .nav-brand {
   font-family: var(--ff-display);
   font-size: 20px; font-weight: 700;
@@ -1435,6 +1435,7 @@ footer {
     <li role="listitem"><a href="#cx-audit">CX Audit</a></li>
     <li role="listitem"><a href="#ai-marketing">AI for Marketing</a></li>
     <li role="listitem"><a href="#thought-leadership">Thought Leadership</a></li>
+    <li role="listitem"><a href="marketing_channel_support_vf.html">Diagnostic</a></li>
     <li role="listitem"><a href="aboutdmr.html">About</a></li>
   </ul>
   <!-- Hamburger — hidden on desktop, shown on mobile -->
@@ -1455,6 +1456,7 @@ footer {
       <li><a href="#cx-audit">CX Audit</a></li>
       <li><a href="#ai-marketing">AI for Marketing</a></li>
       <li><a href="#thought-leadership">Thought Leadership</a></li>
+      <li><a href="marketing_channel_support_vf.html">Diagnostic</a></li>
       <li><a href="aboutdmr.html">About</a></li>
     </ul>
     <a href="#" onclick="openCalendly(event); closeDrawer();" class="drawer-cta">
@@ -2606,7 +2608,7 @@ const sectionObserver = new IntersectionObserver(entries => {
 sections.forEach(s => sectionObserver.observe(s));
 
 /* ── Hamburger / mobile drawer ── */
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
   var hamburger = document.querySelector('.nav-hamburger');
   var drawer    = document.getElementById('nav-drawer');
   var overlay   = document.getElementById('nav-overlay');
@@ -2636,7 +2638,7 @@ sections.forEach(s => sectionObserver.observe(s));
   overlay.addEventListener('click', closeDrawer);
   drawerLinks.forEach(function(a) { a.addEventListener('click', closeDrawer); });
   document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeDrawer(); });
-})();
+});
 
 /* ── FAQ accordion ── */
 document.querySelectorAll('.faq-q').forEach(btn => {
