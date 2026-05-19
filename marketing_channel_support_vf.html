@@ -655,9 +655,173 @@ body {
 }
 @media (max-width: 640px) { .dmr-launch-btn { display: none; } }
 
+
+/* ── OPTIVUS NAV ── */
+:root {
+  --ink:        #0F172A;
+  --ink-mid:    #1E2937;
+  --ocean-blue: #10B981;
+  --dark-blue:  #065F46;
+  --soft-cyan:  #34D399;
+}
+#site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  background: var(--ink);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto auto;
+  padding: 0 40px;
+  border-bottom: 1px solid rgba(52,211,153,0.15);
+  transition: background 0.3s;
+}
+.nav-hamburger {
+  display: none;
+  flex-direction: column; justify-content: center; align-items: center;
+  gap: 5px;
+  width: 44px; height: 44px;
+  background: none; border: none; cursor: pointer;
+  padding: 0;
+  grid-column: 3; grid-row: 1;
+  align-self: center;
+}
+.nav-hamburger span {
+  display: block; width: 22px; height: 2px;
+  background: #ffffff; border-radius: 2px;
+  transition: transform 0.28s ease, opacity 0.28s ease, width 0.28s ease;
+  transform-origin: center;
+}
+.nav-hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; width: 0; }
+.nav-hamburger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+#nav-drawer {
+  position: fixed; top: 0; right: 0; bottom: 0;
+  width: min(320px, 85vw);
+  background: var(--ink-mid);
+  z-index: 400;
+  transform: translateX(100%);
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  border-left: 2px solid var(--ocean-blue);
+  overflow-y: auto;
+}
+#nav-drawer.open { transform: translateX(0); }
+.drawer-inner { display: flex; flex-direction: column; padding: 20px 0 40px; min-height: 100%; }
+.drawer-close {
+  align-self: flex-end; margin: 8px 20px 0;
+  background: none; border: none; cursor: pointer;
+  color: #94a3b8; font-size: 20px; padding: 8px; border-radius: 4px;
+}
+.drawer-close:hover { color: #ffffff; }
+.drawer-links { list-style: none; margin-top: 16px; flex: 1; }
+.drawer-links li { border-bottom: 1px solid rgba(52,211,153,0.08); }
+.drawer-links a {
+  display: flex; align-items: center; padding: 16px 28px;
+  font-size: 16px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+  color: rgba(255,255,255,0.9); text-decoration: none;
+  transition: color 0.2s, padding-left 0.2s; min-height: 52px;
+}
+.drawer-links a:hover { color: var(--soft-cyan); padding-left: 36px; }
+.drawer-cta {
+  display: flex; align-items: center; justify-content: center;
+  margin: 32px 24px 0;
+  background: var(--ocean-blue); color: #ffffff;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 15px 20px; border-radius: 6px; text-decoration: none;
+  transition: background 0.2s; min-height: 48px;
+}
+.drawer-cta:hover { background: var(--dark-blue); }
+#nav-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.55); z-index: 350;
+  opacity: 0; transition: opacity 0.32s ease;
+}
+#nav-overlay.visible { opacity: 1; }
+.nav-brand {
+  font-size: 20px; font-weight: 700;
+  color: #ffffff; letter-spacing: 0.01em;
+  white-space: nowrap; margin-right: 48px;
+  text-decoration: none;
+  grid-column: 1; grid-row: 1;
+  display: flex; align-items: center; padding: 6px 0 4px;
+}
+.nav-logo-img {
+  height: 64px; width: auto; display: block;
+  object-fit: contain; mix-blend-mode: screen;
+  margin-left: 0; background-color: transparent;
+}
+.nav-scroll {
+  display: flex; gap: 4px; overflow-x: auto;
+  scrollbar-width: none; list-style: none;
+  grid-column: 2; grid-row: 1;
+  align-items: center; padding: 10px 0 8px; margin-left: -38px;
+}
+.nav-scroll::-webkit-scrollbar { display: none; }
+.nav-scroll li { display: flex; }
+.nav-scroll a {
+  white-space: nowrap; font-size: 14px; font-weight: 600;
+  letter-spacing: 0.07em; text-transform: uppercase;
+  color: rgba(255,255,255,0.95); text-decoration: none;
+  padding: 6px 14px; border-radius: 4px; transition: all 0.2s;
+}
+.nav-scroll a:hover { color: var(--soft-cyan); background: rgba(52,211,153,0.1); }
+.nav-scroll a.active { color: var(--ink); background: var(--soft-cyan); }
+.nav-cta {
+  grid-column: 1 / -1; grid-row: 2;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  background: var(--ocean-blue); color: #ffffff;
+  padding: 9px 18px; text-decoration: none;
+  transition: background 0.2s; text-align: center;
+  border-top: 1px solid rgba(52,211,153,0.12);
+  margin: 0 -40px; padding-left: 40px; padding-right: 40px;
+}
+.nav-cta:hover { background: var(--dark-blue); }
+body { padding-top: 100px; }
+@media (max-width: 768px) {
+  .nav-scroll { display: none !important; }
+  .nav-hamburger { display: flex !important; }
+  .nav-cta { display: none; }
+  #site-nav { padding: 0 16px; }
+  .nav-brand { margin-right: 0; }
+  body { padding-top: 56px; }
+}
 </style>
 </head>
 <body>
+<nav id="site-nav" aria-label="Primary navigation">
+  <a href="index.html" class="nav-brand" aria-label="Optivus — Home">
+    <img src="thumb.png" alt="Optivus" class="nav-logo-img" width="150" height="150" loading="eager">
+  </a>
+  <ul class="nav-scroll" role="list">
+    <li role="listitem"><a href="index.html#fractional-cmo">Fractional CMO</a></li>
+    <li role="listitem"><a href="index.html#board-advisor">Board Advisor</a></li>
+    <li role="listitem"><a href="index.html#growth-playbook">Growth Playbook</a></li>
+    <li role="listitem"><a href="index.html#cx-audit">CX Audit</a></li>
+    <li role="listitem"><a href="index.html#ai-marketing">AI for Marketing</a></li>
+    <li role="listitem"><a href="index.html#thought-leadership">Thought Leadership</a></li>
+    <li role="listitem"><a href="aboutdmr.html">About</a></li>
+  </ul>
+  <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="nav-drawer">
+    <span></span><span></span><span></span>
+  </button>
+  <a href="#" onclick="openCalendly(event)" class="nav-cta">BOOK A 30 MIN DISCOVERY CALL</a>
+</nav>
+<div id="nav-drawer" role="dialog" aria-label="Navigation menu" aria-hidden="true">
+  <div class="drawer-inner">
+    <button class="drawer-close" aria-label="Close menu">✕</button>
+    <ul class="drawer-links">
+      <li><a href="index.html#fractional-cmo">Fractional CMO</a></li>
+      <li><a href="index.html#board-advisor">Board Advisor</a></li>
+      <li><a href="index.html#growth-playbook">Growth Playbook</a></li>
+      <li><a href="index.html#cx-audit">CX Audit</a></li>
+      <li><a href="index.html#ai-marketing">AI for Marketing</a></li>
+      <li><a href="index.html#thought-leadership">Thought Leadership</a></li>
+      <li><a href="aboutdmr.html">About</a></li>
+    </ul>
+    <a href="#" onclick="openCalendly(event); closeDrawer();" class="drawer-cta">BOOK A 30 MIN DISCOVERY CALL</a>
+  </div>
+</div>
+<div id="nav-overlay" aria-hidden="true"></div>
+
+
 
 <!-- Top header -->
 <header class="top-header">
@@ -1008,6 +1172,48 @@ function renderIcons() {
 // Init icons — called after all definitions above are in place
 renderIcons();
 
+</script>
+
+<!-- CALENDLY + NAV JS -->
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script>
+function openCalendly(e) {
+  e && e.preventDefault();
+  if (typeof Calendly !== 'undefined') {
+    Calendly.initPopupWidget({ url: 'https://calendly.com/dean-reid-optivusprof' });
+  } else {
+    window.open('https://calendly.com/dean-reid-optivusprof', '_blank', 'noopener,noreferrer');
+  }
+  return false;
+}
+(function() {
+  var hamburger = document.querySelector('.nav-hamburger');
+  var drawer    = document.getElementById('nav-drawer');
+  var overlay   = document.getElementById('nav-overlay');
+  var drawerLinks = drawer.querySelectorAll('.drawer-links a, .drawer-cta');
+  var closeBtn  = drawer.querySelector('.drawer-close');
+  function openDrawer() {
+    drawer.classList.add('open'); overlay.classList.add('visible');
+    hamburger.setAttribute('aria-expanded', 'true');
+    drawer.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDrawer() {
+    drawer.classList.remove('open'); overlay.classList.remove('visible');
+    hamburger.setAttribute('aria-expanded', 'false');
+    drawer.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+  window.closeDrawer = closeDrawer;
+  hamburger.addEventListener('click', function() {
+    hamburger.getAttribute('aria-expanded') === 'true' ? closeDrawer() : openDrawer();
+  });
+  closeBtn.addEventListener('click', closeDrawer);
+  overlay.addEventListener('click', closeDrawer);
+  drawerLinks.forEach(function(a) { a.addEventListener('click', closeDrawer); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeDrawer(); });
+})();
 </script>
 </body>
 </html>
