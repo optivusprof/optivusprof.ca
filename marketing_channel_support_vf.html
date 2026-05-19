@@ -1189,7 +1189,8 @@ function openCalendly(e) {
   }
   return false;
 }
-document.addEventListener('DOMContentLoaded', function() {
+// Hamburger init
+(function() {
   var hamburger = document.querySelector('.nav-hamburger');
   var drawer    = document.getElementById('nav-drawer');
   var overlay   = document.getElementById('nav-overlay');
@@ -1215,7 +1216,7 @@ document.addEventListener('DOMContentLoaded', function() {
   overlay.addEventListener('click', closeDrawer);
   drawerLinks.forEach(function(a) { a.addEventListener('click', closeDrawer); });
   document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeDrawer(); });
-});
+})();
 </script>
 </body>
 </html>

@@ -1223,7 +1223,6 @@ footer {
   #site-nav { padding: 0 16px; grid-template-columns: auto 1fr auto; }
   .nav-brand { margin-right: 0; }
   #nav-drawer { display: block; }
-  #nav-overlay { display: block; }
 
   /* Hero layout */
   #hero { padding-top: 150px; padding-bottom: 60px; }
@@ -2608,7 +2607,8 @@ const sectionObserver = new IntersectionObserver(entries => {
 sections.forEach(s => sectionObserver.observe(s));
 
 /* ── Hamburger / mobile drawer ── */
-document.addEventListener('DOMContentLoaded', function() {
+// Hamburger init
+(function() {
   var hamburger = document.querySelector('.nav-hamburger');
   var drawer    = document.getElementById('nav-drawer');
   var overlay   = document.getElementById('nav-overlay');
@@ -2638,7 +2638,7 @@ document.addEventListener('DOMContentLoaded', function() {
   overlay.addEventListener('click', closeDrawer);
   drawerLinks.forEach(function(a) { a.addEventListener('click', closeDrawer); });
   document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeDrawer(); });
-});
+})();
 
 /* ── FAQ accordion ── */
 document.querySelectorAll('.faq-q').forEach(btn => {
