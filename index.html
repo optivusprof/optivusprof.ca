@@ -2,9 +2,12 @@
 <html lang="en-CA">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="format-detection" content="telephone=no">
 <meta name="theme-color" content="#065F46">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
 <!-- Primary SEO -->
 <title>Optivus | Fractional CMO &amp; B2B Marketing Strategy Consultant | Calgary, Alberta</title>
@@ -67,7 +70,7 @@
       "@id": "https://www.deanreid.ca/#dean-reid",
       "name": "Dean Reid",
       "jobTitle": "Fractional CMO & B2B Marketing Strategy Consultant",
-      "description": "Senior B2B marketing leader with VP-level experience at companies including Userful. Specializes in fractional CMO services, demand generation, AI-augmented marketing, and go-to-market strategy for companies doing $5M–$100M in revenue. TEC Canada advisor and MIT alumnus.",
+      "description": "Senior B2B marketing leader with 30+ years at VP and Director level across TELUS, Bell Canada, SMART Technologies, Veriforce, Userful, and TEC Canada. Specializes in fractional CMO services, demand generation, AI-augmented marketing, and go-to-market strategy for B2B companies doing $15M–$60M in revenue. MIT alumnus.",
       "url": "https://www.deanreid.ca/",
       "sameAs": ["https://www.linkedin.com/in/deanreid1/"],
       "address": {
@@ -180,7 +183,7 @@
           "name": "How much does a fractional CMO cost in Canada?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Fractional CMO retainers in Canada typically range from $5,000 to $15,000 per month, depending on the scope of work, the size of the company, and the seniority of the CMO. Optivus's fractional CMO engagements start at $6,000/month for a defined scope including one strategy day per month, weekly check-ins, and AI-generated playbooks."
+            "text": "Fractional CMO retainers in Canada typically range from $5,000 to $15,000 per month, depending on the scope of work, the size of the company, and the seniority of the CMO. Optivus's fractional CMO retainers are scoped individually to each engagement. Book a discovery call to discuss the right structure for your situation."
           }
         },
         {
@@ -238,14 +241,22 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 16px; }
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  overscroll-behavior-y: none;        /* prevent pull-to-refresh on the root */
+  -webkit-text-size-adjust: 100%;     /* prevent iOS font inflation on rotation */
+  text-size-adjust: 100%;
+}
 
 body {
   font-family: var(--ff-body);
   background: var(--white);
   color: var(--body-text);
   overflow-x: hidden;
+  overscroll-behavior-x: none;        /* prevent horizontal rubber-banding */
   -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;  /* remove grey tap flash on iOS */
 }
 
 /* NAVIGATION */
@@ -1199,118 +1210,271 @@ footer {
   transform: translateY(-1px);
 }
 
-/* RESPONSIVE */
+/* ══════════════════════════════════════════════
+   RESPONSIVE — mobile-first, four breakpoints
+   1024 · 768 · 480 · 360
+   ══════════════════════════════════════════════ */
+
+/* ── Tablet landscape / small desktop (≤1024px) ── */
 @media (max-width: 1024px) {
-  .off-grid { grid-template-columns: 1fr; }
-  .off-sidebar { position: static; order: -1; }  /* sidebar BEFORE body on tablet/mobile */
-  .mobile-price-strip { display: block; }         /* show compact price strip */
-  .off-sidebar { display: none; }                  /* hide full sidebar — replaced by mobile strip */
-  .seo-grid { grid-template-columns: 1fr; gap: 24px; }
-  .seo-pillars { grid-template-columns: 1fr; }
-  .sp-cards { grid-template-columns: 1fr; }
-  .footer-body { grid-template-columns: 1fr; gap: 32px; padding: 40px 40px 36px; }
-  .footer-col-nav { padding-top: 0; }
-  .fctb-btn-linkedin { justify-content: center; }
-  .footer-bottom { padding-left: 40px; padding-right: 40px; }
-  .footer-cta-band { padding: 56px 40px; }
-  .social-proof { padding: 56px 40px; }
-  .footer-main { display: none; } /* old footer main replaced */
-}
-/* ── Tablet (768px and below) ── */
-@media (max-width: 768px) {
-  /* Nav — swap links for hamburger */
-  .nav-scroll { display: none !important; }
-  .nav-hamburger { display: flex !important; }
-  .nav-cta { display: none; }
-  #site-nav { padding: 0 16px; grid-template-columns: auto 1fr auto; }
-  .nav-brand { margin-right: 0; }
-  #nav-drawer { display: block; }
 
-  /* Hero layout */
-  #hero { padding-top: 150px; padding-bottom: 60px; }
-  #hero, .offering-wrap, .seo-section { padding-left: 24px; padding-right: 24px; }
+  /* Layout collapses */
+  .off-grid          { grid-template-columns: 1fr; }
+  .off-sidebar       { display: none; }               /* replaced by .mobile-price-strip */
+  .mobile-price-strip{ display: block; }
+  .seo-grid          { grid-template-columns: 1fr; gap: 24px; }
+  .seo-pillars       { grid-template-columns: 1fr; }
+  .sp-cards          { grid-template-columns: 1fr; }
 
-  /* H1 scales to fit tablet/large-phone width */
-  #hero h1 { font-size: 42px; line-height: 1.05; margin-top: 24px; margin-bottom: 20px; }
-  .hero-desc { font-size: 16px; line-height: 1.7; margin-bottom: 28px; }
-  .hero-eyebrow { font-size: 12px; margin-bottom: 14px; }
-
-  /* Nav */
-  #site-nav { padding: 0 20px; }
-  .nav-brand { margin-right: 16px; }
-  .nav-scroll { display: flex; }
-  .nav-scroll a { font-size: 11px; padding: 5px 10px; }
-  .nav-cta { margin: 0 -20px; padding-left: 20px; padding-right: 20px; font-size: 12px; }
-
-  /* Offerings */
-  .off-banner { margin: -96px -24px 48px; padding: 40px 24px 36px; }
-  .offerings-strip { padding: 20px 24px; }
-  .hero-stats { flex-wrap: wrap; }
-  .hero-stat { border-right: none; border-bottom: 1px solid rgba(52,211,153,0.15); width: 50%; }
-
-  /* Buttons */
-  .hero-actions { margin-top: 28px; }
-  .hero-btn-primary { padding: 14px 24px; font-size: 13px; width: 100%; justify-content: center; }
-  .hero-btn-secondary { display: none; }
-  .fctb-actions { flex-direction: column; align-items: stretch; }
-  .fctb-btn-primary { justify-content: center; }
+  /* Paddings */
+  .offering-wrap     { padding: 64px 40px; }
+  .off-banner        { margin: -64px -40px 48px; padding: 44px 40px 40px; }
+  .social-proof      { padding: 56px 40px; }
+  .seo-section       { padding: 64px 40px; }
 
   /* Footer */
-  .footer-body { padding-left: 24px; padding-right: 24px; }
-  .footer-col-nav { padding-top: 0; }
-  .footer-bottom { padding-left: 24px; padding-right: 24px; }
-  .footer-cta-band { padding: 48px 24px; }
-  .social-proof { padding: 48px 24px; }
-  .scroll-indicator { left: 24px; }
-
-  /* Section typography */
-  .off-num { font-size: 18px; letter-spacing: 0.08em; opacity: 1; }
-  .off-tag { font-size: 13px; padding: 6px 14px; }
-  .off-banner h2 { font-size: 38px; line-height: 1.08; }
-  .off-banner p.off-sub { font-size: 16px; margin-top: 12px; }
-  .off-block h3 { font-size: 28px; line-height: 1.2; margin-bottom: 14px; }
-  .block-eyebrow { font-size: 13px; }
-  .pull-quote { padding: 18px 20px; }
-  .pull-quote p { font-size: 20px; line-height: 1.5; }
-  .ai-label { font-size: 13px; }
-  .ai-block { padding: 22px 20px; }
-  .ai-block p { font-size: 15px; }
-  .ai-block ul li { font-size: 14px; }
-  .faq-title { font-size: 13px; }
-  .faq-q { font-size: 15px; padding: 16px; }
-  .faq-a { font-size: 15px; }
-  .deliver-list li { font-size: 15px; }
-  .off-block p { font-size: 16px; }
-  .sp-headline { margin-bottom: 36px; }
-  .seo-pillar { padding: 28px 20px; }
-  .seo-col { padding: 24px 20px; }
+  .footer-body       { grid-template-columns: 1fr; gap: 32px; padding: 40px 40px 36px; }
+  .footer-col-nav    { padding-top: 0; }
+  .footer-bottom     { padding-left: 40px; padding-right: 40px; }
+  .footer-cta-band   { padding: 56px 40px; }
+  .fctb-btn-linkedin { justify-content: center; }
+  .footer-main       { display: none; }
 }
 
-/* ── Large phone (480px and below) ── */
+/* ── Tablet portrait / large phone (≤768px) ── */
+@media (max-width: 768px) {
+
+  /* ── Nav ── */
+  #site-nav {
+    padding: 0 20px;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto;           /* collapse to single row */
+  }
+  .nav-scroll  { display: none !important; }
+  .nav-cta     { display: none; }       /* CTA lives in drawer instead */
+  .nav-hamburger { display: flex !important; }
+  .nav-brand   { margin-right: 0; }
+  .nav-logo-img { height: 52px; }       /* slightly smaller logo on mobile */
+
+  /* ── Hero ── */
+  #hero {
+    padding: 140px 24px 64px;
+    min-height: auto;
+  }
+  .hero-eyebrow { font-size: 11px; letter-spacing: 0.16em; margin-bottom: 16px; }
+  #hero h1      { font-size: clamp(30px, 8.5vw, 48px); line-height: 1.06; margin-top: 0; margin-bottom: 20px; }
+  .hero-desc    { font-size: 16px; line-height: 1.7; margin-bottom: 32px; max-width: 100%; }
+
+  /* Credential pills — wrap tightly, slightly smaller */
+  .hero-credentials { gap: 8px; }
+  .hero-cred    { font-size: 11.5px; padding: 6px 12px; }
+
+  /* Hero CTA */
+  .hero-actions { margin-top: 28px; }
+  .hero-btn-primary {
+    width: 100%;
+    justify-content: center;
+    padding: 16px 20px;
+    font-size: 13px;
+    min-height: 52px;                   /* meet 44px touch target comfortably */
+  }
+  .hero-btn-secondary { display: none; }
+  .scroll-indicator   { left: 24px; bottom: 28px; }
+
+  /* ── Offerings strip ── */
+  .offerings-strip {
+    padding: 16px 20px;
+    gap: 0;
+  }
+  .strip-label  { margin-right: 20px; padding-right: 20px; font-size: 9px; }
+  .strip-item   { font-size: 11px; padding: 7px 12px; min-height: 36px; }
+
+  /* ── Offering banners ── */
+  .offering-wrap { padding: 56px 24px; }
+  .off-banner    { margin: -56px -24px 40px; padding: 36px 24px 32px; }
+  .off-banner-bg { font-size: 120px; right: -20px; top: -30px; }  /* scale decorative text */
+  .off-meta      { gap: 12px; margin-bottom: 12px; }
+  .off-num       { font-size: 16px; letter-spacing: 0.08em; }
+  .off-tag       { font-size: 12px; padding: 5px 12px; }
+  .off-banner h2 { font-size: clamp(28px, 7vw, 42px); line-height: 1.08; }
+  .off-banner p.off-sub { font-size: 15px; margin-top: 10px; line-height: 1.6; }
+
+  /* ── Offering body ── */
+  .off-block           { margin-bottom: 36px; margin-top: 40px; }
+  .block-eyebrow       { font-size: 12px; }
+  .off-block h3        { font-size: clamp(22px, 5.5vw, 30px); line-height: 1.2; margin-bottom: 12px; }
+  .off-block p         { font-size: 15px; line-height: 1.75; }
+
+  /* Pull quote */
+  .pull-quote          { padding: 18px 20px; margin: 28px 0; }
+  .pull-quote p        { font-size: clamp(17px, 4vw, 22px); line-height: 1.5; }
+
+  /* AI block */
+  .ai-block            { padding: 20px 18px; }
+  .ai-label            { font-size: 12px; }
+  .ai-block p          { font-size: 14px; }
+  .ai-block ul li      { font-size: 13.5px; padding: 7px 0; }
+
+  /* Deliver list */
+  .deliver-list li     { font-size: 14px; gap: 12px; }
+
+  /* FAQ */
+  .faq-title           { font-size: 12px; }
+  .faq-q               { font-size: 14px; padding: 14px 16px; min-height: 52px; }
+  .faq-a               { font-size: 14px; }
+
+  /* Mobile price strip */
+  .mobile-price-strip  { padding: 16px 20px; margin-bottom: 28px; }
+  .mps-label           { font-size: 12px; }
+  .mps-value           { font-size: 13px; }
+  .mps-value.hl        { font-size: 14px; }
+
+  /* ── Social proof ── */
+  .social-proof        { padding: 48px 24px; }
+  .sp-eyebrow          { font-size: 10px; }
+  .sp-headline         { font-size: clamp(20px, 5.5vw, 28px); line-height: 1.2; margin-bottom: 32px; }
+  .sp-card             { padding: 24px 20px; }
+  .sp-card h3          { font-size: 18px; }
+  .sp-card p           { font-size: 14px; }
+  .sp-card-stat        { font-size: 26px; }
+  .sp-industries       { padding: 20px; gap: 8px; }
+  .sp-industry-pill    { font-size: 11px; padding: 5px 12px; }
+
+  /* ── SEO section ── */
+  .seo-section         { padding: 48px 24px; }
+  .seo-header          { margin-bottom: 36px; }
+  .seo-header h2       { font-size: clamp(20px, 5vw, 28px); line-height: 1.2; }
+  .seo-pillars         { grid-template-columns: 1fr; gap: 2px; }
+  .seo-pillar          { padding: 28px 20px; }
+  .seo-pillar-num      { font-size: 40px; }
+  .seo-pillar h3       { font-size: 17px; }
+  .seo-pillar p        { font-size: 13.5px; }
+  .seo-grid            { grid-template-columns: 1fr; gap: 20px; }
+  .seo-col             { padding: 24px 20px; }
+  .seo-col h2          { font-size: clamp(18px, 4.5vw, 24px); }
+  .seo-col p           { font-size: 14px; }
+  .seo-col h3          { font-size: 16px; }
+
+  /* ── Footer ── */
+  .footer-body         { padding: 36px 24px 28px; gap: 28px; }
+  .footer-bottom       { padding: 16px 24px; font-size: 11px; }
+  .footer-cta-band     { padding: 48px 24px; }
+  .fctb-eyebrow        { font-size: 10px; }
+  .fctb-headline       { font-size: clamp(26px, 7vw, 38px); line-height: 1.08; margin-bottom: 16px; }
+  .fctb-sub            { font-size: 15px; margin-bottom: 32px; }
+  .fctb-actions        { flex-direction: column; align-items: stretch; gap: 12px; }
+  .fctb-btn-primary    { justify-content: center; padding: 16px 20px; font-size: 13px; min-height: 52px; }
+  .fctb-btn-linkedin   { justify-content: center; min-height: 48px; }
+  .fctb-guarantee      { font-size: 11px; flex-wrap: wrap; text-align: center; }
+
+  /* ── Diagnostic banner ── */
+  .diag-banner         { padding: 24px 24px; }
+  .diag-title          { font-size: 17px; }
+  .diag-sub            { font-size: 13.5px; }
+}
+
+/* ── Large phone (≤480px) ── */
 @media (max-width: 480px) {
-  #hero { padding-top: 130px; padding-left: 20px; padding-right: 20px; padding-bottom: 52px; }
-  #hero h1 { font-size: 32px; line-height: 1.08; margin-top: 14px; margin-bottom: 18px; }
-  .hero-eyebrow { font-size: 11px; letter-spacing: 0.14em; margin-bottom: 10px; }
-  .hero-desc { font-size: 15px; margin-bottom: 22px; }
+
+  /* Nav logo */
+  .nav-logo-img { height: 44px; }
+
+  /* Hero */
+  #hero        { padding: 120px 20px 56px; }
+  #hero h1     { font-size: clamp(26px, 8vw, 36px); margin-bottom: 16px; }
+  .hero-eyebrow{ font-size: 10px; letter-spacing: 0.13em; margin-bottom: 12px; }
+  .hero-desc   { font-size: 15px; margin-bottom: 24px; }
+
+  /* Credential pills — go full-width on smallest phones to prevent orphaned pills */
   .hero-credentials { gap: 6px; }
-  .hero-cred { font-size: 11px; padding: 5px 10px; }
-  .hero-actions { margin-top: 18px; }
-  .off-banner h2 { font-size: 28px; line-height: 1.1; }
-  .sp-headline { font-size: 22px; }
-  .fctb-headline { font-size: 26px; line-height: 1.1; }
-  .offering-wrap, .seo-section { padding-left: 20px; padding-right: 20px; }
+  .hero-cred {
+    font-size: 11px;
+    padding: 6px 10px;
+    flex: 0 0 auto;           /* stay auto-width, wrapping handles layout */
+  }
+
+  /* Offerings */
+  .offering-wrap { padding: 48px 20px; }
+  .off-banner    { margin: -48px -20px 36px; padding: 32px 20px 28px; }
+  .off-banner h2 { font-size: clamp(24px, 7vw, 32px); }
+  .off-banner p.off-sub { font-size: 14px; }
+  .off-block h3  { font-size: clamp(20px, 5.5vw, 26px); }
+  .off-block p   { font-size: 14.5px; }
+  .deliver-list li { font-size: 13.5px; }
+  .pull-quote p  { font-size: 16px; }
+
+  /* Social proof */
+  .sp-headline   { font-size: clamp(18px, 5.5vw, 22px); }
+  .sp-card-stat  { font-size: 24px; }
+
+  /* SEO */
+  .seo-section   { padding: 40px 20px; }
+  .seo-col       { padding: 20px 16px; }
+  .seo-pillar    { padding: 24px 16px; }
+
+  /* Footer */
+  .footer-body   { padding: 32px 20px 24px; }
+  .footer-bottom { padding: 14px 20px; }
+  .footer-cta-band { padding: 40px 20px; }
+  .fctb-headline { font-size: clamp(22px, 7vw, 30px); }
+
+  /* Offerings strip — hide label, let pills scroll */
+  .strip-label   { display: none; }
+  .offerings-strip { padding: 14px 20px; }
+  .strip-item    { font-size: 10.5px; padding: 7px 11px; }
+
+  /* Marquee — slightly tighter on small screens */
+  .marquee-item  { font-size: 10px; padding: 0 24px; }
+
+  /* Diag banner */
+  .diag-banner   { padding: 20px 20px; }
+  .diag-title    { font-size: 15px; }
+  .diag-sub      { font-size: 13px; }
 }
 
-/* ── Small phone (360px and below) ── */
+/* ── Small phone (≤360px) ── */
 @media (max-width: 360px) {
-  #hero { padding-top: 115px; padding-left: 16px; padding-right: 16px; }
-  #hero h1 { font-size: 26px; line-height: 1.1; }
-  .hero-eyebrow { font-size: 10px; }
-  .hero-desc { font-size: 14px; }
-  .hero-cred { font-size: 10px; padding: 4px 9px; }
-  .nav-cta { font-size: 10px; letter-spacing: 0.07em; }
-  .offering-wrap, .seo-section { padding-left: 16px; padding-right: 16px; }
-  .off-banner h2 { font-size: 24px; }
+  #site-nav      { padding: 0 14px; }
+  .nav-logo-img  { height: 38px; }
+
+  #hero          { padding: 108px 16px 48px; }
+  #hero h1       { font-size: clamp(22px, 7.5vw, 28px); }
+  .hero-eyebrow  { font-size: 9.5px; margin-bottom: 10px; }
+  .hero-desc     { font-size: 14px; }
+  .hero-cred     { font-size: 10px; padding: 5px 9px; }
+
+  .offering-wrap { padding: 40px 16px; }
+  .off-banner    { margin: -40px -16px 32px; padding: 28px 16px 24px; }
+  .off-banner h2 { font-size: clamp(20px, 7vw, 26px); }
+  .off-block h3  { font-size: clamp(18px, 5.5vw, 22px); }
+
+  .seo-section   { padding: 36px 16px; }
+  .footer-body   { padding: 28px 16px 20px; }
+  .footer-bottom { padding: 12px 16px; }
+  .footer-cta-band { padding: 36px 16px; }
+  .offerings-strip { padding: 12px 16px; }
+  .strip-item    { font-size: 10px; padding: 6px 9px; }
+}
+
+/* ── Safe area insets (notched / Dynamic Island devices) ── */
+@supports (padding: max(0px)) {
+  #site-nav {
+    padding-left: max(20px, env(safe-area-inset-left));
+    padding-right: max(20px, env(safe-area-inset-right));
+  }
+  #hero {
+    padding-left: max(24px, env(safe-area-inset-left));
+    padding-right: max(24px, env(safe-area-inset-right));
+  }
+  .footer-cta-band,
+  .footer-body,
+  .footer-bottom {
+    padding-left: max(24px, env(safe-area-inset-left));
+    padding-right: max(24px, env(safe-area-inset-right));
+  }
+  .footer-bottom {
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+  }
 }
 /* ── COMPANY MARQUEE RIBBON ── */
 .marquee-ribbon {
@@ -1410,15 +1574,7 @@ footer {
   margin: 0;
   opacity: 0.85;
 }
-@media (max-width: 768px) {
-  .diag-banner { padding: 28px 24px; }
-  .diag-title  { font-size: 18px; }
-  .diag-sub    { font-size: 14px; }
-}
-@media (max-width: 480px) {
-  .diag-banner { padding: 22px 20px; }
-  .diag-title  { font-size: 16px; }
-}
+/* Mobile overrides handled in the main responsive block above */
 
 </style>
 </head>
@@ -1474,38 +1630,38 @@ footer {
   <div class="hero-glow" aria-hidden="true"></div>
   <div class="hero-glow-2" aria-hidden="true"></div>
 
-  <p class="hero-eyebrow">Fractional Marketing Leadership</p>
+  <p class="hero-eyebrow">Fractional CMO · B2B Growth Strategy · Calgary, Alberta</p>
 
-  <h1>Fractional CMO Leadership Your Company Can Count On.<br><span class="accent">Stop guessing. Start scaling.</span></h1>
+  <h1>Your company has outgrown founder-led marketing.<br><span class="accent">It hasn't outgrown the need for senior leadership.</span></h1>
 
   <p class="hero-desc">
-    I embed directly into your team as your part&#8209;time CMO, architecting your marketing strategy, go&#8209;to&#8209;market engine, and demand generation programs. Senior expertise. Part&#8209;time commitment. Full&#8209;time impact.
+    Most B2B companies at $15M–$60M are caught between two bad options: a marketing manager who can execute but can't lead, or a full-time CMO at $280K who's overkill for where you are. I'm the third option — VP and Director-level strategy, embedded part-time, accountable to pipeline from week one. Over 30 years of doing this at TELUS, Bell Canada, SMART Technologies, Veriforce, and Userful. Now available to the companies that actually need it.
   </p>
 
   <div class="hero-credentials" aria-label="Expertise areas">
     <div class="hero-cred">
       <svg viewBox="0 0 14 14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5L3 7.5h4L5.5 13l6-7.5H8L9.5 1.5z"/></svg>
-      Revenue Engine Builder
+      30+ Years at VP &amp; Director Level
     </div>
     <div class="hero-cred">
       <svg viewBox="0 0 14 14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="2"/><path d="M7 1v2M7 11v2M1 7h2M11 7h2M2.8 2.8l1.4 1.4M9.8 9.8l1.4 1.4M2.8 11.2l1.4-1.4M9.8 4.2l1.4-1.4"/></svg>
-      AI-Native Growth Architect
+      MIT-Credentialed Strategist
     </div>
     <div class="hero-cred">
       <svg viewBox="0 0 14 14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4h8M7 2l2 2-2 2"/><path d="M13 10H5M7 8l-2 2 2 2"/></svg>
-      GTM &amp; RevOps Operator
+      B2B SaaS · Telecom · Professional Services
     </div>
     <div class="hero-cred">
       <svg viewBox="0 0 14 14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 11l3.5-3.5 2.5 1.5L13 3"/><circle cx="13" cy="3" r="1.2" fill="currentColor"/></svg>
-      Compound Growth Orchestrator
+      AI-Native Delivery — Faster, Richer Output
     </div>
     <div class="hero-cred">
       <svg viewBox="0 0 14 14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 7A4 4 0 1 1 7 3"/><path d="M7 1l3 2.5L7 6"/></svg>
-      Lifecycle Revenue Optimizer
+      Strategy to Pipeline in 30–45 Days
     </div>
     <div class="hero-cred">
       <svg viewBox="0 0 14 14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 2h12L9 7v5l-4-1.5V7L1 2z"/></svg>
-      Full-Funnel Strategist
+      Serving $15M–$60M B2B Companies
     </div>
   </div>
 
@@ -1571,27 +1727,27 @@ footer {
 <!-- SOCIAL PROOF -->
 <section class="social-proof" aria-label="Why clients choose Optivus">
   <div class="social-proof-inner">
-    <p class="sp-eyebrow reveal">Trusted Results</p>
-    <h2 class="sp-headline reveal">What working with a senior fractional<br>marketing leader actually delivers</h2>
+    <p class="sp-eyebrow reveal">The Case for Fractional</p>
+    <h2 class="sp-headline reveal">What you get that a full-time hire,<br>a marketing manager, or an agency cannot</h2>
 
     <div class="sp-cards">
       <div class="sp-card reveal">
         <span class="sp-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>
-        <h3>Strategy in weeks, not quarters</h3>
-        <p>Most companies spend 6–12 months trying to hire a full-time CMO. A fractional engagement delivers a complete go-to-market strategy, ICP, and demand generation engine within the first 30–45 days — while your competitors are still screening résumés.</p>
-        <div class="sp-card-stat">30–45<div class="sp-card-stat-label">days to strategic clarity</div></div>
+        <h3>Enterprise pattern recognition, without the enterprise price tag</h3>
+        <p>Hiring a full-time CMO in Canada means $250K–$350K in total compensation, six to twelve months to hire, and another six months before they've learned your business. I've held VP and Director-level marketing roles at TELUS, Bell Canada, SMART Technologies, Veriforce, Userful, and TEC Canada. That cross-industry experience is available to your team from day one of the engagement — not month nine.</p>
+        <div class="sp-card-stat">30+<div class="sp-card-stat-label">years at VP &amp; Director level</div></div>
       </div>
       <div class="sp-card reveal reveal-d1">
         <span class="sp-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l5-5 4 4 9-9"/><path d="M17 7h4v4"/></svg></span>
-        <h3>Marketing exists to drive pipeline. Full stop.</h3>
-        <p>If it doesn't move revenue forward, it's noise. I build marketing that earns its keep — the kind that sales teams trust because it shows up in the forecast, not on a vanity dashboard.</p>
-        <div class="sp-card-stat">$5M–$100M<div class="sp-card-stat-label">ideal client revenue range</div></div>
+        <h3>Strategy in 30 days, not six months of onboarding</h3>
+        <p>The B2B marketing landscape is changing faster than most companies can react to. AI has compressed buyer research timelines, zero-click search is eroding traditional demand gen, and the companies that adapt first are compounding the advantage. An engagement with Optivus delivers a complete ICP, positioning architecture, and demand generation plan within the first 30–45 days — while your competitors are still posting job listings.</p>
+        <div class="sp-card-stat">30–45<div class="sp-card-stat-label">days to strategic clarity</div></div>
       </div>
       <div class="sp-card reveal reveal-d2">
         <span class="sp-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/><circle cx="9" cy="14" r="1.5"/><circle cx="15" cy="14" r="1.5"/><path d="M9 18h6"/></svg></span>
-        <h3>AI-powered output, senior judgment</h3>
-        <p>AI tools compress delivery time by 40–60% — which means you get richer deliverables, faster iteration, and a prompt library your team keeps using long after the engagement ends. Speed without sacrificing strategic depth.</p>
-        <div class="sp-card-stat">40–60%<div class="sp-card-stat-label">faster strategy-to-execution</div></div>
+        <h3>An agency executes. A fractional CMO makes the agency accountable.</h3>
+        <p>Most B2B companies paying an agency without a strategic marketing leader are funding activity that isn't connected to a revenue goal. A fractional CMO sets the strategy, writes the brief, owns the ICP and positioning, and ensures everything your team or agency executes is pulling toward the same pipeline target. AI tools then compress delivery by 40–60% — meaning richer output without a bigger team.</p>
+        <div class="sp-card-stat">40–60%<div class="sp-card-stat-label">faster strategy-to-execution with AI</div></div>
       </div>
     </div>
 
@@ -1600,11 +1756,11 @@ footer {
       <span class="sp-industry-pill">B2B SaaS</span>
       <span class="sp-industry-pill">Professional Services</span>
       <span class="sp-industry-pill">Industrial Technology</span>
-      <span class="sp-industry-pill">Manufacturing</span>
-      <span class="sp-industry-pill">Distribution</span>
+      <span class="sp-industry-pill">Energy Services</span>
       <span class="sp-industry-pill">Engineering</span>
       <span class="sp-industry-pill">Specialty Consulting</span>
-      <span class="sp-industry-pill">Energy Services</span>
+      <span class="sp-industry-pill">Manufacturing</span>
+      <span class="sp-industry-pill">Telecom &amp; Software</span>
     </div>
   </div>
 </section>
@@ -1643,15 +1799,15 @@ footer {
         <!-- mobile price strip -->
         <div class="mobile-price-strip">
           <div class="mps-row"><span class="mps-label">Model</span><span class="mps-value">Monthly retainer</span></div>
-          <div class="mps-row"><span class="mps-label">Fee</span><span class="mps-value hl">$6,000–$12,000/mo</span></div>
           <div class="mps-row"><span class="mps-label">Minimum</span><span class="mps-value">2-month commitment</span></div>
+          <div class="mps-row"><span class="mps-label">Capacity</span><span class="mps-value">1–3 clients</span></div>
           <a href="#" onclick="openCalendly(event)" class="cta-btn">Book a Free Discovery Call →</a>
         </div>
         <div class="off-block reveal reveal-d1">
           <div class="block-eyebrow">Who This Is For</div>
-          <h3>B2B companies doing $5M–$50M who've outgrown startup marketing</h3>
-          <p>You've scaled on word of mouth, founder-led sales, and hustle. But that engine is sputtering. Marketing feels reactive — a mix of random activities with no strategy tying them together. Your team executes. No one is setting direction. The result: inconsistent messaging, a pipeline that's hard to predict, and a CEO still making every marketing decision because no one has given them a reason not to.</p>
-          <p>You know you need senior marketing leadership. You also know a full-time CMO at $250K–$350K isn't the right move — not yet. What you need is fractional: all the judgment, none of the overhead. That's the exact gap this engagement fills.</p>
+          <h3>B2B companies at $15M–$60M that have outgrown founder-led marketing — but aren't ready to bet $300K on a full-time hire</h3>
+          <p>You've scaled past the founding team's hustle. Word of mouth still works, but it's not enough anymore. You have a marketing person — maybe two — but no one who can set commercial direction, own the positioning, hold an agency accountable, or walk into a pipeline review and explain why the numbers look the way they do.</p>
+          <p>A full-time CMO at $250K–$350K is the textbook answer. But you've seen how long that search takes (6–12 months), how expensive the mistake is when the hire doesn't work, and how much onboarding time it costs before you get real strategic output. What you actually need is VP-level judgment, embedded part-time, accountable from the first month. That's the gap this engagement fills — and the alternatives (manager + agency cobble, or doing nothing) compound the problem every quarter you wait.</p>
         </div>
 
         <div class="pull-quote reveal">
@@ -1693,8 +1849,9 @@ footer {
 
         <div class="off-block reveal">
           <div class="block-eyebrow">Why Optivus</div>
-          <h3>VP-level experience. Fractional availability.</h3>
-          <p>Dean is a revenue engine builder and GTM &amp; RevOps leader who turns fragmented commercial operations into unified, high&#8209;velocity growth systems. He modernizes strategy across SaaS, telecom, and enterprise tech—aligning Marketing, Sales, Product, and Success into a single, integrated growth engine. He pairs strategic clarity with hands&#8209;on execution, deploying demand generation, product&#8209;led growth, and account&#8209;based strategies to create predictable pipelines and strengthen retention. Dean injects analytics, attribution modeling, a modern growth stack, and AI across the customer lifecycle to multiply output, increase efficiency, and compound revenue.</p>
+          <h3>The difference between advice and cross-industry operating experience</h3>
+          <p>Most fractional CMOs come from one sector. I've held VP and Director-level marketing roles across telecoms (TELUS, Bell Canada), enterprise hardware and software (SMART Technologies), SaaS-adjacent technology (Veriforce, Userful), and peer advisory networks (TEC Canada) — with early-career exposure to professional services consulting at PwC. That breadth means I've navigated the specific commercial dynamics — long sales cycles, buying committees, channel conflicts, demand gen in sectors where no one clicks ads — that your alternatives haven't.</p>
+          <p>An MIT credential drives the analytical rigour: frameworks, attribution modelling, and scenario-based decision making rather than gut feel. AI tooling compresses strategy development by 40–60%, so what used to take months of consultant time takes weeks — and your team gets execution-ready deliverables, not slide decks full of recommendations. The result is senior judgment with a pace your competition can't match.</p>
         </div>
 
         <!-- FAQ for SEO / People Also Ask -->
@@ -1747,15 +1904,14 @@ footer {
       <aside class="off-sidebar" aria-label="Engagement details">
         <div class="s-card s-card-pricing reveal">
           <div class="s-card-header">
-            <p class="s-label">Investment</p>
+            <p class="s-label">Engagement Model</p>
             <p class="s-title">Fractional CMO</p>
           </div>
           <div class="s-rows">
             <div class="s-row"><span class="s-row-label">Model</span><span class="s-row-value">Monthly retainer</span></div>
-            <div class="s-row"><span class="s-row-label">Range</span><span class="s-row-value highlight">$6,000–$12,000/mo</span></div>
             <div class="s-row"><span class="s-row-label">Minimum</span><span class="s-row-value">2-month commitment</span></div>
             <div class="s-row"><span class="s-row-label">Capacity</span><span class="s-row-value">1–3 clients maximum</span></div>
-            <div class="s-row"><span class="s-row-label">Pilot</span><span class="s-row-value">90-day Strategy Sprint</span></div>
+            <div class="s-row"><span class="s-row-label">Pilot option</span><span class="s-row-value">90-day Strategy Sprint</span></div>
           </div>
         </div>
 
@@ -1776,7 +1932,7 @@ footer {
 
         <div class="trust-bar reveal reveal-d2">
           <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0L10 5.5H16L11 9L13 14.5L8 11L3 14.5L5 9L0 5.5H6L8 0Z"/></svg>
-          Ideal for companies doing $5M–$50M seeking their first senior marketing leader
+          Ideal for B2B companies at $15M–$60M that have outgrown founder-led marketing
         </div>
 
         <div class="s-card s-card-cta reveal reveal-d3">
@@ -1810,15 +1966,14 @@ footer {
       <div class="off-main">
         <div class="mobile-price-strip">
           <div class="mps-row"><span class="mps-label">Model</span><span class="mps-value">Cash + equity</span></div>
-          <div class="mps-row"><span class="mps-label">Cash</span><span class="mps-value hl">$1,500–$4,000/qtr</span></div>
-          <div class="mps-row"><span class="mps-label">Equity</span><span class="mps-value">0.1%–0.5% grant</span></div>
+          <div class="mps-row"><span class="mps-label">Equity</span><span class="mps-value">Vesting grant</span></div>
           <a href="#" onclick="openCalendly(event)" class="cta-btn">Book a Free Discovery Call →</a>
         </div>
         <div class="off-block reveal">
           <div class="block-eyebrow">The Gap on Most B2B Boards</div>
-          <h3>Strong on governance. Silent on growth.</h3>
-          <p>Most private company boards are excellent at finance, legal, and operations. They're significantly weaker on go-to-market strategy, modern demand generation, and customer experience. The result is a boardroom where major commercial decisions — pricing, new market entry, channel investment, customer acquisition strategy — are made without a credible growth voice challenging assumptions or surfacing blind spots.</p>
-          <p>If your board can dissect a balance sheet in minutes but struggles to ask a sharp question about your customer acquisition cost or net revenue retention, you have a gap. This advisory role fills it.</p>
+          <h3>Strong on governance. A blind spot on go-to-market.</h3>
+          <p>Most private company boards are excellent at finance, legal, and operations. They're significantly weaker on commercial strategy — the decisions that actually drive enterprise value: pricing architecture, new market entry, channel investment, customer acquisition design, and net revenue retention. The result is a boardroom where major growth decisions get made without a credible marketing voice challenging the assumptions or identifying the blind spots.</p>
+          <p>If your board can dissect a balance sheet in minutes but goes quiet when the conversation turns to CAC, NRR, or why pipeline coverage is slipping, you have a gap. This advisory role fills it — with the same analytical rigour and operating experience your CFO brings to financial governance, applied to commercial growth.</p>
         </div>
 
         <div class="pull-quote reveal">
@@ -1894,13 +2049,12 @@ footer {
       <aside class="off-sidebar">
         <div class="s-card s-card-pricing reveal">
           <div class="s-card-header">
-            <p class="s-label">Investment</p>
+            <p class="s-label">Engagement Model</p>
             <p class="s-title">Board Advisor</p>
           </div>
           <div class="s-rows">
             <div class="s-row"><span class="s-row-label">Model</span><span class="s-row-value">Cash + equity</span></div>
-            <div class="s-row"><span class="s-row-label">Cash</span><span class="s-row-value highlight">$1,500–$4,000/quarter</span></div>
-            <div class="s-row"><span class="s-row-label">Equity</span><span class="s-row-value">0.1%–0.5% advisory grant</span></div>
+            <div class="s-row"><span class="s-row-label">Equity</span><span class="s-row-value">Advisory grant, vesting</span></div>
             <div class="s-row"><span class="s-row-label">Time</span><span class="s-row-value">10–15 hrs/quarter</span></div>
             <div class="s-row"><span class="s-row-label">Capacity</span><span class="s-row-value">2–4 boards</span></div>
           </div>
@@ -1947,7 +2101,6 @@ footer {
       <div class="off-main">
         <div class="mobile-price-strip">
           <div class="mps-row"><span class="mps-label">Model</span><span class="mps-value">Fixed-fee project</span></div>
-          <div class="mps-row"><span class="mps-label">Fee</span><span class="mps-value hl">$15,000–$30,000</span></div>
           <div class="mps-row"><span class="mps-label">Duration</span><span class="mps-value">30 days</span></div>
           <a href="#" onclick="openCalendly(event)" class="cta-btn">Book a Free Discovery Call →</a>
         </div>
@@ -2029,15 +2182,13 @@ footer {
       <aside class="off-sidebar">
         <div class="s-card s-card-pricing reveal">
           <div class="s-card-header">
-            <p class="s-label">Investment</p>
+            <p class="s-label">Engagement Model</p>
             <p class="s-title">Growth Playbook</p>
           </div>
           <div class="s-rows">
             <div class="s-row"><span class="s-row-label">Model</span><span class="s-row-value">Fixed-fee project</span></div>
-            <div class="s-row"><span class="s-row-label">Fee</span><span class="s-row-value highlight">$15,000–$30,000</span></div>
             <div class="s-row"><span class="s-row-label">Duration</span><span class="s-row-value">30 days</span></div>
             <div class="s-row"><span class="s-row-label">Volume</span><span class="s-row-value">3–4 per year only</span></div>
-            <div class="s-row"><span class="s-row-label">Add-on</span><span class="s-row-value">60-day check-in $1,500</span></div>
           </div>
         </div>
         <div class="s-card s-card-scope reveal reveal-d1">
@@ -2082,7 +2233,6 @@ footer {
       <div class="off-main">
         <div class="mobile-price-strip">
           <div class="mps-row"><span class="mps-label">Model</span><span class="mps-value">Fixed-fee project</span></div>
-          <div class="mps-row"><span class="mps-label">Fee</span><span class="mps-value hl">$12,000–$25,000</span></div>
           <div class="mps-row"><span class="mps-label">Duration</span><span class="mps-value">30 days</span></div>
           <a href="#" onclick="openCalendly(event)" class="cta-btn">Book a Free Discovery Call →</a>
         </div>
@@ -2164,12 +2314,11 @@ footer {
       <aside class="off-sidebar">
         <div class="s-card s-card-pricing reveal">
           <div class="s-card-header">
-            <p class="s-label">Investment</p>
+            <p class="s-label">Engagement Model</p>
             <p class="s-title">CX Journey Audit</p>
           </div>
           <div class="s-rows">
             <div class="s-row"><span class="s-row-label">Model</span><span class="s-row-value">Fixed-fee project</span></div>
-            <div class="s-row"><span class="s-row-label">Fee</span><span class="s-row-value highlight">$12,000–$25,000</span></div>
             <div class="s-row"><span class="s-row-label">Duration</span><span class="s-row-value">30 days</span></div>
             <div class="s-row"><span class="s-row-label">Volume</span><span class="s-row-value">2–4 per year</span></div>
             <div class="s-row"><span class="s-row-label">Natural next</span><span class="s-row-value">Fractional CMO to implement</span></div>
@@ -2217,7 +2366,6 @@ footer {
       <div class="off-main">
         <div class="mobile-price-strip">
           <div class="mps-row"><span class="mps-label">Model</span><span class="mps-value">Fixed-fee engagement</span></div>
-          <div class="mps-row"><span class="mps-label">Fee</span><span class="mps-value hl">$20,000–$40,000</span></div>
           <div class="mps-row"><span class="mps-label">Duration</span><span class="mps-value">90 days</span></div>
           <a href="#" onclick="openCalendly(event)" class="cta-btn">Book a Free Discovery Call →</a>
         </div>
@@ -2300,15 +2448,13 @@ footer {
       <aside class="off-sidebar">
         <div class="s-card s-card-pricing reveal">
           <div class="s-card-header">
-            <p class="s-label">Investment</p>
+            <p class="s-label">Engagement Model</p>
             <p class="s-title">Head of AI for Marketing</p>
           </div>
           <div class="s-rows">
             <div class="s-row"><span class="s-row-label">Model</span><span class="s-row-value">Fixed-fee engagement</span></div>
-            <div class="s-row"><span class="s-row-label">Fee</span><span class="s-row-value highlight">$20,000–$40,000</span></div>
             <div class="s-row"><span class="s-row-label">Duration</span><span class="s-row-value">90 days</span></div>
             <div class="s-row"><span class="s-row-label">Volume</span><span class="s-row-value">2–3 per year only</span></div>
-            <div class="s-row"><span class="s-row-label">Add-on</span><span class="s-row-value">Quarterly check-in $2–3K</span></div>
           </div>
         </div>
         <div class="s-card s-card-scope reveal reveal-d1">
@@ -2357,7 +2503,6 @@ footer {
       <div class="off-main">
         <div class="mobile-price-strip">
           <div class="mps-row"><span class="mps-label">Model</span><span class="mps-value">Monthly retainer</span></div>
-          <div class="mps-row"><span class="mps-label">Fee</span><span class="mps-value hl">$2,500–$5,000/mo</span></div>
           <div class="mps-row"><span class="mps-label">Your Time</span><span class="mps-value">~2 hours/month</span></div>
           <a href="#" onclick="openCalendly(event)" class="cta-btn">Book a Free Discovery Call →</a>
         </div>
@@ -2439,12 +2584,11 @@ footer {
       <aside class="off-sidebar">
         <div class="s-card s-card-pricing reveal">
           <div class="s-card-header">
-            <p class="s-label">Investment</p>
+            <p class="s-label">Engagement Model</p>
             <p class="s-title">Thought Leadership</p>
           </div>
           <div class="s-rows">
             <div class="s-row"><span class="s-row-label">Model</span><span class="s-row-value">Monthly retainer</span></div>
-            <div class="s-row"><span class="s-row-label">Fee</span><span class="s-row-value highlight">$2,500–$5,000/mo</span></div>
             <div class="s-row"><span class="s-row-label">Minimum</span><span class="s-row-value">2-month commitment</span></div>
             <div class="s-row"><span class="s-row-label">Capacity</span><span class="s-row-value">3–5 CEOs maximum</span></div>
             <div class="s-row"><span class="s-row-label">Your time</span><span class="s-row-value">~2 hours/month</span></div>
@@ -2479,46 +2623,46 @@ footer {
 
     <div class="seo-header reveal">
       <p class="seo-header-eyebrow">Why Fractional Works</p>
-      <h2>The case for senior marketing leadership<br>without the full-time overhead</h2>
+      <h2>Three things a fractional CMO delivers<br>that your current alternatives cannot</h2>
     </div>
 
     <div class="seo-pillars">
       <div class="seo-pillar reveal">
         <div class="seo-pillar-num">01</div>
-        <h3>Senior judgment at a fractional cost</h3>
-        <p>A full-time CMO in Canada costs $250K–$350K in total compensation — before equity, benefits, and the 6–12 months it takes to hire one. A fractional CMO delivers the same strategic depth at 20–30% of the cost, embedded part-time and accountable to outcomes from week one.</p>
+        <h3>Cross-industry pattern recognition your market hasn't seen</h3>
+        <p>A full-time CMO learns your company from the inside. A fractional CMO with 30 years across telecoms, professional services, enterprise software, and SaaS brings pattern recognition from markets your competitors haven't navigated. The insights that move the needle for a $30M SaaS company often come from understanding how a $2B telecom solved the same positioning problem a decade earlier.</p>
       </div>
       <div class="seo-pillar reveal reveal-d1">
         <div class="seo-pillar-num">02</div>
-        <h3>Strategy before execution, every time</h3>
-        <p>Most B2B companies at $5M–$50M are executing without strategy — spending real budget on activities that aren't connected to a coherent go-to-market. A fractional CMO stops that waste by building the strategy first, then making sure every dollar of execution is pulling in the same direction.</p>
+        <h3>Strategy-first discipline that execution-only teams can't provide</h3>
+        <p>Most B2B companies at $15M–$60M have execution capability — a team, an agency, tools. What they're missing is the strategic layer that makes execution productive: a precise ICP, a positioning architecture that sales can use, and a demand generation plan connected to a revenue target. Without that layer, execution is expensive noise. The fractional CMO builds the layer first, then makes every dollar of execution earn its place.</p>
       </div>
       <div class="seo-pillar reveal reveal-d2">
         <div class="seo-pillar-num">03</div>
-        <h3>AI-augmented means faster and deeper</h3>
-        <p>Every Optivus engagement is powered by Claude, ChatGPT, Copilot, and Gemini — compressing strategy development from months to weeks and producing richer, more execution-ready deliverables. You benefit from both senior judgment and modern AI leverage, not one at the expense of the other.</p>
+        <h3>AI-augmented delivery at a pace traditional consulting can't match</h3>
+        <p>The B2B marketing landscape is in structural transition. AI has collapsed the cost of content production, zero-click search is displacing traditional demand gen, and the companies that adapt their go-to-market now will compound an advantage their competitors won't close. Every Optivus engagement deploys Claude, ChatGPT, and Copilot to compress strategy development from months to weeks — delivering execution-ready output at a pace that matches the speed of the market shift.</p>
       </div>
     </div>
 
     <div class="seo-grid">
       <div class="seo-col reveal">
-        <h2>Fractional Marketing Leadership in Calgary &amp; Across Canada</h2>
-        <p>Dean is a B2B marketing strategist and fractional CMO based in Calgary, Alberta, serving companies across Western Canada and beyond. With VP-level experience in marketing and product management at high-growth B2B technology companies, Dean brings the strategic depth of a seasoned Chief Marketing Officer at a fraction of the full-time cost.</p>
-        <p>His engagement model is built for companies at the critical $5M–$100M revenue stage — past the founding team's hustle marketing, not yet ready for a full C-suite. Six flexible engagement structures cover every strategic marketing need: ongoing fractional CMO leadership, board-level advisory, sprint-based strategy engagements, and specialized services in AI integration, customer experience, and executive content.</p>
-        <h3>Fractional CMO Services — Calgary &amp; Alberta</h3>
-        <p>Calgary-area B2B companies benefit from Dean's deep understanding of the Alberta business landscape, the Western Canada B2B market, and the specific dynamics of founder-led companies in the energy, professional services, industrial technology, and software sectors. Remote-capable for companies across Canada and North America.</p>
-        <h3>AI-Augmented Marketing Strategy</h3>
-        <p>Every engagement is powered by AI tools including Claude, ChatGPT, Microsoft Copilot, and Gemini — delivering faster strategic output, more execution-ready deliverables, and measurably better ROI on the time invested. Dean's hands-on deployment of AI across real B2B marketing programs establishes him as a trusted voice on practical AI integration for Canadian marketing leaders.</p>
+        <h2>Fractional CMO Services in Calgary, Alberta &amp; Across Canada</h2>
+        <p>Dean Reid is a B2B marketing strategist and fractional CMO based in Calgary, Alberta. With 30+ years at VP and Director level — including TELUS, Bell Canada, SMART Technologies, Veriforce, Userful, and TEC Canada — he brings the strategic depth of a seasoned Chief Marketing Officer at a fraction of the full-time cost.</p>
+        <p>Optivus is built for B2B companies at the critical $15M–$60M revenue stage: past the founder-led marketing phase, operating in B2B SaaS, professional services, industrial technology, energy services, or engineering, and facing a growth target they can't hit with what they have. Six engagement structures cover every need — from embedded fractional CMO leadership to fixed-fee sprint engagements in positioning, AI integration, customer experience, and executive content.</p>
+        <h3>Why Calgary-Based Companies Trust Optivus</h3>
+        <p>Alberta and Western Canada B2B companies operate in markets with specific dynamics — energy sector cycles, professional services concentration, and an emerging technology sector with its own commercial rhythms. Dean understands the Alberta business environment from the inside, having operated in it throughout a career that spans the country's largest companies and its fastest-growing ones. Remote-capable for companies across Canada and North America.</p>
+        <h3>AI-Augmented Strategy — Delivered at Enterprise Speed</h3>
+        <p>Every Optivus engagement deploys Claude, ChatGPT, Microsoft Copilot, and Gemini as force multipliers — compressing what would take a traditional consulting engagement months into weeks, and producing deliverables your team can execute against immediately. This isn't AI for AI's sake: it's senior judgment applied faster, with richer output and better attribution, because the tools earn their place in every workflow.</p>
       </div>
       <div class="seo-col reveal reveal-d1">
-        <h2>Why Companies Choose a Fractional CMO Over a Full-Time Hire</h2>
-        <p>A fractional CMO provides all the strategic value of a senior Chief Marketing Officer — without the $250K–$350K salary, benefits, equity dilution, and 12-month onboarding timeline. For B2B companies between $5M and $50M in revenue, this is often the most capital-efficient path to genuine marketing leadership.</p>
-        <h3>The True Cost of Marketing Without Senior Leadership</h3>
-        <p>Companies that operate without a senior marketing strategist consistently overspend on activity that doesn't generate pipeline, miss positioning opportunities that competitors exploit, and fail to build the demand generation infrastructure that makes revenue predictable. The opportunity cost of absent marketing leadership compounds every month — typically worth far more than the cost of fractional CMO services.</p>
+        <h2>What Makes a Fractional CMO the Right Choice at Your Stage</h2>
+        <p>At $15M–$60M in revenue, a B2B company is typically caught between two bad options: a marketing manager who can execute but cannot set commercial direction, or a full-time CMO at $250K–$350K who represents a large fixed-cost bet on a hire that takes 6–12 months to find and another 6 months to become productive. A fractional CMO is the third option — senior judgment, embedded part-time, accountable to pipeline outcomes from week one.</p>
+        <h3>The Hidden Cost of Operating Without Senior Marketing Leadership</h3>
+        <p>B2B companies without a senior marketing strategist consistently make the same expensive mistakes: spending budget on execution that isn't connected to a coherent go-to-market, missing positioning opportunities their competitors exploit, and failing to build the demand generation infrastructure that makes revenue predictable. The opportunity cost compounds every quarter — and typically exceeds the cost of fractional CMO services by a wide margin before the company recognizes the pattern.</p>
         <h3>What to Look For in a B2B Fractional CMO</h3>
-        <p>The best fractional CMOs for B2B companies have held the VP Marketing or CMO role at a company similar to yours — not just consulted around it. They understand demand generation, pipeline attribution, and the tight integration between marketing and sales that B2B revenue requires. They should also offer clear deliverables, defined scope, and transparent pricing — not open-ended retainers that expand without accountability. All six of Optivus's engagement models are built on this principle.</p>
-        <h3>Serving B2B Companies Across Professional Services, SaaS, Industrial &amp; More</h3>
-        <p>Dean works with B2B companies across professional services, B2B SaaS, industrial technology, manufacturing, distribution, engineering, and specialty consulting. The common thread: companies that need senior marketing judgment, not more junior execution.</p>
+        <p>The right fractional CMO for a B2B company has held the VP Marketing or Director-level seat — not just consulted around it — at a company with comparable commercial complexity. They understand demand generation, pipeline attribution, and the tight integration between marketing and sales that B2B revenue requires. They should bring a defined engagement model with clear deliverables, defined scope, and accountability to outcomes rather than hours. Every Optivus engagement is structured on that basis.</p>
+        <h3>Sectors Served: Professional Services · B2B SaaS · Industrial · Energy · Engineering</h3>
+        <p>The common thread across Optivus clients is not the industry — it's the problem: companies that need senior marketing judgment applied to a real commercial challenge, not junior execution of tactics someone else defined. If that's your situation, the sector is secondary.</p>
       </div>
     </div>
 
@@ -2531,9 +2675,9 @@ footer {
 
 <div class="footer-cta-band">
   <div class="fctb-inner">
-    <p class="fctb-eyebrow">Ready to Talk?</p>
-    <h2 class="fctb-headline">Your company deserves<br><span>senior marketing strategy.</span></h2>
-    <p class="fctb-sub">Book a 30-minute discovery call. No pitch, no pressure — just a direct conversation about where your marketing is, where you want it to go, and whether there's a fit.</p>
+    <p class="fctb-eyebrow">Let's Find Out if There's a Fit</p>
+    <h2 class="fctb-headline">The conversation costs<br><span>thirty minutes.</span></h2>
+    <p class="fctb-sub">If your marketing is running on activity rather than strategy — or you're paying an agency without a senior leader holding them accountable — let's talk about it directly. No pitch, no deck. Just a frank conversation about where you are, where you're trying to get to, and whether Optivus is the right next step.</p>
     <div class="fctb-actions">
       <a href="#" onclick="openCalendly(event)" class="fctb-btn-primary">
         BOOK A FREE DISCOVERY CALL →
@@ -2543,7 +2687,7 @@ footer {
         Connect on LinkedIn
       </a>
     </div>
-    <p class="fctb-guarantee">No long-term obligation on a discovery call · Serving Calgary, Alberta &amp; across Canada</p>
+    <p class="fctb-guarantee">No obligation on a discovery call · Calgary-based, serving B2B companies across Canada</p>
   </div>
 </div>
 
@@ -2554,7 +2698,7 @@ footer {
       <p class="foot-brand" itemprop="name">Dean <span>Reid</span></p>
       <p class="foot-sub" itemprop="jobTitle">Fractional CMO · B2B Marketing Strategist · Calgary</p>
       <p class="foot-desc" itemprop="description">
-        Fractional marketing leadership for B2B companies that need senior strategy without the full-time overhead. AI-augmented delivery, transparent pricing. Serving Calgary, Alberta, Western Canada, and beyond.
+        Fractional marketing leadership for B2B companies that need senior strategy without the full-time overhead. AI-augmented delivery. Scoped to your situation. Serving Calgary, Alberta, Western Canada, and beyond.
       </p>
       <div class="footer-social">
         <a href="https://linkedin.com/in/deanreid1" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
