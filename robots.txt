@@ -1,40 +1,8 @@
 User-agent: *
-Disallow:
+Allow: /
 
-User-agent: GPTBot
-Disallow:
+# Block internal tools from indexing (optional)
+# Disallow: /alignment-scorecard.html
+# Disallow: /roadmap-generator.html
 
-User-agent: OAI-SearchBot
-Disallow:
-
-User-agent: ChatGPT-User
-Disallow:
-
-User-agent: ClaudeBot
-Disallow:
-
-User-agent: Claude-SearchBot
-Disallow:
-
-User-agent: Claude-User
-Disallow:
-
-User-agent: PerplexityBot
-Disallow:
-
-User-agent: Perplexity-User
-Disallow:
-
-User-agent: Google-Extended
-Disallow:
-
-User-agent: Bingbot
-Disallow:
-
-User-agent: CCBot
-Disallow:
-
-User-agent: Applebot-Extended
-Disallow:
-
-Sitemap: https://optivusprof.ca/sitemap.xml
+Sitemap: https://www.optivusprof.ca/sitemap.xml

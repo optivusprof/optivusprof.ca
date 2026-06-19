@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window,document,"clarity","script","x7lbqdzww4");
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Not Found · Optivus</title>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<style>
+:root {
+  --dark-blue:   #065F46;
+  --ocean-blue:  #10B981;
+  --soft-cyan:   #34D399;
+  --pale-blue:   #D1FAE5;
+  --ink:         #0F172A;
+  --ink-mid:     #1E2937;
+  --body-text:   #0F172A;
+  --muted:       #94A3B8;
+  --rule:        #E2D9C8;
+  --white:       #ffffff;
+  --off-white:   #F5F2ED;
+
+  --ff-display: 'Aptos Display', 'Aptos', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ff-body: 'Aptos', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --shadow-sm: 0 2px 12px rgba(6,95,70,0.08);
+  --shadow-md: 0 8px 32px rgba(6,95,70,0.10);
+  --shadow-lg: 0 20px 60px rgba(6,95,70,0.14);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--ff-body);
+  background: var(--ink);
+  color: var(--white);
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+nav {
+  display: flex; align-items: center;
+  padding: 0 40px; height: 80px;
+  border-bottom: 1px solid rgba(52,211,153,0.15);
+  flex-shrink: 0;
+}
+
+
+main {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  padding: 60px 40px;
+  text-align: center;
+}
+.err-inner { max-width: 560px; }
+.err-code {
+  font-family: var(--ff-display);
+  font-size: clamp(100px, 20vw, 180px);
+  font-weight: 700; line-height: 0.9;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--ocean-blue);
+  letter-spacing: -0.04em;
+  margin-bottom: 32px;
+  opacity: 0.6;
+}
+.err-heading {
+  font-family: var(--ff-display);
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 700; line-height: 1.1;
+  margin-bottom: 20px;
+}
+.err-heading span { color: var(--soft-cyan); }
+.err-desc {
+  font-size: 17px; line-height: 1.75;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 40px;
+}
+.err-actions {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--ocean-blue); color: #fff;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 14px 28px; border-radius: 6px; text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-primary:hover { background: var(--dark-blue); transform: translateY(-1px); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: rgba(255,255,255,0.75);
+  font-size: 13px; font-weight: 600; letter-spacing: 0.04em;
+  padding: 14px 24px; border-radius: 6px;
+  border: 1.5px solid rgba(255,255,255,0.25);
+  text-decoration: none; transition: all 0.2s;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,0.7); color: #fff; }
+footer {
+  text-align: center; padding: 24px 40px;
+  font-size: 12px; color: rgba(255,255,255,0.3);
+  border-top: 1px solid rgba(52,211,153,0.08);
+}
+@media (max-width: 480px) {
+  nav { padding: 0 20px; }
+  main { padding: 40px 20px; }
+}
+
+/* ══════════════════════════════════════════════
+   GLOBAL RESPONSIVE - injected across all pages
+   Breakpoints: 900 · 640 · 400
+══════════════════════════════════════════════ */
+
+/* Images always responsive */
+img { max-width: 100%; height: auto; }
+
+/* Tables - horizontal scroll on small screens */
+.compare-table, .big-table, .tool-table,
+.tool-table, .priority-table, .cost-breakdown {
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+}
+/* Restore table layout inside the block */
+.compare-table table, .big-table table { width: 100%; }
+
+/* Fluid heading sizes using clamp() */
+.page-title, .art-title, .guide-title {
+  font-size: clamp(26px, 6vw, 58px);
+  line-height: 1.08;
+}
+h2 { font-size: clamp(20px, 3.5vw, 32px); }
+h3 { font-size: clamp(17px, 2.5vw, 22px); }
+.intro { font-size: clamp(15px, 2vw, 17px); }
+
+/* ── Tablet / large phone (≤ 900px) ── */
+@media (max-width: 900px) {
+  /* Nav */
+  
+  .nav-menu, 
+  
+  
+
+  /* Page chrome */
+  .page, .page-wide { padding: 88px 24px 56px; }
+  .hero-dark { margin: 64px -24px 0; padding: 44px 24px 40px; }
+
+  /* Stats */
+  .stat-row { flex-wrap: wrap; }
+  .stat-cell { flex: 1 1 calc(50% - 1px); }
+
+  /* CTA */
+  .bottom-cta { padding: 32px 24px; }
+  .cta-btns { flex-direction: column; align-items: stretch; }
+  .btn-primary, .btn-ghost { justify-content: center; }
+
+  /* Price cards */
+  .price-cards { grid-template-columns: 1fr 1fr; }
+
+  /* Verdict grid */
+  .verdict-grid { grid-template-columns: 1fr; }
+
+  /* When grid */
+  .when-grid { grid-template-columns: 1fr; }
+
+  /* About card */
+  .about-card { grid-template-columns: 1fr; }
+  .about-photo-col { padding: 32px 24px; }
+  .about-bio-col { padding: 28px 24px; }
+  .about-highlights { grid-template-columns: 1fr; }
+
+  /* Card grid */
+  .card-grid { grid-template-columns: 1fr 1fr; }
+
+  /* Sector grid */
+  .sector-grid { grid-template-columns: 1fr 1fr; }
+
+  /* Privacy contact */
+  .contact-row { flex-direction: column; gap: 2px; }
+  .contact-label { width: auto; }
+
+  /* Footer */
+  .site-footer { padding: 24px 20px; }
+  .footer-links { gap: 12px; font-size: 11px; }
+}
+
+/* ── Phone (≤ 640px) ── */
+@media (max-width: 640px) {
+  /* Nav */
+  
+  
+
+  /* Page chrome */
+  .page, .page-wide { padding: 76px 16px 44px; }
+  .hero-dark { margin: 60px -16px 0; padding: 36px 16px 32px; }
+
+  /* Typography */
+  .page-title, .art-title { font-size: clamp(24px, 7vw, 40px); }
+  h2 { font-size: clamp(18px, 5vw, 26px); margin-top: 36px; }
+  h3 { font-size: clamp(16px, 4vw, 20px); }
+  p, li { font-size: 14px; line-height: 1.78; }
+  .intro { font-size: 14px; padding-left: 14px; }
+
+  /* Stats */
+  .stat-row { flex-direction: column; gap: 1px; }
+  .stat-cell { flex: none; width: 100%; padding: 16px 20px; }
+  .stat-num { font-size: 32px; }
+
+  /* Cards */
+  .price-cards { grid-template-columns: 1fr; }
+  .card-grid { grid-template-columns: 1fr; }
+  .sector-grid { grid-template-columns: 1fr; }
+  .hack-grid { grid-template-columns: 1fr; }
+  .dir-grid { grid-template-columns: 1fr; }
+  .when-grid { grid-template-columns: 1fr; }
+
+  /* Tables - force minimum width so they scroll */
+  .compare-table, .big-table, .tool-table, .priority-table {
+    min-width: 480px;
+    font-size: 13px;
+  }
+  .compare-table th, .compare-table td,
+  .big-table th, .big-table td { padding: 8px 10px; }
+
+  /* Bottom CTA */
+  .bottom-cta { border-radius: 10px; }
+  .price-tag { font-size: 11px; }
+
+  /* About */
+  .about-photo { width: 140px; height: 140px; }
+  .about-photo-name { font-size: 18px; }
+  .about-heading { font-size: 26px; }
+  .about-bio { font-size: 14px; }
+  .about-stat-num { font-size: 22px; }
+
+  /* Hero buttons */
+  .hero-cta-row { flex-direction: column; gap: 10px; }
+  .hero-cta-row .btn-primary,
+  .hero-cta-row .btn-ghost { justify-content: center; }
+
+  /* FAQ */
+  .faq-q { font-size: 14px; padding: 14px 0; min-height: 44px; }
+  .faq-a { font-size: 13px; }
+
+  /* Footer */
+  .site-footer { padding: 20px 16px; }
+  .footer-links { flex-direction: column; align-items: center; gap: 10px; }
+
+  /* TOC */
+  .pp-toc, .toc { padding: 16px 18px; }
+  .pp-toc li, .toc li { font-size: 13px; }
+
+  /* Resources */
+  .res-card { padding: 16px 16px; gap: 12px; }
+  .res-icon { font-size: 22px; width: 40px; }
+  .res-title { font-size: 14px; }
+  .res-desc { font-size: 12px; }
+
+  /* SEO playbook sidebar */
+  .sidebar { display: none; }
+  .page-wrap { grid-template-columns: 1fr !important; }
+  .main-content { padding: 24px 16px 48px !important; }
+}
+
+/* ── Compact phone (≤ 400px) ── */
+@media (max-width: 400px) {
+  .page, .page-wide { padding: 72px 12px 40px; }
+  .hero-dark { margin: 60px -12px 0; padding: 28px 12px 24px; }
+  
+  .bottom-cta { padding: 24px 16px; }
+  .site-footer { font-size: 11px; }
+  .stat-num { font-size: 28px; }
+}
+
+
+/* ── Hero layout fix - cancel page top padding, re-add cleanly ── */
+.page > .hero-dark:first-child,
+.page-wide > .hero-dark:first-child {
+  
+  padding-top: 128px;
+}
+@media (max-width: 900px) {
+  .page > .hero-dark:first-child,
+  .page-wide > .hero-dark:first-child {
+    
+    padding-top: 108px;
+  }
+}
+@media (max-width: 640px) {
+  .page > .hero-dark:first-child,
+  .page-wide > .hero-dark:first-child {
+    
+    padding-top: 94px;
+  }
+}
+
+/* ── Headers bigger & higher contrast ── */
+.page-title, .art-title, .guide-title {
+  font-size: clamp(32px, 6.5vw, 72px) !important;
+  line-height: 1.06 !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
+}
+h2 {
+  font-size: clamp(22px, 3.8vw, 38px) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
+  color: #0F172A !important;
+}
+.hero-dark h2, .bottom-cta h2 {
+  color: #ffffff !important;
+}
+h3 {
+  font-size: clamp(18px, 2.5vw, 24px) !important;
+  font-weight: 700 !important;
+}
+.eyebrow {
+  font-size: 12px !important;
+  letter-spacing: 0.2em !important;
+  margin-bottom: 16px !important;
+}
+/* Nav logo size - bigger for the new square logo */
+
+
+
+
+/* ═══════════════════ OPTIVUS NAV ═══════════════════ */
+
+
+
+
+
+
+.nav-link:hover, .nav-link.active {
+  color: #34D399; background: rgba(52,211,153,0.07);
+}
+.caret {
+  font-size: 9px; opacity: 0.5;
+  transition: transform 0.2s; pointer-events: none;
+}
+.nav-item.dd-open .caret { transform: rotate(180deg); }
+
+/* ── DROPDOWN ── */
+
+.nav-item.dd-open 
+.nav-dropdown-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.15em;
+  text-transform: uppercase; color: rgba(255,255,255,0.3);
+  padding: 10px 18px 4px;
+}
+.nav-dropdown a {
+  display: block; padding: 10px 18px;
+  font-family: 'Aptos','Inter',system-ui,sans-serif;
+  font-size: 13px; font-weight: 500;
+  color: rgba(255,255,255,0.88); text-decoration: none;
+  transition: color 0.15s, padding-left 0.15s;
+  white-space: nowrap; pointer-events: auto;
+}
+.nav-dropdown a:hover { color: #34D399; padding-left: 24px; }
+
+/* ── CTA BUTTON ── */
+
+.nav-cta:hover { background: #065F46; }
+
+/* ── HAMBURGER ── */
+
+.nav-hamburger span {
+  display: block; width: 22px; height: 2px;
+  background: #fff; border-radius: 2px;
+  transition: transform 0.28s, opacity 0.28s;
+}
+.nav-hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-hamburger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── DRAWER ── */
+
+#nav-drawer.open { transform: translateX(0); }
+.drawer-inner { display: flex; flex-direction: column; padding: 12px 0 40px; min-height: 100%; }
+.drawer-close {
+  align-self: flex-end; margin: 0 14px 6px;
+  background: none; border: none; cursor: pointer;
+  color: rgba(255,255,255,0.4); font-size: 22px; padding: 8px;
+  -webkit-tap-highlight-color: transparent;
+}
+.drawer-close:hover { color: #fff; }
+.drawer-section { padding: 4px 0; border-bottom: 1px solid rgba(52,211,153,0.07); }
+.drawer-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.15em;
+  text-transform: uppercase; color: rgba(255,255,255,0.3);
+  padding: 10px 22px 4px;
+}
+.drawer-link {
+  display: flex; align-items: center;
+  padding: 12px 22px; min-height: 48px;
+  font-family: 'Aptos','Inter',system-ui,sans-serif;
+  font-size: 15px; font-weight: 500;
+  color: rgba(255,255,255,0.88); text-decoration: none;
+  transition: color 0.2s, padding-left 0.2s;
+  pointer-events: auto;
+}
+.drawer-link:hover, .drawer-link.active { color: #34D399; padding-left: 30px; }
+.drawer-cta {
+  display: flex; align-items: center; justify-content: center;
+  margin: 24px 18px 0;
+  background: #10B981; color: #fff;
+  font-family: 'Aptos','Inter',system-ui,sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; padding: 14px;
+  border-radius: 6px; text-decoration: none; min-height: 48px;
+  transition: background 0.2s; pointer-events: auto;
+}
+.drawer-cta:hover { background: #065F46; }
+
+#nav-overlay.visible { opacity: 1; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  
+  
+  
+  
+  
+  
+  
+}
+/* ═══════════════════════════════════════════════════ */
+
+
+</style>
+
+
+<style id="onav">
+#onav-bar{position:fixed;top:0;left:0;right:0;z-index:99999;
+  background:#0F172A;height:68px;
+  display:flex;align-items:center;padding:0 36px;gap:0;
+  border-bottom:1px solid rgba(52,211,153,.15);
+  font-family:'Aptos','Inter',system-ui,sans-serif;}
+#onav-logo{display:flex;align-items:center;margin-right:28px;
+  flex-shrink:0;text-decoration:none;}
+#onav-logo img{height:50px;width:50px;object-fit:contain;display:block;}
+#onav-links{display:flex;align-items:stretch;list-style:none;
+  margin:0;padding:0;height:68px;flex:1;}
+#onav-links>li{position:relative;display:flex;align-items:center;}
+#onav-links>li>a,
+#onav-links>li>span{
+  display:flex;align-items:center;height:68px;padding:0 15px;
+  font-size:12.5px;font-weight:600;letter-spacing:.06em;
+  text-transform:uppercase;color:rgba(255,255,255,.82);
+  text-decoration:none;white-space:nowrap;cursor:pointer;
+  transition:color .2s,background .2s;user-select:none;}
+#onav-links>li>a:hover,#onav-links>li>a.cur,
+#onav-links>li>span:hover,#onav-links>li>span.cur{
+  color:#34D399;background:rgba(52,211,153,.07);}
+/* CSS-ONLY dropdown — shows on hover, no JS required */
+.onav-sub{display:none;position:absolute;top:68px;left:0;
+  min-width:230px;background:#1E2937;
+  border-top:2px solid #10B981;
+  border:1px solid rgba(52,211,153,.18);border-top:2px solid #10B981;
+  border-radius:0 0 10px 10px;
+  box-shadow:0 16px 40px rgba(0,0,0,.45);
+  z-index:100000;padding:6px 0;}
+#onav-links>li:hover .onav-sub{display:block;}
+.onav-sub a{display:block;padding:10px 18px;
+  font-size:13px;font-weight:500;color:rgba(255,255,255,.88);
+  text-decoration:none;white-space:nowrap;
+  transition:color .15s,padding-left .15s;}
+.onav-sub a:hover{color:#34D399;padding-left:24px;}
+/* CTA */
+#onav-cta{display:flex;align-items:center;margin-left:auto;
+  height:68px;padding:0 20px;flex-shrink:0;
+  font-size:11px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;background:#10B981;color:#fff;
+  text-decoration:none;transition:background .2s;
+  border-left:1px solid rgba(52,211,153,.12);}
+#onav-cta:hover{background:#065F46;}
+/* Hamburger */
+#onav-hbg{display:none;flex-direction:column;justify-content:center;
+  align-items:center;gap:5px;width:44px;height:44px;
+  background:none;border:none;cursor:pointer;
+  margin-left:auto;padding:0;flex-shrink:0;}
+#onav-hbg span{display:block;width:22px;height:2px;
+  background:#fff;border-radius:2px;
+  transition:transform .28s,opacity .28s;}
+#onav-hbg.x span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+#onav-hbg.x span:nth-child(2){opacity:0;}
+#onav-hbg.x span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+/* Drawer */
+#onav-drw{position:fixed;top:0;right:0;bottom:0;
+  width:min(300px,88vw);background:#1E2937;
+  border-left:2px solid #10B981;z-index:100001;
+  transform:translateX(100%);
+  transition:transform .3s cubic-bezier(.4,0,.2,1);
+  overflow-y:auto;display:flex;flex-direction:column;
+  padding:12px 0 40px;}
+#onav-drw.open{transform:translateX(0);}
+#onav-drw-x{align-self:flex-end;margin:0 14px 8px;
+  background:none;border:none;cursor:pointer;
+  color:rgba(255,255,255,.4);font-size:22px;padding:8px;
+  line-height:1;transition:color .2s;}
+#onav-drw-x:hover{color:#fff;}
+#onav-drw a{display:flex;align-items:center;min-height:48px;
+  padding:10px 22px;font-size:15px;font-weight:500;
+  color:rgba(255,255,255,.88);text-decoration:none;
+  border-bottom:1px solid rgba(52,211,153,.07);
+  transition:color .2s,padding-left .2s;}
+#onav-drw a:hover{color:#34D399;padding-left:30px;}
+.onav-drw-lbl{font-size:10px;font-weight:700;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);padding:12px 22px 2px;margin:0;}
+#onav-drw-cta{display:flex;align-items:center;justify-content:center;
+  margin:20px 16px 0;min-height:48px;padding:0 16px;
+  background:#10B981;color:#fff;border-radius:6px;
+  font-size:13px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;text-decoration:none;
+  transition:background .2s;border:none;}
+#onav-drw-cta:hover{background:#065F46;}
+#onav-ovl{display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.55);z-index:100000;}
+@media(max-width:900px){
+  #onav-links,#onav-cta{display:none!important;}
+  #onav-hbg{display:flex!important;}
+  #onav-bar{padding:0 16px;}
+  #onav-logo img{height:44px;width:44px;}
+}
+/* Page padding — push content below fixed nav */
+body{padding-top:68px;}
+</style>
+<style id="page-footer-css">
+footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
+.footer-body{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1fr 260px;gap:60px;padding:56px 80px 44px;border-bottom:1px solid rgba(52,211,153,.07);}
+.foot-brand{font-family:'Aptos Display','Aptos','Inter',system-ui,sans-serif;font-size:28px;font-weight:700;color:#fff;margin-bottom:8px;}
+.foot-brand span{color:#34D399;}
+.foot-sub{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:16px;}
+.foot-desc{font-size:13px;line-height:1.75;color:rgba(255,255,255,.6);max-width:340px;margin-bottom:20px;}
+.footer-social{display:flex;gap:8px;}
+.footer-social a{width:34px;height:34px;border-radius:6px;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);display:inline-flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;transition:all .2s;}
+.footer-social a:hover{background:rgba(52,211,153,.18);color:#34D399;}
+.footer-col-nav{padding-top:48px;}
+.footer-col-heading{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#fff;margin-bottom:16px;}
+.footer-col-links{list-style:none;padding:0;margin:0;}
+.footer-col-links li{margin-bottom:10px;}
+.footer-col-links a{font-size:13px;color:rgba(255,255,255,.75);text-decoration:none;transition:color .2s;}
+.footer-col-links a:hover{color:#34D399;}
+.footer-bottom{max-width:1160px;margin:0 auto;padding:16px 80px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;}
+.footer-bottom p{font-size:11px;color:#fff;line-height:1.5;}
+@media(max-width:900px){
+  .footer-body{grid-template-columns:1fr;gap:36px;padding:40px 36px 32px;}
+  .footer-col-nav{padding-top:0;}
+  .footer-bottom{padding:14px 36px;flex-direction:column;align-items:flex-start;}
+}
+@media(max-width:600px){
+  .footer-body{padding:32px 20px 28px;}
+  .footer-bottom{padding:12px 20px;}
+  .foot-brand{font-size:22px;}
+}
+</style>
+<style id="nav-resources-fix">
+/* Ensure Resources link is always clickable */
+#onav-links > li:nth-child(3) {
+  position: relative;
+  z-index: 100001 !important;
+}
+#onav-links > li:nth-child(3) > a {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  position: relative;
+  z-index: 100001 !important;
+}
+/* Prevent Other Services dropdown from overlapping Resources */
+#onav-links > li:nth-child(2) .onav-sub {
+  z-index: 99997 !important;
+}
+/* Prevent Philosophy dropdown from overlapping Resources */
+#onav-links > li:nth-child(4) .onav-sub {
+  z-index: 99997 !important;
+}
+</style>
+<style id="opt-bc-css">
+.opt-bc{max-width:1160px;margin:0 auto;padding:0px 80px 22px;display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;font-family:'Aptos','Inter',system-ui,sans-serif;}
+.opt-bc a{color:#475569!important;text-decoration:none;transition:color .15s;}
+.opt-bc a:hover{color:#10B981!important;text-decoration:underline;}
+.opt-bc-mid{color:#475569!important;}
+.opt-bc-sep{color:#CBD5E1!important;font-size:11px;margin:0 1px;}
+.opt-bc-cur{color:#0F172A!important;font-weight:700;}
+@media(max-width:640px){.opt-bc{padding:0px 20px 16px;font-size:10.5px;}}
+</style>
+</head>
+<body>
+
+<nav id="onav-bar" aria-label="Main navigation">
+  <a href="index.html" id="onav-logo" aria-label="Optivus home">
+    <img src="assets/logo.png" alt="Optivus" width="50" height="50">
+  </a>
+  <ul id="onav-links" role="list">
+    <li><a href="index.html">Fractional CMO</a></li>
+    <li>
+      <span>Other Services &#9662;</span>
+      <div class="onav-sub">
+        <a href="growth-playbook.html">Growth Playbook in 30 Days</a>
+        <a href="board-advisor.html">Board-Level Growth Advisor</a>
+        <a href="cx-audit.html">Customer Journey & CX Audit</a>
+        <a href="thought-leadership.html">Executive Thought-Leadership Partner</a>
+        <a href="ai-for-marketing.html">AI for Marketing</a>
+      </div>
+    </li>
+    <li><a href="resources.html" onclick="window.location.href='resources.html';return false;">Resources</a></li>
+    <li>
+      <span>Philosophy &#9662;</span>
+      <div class="onav-sub">
+        <a href="philosophy.html">Our Philosophy</a>
+        <a href="philosophy.html#about">About Dean Reid</a>
+      </div>
+    </li>
+  </ul>
+  <button id="onav-hbg" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+  <a href="https://calendly.com/reidexplorer" target="_blank" rel="noopener" id="onav-cta">
+    Book a Call
+  </a>
+</nav>
+
+<div id="onav-drw" aria-label="Mobile menu">
+  <button id="onav-drw-x" aria-label="Close">&#x2715;</button>
+  <a href="index.html">Fractional CMO</a>
+  <p class="onav-drw-lbl">Other Services</p>
+  <a href="growth-playbook.html" class="opt-dl">Growth Playbook in 30 Days</a>
+      <a href="board-advisor.html" class="opt-dl">Board-Level Growth Advisor</a>
+      <a href="cx-audit.html" class="opt-dl">Customer Journey & CX Audit</a>
+      <a href="thought-leadership.html" class="opt-dl">Executive Thought-Leadership Partner</a>
+      <a href="ai-for-marketing.html" class="opt-dl">AI for Marketing</a>
+  <a href="resources.html">Resources</a>
+  <p class="onav-drw-lbl">Philosophy</p>
+  <a href="philosophy.html">Our Philosophy</a>
+  <a href="philosophy.html#about">About Dean Reid</a>
+  <a href="https://calendly.com/reidexplorer" target="_blank" rel="noopener" id="onav-drw-cta">Book a Discovery Call</a>
+</div>
+<div id="onav-ovl"></div>
+<div class="opt-bc" role="navigation" aria-label="Breadcrumb"><a href="index.html">Home</a><span class="opt-bc-sep">/</span><span class="opt-bc-cur">Page Not Found</span></div>
+
+
+
+
+
+<main>
+  <div class="err-inner">
+    <div class="err-code">404</div>
+    <h1 class="err-heading">This page doesn&rsquo;t<br><span>exist. Your GTM does.</span></h1>
+    <p class="err-desc">
+      The page you&rsquo;re looking for has moved, been removed, or never existed.<br>
+      Let&rsquo;s get you somewhere useful.
+    </p>
+    <div class="err-actions">
+      <a href="index.html" class="btn-primary">← Back to Home</a>
+      <a href="philosophy.html#about" class="btn-ghost">About Dean Reid</a>
+    </div>
+  </div>
+</main>
+
+
+
+
+
+
+
+
+
+
+<script id="onav-js">
+(function(){
+  var h=document.getElementById('onav-hbg'),
+      d=document.getElementById('onav-drw'),
+      o=document.getElementById('onav-ovl'),
+      x=document.getElementById('onav-drw-x');
+  if(!h||!d)return;
+  function op(){d.classList.add('open');if(o)o.style.display='block';h.classList.add('x');document.body.style.overflow='hidden';}
+  function cl(){d.classList.remove('open');if(o)o.style.display='none';h.classList.remove('x');document.body.style.overflow='';}
+  h.addEventListener('click',function(){d.classList.contains('open')?cl():op();});
+  if(x)x.addEventListener('click',cl);
+  if(o)o.addEventListener('click',cl);
+  d.querySelectorAll('a').forEach(function(a){a.addEventListener('click',cl);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')cl();});
+})();
+</script>
+<footer>
+  <div class="footer-body">
+
+    <!-- Brand column -->
+    <div class="footer-col-brand">
+      <p class="foot-brand">Dean <span>Reid</span></p>
+      <p class="foot-sub">Fractional CMO &nbsp;·&nbsp; B2B Marketing Strategist &nbsp;·&nbsp; Canada</p>
+      <p class="foot-desc">Fractional marketing leadership for B2B companies that need senior strategy without the full-time overhead. Scoped to your situation. </p>
+      <div class="footer-social">
+        <a href="https://www.linkedin.com/in/deanreid1/" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 16 16" width="15" height="15" fill="currentColor"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg>
+        </a>
+        <a href="#" onclick="openCalendly(event); return false;" aria-label="Book a call">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Nav column -->
+    <div class="footer-col-nav">
+      <p class="footer-col-heading">Six Offerings</p>
+      <ul class="footer-col-links">
+        <li><a href="index.html">Fractional CMO for B2B Growth</a></li>
+        <li><a href="board-advisor.html">Board-Level Growth Advisor</a></li>
+        <li><a href="growth-playbook.html">Growth Playbook in 30 Days</a></li>
+        <li><a href="cx-audit.html">Customer Journey &amp; CX Audit</a></li>
+        <li><a href="ai-for-marketing.html">Fractional Head of AI for Marketing</a></li>
+        <li><a href="thought-leadership.html">Executive Thought-Leadership Partner</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 Optivus. Fractional Marketing Leadership. Calgary, Alberta, Canada. &nbsp;&middot;&nbsp; <a href="privacy-policy.pdf" download style="color:#34D399;text-decoration:none;">Privacy Policy ↓</a></p>
+    <p>Fractional CMO &nbsp;&middot;&nbsp; Board Advisor &nbsp;&middot;&nbsp; AI Marketing &nbsp;&middot;&nbsp; B2B Growth Strategy &nbsp;&middot;&nbsp; Go-To-Market Consultant</p>
+  </div>
+</footer>
+</body>
+</html>
