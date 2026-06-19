@@ -224,13 +224,13 @@ body{font-family:var(--ff);background:#fff;color:var(--body);-webkit-font-smooth
 
 /* PRACTICAL RESOURCES */
 .prac-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
-.prac-card{background:#fff;border:1px solid var(--rule);border-radius:12px;overflow:hidden;}
+.prac-card{background:#fff;border:1px solid var(--rule);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;}
 .prac-card-head{background:var(--ink);padding:20px 24px;display:flex;align-items:center;gap:12px;}
 .prac-card-head svg{width:24px;height:24px;stroke:var(--green2);fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
 .prac-card-head h3{font-family:var(--ffd);font-size:17px;font-weight:700;color:#fff;}
-.prac-card-body{padding:24px;}
+.prac-card-body{padding:24px;display:flex;flex-direction:column;flex:1;}
 .prac-card-body p{font-size:14px;color:var(--ink,#0F172A);margin-bottom:16px;line-height:1.65;}
-.prac-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--green);text-decoration:none;border:1.5px solid var(--green);border-radius:6px;padding:9px 16px;transition:all .2s;}
+.prac-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--green);text-decoration:none;border:1.5px solid var(--green);border-radius:6px;padding:9px 16px;transition:all .2s;margin-top:auto;align-self:flex-start;}
 .prac-link:hover{background:var(--green);color:#fff;}
 
 /* ROI CALCULATOR */
@@ -411,10 +411,6 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
       <span class="res-tag">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
         Market Intelligence
-      </span>
-      <span class="res-tag">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        Updated June 2025
       </span>
     </div>
   </div>
