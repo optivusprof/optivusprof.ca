@@ -630,7 +630,11 @@ function render() {
   renderProg();
   if (state.step <= 5) renderStep();
   else renderResults();
-  window.scrollTo({top:0,behavior:'smooth'});
+  var anchor = document.getElementById('rg-app');
+  if (anchor) {
+    var y = anchor.getBoundingClientRect().top + window.pageYOffset - 84;
+    window.scrollTo({top: Math.max(y, 0), behavior:'smooth'});
+  }
 }
 
 function renderProg() {
