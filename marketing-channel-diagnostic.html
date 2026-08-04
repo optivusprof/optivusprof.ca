@@ -14,7 +14,7 @@
 <title>Marketing Channel Diagnostic | Optivus</title>
 <meta name="description" content="If a marketing channel is underperforming, this tool surfaces the highest-ROI cross-channel fixes. Select your channel, identify the failing tactic, get a prioritized action list. Free from Optivus.">
 <link rel="canonical" href="https://www.optivusprof.ca/marketing-channel-diagnostic.html">
-<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230F172A'/%3E%3Ctext x='50%25' y='54%25' font-family='system-ui' font-weight='800' font-size='20' fill='%2310B981' text-anchor='middle' dominant-baseline='middle'%3EO%3C/text%3E%3C/svg%3E">
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -203,12 +203,6 @@ h1,h2,h3,h4,h5,h6,p,span,a,button,select,li,td,th,div {
 
 /* ── SELECTOR BAR (override old .top-header / .selector-bar) ── */
 .top-header { display: none !important; }
-.diag-intro-text { padding: 28px 40px 0; max-width: 680px; }
-.diag-intro-text h2 { font-family: var(--ff-display,'Inter',sans-serif); font-size: 22px; font-weight: 700; color: var(--ink,#0F172A); margin: 0 0 8px 0; }
-.diag-intro-text p { font-size: 14.5px; color: #334155; line-height: 1.65; margin: 0 0 20px 0; }
-
-.results-hd-placeholder { font-size: 13.5px; color: rgba(255,255,255,0.55); margin: 4px 0 6px 0; }
-
 .selector-bar {
   background: #fff !important;
   border-bottom: 1px solid #E2E8F0 !important;
@@ -279,6 +273,25 @@ h1,h2,h3,h4,h5,h6,p,span,a,button,select,li,td,th,div {
 }
 
 /* ── EMPTY STATE ── */
+#empty-state {
+  text-align: center !important; padding: 80px 40px !important;
+  background: #fff !important; border-radius: 14px !important;
+  border: 1px solid #E2E8F0 !important;
+  display: flex !important; flex-direction: column !important;
+  align-items: center !important;
+}
+.empty-icon-wrap {
+  width: 64px; height: 64px; border-radius: 16px;
+  background: rgba(16,185,129,.1); border: 1px solid rgba(16,185,129,.2);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px; font-size: 28px;
+}
+#empty-state h2 {
+  font-family: var(--ffd) !important;
+  font-size: 22px !important; font-weight: 700 !important;
+  color: #0F172A !important; margin-bottom: 10px !important;
+}
+#empty-state p { font-size: 15px !important; color: #64748B !important; max-width: 420px !important; margin: 0 auto !important; line-height: 1.7 !important; }
 
 /* ── RESULTS (#results) ── */
 #results { display: none; }
@@ -289,6 +302,12 @@ h1,h2,h3,h4,h5,h6,p,span,a,button,select,li,td,th,div {
   background: #0F172A; border-radius: 12px;
   padding: 20px 24px; margin-bottom: 24px;
   display: flex; align-items: center; gap: 14px;
+}
+.results-hd-icon {
+  width: 44px; height: 44px; border-radius: 10px;
+  background: rgba(52,211,153,.15);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
 }
 .results-hd-lbl {
   font-size: 10px; font-weight: 700; letter-spacing: .14em;
@@ -302,154 +321,114 @@ h1,h2,h3,h4,h5,h6,p,span,a,button,select,li,td,th,div {
 /* Cross-channel grid */
 #cross-grid { display: flex; flex-direction: column; gap: 16px; }
 
-/* ── TOP 5 CARD ── */
-#cross-grid { display: flex; flex-direction: column; gap: 12px; }
-
+/* Top 5 card */
 .top5-card {
-  background: var(--ink,#0F172A) !important; border: 1px solid rgba(52,211,153,0.2) !important;
-  border-radius: 14px !important; overflow: hidden !important;
+  background: #fff !important; border: 1px solid #E2E8F0 !important;
+  border-radius: 12px !important; overflow: hidden !important;
 }
 .top5-header {
-  padding: 14px 20px !important; display: flex !important;
-  align-items: center !important; gap: 10px !important;
-  border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+  background: #0F172A !important; padding: 14px 20px !important;
+  display: flex !important; align-items: center !important; gap: 10px !important;
 }
-.top5-header-icon { display: none !important; }
+.top5-header-icon {
+  width: 28px !important; height: 28px !important; border-radius: 6px !important;
+  background: rgba(52,211,153,.15) !important;
+  display: flex !important; align-items: center !important; justify-content: center !important;
+  flex-shrink: 0 !important;
+}
 .top5-title {
-  font-family: var(--ffd,'Inter',sans-serif) !important;
-  font-size: 13px !important; font-weight: 700 !important;
-  color: var(--soft-cyan,#34D399) !important; text-transform: uppercase !important;
-  letter-spacing: .08em !important;
+  font-size: 14px !important; font-weight: 700 !important; color: #fff !important;
 }
 .top5-subtitle {
-  font-size: 11px !important; color: rgba(255,255,255,0.4) !important;
+  font-size: 11px !important; color: rgba(255,255,255,.4) !important;
   margin-left: auto !important; white-space: nowrap !important;
 }
 .top5-body { padding: 0 !important; }
 .top5-row {
-  display: flex !important; align-items: flex-start !important; gap: 14px !important;
-  padding: 14px 20px !important; border-bottom: 1px solid rgba(255,255,255,0.07) !important;
+  display: flex !important; align-items: flex-start !important; gap: 12px !important;
+  padding: 14px 20px !important; border-bottom: 1px solid #E2E8F0 !important;
   transition: background .15s !important;
 }
 .top5-row:last-child { border-bottom: none !important; }
-.top5-row:hover { background: rgba(255,255,255,0.03) !important; }
+.top5-row:hover { background: #F8FFFE !important; }
 .top5-rank {
-  font-family: var(--ffd,'Inter',sans-serif) !important;
-  font-size: 16px !important; font-weight: 800 !important;
-  color: rgba(52,211,153,0.4) !important; flex-shrink: 0 !important;
-  width: 26px !important; line-height: 1 !important; margin-top: 2px !important;
+  font-family: var(--ffd) !important;
+  font-size: 18px !important; font-weight: 800 !important;
+  color: rgba(16,185,129,.3) !important; flex-shrink: 0 !important;
+  width: 28px !important; line-height: 1 !important; margin-top: 2px !important;
 }
 .top5-icon-wrap {
-  width: 30px !important; height: 30px !important; border-radius: 7px !important;
+  width: 32px !important; height: 32px !important; border-radius: 7px !important;
   display: flex !important; align-items: center !important; justify-content: center !important;
-  flex-shrink: 0 !important; opacity: 0.85 !important;
+  flex-shrink: 0 !important;
 }
 .top5-body { flex: 1 !important; }
 .top5-tactic {
-  font-family: var(--ff,'Inter',sans-serif) !important;
-  font-size: 13.5px !important; font-weight: 700 !important; color: #ffffff !important;
+  font-size: 14px !important; font-weight: 600 !important; color: #0F172A !important;
   margin-bottom: 4px !important; display: flex !important;
-  align-items: center !important; gap: 7px !important; flex-wrap: wrap !important;
+  align-items: center !important; gap: 8px !important; flex-wrap: wrap !important;
 }
 .top5-cat-badge {
-  font-size: 10px !important; font-weight: 700 !important;
+  font-size: 10px !important; font-weight: 600 !important;
   padding: 2px 7px !important; border-radius: 4px !important;
-  letter-spacing: .03em !important;
 }
 .top5-rec {
-  font-size: 12.5px !important; color: rgba(255,255,255,0.6) !important; line-height: 1.55 !important;
+  font-size: 13px !important; color: #64748B !important; line-height: 1.55 !important;
 }
 .top5-empty {
-  padding: 20px !important; font-size: 13px !important; color: rgba(255,255,255,0.4) !important;
+  padding: 20px !important; font-size: 13px !important; color: #64748B !important;
 }
 
-/* ── ACCORDION CARDS ── */
+/* Accordion card */
 .acc-card {
-  background: #ffffff !important; border: 1px solid #E2D9C8 !important;
+  background: #fff !important; border: 1px solid #E2E8F0 !important;
   border-radius: 12px !important; overflow: hidden !important;
-  transition: box-shadow .2s !important;
 }
-.acc-card:hover { box-shadow: 0 4px 16px rgba(15,23,42,0.08) !important; }
-
-.acc-trigger {
-  padding: 14px 18px !important; cursor: pointer !important;
+.acc-header {
+  padding: 14px 20px !important; cursor: pointer !important;
   display: flex !important; align-items: center !important; gap: 12px !important;
   transition: background .15s !important;
-  border-bottom: 1px solid transparent !important; user-select: none !important;
+  border-bottom: 1px solid transparent !important;
 }
-.acc-trigger:hover { background: #F5F2ED !important; }
-.acc-trigger.open { border-bottom-color: #E2D9C8 !important; background: #F5F2ED !important; }
-
-.acc-cat-icon-wrap {
-  width: 34px !important; height: 34px !important; border-radius: 8px !important;
+.acc-header:hover { background: #F8FFFE !important; }
+.acc-header.open { border-bottom-color: #E2E8F0 !important; }
+.acc-cat-icon {
+  width: 36px !important; height: 36px !important; border-radius: 8px !important;
   display: flex !important; align-items: center !important; justify-content: center !important;
   flex-shrink: 0 !important;
 }
-.acc-cat-name {
-  font-family: var(--ffd,'Inter',sans-serif) !important;
-  font-size: 14px !important; font-weight: 700 !important; color: #0F172A !important;
-  flex-shrink: 0 !important;
+.acc-cat-label {
+  font-size: 13px !important; font-weight: 700 !important; color: #0F172A !important;
+  flex: 1 !important;
 }
-.acc-rec-snippet {
-  font-size: 12.5px !important; color: #64748B !important;
-  flex: 1 !important; line-height: 1.45 !important;
-  overflow: hidden !important; text-overflow: ellipsis !important;
-  white-space: nowrap !important; min-width: 0 !important;
+.acc-count {
+  font-size: 11px !important; color: #64748B !important;
+  margin-right: 8px !important;
 }
-.acc-count-chip {
-  font-size: 11px !important; font-weight: 700 !important;
-  color: var(--ocean-blue,#10B981) !important; background: rgba(16,185,129,0.08) !important;
-  border: 1px solid rgba(16,185,129,0.2) !important;
-  padding: 3px 9px !important; border-radius: 20px !important;
-  white-space: nowrap !important; flex-shrink: 0 !important;
-}
-.acc-chevron {
-  color: #94A3B8 !important; flex-shrink: 0 !important;
+.acc-chev {
+  color: #64748B !important; font-size: 12px !important;
   transition: transform .2s !important;
 }
-.acc-trigger.open .acc-chevron { transform: rotate(180deg) !important; }
-
+.acc-header.open .acc-chev { transform: rotate(180deg) !important; }
 .acc-body { display: none !important; padding: 0 !important; }
 .acc-body.open { display: block !important; }
-
-/* ── TACTIC ROWS inside accordion ── */
-.tactics-section-label {
+.acc-row {
+  display: flex !important; align-items: flex-start !important; gap: 12px !important;
+  padding: 12px 20px !important; border-bottom: 1px solid #E2E8F0 !important;
+}
+.acc-row:last-child { border-bottom: none !important; }
+.acc-row:hover { background: #F8FFFE !important; }
+.acc-rank {
   font-size: 10px !important; font-weight: 700 !important;
-  letter-spacing: .1em !important; text-transform: uppercase !important;
-  color: #94A3B8 !important; padding: 10px 18px 6px !important;
+  color: #10B981 !important; flex-shrink: 0 !important;
+  width: 20px !important; margin-top: 2px !important;
 }
-.tactic-rows { padding-bottom: 6px !important; }
-.tactic-item {
-  display: flex !important; align-items: baseline !important; gap: 8px !important;
-  padding: 9px 18px !important; border-bottom: 1px solid #F1F5F9 !important;
-  transition: background .1s !important;
-}
-.tactic-item:last-child { border-bottom: none !important; }
-.tactic-item:hover { background: #FAFAF9 !important; }
-.tactic-dot {
-  width: 6px !important; height: 6px !important; border-radius: 50% !important;
-  flex-shrink: 0 !important; margin-top: 6px !important;
-}
-.tactic-name {
+.acc-tactic {
   font-size: 13px !important; font-weight: 600 !important;
-  color: #0F172A !important; flex-shrink: 0 !important;
+  color: #0F172A !important; margin-bottom: 3px !important;
 }
-.tactic-sep { color: #CBD5E1 !important; flex-shrink: 0 !important; font-size: 12px !important; }
-.tactic-action {
-  font-size: 12.5px !important; color: #64748B !important; line-height: 1.5 !important;
-}
-.self-tactic { background: rgba(16,185,129,0.04) !important; }
-.self-tactic-text {
-  font-size: 13px !important; font-weight: 700 !important;
-  color: var(--dark-blue,#065F46) !important; display: flex !important;
-  align-items: center !important; gap: 8px !important; flex-wrap: wrap !important;
-}
-.self-badge {
-  font-size: 10px !important; font-weight: 700 !important;
-  background: rgba(16,185,129,0.12) !important; color: var(--ocean-blue,#10B981) !important;
-  border: 1px solid rgba(16,185,129,0.25) !important;
-  padding: 2px 7px !important; border-radius: 4px !important;
-  display: inline-flex !important; align-items: center !important; gap: 3px !important;
+.acc-rec {
+  font-size: 12px !important; color: #64748B !important; line-height: 1.5 !important;
 }
 
 /* Print button */
@@ -575,7 +554,7 @@ footer { background: #0F172A !important; border-top: 1px solid rgba(52,211,153,.
   <button id="onav-hbg" aria-label="Open menu">
     <span></span><span></span><span></span>
   </button>
-  <a href="https://calendar.app.google/S2bDFXCFoZA3eGJC6" target="_blank" rel="noopener" id="onav-cta">
+  <a href="https://calendar.app.google/cbt3vffcdMEmiDFK9" target="_blank" rel="noopener" id="onav-cta">
     Book a Call
   </a>
 </nav>
@@ -593,7 +572,7 @@ footer { background: #0F172A !important; border-top: 1px solid rgba(52,211,153,.
   <p class="onav-drw-lbl">Philosophy</p>
   <a href="philosophy.html">Our Philosophy</a>
   <a href="philosophy.html#about">About Dean Reid</a>
-  <a href="https://calendar.app.google/S2bDFXCFoZA3eGJC6" target="_blank" rel="noopener" id="onav-drw-cta">Book a Discovery Call</a>
+  <a href="https://calendar.app.google/cbt3vffcdMEmiDFK9" target="_blank" rel="noopener" id="onav-drw-cta">Book a Discovery Call</a>
 </div>
 <div id="onav-ovl"></div>
 
@@ -602,7 +581,7 @@ footer { background: #0F172A !important; border-top: 1px solid rgba(52,211,153,.
   <div class="diag-hero-inner">
     <div class="diag-hero-text">
       <p class="diag-eyebrow">Interactive Tool &middot; Optivus</p>
-      <h1>Marketing Channel<br><span>Diagnostic</span></h1>
+      <h1>Marketing Channel<br><span>Diagnostic.</span></h1>
       <p class="diag-hero-desc">Select a channel that is underperforming and identify the specific failing tactic. The tool surfaces prioritized cross-channel activation strategies to revitalize performance.</p>
       <div class="diag-steps">
         <div class="diag-step"><span class="diag-step-n">1</span>Select channel category</div>
@@ -619,13 +598,8 @@ footer { background: #0F172A !important; border-top: 1px solid rgba(52,211,153,.
   </div>
 </section>
 
-<div class="opt-bc" role="navigation" aria-label="Breadcrumb"><a href="index.html">Home</a><span class="opt-bc-sep">/</span><a href="resources.html">Resources</a><span class="opt-bc-sep">/</span><span class="opt-bc-cur">Channel Diagnostic</span></div>
-<!-- INTRO TEXT -->
-<div class="diag-intro-text">
-  <h2>Select a channel and tactic to begin</h2>
-  <p>Choose the marketing channel that is not hitting targets, then identify the specific tactic that is falling short.</p>
-</div>
 
+<div class="opt-bc" role="navigation" aria-label="Breadcrumb"><a href="index.html">Home</a><span class="opt-bc-sep">/</span><a href="resources.html">Resources</a><span class="opt-bc-sep">/</span><span class="opt-bc-cur">Channel Diagnostic</span></div>
 <!-- SELECTOR BAR -->
 <div class="selector-bar">
   <div class="selector-inner">
@@ -660,14 +634,18 @@ footer { background: #0F172A !important; border-top: 1px solid rgba(52,211,153,.
 
 <!-- CONTENT -->
 <div class="main-content">
-  <!-- empty-state stub: permanently hidden; kept for JS reference compatibility -->
-  <div id="empty-state" style="display:none!important;"></div>
+
+  <div id="empty-state">
+    <div class="empty-icon-wrap">&#128202;</div>
+    <h2>Select a channel and tactic to begin</h2>
+    <p>Choose the marketing channel that is not hitting targets, then identify the specific tactic that is falling short. Prioritized cross-channel fixes will appear here.</p>
+  </div>
 
   <div id="results">
     <div class="results-hd">
+      <div class="results-hd-icon">&#127919;</div>
       <div>
         <div class="results-hd-lbl">Diagnostic Results</div>
-        <p class="results-hd-placeholder">Prioritized cross-channel fixes will appear here.</p>
         <h2 id="results-title">-</h2>
       </div>
     </div>
@@ -677,7 +655,7 @@ footer { background: #0F172A !important; border-top: 1px solid rgba(52,211,153,.
         <h3>This diagnostic shows what to fix. Optivus builds the fix.</h3>
         <p>Dean Reid has rebuilt underperforming channel mixes at TELUS ($989M pipeline), Veriforce (27&times; MQL growth), and SMART Technologies (48% YoY).</p>
       </div>
-      <a href="https://calendar.app.google/S2bDFXCFoZA3eGJC6" target="_blank" rel="noopener" class="diag-cta-btn">Book a Free Strategy Call &rarr;</a>
+      <a href="https://calendar.app.google/cbt3vffcdMEmiDFK9" target="_blank" rel="noopener" class="diag-cta-btn">Book a Free Strategy Call &rarr;</a>
     </div>
   </div>
 
@@ -695,7 +673,7 @@ footer { background: #0F172A !important; border-top: 1px solid rgba(52,211,153,.
         <a href="https://www.linkedin.com/in/deanreid1/" target="_blank" rel="noopener" aria-label="LinkedIn">
           <svg viewBox="0 0 16 16" width="15" height="15" fill="currentColor"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg>
         </a>
-        <a href="https://calendar.app.google/S2bDFXCFoZA3eGJC6" target="_blank" rel="noopener" aria-label="Book a call">
+        <a href="https://calendar.app.google/cbt3vffcdMEmiDFK9" target="_blank" rel="noopener" aria-label="Book a call">
           <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         </a>
       </div>
@@ -717,7 +695,7 @@ footer { background: #0F172A !important; border-top: 1px solid rgba(52,211,153,.
   </div>
 
   <div class="footer-bottom">
-    <p>&copy; 2025 Optivus. Fractional Marketing Leadership. Calgary, Alberta, Canada. &nbsp;&middot;&nbsp; <a href="privacy-policy.pdf" download style="color:#34D399;text-decoration:none;">Privacy Policy ↓</a></p>
+    <p>&copy; 2025 Optivus. Fractional Marketing Leadership. Calgary, Alberta, Canada. &nbsp;&middot;&nbsp; <a href="privacy-policy.pdf" download style="color:rgba(255,255,255,0.6);text-decoration:none;">Privacy Policy ↓</a></p>
     <p>Fractional CMO &nbsp;&middot;&nbsp; Board Advisor &nbsp;&middot;&nbsp; AI Marketing &nbsp;&middot;&nbsp; B2B Growth Strategy &nbsp;&middot;&nbsp; Go-To-Market Consultant</p>
   </div>
 </footer>
