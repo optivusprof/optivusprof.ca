@@ -7,16 +7,32 @@ Fractional CMO marketing leadership website for Dean Reid.
 | File | URL |
 |------|-----|
 | `index.html` | www.optivusprof.ca |
-| `about.html` | www.optivusprof.ca/about.html |
+| `philosophy.html` | www.optivusprof.ca/philosophy.html |
+| `growth-playbook.html` | www.optivusprof.ca/growth-playbook.html |
+| `board-advisor.html` | www.optivusprof.ca/board-advisor.html |
+| `cx-audit.html` | www.optivusprof.ca/cx-audit.html |
+| `ai-for-marketing.html` | www.optivusprof.ca/ai-for-marketing.html |
+| `thought-leadership.html` | www.optivusprof.ca/thought-leadership.html |
+| `what-is-a-fractional-cmo.html` | www.optivusprof.ca/what-is-a-fractional-cmo.html |
+| `fractional-cmo-vs-full-time.html` | www.optivusprof.ca/fractional-cmo-vs-full-time.html |
+| `fractional-cmo-cost-canada.html` | www.optivusprof.ca/fractional-cmo-cost-canada.html |
+| `seo-playbook.html` | www.optivusprof.ca/seo-playbook.html |
+| `resources.html` | www.optivusprof.ca/resources.html |
+| `alignment-scorecard.html` | www.optivusprof.ca/alignment-scorecard.html |
+| `roadmap-generator.html` | www.optivusprof.ca/roadmap-generator.html |
 | `marketing-channel-diagnostic.html` | www.optivusprof.ca/marketing-channel-diagnostic.html |
+| `privacy-policy.html` | www.optivusprof.ca/privacy-policy.html |
+| `404.html` | (GitHub Pages custom 404) |
+
+Supporting files: `marketing-channel-diagnostic-data.js` (tactic-pair data for the diagnostic tool), `privacy-policy.pdf` (downloadable version linked from the privacy policy page), `sitemap.xml`, `robots.txt`, `CNAME`, `.nojekyll`.
 
 ## Assets needed in `/assets/` folder
 
 Place these files in an `assets/` subfolder on your server:
 
-- `dean-reid.png` — your headshot photo (referenced by about.html)
+- `dean-reid.png` — headshot photo (referenced in the Person schema/structured data on several pages)
 - `og-image.png` — social share image, ideally 1200×630px
-- `favicon.png` — 32×32px fallback favicon (SVG favicon is already inline)
+- `favicon.png` — 32×32px favicon, referenced on all 17 pages
 
 ## GitHub Pages deployment
 
@@ -32,4 +48,4 @@ Place these files in an `assets/` subfolder on your server:
 ## Notes
 - All internal links use relative paths — they work locally and on any server
 - The Optivus logo is embedded as a base64 data URI — no external image dependency
-- Calendly is linked to https://calendly.com/reidexplorer
+- Booking is linked to https://calendar.app.google/S2bDFXCFoZA3eGJC6 (Google Calendar appointment scheduling)

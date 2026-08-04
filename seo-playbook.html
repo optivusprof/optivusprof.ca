@@ -17,7 +17,7 @@
 <meta property="og:title" content="Custom CMO Roadmap Generator | Personalized 30-60-90 Day Plan | Optivus">
 <meta property="og:image" content="https://www.optivusprof.ca/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230F172A'/%3E%3Ctext x='50%25' y='54%25' font-family='system-ui' font-weight='800' font-size='20' fill='%2310B981' text-anchor='middle' dominant-baseline='middle'%3EO%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -194,11 +194,11 @@ body{font-family:var(--ff);background:#F8FFFE;color:var(--body);-webkit-font-smo
 .rg-kpi .kl{font-size:11px;color:var(--muted);line-height:1.3;}
 .rg-cta-box{background:var(--ink);border-radius:12px;padding:32px;text-align:center;}
 .rg-cta-box h3{font-family:var(--ffd);font-size:22px;font-weight:700;color:#fff;margin-bottom:8px;}
-.rg-cta-box p{font-size:14px;color:rgba(255,255,255,.65);margin-bottom:20px;line-height:1.65;}
+.rg-cta-box p{font-size:14px;color:#ffffff;margin-bottom:20px;line-height:1.65;}
 .rg-cta-a{display:inline-flex;align-items:center;gap:8px;background:var(--g);color:#fff;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:14px 28px;border-radius:7px;text-decoration:none;transition:background .2s;}
 .rg-cta-a:hover{background:#059669;}
-.rg-print{background:none;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.55);font-size:12px;padding:8px 16px;border-radius:5px;cursor:pointer;margin-top:12px;font-family:var(--ff);}
-.rg-restart-btn{background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;margin-top:10px;font-family:var(--ff);display:block;text-align:center;width:100%;}
+.rg-print{background:none;border:1px solid rgba(255,255,255,.25);color:#ffffff;font-size:12px;padding:8px 16px;border-radius:5px;cursor:pointer;margin-top:12px;font-family:var(--ff);}
+.rg-restart-btn{background:none;border:none;color:#ffffff;font-size:13px;cursor:pointer;margin-top:10px;font-family:var(--ff);display:block;text-align:center;width:100%;}
 .rg-restart-btn:hover{color:var(--g);}
 /* Footer */
 footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
@@ -217,13 +217,89 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
 .footer-col-links a:hover{color:#34D399;}
 .footer-bottom{max-width:1160px;margin:0 auto;padding:14px 80px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;}
 .footer-bottom p{font-size:11px;color:#fff;}
-@media print{.rg-hero,.rg-cta-box,footer,#onav-bar,#onav-drawer,#onav-ovl,#rg-prog{display:none!important;}#rg-app{padding:0;}}
 @media(max-width:900px){
   .rg-inner,#rg-prog,#rg-app{padding-left:20px;padding-right:20px;}
   .rg-grid,.rg-grid.g3,.rg-roadmap,.rg-kpi-row{grid-template-columns:1fr;}
   .footer-body{grid-template-columns:1fr;gap:32px;padding:36px 24px 28px;}
   .footer-col-nav{padding-top:0;}
   .footer-bottom{padding:12px 24px;flex-direction:column;align-items:flex-start;}
+}
+</style>
+<style id="rg-print-css">
+/* ============================================================
+   PRINT — single-page 8.5x11 LANDSCAPE output of the results view.
+   Sizing is scaled up from the portrait version to use the extra
+   width/fill the shorter page height properly (landscape = more
+   width, less height than portrait, so values aren't a 1:1 swap).
+   Placed last + !important throughout so it always wins over the
+   max-width:900px mobile rule above.
+   ============================================================ */
+@media print{
+  @page{ size:letter landscape; margin:0.4in; }
+
+  *,*::before,*::after{
+    -webkit-print-color-adjust:exact!important;
+    print-color-adjust:exact!important;
+    color-adjust:exact!important;
+  }
+
+  html,body{background:#fff!important;padding-top:0!important;font-size:12px!important;line-height:1.4!important;}
+
+  /* Hide everything except the roadmap result itself */
+  #onav-bar,#onav-drw,#onav-ovl,.opt-bc,.rg-hero,#rg-prog,.rg-cta-box,footer{
+    display:none!important;
+  }
+
+  #rg-app{max-width:100%!important;width:100%!important;margin:0!important;padding:0!important;}
+
+  /* Header */
+  .rg-res-hd{padding:20px 26px!important;border-radius:9px!important;margin-bottom:14px!important;}
+  .rg-res-tag{font-size:9px!important;letter-spacing:.14em!important;margin-bottom:6px!important;}
+  .rg-res-hd h2{font-size:26px!important;line-height:1.12!important;margin-bottom:7px!important;}
+  .rg-res-hd p{font-size:12.5px!important;line-height:1.5!important;max-width:100%!important;color:rgba(255,255,255,.78)!important;}
+
+  /* Pills */
+  .rg-pills{gap:7px!important;margin-bottom:14px!important;}
+  .rg-pill{padding:5px 14px!important;font-size:11px!important;border-radius:16px!important;}
+
+  /* Priority notes */
+  .rg-focus{padding:14px 20px!important;margin-bottom:14px!important;border-radius:9px!important;}
+  .rg-focus h3{font-size:14px!important;margin-bottom:7px!important;}
+  .rg-focus ul{padding-left:17px!important;}
+  .rg-focus li{font-size:11px!important;line-height:1.45!important;margin-bottom:4px!important;}
+
+  /* Roadmap — force 3 columns regardless of viewport-width media query */
+  .rg-roadmap{
+    display:grid!important;
+    grid-template-columns:1fr 1fr 1fr!important;
+    gap:1px!important;margin-bottom:14px!important;border-radius:9px!important;
+  }
+  .rg-roadmap>div{display:flex!important;flex-direction:column!important;}
+  .rg-phase-body{flex:1 1 auto!important;}
+  .rg-phase-hd{padding:11px 15px!important;}
+  .rg-phase-tag{font-size:9px!important;margin-bottom:3px!important;}
+  .rg-phase-hd h3{font-size:13.5px!important;line-height:1.15!important;}
+  .rg-phase-body{padding:13px!important;}
+  .rg-task{margin-bottom:9px!important;padding-bottom:9px!important;}
+  .rg-task-wk{font-size:8.8px!important;margin-bottom:2px!important;}
+  .rg-task h4{font-size:11.5px!important;margin-bottom:2px!important;line-height:1.2!important;}
+  .rg-task p{font-size:10px!important;line-height:1.4!important;}
+
+  /* KPI row — force 3 columns */
+  .rg-kpi-row{
+    display:grid!important;
+    grid-template-columns:1fr 1fr 1fr!important;
+    gap:10px!important;margin-bottom:0!important;
+  }
+  .rg-kpi{padding:10px 12px!important;border-radius:8px!important;}
+  .rg-kpi .kn{font-size:13.5px!important;margin-bottom:2px!important;}
+  .rg-kpi .kl{font-size:9.8px!important;line-height:1.25!important;}
+
+  /* Keep cards intact if content ever runs long */
+  .rg-res-hd,.rg-focus,.rg-phase-hd,.rg-task,.rg-kpi,.rg-pills{
+    page-break-inside:avoid!important;break-inside:avoid!important;
+  }
+  .rg-roadmap,.rg-kpi-row{page-break-inside:avoid!important;break-inside:avoid!important;}
 }
 </style>
 <style id="nav-resources-fix">
@@ -286,7 +362,7 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
   <button id="onav-hbg" aria-label="Open menu">
     <span></span><span></span><span></span>
   </button>
-  <a href="https://calendar.app.google/cbt3vffcdMEmiDFK9" target="_blank" rel="noopener" id="onav-cta">
+  <a href="https://calendar.app.google/S2bDFXCFoZA3eGJC6" target="_blank" rel="noopener" id="onav-cta">
     Book a Call
   </a>
 </nav>
@@ -304,7 +380,7 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
   <p class="onav-drw-lbl">Philosophy</p>
   <a href="philosophy.html">Our Philosophy</a>
   <a href="philosophy.html#about">About Dean Reid</a>
-  <a href="https://calendar.app.google/cbt3vffcdMEmiDFK9" target="_blank" rel="noopener" id="onav-drw-cta">Book a Discovery Call</a>
+  <a href="https://calendar.app.google/S2bDFXCFoZA3eGJC6" target="_blank" rel="noopener" id="onav-drw-cta">Book a Discovery Call</a>
 </div>
 <div id="onav-ovl"></div>
 
@@ -321,7 +397,6 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
     </div>
   </div>
 </section>
-
 
 <div class="opt-bc" role="navigation" aria-label="Breadcrumb"><a href="index.html">Home</a><span class="opt-bc-sep">/</span><a href="resources.html">Resources</a><span class="opt-bc-sep">/</span><span class="opt-bc-cur">Roadmap Generator</span></div>
 <div id="rg-prog">
@@ -343,7 +418,7 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
         <a href="https://www.linkedin.com/in/deanreid1/" target="_blank" rel="noopener" aria-label="LinkedIn">
           <svg viewBox="0 0 16 16" width="15" height="15" fill="currentColor"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg>
         </a>
-        <a href="https://calendar.app.google/cbt3vffcdMEmiDFK9" target="_blank" rel="noopener" aria-label="Book a call">
+        <a href="https://calendar.app.google/S2bDFXCFoZA3eGJC6" target="_blank" rel="noopener" aria-label="Book a call">
           <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         </a>
       </div>
@@ -365,7 +440,7 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
   </div>
 
   <div class="footer-bottom">
-    <p>&copy; 2025 Optivus. Fractional Marketing Leadership. Calgary, Alberta, Canada. &nbsp;&middot;&nbsp; <a href="privacy-policy.pdf" download style="color:rgba(255,255,255,0.6);text-decoration:none;">Privacy Policy ↓</a></p>
+    <p>&copy; 2025 Optivus. Fractional Marketing Leadership. Calgary, Alberta, Canada. &nbsp;&middot;&nbsp; <a href="privacy-policy.pdf" download style="color:#34D399;text-decoration:none;">Privacy Policy ↓</a></p>
     <p>Fractional CMO &nbsp;&middot;&nbsp; Board Advisor &nbsp;&middot;&nbsp; AI Marketing &nbsp;&middot;&nbsp; B2B Growth Strategy &nbsp;&middot;&nbsp; Go-To-Market Consultant</p>
   </div>
 </footer>
@@ -397,7 +472,7 @@ var state = { step: 1, answers: {} };
 var STEPS = [
   {
     id: 1, sub: 'Company Revenue',
-    q: 'What is your company's annual revenue?',
+    q: 'What is your company\'s annual revenue?',
     hint: 'This sets the scope and pace of the roadmap.',
     cols: 3,
     opts: [
@@ -415,7 +490,7 @@ var STEPS = [
     hint: 'Choose the description that most closely matches your current state.',
     cols: 2,
     opts: [
-      { v:'none',         h:'No formal marketing',                   d:'Growth has come from the founder's network and referrals. Marketing is reactive, not systematic.' },
+      { v:'none',         h:'No formal marketing',                   d:'Growth has come from the founder\'s network and referrals. Marketing is reactive, not systematic.' },
       { v:'disconnected', h:'Active but disconnected from sales',     d:'We run campaigns but sales does not trust the leads and pipeline is still inconsistent.' },
       { v:'underperform', h:'Running but underperforming',            d:'We have budget, people, and programs but results are below expectations.' },
       { v:'rebuilding',   h:'Rebuilding after a significant change',  d:'Post-acquisition, rebrand, leadership change, or market pivot. Old GTM no longer applies.' },
@@ -476,7 +551,7 @@ var P1 = {
                 ['Wk 2','Channel Rationalization','Cut the 40% of spend generating less than 10% of pipeline. Reallocate to what is working.'],
                 ['Wk 3-4','Positioning Review','Test current messaging against win/loss data. Identify the 1-2 messages landing and double down.']],
   rebuilding:  [['Wk 1','Transition Audit','Document what existed before: what the team knows, what technology is in place, what was working.'],
-                ['Wk 2','Stakeholder Interviews','Interview CEO, sales leader, top 3 customers, and 3 lost prospects. Map the market's current perception.'],
+                ['Wk 2','Stakeholder Interviews','Interview CEO, sales leader, top 3 customers, and 3 lost prospects. Map the market\'s current perception.'],
                 ['Wk 3-4','New ICP + Positioning Framework','Rebuild the ICP from scratch based on who you are now, not who you were.']],
   expansion:   [['Wk 1','New Market Research','Identify top companies in the target segment. Analyze buying behaviour, content consumption, and vendor preferences.'],
                 ['Wk 2','ICP for New Segment','Define the buyer persona and key objections specific to the new market - not a copy of the existing ICP.'],
@@ -554,7 +629,11 @@ function render() {
   renderProg();
   if (state.step <= 5) renderStep();
   else renderResults();
-  window.scrollTo({top:0,behavior:'smooth'});
+  var anchor = document.getElementById('rg-app');
+  if (anchor) {
+    var y = anchor.getBoundingClientRect().top + window.pageYOffset - 84;
+    window.scrollTo({top: Math.max(y, 0), behavior:'smooth'});
+  }
 }
 
 function renderProg() {
@@ -574,7 +653,7 @@ function renderStep() {
   var sel = state.answers[state.step] || '';
   var opts = s.opts.map(function(o) {
     var isSel = o.v === sel;
-    return '<div class="rg-choice' + (isSel ? ' sel' : '') + '" onclick="pick('' + o.v + '')" data-v="' + o.v + '">'
+    return '<div class="rg-choice' + (isSel ? ' sel' : '') + '" onclick="pick(\'' + o.v + '\')" data-v="' + o.v + '">'
       + '<h3>' + o.h + '</h3>'
       + '<p>' + o.d + '</p>'
       + '</div>';
@@ -653,9 +732,9 @@ function renderResults() {
     + '<div><div class="rg-phase-hd ph3"><p class="rg-phase-tag">Days 61-90</p><h3>Scaling &amp; Optimization</h3></div><div class="rg-phase-body">' + tasks(p3) + '</div></div>'
     + '</div>'
     + kpiHtml
-    + '<div class="rg-cta-box"><h3>This is the framework. Dean Reid builds the engine.</h3>'
+    + '<div class="rg-cta-box"><h3>This is the framework. We build the engine.</h3>'
     + '<p>A roadmap shows you the path. An Optivus engagement executes it - with a senior CMO embedded in your team, accountable to your pipeline targets from week one.</p>'
-    + '<a href="https://calendar.app.google/cbt3vffcdMEmiDFK9" target="_blank" rel="noopener" class="rg-cta-a">Book a Free 30-Min Call &#8594;</a><br>'
+    + '<a href="https://calendar.app.google/S2bDFXCFoZA3eGJC6" target="_blank" rel="noopener" class="rg-cta-a">Book a Free 30-Min Call &#8594;</a><br>'
     + '<button class="rg-print" onclick="window.print()">Print / Save as PDF</button><br>'
     + '<button class="rg-restart-btn" onclick="restartRG()">&#8592; Generate a new roadmap</button>'
     + '</div>';
