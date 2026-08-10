@@ -427,6 +427,54 @@ body {
 #hero h1 .accent { color: var(--soft-cyan); display: block; }
 #hero h1 .accent-2 { color: var(--pale-blue); }
 
+/* ── Rotating hero text ── */
+/* Fixed-height container so content below never shifts during rotation */
+#hero-rotate-wrap {
+  display: block;
+  min-height: 550px;   /* desktop: measured 540px worst-case phrase */
+  overflow: hidden;
+}
+.hero-rotate {
+  display: block;
+  position: relative;
+  opacity: 1;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.hero-rotate.fade-out {
+  opacity: 0;
+  transform: translateY(-12px);
+}
+.hero-rotate.fade-in {
+  opacity: 0;
+  transform: translateY(14px);
+}
+.hero-rotate.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Cursor blink after the rotating word */
+#hero-rotate-wrap::after {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 0.85em;
+  background: var(--soft-cyan);
+  margin-left: 6px;
+  vertical-align: middle;
+  border-radius: 2px;
+  animation: cursorBlink 1.1s step-end infinite;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+#hero-rotate-wrap.cursor-active::after {
+  opacity: 1;
+}
+
+
 .hero-desc {
   font-size: 18px; line-height: 1.75; font-weight: 300;
   color: #ffffff; max-width: 520px; margin-bottom: 52px;
@@ -1296,6 +1344,7 @@ footer {
 
   /* H1 scales to fit tablet/large-phone width */
   #hero h1 { font-size: 42px; line-height: 1.05; margin-top: 24px; margin-bottom: 20px; }
+  #hero-rotate-wrap { min-height: 140px; }
   .hero-desc { font-size: 16px; line-height: 1.7; margin-bottom: 28px; }
   .hero-eyebrow { font-size: 12px; margin-bottom: 14px; }
 
@@ -1355,6 +1404,7 @@ footer {
   #hero {
   margin-top: 0; padding-top: 130px; padding-left: 20px; padding-right: 20px; padding-bottom: 52px; }
   #hero h1 { font-size: 32px; line-height: 1.08; margin-top: 14px; margin-bottom: 18px; }
+  #hero-rotate-wrap { min-height: 145px; }
   .hero-eyebrow { font-size: 11px; letter-spacing: 0.14em; margin-bottom: 10px; }
   .hero-desc { font-size: 15px; margin-bottom: 22px; }
   .hero-credentials { gap: 6px; }
@@ -1371,6 +1421,7 @@ footer {
   #hero {
   margin-top: 0; padding-top: 115px; padding-left: 16px; padding-right: 16px; }
   #hero h1 { font-size: 26px; line-height: 1.1; }
+  #hero-rotate-wrap { min-height: 115px; }
   .hero-eyebrow { font-size: 10px; }
   .hero-desc { font-size: 14px; }
   .hero-cred { font-size: 10px; padding: 4px 9px; }
@@ -2113,7 +2164,11 @@ body{padding-top:68px;}
 
   <p class="hero-eyebrow">Revenue Architecture</p>
 
-  <h1>Revenue Architect for B2B Pipeline Growth.<br><span class="accent">Stop guessing. Start scaling.</span></h1>
+  <h1>Revenue Architecture for<br>
+    <span class="accent" id="hero-rotate-wrap">
+      <span id="heroRotate" class="hero-rotate">B2B companies stuck at&nbsp;$20M.</span>
+    </span>
+  </h1>
 
   <p class="hero-eyebrow" style="margin:0 0 14px;">AI-Native Revenue Engine Architect</p>
 
@@ -2866,6 +2921,67 @@ document.querySelectorAll('.site-faq-q').forEach(function(btn) {
   if(o)o.addEventListener('click',cl);
   d.querySelectorAll('a').forEach(function(a){a.addEventListener('click',cl);});
   document.addEventListener('keydown',function(e){if(e.key==='Escape')cl();});
+})();
+</script>
+
+<script id="hero-rotate-js">
+/* ── Hero H1 word rotation ──────────────────────────────────────
+   Cycles through 4 buyer situations. Each phrase displays for
+   3.8 seconds, fades out (0.35s up), swaps text, fades in (0.35s up).
+   Cursor blink activates once the page hero animation settles.
+   Falls back gracefully — first phrase always visible via HTML.
+──────────────────────────────────────────────────────────────── */
+(function () {
+  var PHRASES = [
+    'B2B companies stuck at&nbsp;$20M.',
+    'PE-backed portfolios leaking pipeline.',
+    'founders who&rsquo;ve outgrown word&#8209;of&#8209;mouth.',
+    'companies 18&nbsp;months from exit.'
+  ];
+  var HOLD = 3800;   // ms each phrase is visible
+  var FADE = 350;    // ms fade transition (matches CSS)
+
+  var el = document.getElementById('heroRotate');
+  var wrap = document.getElementById('hero-rotate-wrap');
+  if (!el || !wrap) return;
+
+  var idx = 0;
+
+  // Activate cursor blink after initial page fade-in settles
+  setTimeout(function () {
+    wrap.style.setProperty('--cursor-active', '1');
+    // Force ::after opacity via a class
+    wrap.classList.add('cursor-active');
+  }, 1400);
+
+  function next() {
+    // Fade out upward
+    el.classList.add('fade-out');
+    el.classList.remove('visible');
+
+    setTimeout(function () {
+      // Swap phrase
+      idx = (idx + 1) % PHRASES.length;
+      el.innerHTML = PHRASES[idx];
+
+      // Reset to bottom-entry position
+      el.classList.remove('fade-out');
+      el.classList.add('fade-in');
+
+      // Force reflow so browser registers the class change
+      void el.offsetWidth;
+
+      // Fade in upward
+      el.classList.remove('fade-in');
+      el.classList.add('visible');
+
+      // Schedule next swap
+      setTimeout(next, HOLD);
+    }, FADE);
+  }
+
+  // Start the cycle after first phrase has been shown
+  setTimeout(next, HOLD);
 })();
 </script>
 </body>
