@@ -641,6 +641,8 @@ body{padding-top:68px;}
 .breadcrumb a:hover{color:#10B981!important;text-decoration:underline;}
 .breadcrumb span{margin:0 6px;color:#CBD5E1!important;font-size:11px;text-transform:none!important;}
 </style>
+  <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
+  <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
 </head>
 <body>
 
@@ -672,9 +674,19 @@ body{padding-top:68px;}
   <button id="onav-hbg" aria-label="Open menu">
     <span></span><span></span><span></span>
   </button>
-  <a href="https://calendar.app.google/cbt3vffcdMEmiDFK9" target="_blank" rel="noopener" id="onav-cta">
-    Book a Call
-  </a>
+  <span id="gcal-nav-btn" style="display:flex;align-items:center;height:68px;flex-shrink:0;border-left:1px solid rgba(52,211,153,.12);"><script>
+(function() {
+  var target = document.currentScript;
+  window.addEventListener('load', function() {
+    calendar.schedulingButton.load({
+      url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0vwcmmCRjR0JZoEVRIWoZq0R1xyJqWu90X9AHkEg8M-2rTOXRbfgdyETWvncK4DjOvUsf9_0EJ?gv=true',
+      color: '#10B981',
+      label: 'Book a Call',
+      target,
+    });
+  });
+})();
+</script></span>
 </nav>
 
 <div id="onav-drw" aria-label="Mobile menu">
@@ -690,7 +702,19 @@ body{padding-top:68px;}
   <p class="onav-drw-lbl">Philosophy</p>
   <a href="philosophy.html">Our Philosophy</a>
   <a href="philosophy.html#about">About Dean Reid</a>
-  <a href="https://calendar.app.google/cbt3vffcdMEmiDFK9" target="_blank" rel="noopener" id="onav-drw-cta">Book a Discovery Call</a>
+  <script>
+(function() {
+  var target = document.currentScript;
+  window.addEventListener('load', function() {
+    calendar.schedulingButton.load({
+      url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0vwcmmCRjR0JZoEVRIWoZq0R1xyJqWu90X9AHkEg8M-2rTOXRbfgdyETWvncK4DjOvUsf9_0EJ?gv=true',
+      color: '#10B981',
+      label: 'Book a Discovery Call',
+      target,
+    });
+  });
+})();
+</script>
 </div>
 <div id="onav-ovl"></div>
 
@@ -804,7 +828,7 @@ body{padding-top:68px;}
     <h2>30 minutes answers<br><span>whether this makes financial sense.</span></h2>
     <p>No pitch. A direct conversation about your company's situation, the scope you'd need, and the cost. Walk away with clarity - whether you hire Optivus or not.</p>
     <div class="cta-btns">
-      <a href="https://calendar.app.google/cbt3vffcdMEmiDFK9" target="_blank" rel="noopener" class="btn-green">Book a Free Discovery Call &rarr;</a>
+      <a href="https://calendar.app.google/5v6oNJ8jHkWMVzTTA" target="_blank" rel="noopener" class="btn-green">Book a Free Discovery Call &rarr;</a>
       <a href="index.html" class="btn-outline">&larr; View All Six Engagement Models</a>
     </div>
   </div>
@@ -838,7 +862,7 @@ document.querySelectorAll('.faq-q').forEach(function(btn){
       <p class="foot-desc">Fractional marketing leadership for B2B companies that need senior strategy without the full-time overhead. Scoped to your situation. </p>
       <div class="footer-social">
         <a href="https://www.linkedin.com/in/deanreid1/" target="_blank" rel="noopener" aria-label="LinkedIn" style="width:34px;height:34px;border-radius:6px;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);display:inline-flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;font-size:11px;font-weight:700;">in</a>
-        <a href="https://calendar.app.google/cbt3vffcdMEmiDFK9" target="_blank" rel="noopener" aria-label="Book a call" style="width:34px;height:34px;border-radius:6px;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);display:inline-flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;font-size:11px;">&#128197;</a>
+        <a href="https://calendar.app.google/5v6oNJ8jHkWMVzTTA" target="_blank" rel="noopener" aria-label="Book a call" style="width:34px;height:34px;border-radius:6px;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);display:inline-flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;font-size:11px;">&#128197;</a>
       </div>
     </div>
     <div class="footer-col-nav">

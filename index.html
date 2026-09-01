@@ -2078,6 +2078,8 @@ body{padding-top:68px;}
   z-index: 99997 !important;
 }
 </style>
+  <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
+  <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
 </head>
 <body>
 
@@ -2109,9 +2111,19 @@ body{padding-top:68px;}
   <button id="onav-hbg" aria-label="Open menu">
     <span></span><span></span><span></span>
   </button>
-  <a href="https://calendar.app.google/cbt3vffcdMEmiDFK9" target="_blank" rel="noopener" id="onav-cta">
-    Book a Call
-  </a>
+  <span id="gcal-nav-btn" style="display:flex;align-items:center;height:68px;flex-shrink:0;border-left:1px solid rgba(52,211,153,.12);"><script>
+(function() {
+  var target = document.currentScript;
+  window.addEventListener('load', function() {
+    calendar.schedulingButton.load({
+      url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0vwcmmCRjR0JZoEVRIWoZq0R1xyJqWu90X9AHkEg8M-2rTOXRbfgdyETWvncK4DjOvUsf9_0EJ?gv=true',
+      color: '#10B981',
+      label: 'Book a Call',
+      target,
+    });
+  });
+})();
+</script></span>
 </nav>
 
 <div id="onav-drw" aria-label="Mobile menu">
@@ -2127,7 +2139,19 @@ body{padding-top:68px;}
   <p class="onav-drw-lbl">Philosophy</p>
   <a href="philosophy.html">Our Philosophy</a>
   <a href="philosophy.html#about">About Dean Reid</a>
-  <a href="https://calendar.app.google/cbt3vffcdMEmiDFK9" target="_blank" rel="noopener" id="onav-drw-cta">Book a Discovery Call</a>
+  <script>
+(function() {
+  var target = document.currentScript;
+  window.addEventListener('load', function() {
+    calendar.schedulingButton.load({
+      url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0vwcmmCRjR0JZoEVRIWoZq0R1xyJqWu90X9AHkEg8M-2rTOXRbfgdyETWvncK4DjOvUsf9_0EJ?gv=true',
+      color: '#10B981',
+      label: 'Book a Discovery Call',
+      target,
+    });
+  });
+})();
+</script>
 </div>
 <div id="onav-ovl"></div>
 
@@ -2166,7 +2190,7 @@ body{padding-top:68px;}
   </div>
 
   <div class="hero-actions">
-    <a href="https://calendar.app.google/cbt3vffcdMEmiDFK9" target="_blank" rel="noopener" class="hero-btn-primary">
+    <a href="https://calendar.app.google/5v6oNJ8jHkWMVzTTA" target="_blank" rel="noopener" class="hero-btn-primary">
       BOOK A FREE DISCOVERY CALL <span class="hero-btn-arrow">→</span>
     </a>
   </div>
@@ -2367,7 +2391,7 @@ body{padding-top:68px;}
 
     <div class="site-faq-cta">
       <p>Still have questions? A discovery call is 30 minutes - no pitch, no pressure.</p>
-      <a href="https://calendar.app.google/cbt3vffcdMEmiDFK9" target="_blank" rel="noopener" class="hero-btn-primary" style="display:inline-flex;align-items:center;gap:8px;">BOOK A FREE DISCOVERY CALL <span>→</span></a>
+      <a href="https://calendar.app.google/5v6oNJ8jHkWMVzTTA" target="_blank" rel="noopener" class="hero-btn-primary" style="display:inline-flex;align-items:center;gap:8px;">BOOK A FREE DISCOVERY CALL <span>→</span></a>
     </div>
   </div>
 </section>
@@ -2527,7 +2551,7 @@ body{padding-top:68px;}
         <div class="s-card s-card-cta reveal reveal-d3">
           <p class="cta-eyebrow">Start the Conversation</p>
           <p class="cta-q">"Is your marketing strategy as strong as the rest of your business?"</p>
-          <a href="https://calendar.app.google/cbt3vffcdMEmiDFK9" target="_blank" rel="noopener" class="cta-btn">
+          <a href="https://calendar.app.google/5v6oNJ8jHkWMVzTTA" target="_blank" rel="noopener" class="cta-btn">
             Book a Free Discovery Call →
           </a>
         </div>
@@ -2745,7 +2769,7 @@ const gtma = {
         <p class="gtma-result-box-label">Next strategic step</p>
         <p class="gtma-result-box-text">Let's walk through your specific numbers and map the fastest path to fixing this in a direct, no-pitch conversation.</p>
       </div>
-      <a href="https://calendar.app.google/cbt3vffcdMEmiDFK9" target="_blank" rel="noopener" class="gtma-next-btn">Book a Free Discovery Call \u2192</a>
+      <a href="https://calendar.app.google/5v6oNJ8jHkWMVzTTA" target="_blank" rel="noopener" class="gtma-next-btn">Book a Free Discovery Call \u2192</a>
     `;
   }
 };
@@ -2764,7 +2788,7 @@ gtma.render();
     <h2 class="fctb-headline" style="color:#ffffff!important;">Your company deserves<br><span style="color:#34D399!important;">senior marketing strategy.</span></h2>
     <p class="fctb-sub">Book a 30-minute discovery call. No pitch, no pressure - just a direct conversation about where your marketing is, where you want it to go, and whether there's a fit.</p>
     <div class="fctb-actions">
-      <a href="https://calendar.app.google/cbt3vffcdMEmiDFK9" target="_blank" rel="noopener" class="fctb-btn-primary">
+      <a href="https://calendar.app.google/5v6oNJ8jHkWMVzTTA" target="_blank" rel="noopener" class="fctb-btn-primary">
         BOOK A FREE DISCOVERY CALL →
       </a>
       <a href="https://www.linkedin.com/in/deanreid1/" target="_blank" rel="noopener" class="fctb-btn-linkedin">
@@ -2789,7 +2813,7 @@ gtma.render();
         <a href="https://www.linkedin.com/in/deanreid1/" target="_blank" rel="noopener" aria-label="LinkedIn">
           <svg viewBox="0 0 16 16" width="15" height="15" fill="currentColor"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg>
         </a>
-        <a href="https://calendar.app.google/cbt3vffcdMEmiDFK9" target="_blank" rel="noopener" aria-label="Book a call">
+        <a href="https://calendar.app.google/5v6oNJ8jHkWMVzTTA" target="_blank" rel="noopener" aria-label="Book a call">
           <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         </a>
       </div>
