@@ -442,17 +442,7 @@ body {
 .hero-rotate.fade-out { opacity: 0; transform: translateY(-12px); }
 .hero-rotate.fade-in  { opacity: 0; transform: translateY(14px);  }
 .hero-rotate.visible  { opacity: 1; transform: translateY(0);      }
-#hero-rotate-wrap.cursor-active::after {
-  content: '';
-  display: inline-block;
-  width: 3px; height: 0.85em;
-  background: var(--soft-cyan);
-  margin-left: 6px;
-  vertical-align: middle;
-  border-radius: 2px;
-  animation: cursorBlink 1.1s step-end infinite;
-}
-@keyframes cursorBlink { 0%,100%{opacity:1} 50%{opacity:0} }
+
 
 .hero-desc {
   font-size: 18px; line-height: 1.75; font-weight: 300;
@@ -2079,7 +2069,7 @@ body{padding-top:68px;}
 }
 </style>
   <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
-  <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
+  <script src="https://calendar.google.com/calendar/scheduling-button-script.js" defer></script>
 </head>
 <body>
 
@@ -2923,7 +2913,6 @@ document.querySelectorAll('.site-faq-q').forEach(function(btn) {
   var wrap=document.getElementById('hero-rotate-wrap');
   if(!el||!wrap)return;
   var idx=0;
-  setTimeout(function(){wrap.classList.add('cursor-active');},1400);
   function next(){
     el.classList.add('fade-out');
     el.classList.remove('visible');
