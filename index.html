@@ -430,18 +430,36 @@ body {
 /* ── Rotating hero text ── */
 #hero-rotate-wrap {
   display: block;
+  position: relative;
   min-height: 550px;
   overflow: hidden;
 }
-.hero-rotate {
+.hero-word {
   display: block;
-  position: relative;
-  opacity: 1;
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  position: absolute;
+  top: 0; left: 0;
+  color: var(--soft-cyan);
+  will-change: transform, opacity;
 }
-.hero-rotate.fade-out { opacity: 0; transform: translateY(-12px); }
-.hero-rotate.fade-in  { opacity: 0; transform: translateY(14px);  }
-.hero-rotate.visible  { opacity: 1; transform: translateY(0);      }
+.hero-word.is-current {
+  opacity: 1;
+  transform: translateY(0);
+}
+.hero-word.is-exiting {
+  animation: hwExit 0.55s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+.hero-word.is-entering {
+  animation: hwEnter 0.55s cubic-bezier(0, 0, 0.2, 1) forwards;
+}
+@keyframes hwExit {
+  from { opacity: 1; transform: translateY(0);    }
+  to   { opacity: 0; transform: translateY(-28px); }
+}
+@keyframes hwEnter {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+/* responsive min-heights */
 
 
 .hero-desc {
@@ -2159,7 +2177,7 @@ body{padding-top:68px;}
 
   <h1>Revenue Architecture for<br>
     <span class="accent" id="hero-rotate-wrap">
-      <span id="heroRotate" class="hero-rotate">B2B companies stuck at&nbsp;$20M.</span>
+      <!-- rotating words injected by JS -->
     </span>
   </h1>
 
@@ -2907,26 +2925,52 @@ document.querySelectorAll('.site-faq-q').forEach(function(btn) {
     'founders who’ve outgrown word‑of‑mouth.',
     'companies 18 months from exit.'
   ];
-  var HOLD=3800, FADE=350;
-  var el=document.getElementById('heroRotate');
-  var wrap=document.getElementById('hero-rotate-wrap');
-  if(!el||!wrap)return;
-  var idx=0;
-  function next(){
-    el.classList.add('fade-out');
-    el.classList.remove('visible');
-    setTimeout(function(){
-      idx=(idx+1)%PHRASES.length;
-      el.innerHTML=PHRASES[idx];
-      el.classList.remove('fade-out');
-      el.classList.add('fade-in');
-      void el.offsetWidth;
-      el.classList.remove('fade-in');
-      el.classList.add('visible');
-      setTimeout(next,HOLD);
-    },FADE);
+  var HOLD = 3800;   // ms each phrase is fully visible
+  var DUR  = 550;    // ms transition (matches CSS animation duration)
+
+  var wrap = document.getElementById('hero-rotate-wrap');
+  if (!wrap) return;
+
+  var idx = 0;
+
+  // Create and mount the first word
+  function makeWord(text) {
+    var s = document.createElement('span');
+    s.className = 'hero-word';
+    s.innerHTML = text;
+    return s;
   }
-  setTimeout(next,HOLD);
+
+  var current = makeWord(PHRASES[0]);
+  current.classList.add('is-current');
+  wrap.appendChild(current);
+
+  function rotate() {
+    idx = (idx + 1) % PHRASES.length;
+
+    // Build the incoming element and append (starts off-screen via CSS default)
+    var next = makeWord(PHRASES[idx]);
+    next.classList.add('is-entering');
+    wrap.appendChild(next);
+
+    // Simultaneously exit the current
+    current.classList.remove('is-current');
+    current.classList.add('is-exiting');
+
+    var prev = current;
+    current = next;
+
+    // After animation: clean up exited element, mark new one as current
+    setTimeout(function() {
+      prev.parentNode && prev.parentNode.removeChild(prev);
+      current.classList.remove('is-entering');
+      current.classList.add('is-current');
+      // Schedule next rotation
+      setTimeout(rotate, HOLD);
+    }, DUR);
+  }
+
+  setTimeout(rotate, HOLD);
 })();
 </script>
 </body>
