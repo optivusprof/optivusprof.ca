@@ -1,0 +1,1259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Revenue Engine Audit | Optivus</title>
+<meta name="description" content="Score your go-to-market engine against hard benchmarks across 10 revenue leaks in under 10 minutes, and get a prioritized 30-day action plan." />
+
+<!--
+  ============================================================================
+  GTM REVENUE LEAK DIAGNOSTIC  —  single-file app, no build step, no backend
+  ============================================================================
+
+  HOW TO PUBLISH (free) ON GITHUB PAGES
+  -------------------------------------
+  1. Create a repo, add this file as index.html, push.
+  2. Repo -> Settings -> Pages -> Source: "Deploy from a branch" -> main / root.
+  3. Your app is live at  https://<user>.github.io/<repo>/
+
+  HOW TO EMBED ON YOUR WEBSITE (WordPress / Webflow / Framer / custom)
+  ------------------------------------------------------------------
+  <iframe src="https://<user>.github.io/<repo>/"
+          title="Revenue Engine Audit"
+          style="width:100%;min-height:900px;border:0;"
+          loading="lazy"></iframe>
+  (This page posts its height to the parent via postMessage — see EMBED note
+   near the bottom of the script for an auto-resize snippet.)
+
+  CONFIGURE IT
+  ------------
+  Edit the CONFIG object at the top of the <script> block below:
+    - Google Calendar widget handles booking (embedded in the results page)
+    - webhookUrl  : optional. A Zapier / Make / n8n "catch hook" URL. On lead
+                    submit the app POSTs the full JSON payload (scores, top
+                    leaks, contact info) so you can route it to HubSpot /
+                    ActiveCampaign / a spreadsheet / a drip sequence yourself.
+                    Leave "" to disable — the app still works and still shows
+                    the report; nothing leaves the browser.
+    - privacyUrl  : link shown next to the consent checkbox.
+
+  WHAT THE PRD ASKED FOR THAT A STATIC FILE CANNOT DO (and the substitute)
+  ----------------------------------------------------------------------
+    - PostgreSQL storage of every run  -> not possible with no server.
+      Substitute: optional webhook POST + the respondent's own run is kept in
+      their browser's localStorage (resume support). A "clear my data" link is
+      in the footer.
+    - Server-rendered PDF (Puppeteer)  -> replaced by browser "Save as PDF"
+      via a print-optimized stylesheet ("Download PDF report" button).
+    - Reverse-IP / Clearbit enrichment -> removed; the form just asks.
+    - Server-side drip campaigns, +24h follow-ups, 90-day PII purge, CRM sync
+      -> these are automations you wire in your webhook tool. The payload
+      carries everything they need (Top_Priority_Leak, per-leak scores, etc.).
+    - SOC2 infra -> n/a, there is no infra. No data is transmitted unless you
+      set webhookUrl, and then only to the endpoint you choose.
+
+  Everything else in the PRD (scoring matrix, Access/Attract/Achieve sub-scores,
+  priority tie-break order, "I don't know" = active leak, validation clamps,
+  WCAG AA keyboard + ARIA, 320px responsive, offline banner) is implemented
+  client-side below.
+  ============================================================================
+-->
+
+<style>
+  :root{
+    color-scheme: light dark;
+    --bg:#f6f6f8;
+    --surface:#ffffff;
+    --surface-2:#f0f0f4;
+    --text:#0c0c11;
+    --text-dim:#55555f;
+    --border:#e4e4ec;
+    --border-strong:#cfcfda;
+    --accent:#10B981;
+    --accent-hover:#059669;
+    --accent-ink:#ffffff;
+    --accent-soft:#ecfdf5;
+    --good:#15803d;
+    --good-soft:#e7f5ec;
+    --warn:#b45309;
+    --warn-soft:#fbefe0;
+    --bad:#be123c;
+    --bad-soft:#fdeaef;
+    --focus:#10B981;
+    --radius:14px;
+    --radius-sm:10px;
+    --shadow:0 1px 2px rgba(12,12,17,.04), 0 8px 24px rgba(12,12,17,.06);
+    --maxw:760px;
+    --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0b0b0f;
+      --surface:#141419;
+      --surface-2:#1c1c23;
+      --text:#f3f3f6;
+      --text-dim:#a2a2ae;
+      --border:#282830;
+      --border-strong:#3a3a44;
+      --accent:#34D399;
+      --accent-hover:#10B981;
+      --accent-ink:#0b0b0f;
+      --accent-soft:#064e3b;
+      --good:#4ade80;
+      --good-soft:#12271a;
+      --warn:#fbbf24;
+      --warn-soft:#2a2010;
+      --bad:#fb7185;
+      --bad-soft:#2a1119;
+      --focus:#34D399;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font);
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:28px 20px 64px}
+  @media (max-width:420px){ .wrap{padding:18px 14px 48px} }
+
+  h1,h2,h3{line-height:1.25;margin:0 0 .4em;font-weight:680;letter-spacing:-0.01em}
+  h1{font-size:1.6rem}
+  h2{font-size:1.22rem}
+  h3{font-size:1rem}
+  p{margin:0 0 1em}
+  a{color:var(--accent);text-underline-offset:2px}
+  small{font-size:.82rem}
+  .dim{color:var(--text-dim)}
+  .center{text-align:center}
+  .nowrap{white-space:nowrap}
+
+  /* ---- header ---- */
+  .app-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:680;letter-spacing:-.01em}
+  .brand .dot{width:22px;height:22px;border-radius:7px;background:linear-gradient(135deg,#10B981,#34D399);flex:0 0 auto}
+  .ghost-btn{
+    background:transparent;border:1px solid var(--border-strong);color:var(--text-dim);
+    font:inherit;font-size:.82rem;padding:6px 12px;border-radius:999px;cursor:pointer
+  }
+  .ghost-btn:hover{color:var(--text);border-color:var(--text-dim)}
+
+  /* ---- cards & layout ---- */
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px}
+  @media (max-width:420px){ .card{padding:18px} }
+  .stack>*+*{margin-top:16px}
+
+  /* ---- buttons ---- */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    font:inherit;font-weight:640;font-size:.98rem;
+    padding:13px 22px;border-radius:11px;border:1px solid transparent;cursor:pointer;
+    transition:background .15s ease, transform .05s ease;
+  }
+  .btn:active{transform:translateY(1px)}
+  .btn-primary{background:var(--accent);color:var(--accent-ink)}
+  .btn-primary:hover{background:var(--accent-hover)}
+  .btn-primary:disabled{opacity:.45;cursor:not-allowed}
+  .btn-secondary{background:transparent;color:var(--text);border-color:var(--border-strong)}
+  .btn-secondary:hover{border-color:var(--text-dim)}
+  .btn-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+  .btn-row .spacer{flex:1}
+
+  :focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:6px}
+  h1[tabindex]:focus,h2[tabindex]:focus,h1[tabindex]:focus-visible,h2[tabindex]:focus-visible{outline:none}
+
+  /* ---- progress ---- */
+  .progress-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;font-size:.82rem}
+  .progress-track{height:7px;border-radius:999px;background:var(--surface-2);overflow:hidden}
+  .progress-fill{height:100%;background:var(--accent);border-radius:999px;transition:width .35s cubic-bezier(.4,0,.2,1)}
+
+  /* ---- lever badge ---- */
+  .lever{display:inline-flex;align-items:center;gap:6px;font-size:.74rem;font-weight:660;text-transform:uppercase;letter-spacing:.06em;padding:4px 9px;border-radius:999px;border:1px solid var(--border-strong);color:var(--text-dim)}
+  .lever::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent)}
+  .lever[data-l="Attract"]::before{background:#a855f7}
+  .lever[data-l="Achieve"]::before{background:#0ea5e9}
+
+  /* ---- question ---- */
+  .q-meta{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+  .q-prompt{font-size:1.24rem;font-weight:660;letter-spacing:-.01em;margin:0 0 6px}
+  .q-help{color:var(--text-dim);font-size:.92rem;margin:0 0 4px}
+  .stat-callout{
+    display:flex;gap:10px;background:var(--accent-soft);border:1px solid var(--border);
+    border-radius:var(--radius-sm);padding:11px 13px;font-size:.86rem;color:var(--text);margin:14px 0 4px
+  }
+  .stat-callout .ic{flex:0 0 auto;font-weight:800;color:var(--accent)}
+
+  fieldset{border:0;margin:0;padding:0}
+  legend{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+  .opt{
+    display:flex;gap:12px;align-items:flex-start;
+    border:1.5px solid var(--border-strong);border-radius:var(--radius-sm);
+    padding:14px 15px;margin-top:10px;cursor:pointer;background:var(--surface);
+    transition:border-color .12s ease, background .12s ease;
+  }
+  .opt:hover{border-color:var(--text-dim)}
+  .opt:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+  .opt:has(input:focus-visible){outline:3px solid var(--focus);outline-offset:2px}
+  .opt input{margin-top:3px;width:18px;height:18px;accent-color:var(--accent);flex:0 0 auto}
+  .opt .opt-label{font-weight:600;display:block}
+  .opt .opt-desc{color:var(--text-dim);font-size:.87rem;margin-top:2px;display:block}
+
+  .num-field{display:flex;align-items:center;gap:10px;margin-top:14px;flex-wrap:wrap}
+  .num-field input[type=number]{
+    font:inherit;font-size:1.25rem;font-weight:640;width:150px;max-width:100%;
+    padding:11px 13px;border:1.5px solid var(--border-strong);border-radius:var(--radius-sm);
+    background:var(--surface);color:var(--text)
+  }
+  .num-field .unit{font-weight:640;color:var(--text-dim)}
+  .field-note{font-size:.82rem;color:var(--text-dim);margin-top:8px}
+  .field-error{font-size:.82rem;color:var(--bad);margin-top:8px;font-weight:600}
+
+  .likert{margin-top:18px}
+  .likert input[type=range]{width:100%;accent-color:var(--accent);height:28px}
+  .likert-scale{display:flex;justify-content:space-between;font-size:.76rem;color:var(--text-dim);margin-top:2px}
+  .likert-value{text-align:center;font-weight:660;margin-top:10px;font-size:.95rem}
+
+  .checks{margin-top:14px;display:grid;gap:8px}
+  .chk{display:flex;gap:10px;align-items:center;font-size:.9rem;border:1px solid var(--border);border-radius:9px;padding:9px 12px;cursor:pointer}
+  .chk:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+  .chk input{width:16px;height:16px;accent-color:var(--accent)}
+
+  .unknown-toggle{
+    display:flex;gap:10px;align-items:flex-start;margin-top:18px;padding-top:16px;border-top:1px dashed var(--border-strong);
+    font-size:.88rem;color:var(--text-dim);cursor:pointer
+  }
+  .unknown-toggle input{margin-top:2px;width:16px;height:16px;accent-color:var(--accent)}
+  .unknown-note{margin-top:8px;font-size:.82rem;color:var(--warn);font-weight:600}
+
+  /* ---- results ---- */
+  .gauge-wrap{display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;margin:6px 0 8px}
+  .gauge{width:200px;height:200px;position:relative}
+  .gauge svg{transform:rotate(-90deg)}
+  .gauge .track{stroke:var(--surface-2)}
+  .gauge .val{stroke-linecap:round;transition:stroke-dashoffset 1s cubic-bezier(.2,.7,.2,1)}
+  .gauge .num{
+    position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center
+  }
+  .gauge .num b{font-size:2.6rem;font-weight:720;letter-spacing:-.02em;line-height:1}
+  .gauge .num span{font-size:.78rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+  .band-pill{display:inline-flex;align-items:center;gap:7px;font-weight:660;font-size:.9rem;padding:5px 13px;border-radius:999px}
+  .band-bad{background:var(--bad-soft);color:var(--bad)}
+  .band-warn{background:var(--warn-soft);color:var(--warn)}
+  .band-good{background:var(--good-soft);color:var(--good)}
+
+  .lever-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px}
+  @media (max-width:520px){ .lever-grid{grid-template-columns:1fr} }
+  .lever-card{border:1px solid var(--border);border-radius:var(--radius-sm);padding:15px;background:var(--surface)}
+  .lever-card .lv-name{font-size:.74rem;text-transform:uppercase;letter-spacing:.07em;color:var(--text-dim);font-weight:660}
+  .lever-card .lv-score{font-size:1.7rem;font-weight:720;letter-spacing:-.02em;margin-top:3px}
+  .lever-card .lv-bar{height:5px;border-radius:999px;background:var(--surface-2);margin-top:9px;overflow:hidden}
+  .lever-card .lv-bar i{display:block;height:100%;border-radius:999px}
+
+  .leak-card{border:1px solid var(--border);border-radius:var(--radius);padding:20px;background:var(--surface);margin-top:14px}
+  .leak-card h3{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+  .rank-chip{font-size:.72rem;font-weight:700;background:var(--accent);color:var(--accent-ink);border-radius:6px;padding:2px 7px}
+  .sev{font-size:.74rem;font-weight:700;padding:2px 8px;border-radius:999px}
+  .sev-bad{background:var(--bad-soft);color:var(--bad)}
+  .sev-warn{background:var(--warn-soft);color:var(--warn)}
+  .sev-good{background:var(--good-soft);color:var(--good)}
+  .cmp{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+  @media (max-width:420px){ .cmp{grid-template-columns:1fr} }
+  .cmp div{background:var(--surface-2);border-radius:9px;padding:10px 12px}
+  .cmp .k{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text-dim);font-weight:660}
+  .cmp .v{font-weight:640;margin-top:2px}
+  .impact-line{font-size:.9rem;background:var(--warn-soft);border-radius:9px;padding:10px 12px;margin:12px 0;color:var(--text)}
+  .meta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0;font-size:.84rem}
+  @media (max-width:520px){ .meta-grid{grid-template-columns:1fr 1fr} }
+  .meta-grid div .k{font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text-dim);font-weight:660}
+  .plan{margin:10px 0 0;padding-left:20px}
+  .plan li{margin:5px 0}
+  .measure{font-size:.86rem;color:var(--text-dim);margin-top:10px}
+
+  /* ---- lead gate ---- */
+  .gate{border:1px solid var(--accent);border-radius:var(--radius);padding:24px;background:var(--accent-soft);margin-top:22px}
+  .locked{position:relative}
+  .locked .blurred{filter:blur(6px);pointer-events:none;user-select:none;opacity:.55}
+  .lock-tag{display:inline-flex;align-items:center;gap:7px;font-size:.8rem;font-weight:660;color:var(--accent)}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  @media (max-width:520px){ .form-grid{grid-template-columns:1fr} }
+  .form-grid label,.full{display:flex;flex-direction:column;gap:5px;font-size:.84rem;font-weight:620}
+  .full{grid-column:1/-1}
+  .form-grid input,.form-grid select{
+    font:inherit;padding:11px 12px;border:1.5px solid var(--border-strong);border-radius:9px;background:var(--surface);color:var(--text)
+  }
+  .consent{display:flex;gap:10px;align-items:flex-start;font-size:.84rem;font-weight:500;margin-top:14px;color:var(--text)}
+  .consent input{margin-top:3px;width:17px;height:17px;accent-color:var(--accent);flex:0 0 auto}
+  .form-err{color:var(--bad);font-weight:600;font-size:.85rem;margin-top:10px}
+
+  .cta-block{border:1px solid var(--border);border-radius:var(--radius);padding:22px;background:var(--surface);margin-top:20px;text-align:center}
+
+  /* ---- all-scores table ---- */
+  table.scores{width:100%;border-collapse:collapse;margin-top:10px;font-size:.88rem}
+  table.scores th,table.scores td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--border)}
+  table.scores th{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--text-dim)}
+  table.scores td.s{font-weight:700;text-align:right;white-space:nowrap}
+  .s-bad{color:var(--bad)} .s-warn{color:var(--warn)} .s-good{color:var(--good)}
+
+  /* ---- misc ---- */
+  .offline-banner{
+    background:var(--warn-soft);color:var(--warn);border:1px solid var(--warn);
+    border-radius:9px;padding:9px 13px;font-size:.85rem;font-weight:600;margin-bottom:16px;display:none
+  }
+  body.is-offline .offline-banner{display:block}
+  .foot{margin-top:34px;font-size:.78rem;color:var(--text-dim);text-align:center;line-height:1.7}
+  .foot a{color:var(--text-dim)}
+  .leak-list{list-style:none;padding:0;margin:14px 0 0}
+  .leak-list li{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);font-size:.92rem}
+  .leak-list li span:first-child{color:var(--text-dim);font-variant-numeric:tabular-nums;flex:0 0 24px}
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;animation:none !important}
+  }
+
+  /* ---- print / PDF ---- */
+  @media print{
+    :root{--bg:#fff;--surface:#fff;--surface-2:#f3f3f3;--text:#000;--text-dim:#333;--border:#bbb;--accent:#10B981}
+    body{background:#fff}
+    .app-head .ghost-btn,.btn-row,.gate,.cta-block,.offline-banner,#restartTop,.no-print{display:none !important}
+    .wrap{max-width:none;padding:0}
+    .card{box-shadow:none;border:none;padding:0}
+    .leak-card,.lever-card,.cta-block{break-inside:avoid}
+    .locked .blurred{filter:none;opacity:1}
+    a{color:#000;text-decoration:none}
+    .print-only{display:block !important}
+  }
+  .print-only{display:none}
+</style>
+  <!-- Google Calendar Appointment Scheduling -->
+  <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
+  <script src="https://calendar.google.com/calendar/scheduling-button-script.js" defer></script>
+  <meta property="og:title" content="Revenue Engine Audit — Where Is Your GTM Leaking?">
+  <meta property="og:description" content="10 dimensions. 6 minutes. Score your GTM engine across Access, Attract, and Achieve — and get a prioritized list of your three biggest revenue leaks. Free from Optivus.">
+  <meta property="og:image" content="https://www.optivusprof.ca/assets/og-image.png">
+  <meta property="og:url" content="https://www.optivusprof.ca/revenue-engine-audit.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Optivus">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Revenue Engine Audit — Where Is Your GTM Leaking?">
+  <meta name="twitter:description" content="10 dimensions. 6 minutes. Find your three biggest revenue leaks and get a prioritized 30-day action plan. Free diagnostic from Dean Reid, Optivus.">
+  <meta name="twitter:image" content="https://www.optivusprof.ca/assets/og-image.png">
+  <link rel="canonical" href="https://www.optivusprof.ca/revenue-engine-audit.html">
+</head>
+<body>
+<div class="wrap">
+  <header class="app-head">
+    <div class="brand"><span class="dot" aria-hidden="true"></span><span id="brandName">Optivus</span></div>
+    <button class="ghost-btn" id="restartTop" hidden>Start over</button>
+  </header>
+
+  <div class="offline-banner" role="status">Offline — your progress is saved on this device. It will sync when you reconnect.</div>
+
+  <main id="view" aria-live="polite"></main>
+
+  <p class="foot">
+    Your answers stay in this browser unless you request the report.
+    <a href="#" id="clearData">Clear my data from this browser</a><br>
+    <span id="footBrand">Optivus</span> · Revenue Engine Audit · Benchmarks are widely cited B2B SaaS industry ranges and are directional, not a substitute for a full audit.
+  </p>
+</div>
+
+<script>
+"use strict";
+
+/* ============================================================================
+   CONFIG  — edit these values
+   ========================================================================== */
+const CONFIG = {
+  brandName: "Optivus",
+  productName: "Revenue Engine Audit",
+  // Booking link. name + email are appended as query params for pre-fill.
+  // Google Calendar widget handles booking directly
+  // Optional. Zapier / Make / n8n catch-hook URL. Leave "" to disable all network calls.
+  webhookUrl: "",
+  // Shown next to the GDPR/CCPA consent checkbox.
+  privacyUrl: "https://www.optivusprof.ca/privacy-policy.pdf", // s://optivus.io/privacy",
+  secondsPerQuestion: 40,
+  storageKey: "optivus_gtm_leak_v1"
+};
+
+/* ============================================================================
+   DIAGNOSTIC DEFINITION
+   ========================================================================== */
+const LEVERS = {
+  Access:  { blurb: "Can buyers and pipeline actually reach your engine — fast routing, enough coverage, efficient economics, clean data." },
+  Attract: { blurb: "Do you pull the right buyers in — shared ICP, distinctive point of view, visibility where buyers now research." },
+  Achieve: { blurb: "Do opportunities convert and stay — win rates, cycle time, and retention you can see." }
+};
+
+// Priority tie-break order from the PRD (lowest cost / fastest fix first).
+const PRIORITY_ORDER = [1,2,3,10,6,4,5,9,7,8];
+
+const clamp = (n,min,max)=>Math.min(max,Math.max(min,n));
+
+const QUESTIONS = [
+  {
+    id:1, name:"Speed to First Response", lever:"Access",
+    prompt:"When a qualified inbound lead raises their hand, how fast does a human typically respond?",
+    help:"Measured from form fill / inbound message to first real reply from a rep.",
+    stat:"Contacting a new inbound lead within 5 minutes vs. 30 minutes makes qualifying that lead roughly 21x more likely. Most B2B teams still take hours.",
+    benchmark:"First human touch in under 5 minutes",
+    type:"choice",
+    options:[
+      {id:"a", label:"Under 5 minutes", desc:"Automated routing + instant alerting", score:100},
+      {id:"b", label:"5–60 minutes", desc:"Fast, but not instant", score:75},
+      {id:"c", label:"1–24 hours", desc:"Same-day, manual pickup", score:25},
+      {id:"d", label:"More than 24 hours, or inconsistent / no reply", desc:"", score:0}
+    ]
+  },
+  {
+    id:2, name:"Lead Qualification Clarity", lever:"Attract",
+    prompt:"Do Sales and Marketing share one documented definition of a qualified lead?",
+    help:"A single written ICP / SQL definition that both function heads have signed off on and that the CRM enforces.",
+    stat:"When Sales and Marketing use different lead definitions, a large share of SDR capacity is spent on leads that were never workable — and every downstream conversion rate is distorted.",
+    benchmark:"One documented definition, jointly signed off, enforced in the CRM",
+    type:"choice",
+    options:[
+      {id:"a", label:"Yes — one documented definition, jointly owned", desc:"Signed off by both heads; CRM stage gates enforce it", score:100},
+      {id:"b", label:"Partially — it's written down but not jointly owned", desc:"Exists on paper, not aligned or enforced", score:0, flag:true},
+      {id:"c", label:"No — different or undocumented definitions", desc:"", score:0}
+    ]
+  },
+  {
+    id:3, name:"Pipeline Coverage Ratio", lever:"Access",
+    prompt:"What is your current open pipeline coverage against this quarter's new-business target?",
+    help:"Total open pipeline value ÷ quarterly bookings target. Enter a multiple, e.g. 3.2",
+    stat:"Below roughly 3x forward coverage, the quarter is already statistically short before execution even starts.",
+    benchmark:"3.0x–4.0x open pipeline vs. quarterly target",
+    type:"number", unit:"×  coverage", min:0, max:20, step:0.1, placeholder:"3.2",
+    scoreFn:(n)=> n>=3.5?100 : n>=3.0?70 : n>=2.0?30 : 0,
+    invalidDefault:null
+  },
+  {
+    id:4, name:"Win Rate by Segment", lever:"Achieve",
+    prompt:"In your primary segment, what is your opportunity-to-close win rate?",
+    help:"Closed-won ÷ (closed-won + closed-lost) for qualified opportunities over the last 2–4 quarters.",
+    stat:"A 5-point win-rate gap on the same pipeline volume is a direct, proportional cut to bookings.",
+    benchmark:"SMB 25–35% · Mid-Market 18–25% · Enterprise 12–18%",
+    type:"segment",
+    segments:[
+      {id:"smb", label:"SMB", low:25, high:35},
+      {id:"mm",  label:"Mid-Market", low:18, high:25},
+      {id:"ent", label:"Enterprise", low:12, high:18}
+    ],
+    unit:"%  win rate", min:0, max:100, step:1, placeholder:"22",
+    scoreFn:(wr, seg)=>{
+      if(!seg) return 0;
+      if(wr >= seg.low) return 100;
+      if(wr >= seg.low - 10) return 50;
+      return 0;
+    }
+  },
+  {
+    id:5, name:"Sales Cycle Length", lever:"Achieve",
+    prompt:"What is the median sales cycle length for a qualified opportunity?",
+    help:"Days from opportunity created to closed-won, median (not average).",
+    stat:"Every additional ~20 days of cycle time compounds into lower close rates and revenue that slips out of the period.",
+    benchmark:"84 days or fewer (mid-market baseline)",
+    type:"number", unit:"days", min:1, max:1000, step:1, placeholder:"78",
+    scoreFn:(n)=> n<=60?100 : n<=84?70 : n<=120?30 : 0,
+    invalidDefault:84
+  },
+  {
+    id:6, name:"CAC Payback Period", lever:"Access",
+    prompt:"What is your fully-loaded CAC payback period?",
+    help:"Months of gross-margin-adjusted revenue to recover the fully-loaded cost of acquiring a customer — including SDR and AE comp, tooling, and allocated marketing salaries.",
+    stat:"Payback beyond ~18 months starves growth of reinvestment capital and compresses enterprise value.",
+    benchmark:"Under 12 months (top tier) · under 18 months (standard)",
+    type:"number", unit:"months", min:1, max:120, step:1, placeholder:"15",
+    scoreFn:(n)=> n<12?100 : n<18?75 : n<24?30 : 0,
+    invalidDefault:null
+  },
+  {
+    id:7, name:"Content Distinctiveness", lever:"Attract",
+    prompt:"How distinctive is your point of view versus your top 3 competitors?",
+    help:"Would a prospect who reads your site and a competitor's be able to tell them apart — and remember which was which?",
+    stat:"Undifferentiated content forces price-based competition and lowers inbound conversion — you become a line item in a comparison, not the reference.",
+    benchmark:"A defensible, irreplaceable point of view (5 / 5)",
+    type:"likert", min:1, max:5,
+    labels:{1:"Generic — indistinguishable", 3:"Moderate — some overlap", 5:"Irreplaceable voice"},
+    scoreMap:{1:0, 2:0, 3:50, 4:70, 5:100}
+  },
+  {
+    id:8, name:"AI Answer Engine Visibility", lever:"Attract",
+    prompt:"When buyers ask ChatGPT, Perplexity or Gemini for vendors in your category, are you named?",
+    help:"Try your own buying-intent prompts in 2–3 engines before answering.",
+    stat:"Buyers increasingly build their shortlist from AI answers before they ever reach a vendor site. Invisibility here removes you from consideration silently.",
+    benchmark:"Cited in the top 3 answers for your category prompts across multiple engines",
+    type:"choice",
+    options:[
+      {id:"a", label:"Cited regularly in the top 3 answers", desc:"Multiple engines, buying-intent prompts", score:100},
+      {id:"b", label:"Occasionally mentioned", desc:"Inconsistent, or only for some prompts", score:50},
+      {id:"c", label:"Rarely or never mentioned", desc:"", score:0}
+    ],
+    multi:{ label:"Which engines have you actually checked? (optional)", options:["ChatGPT","Perplexity","Gemini","Claude","Google AI Overviews","Copilot"] }
+  },
+  {
+    id:9, name:"Martech Stack Data Readiness", lever:"Access",
+    prompt:"How clean and connected is your revenue data?",
+    help:"CRM hygiene, whether your core tools actually sync, and how much of what you pay for is actually used.",
+    stat:"Dirty, siloed data makes every routing, scoring and attribution decision unreliable — you can't fix what you can't measure.",
+    benchmark:"Clean CRM, active sync, >70% of tooling actually used",
+    type:"choice",
+    options:[
+      {id:"a", label:"Clean CRM, active sync, >70% of tools genuinely used", desc:"Single source of truth, owned", score:100},
+      {id:"b", label:"Partial sync, some data-hygiene issues", desc:"Works, but needs babysitting", score:50},
+      {id:"c", label:"Siloed tools, messy data, <50% feature usage", desc:"", score:0}
+    ]
+  },
+  {
+    id:10, name:"Post-Sale Revenue Retention", lever:"Achieve",
+    prompt:"How quickly can you produce current NRR / GRR?",
+    help:"Net and gross revenue retention, on demand, without a manual analyst project.",
+    stat:"If you can't see retention instantly, churn and contraction are compounding unmanaged — and acquisition cost is already sunk.",
+    benchmark:"NRR / GRR reportable in under 5 minutes, on demand",
+    type:"choice",
+    options:[
+      {id:"a", label:"Instantly — under 5 minutes from a live dashboard", desc:"", score:100},
+      {id:"b", label:"Manual pull — hours to a day", desc:"Someone has to build it each time", score:50},
+      {id:"c", label:"Not available, or we don't know our NRR", desc:"", score:0}
+    ]
+  }
+];
+
+/* ---- Recommendation engine ------------------------------------------------ */
+const RECS = {
+  1:{ action:"Stand up automated lead routing with a hard 5-minute first-response SLA and real-time round-robin alerting.",
+      cost:"Low", effort:"1–3 days", owner:"RevOps / Sales Ops",
+      measure:"100% of inbound MQLs contacted within 5 minutes; median first-response time on a live dashboard.",
+      plan:["Instrument first-response time in the CRM so today's number is visible.",
+            "Turn on instant round-robin routing with Slack / SMS alerts and a fallback owner.",
+            "Add SLA-breach escalation and a weekly 15-minute response-time review."],
+      impact:[0.05,0.10] },
+  2:{ action:"Run a 90-minute Sales + Marketing alignment workshop; ratify one ICP + SQL definition and encode it as CRM stage-entry criteria.",
+      cost:"Zero", effort:"~1 week", owner:"Head of Sales + Head of Marketing",
+      measure:"Signed one-page definition; CRM stage gates enforce it; MQL→SQL acceptance rate above 70%.",
+      plan:["Pull the last 20 accepted and 20 rejected leads; have both teams sort them live.",
+            "Write the single ICP + SQL definition on one page; both heads sign it.",
+            "Rebuild CRM stage-entry criteria and the routing rules to match, then monitor acceptance rate."],
+      impact:[0.04,0.09] },
+  3:{ action:"Audit top-of-funnel by channel; rebuild outbound capacity and target-account lists to restore 3.0x+ forward coverage.",
+      cost:"Medium", effort:"2–4 weeks", owner:"Head of Growth / Demand Gen",
+      measure:"3.0x+ open pipeline-to-target entering next quarter, tracked weekly by segment.",
+      plan:["Break current pipeline creation down by channel, segment and rep; find the gap.",
+            "Rebuild the target-account list and refill outbound sequences and SDR capacity against it.",
+            "Add a weekly coverage report; escalate any segment under 3x with 6+ weeks left."],
+      impact:[0.07,0.14] },
+  4:{ action:"Run win/loss interviews on the last 20 closed deals; fix the top two recurring loss drivers (usually the late-stage value story or competitive framing).",
+      cost:"Low", effort:"3–4 weeks", owner:"Sales leadership + Product Marketing",
+      measure:"Segment win rate back inside the benchmark band within one quarter.",
+      plan:["Interview 10 lost and 10 won buyers; tag every reason.",
+            "Fix the top two drivers — usually a sharper business case and a direct competitive comparison.",
+            "Roll the new narrative into the pitch and stage-gate it; re-measure win rate by cohort."],
+      impact:[0.05,0.12] },
+  5:{ action:"Map the stage where deals stall longest; add exit criteria, mutual action plans and a multi-threading requirement to that stage.",
+      cost:"Low", effort:"2–3 weeks", owner:"Sales leadership / RevOps",
+      measure:"Median cycle back to 84 days or fewer; stage-level aging visible in the CRM.",
+      plan:["Pull stage-duration data and find the one stage carrying most of the delay.",
+            "Define hard exit criteria for that stage plus a required mutual action plan with the buyer.",
+            "Require a second contact engaged before the stage can advance; review aged deals weekly."],
+      impact:[0.03,0.08] },
+  6:{ action:"Rebuild CAC fully-loaded (SDR + AE comp, tooling, allocated salaries); reallocate spend from the highest-CAC to the lowest-CAC channels.",
+      cost:"Low", effort:"~2 weeks", owner:"Finance + Marketing leadership",
+      measure:"Blended CAC payback under 18 months; channel-level CAC and payback in the board deck.",
+      plan:["Build the fully-loaded CAC model with every cost included, by channel.",
+            "Rank channels by CAC payback; shift budget out of the worst two into the best two.",
+            "Add CAC payback to the monthly revenue review so drift is caught early."],
+      impact:[0.04,0.09] },
+  7:{ action:"Define one contrarian, defensible thesis; rebuild the top 5 pages and the sales narrative around it; retire the generic 'me-too' assets.",
+      cost:"Low", effort:"3–4 weeks", owner:"Marketing / Product Marketing",
+      measure:"In messaging tests, prospects can state your unique point of view unprompted; branded and direct traffic trend up.",
+      plan:["Interview 5 customers and 3 lost deals to find the belief you hold that competitors don't.",
+            "Write the thesis as a strong opinion; rebuild the homepage, category page and pitch around it.",
+            "Audit and kill or rewrite the lowest-performing generic content."],
+      impact:[0.02,0.06] },
+  8:{ action:"Build an AI-visibility program: structured comparison pages, third-party listicles and review-site presence, and schema markup targeting your buying-intent prompts.",
+      cost:"Medium", effort:"4–8 weeks", owner:"Marketing / SEO",
+      measure:"Named in the top 3 responses for 5 priority prompts across 2+ engines, tracked monthly.",
+      plan:["List the 10 prompts a buyer would actually ask an AI engine in your category.",
+            "Publish or earn the sources those answers cite: comparison pages, listicles, review profiles.",
+            "Add product and FAQ schema; re-test the 10 prompts monthly and track citation rate."],
+      impact:[0.02,0.07] },
+  9:{ action:"Run a stack audit: dedupe and enrich the CRM, fix the broken syncs, retire redundant tools, and assign data-quality ownership.",
+      cost:"Medium", effort:"3–4 weeks", owner:"RevOps",
+      measure:"CRM duplicate rate under 2%; required fields over 95% complete; a documented single source of truth.",
+      plan:["Audit every tool: what syncs, what's stale, what's paid for but unused.",
+            "Dedupe and backfill required CRM fields; fix or replace the broken integrations.",
+            "Name a data-quality owner and add a monthly hygiene check."],
+      impact:[0.02,0.05] },
+  10:{ action:"Stand up a live retention dashboard (NRR, GRR, logo churn, at-risk ARR) and run a weekly revenue-retention review with CS and Sales.",
+      cost:"Medium", effort:"2–3 weeks", owner:"RevOps + CS leadership",
+      measure:"NRR / GRR dashboard live and refreshed daily; at-risk ARR reviewed every week.",
+      plan:["Define NRR, GRR and churn precisely and agree the data sources.",
+            "Build the dashboard once, automated — no manual refresh.",
+            "Start a weekly 30-minute retention review; assign an owner to every at-risk account."],
+      impact:[0.06,0.18] }
+};
+
+const ARR_RANGES = [
+  { label:"Under $1M",     midM:0.6 },
+  { label:"$1M – $5M",     midM:3 },
+  { label:"$5M – $10M",    midM:7.5 },
+  { label:"$10M – $25M",   midM:17.5 },
+  { label:"$25M – $50M",   midM:37.5 },
+  { label:"$50M – $100M",  midM:75 },
+  { label:"$100M+",        midM:150 }
+];
+
+/* ============================================================================
+   STATE
+   ========================================================================== */
+let state = {
+  step: 0,               // 0 = intro, 1..10 = questions, 11 = results
+  answers: {},            // id -> answer object
+  lead: null,             // {name,email,company,arrRange} once submitted
+  startedAt: null,
+  completedAt: null
+};
+
+function load(){
+  try{
+    const raw = localStorage.getItem(CONFIG.storageKey);
+    if(raw){ const s = JSON.parse(raw); if(s && typeof s === "object") state = Object.assign(state, s); }
+  }catch(e){}
+  try{
+    const off = sessionStorage.getItem(CONFIG.storageKey + "_offline");
+    if(off){ const s = JSON.parse(off); if(s && s.answers) state.answers = Object.assign({}, s.answers, state.answers); }
+  }catch(e){}
+}
+function save(){
+  try{ localStorage.setItem(CONFIG.storageKey, JSON.stringify(state)); }catch(e){}
+  try{ sessionStorage.setItem(CONFIG.storageKey + "_offline", JSON.stringify({answers:state.answers})); }catch(e){}
+}
+function resetAll(){
+  try{ localStorage.removeItem(CONFIG.storageKey); }catch(e){}
+  try{ sessionStorage.removeItem(CONFIG.storageKey + "_offline"); }catch(e){}
+  state = { step:0, answers:{}, lead:null, startedAt:null, completedAt:null };
+  render();
+}
+
+/* ============================================================================
+   SCORING
+   ========================================================================== */
+function scoreFor(q){
+  const a = state.answers[q.id];
+  if(!a || a.unknown) return { score:0, unknown: !!(a && a.unknown), answered: !!a };
+
+  if(q.type === "choice"){
+    const opt = q.options.find(o=>o.id === a.choice);
+    return { score: opt ? opt.score : 0, unknown:false, answered: !!opt, flag: !!(opt && opt.flag) };
+  }
+  if(q.type === "likert"){
+    return { score: q.scoreMap[a.value] ?? 0, unknown:false, answered: a.value != null };
+  }
+  if(q.type === "number"){
+    if(a.value == null || isNaN(a.value)) return { score: 0, unknown:false, answered:false };
+    return { score: q.scoreFn(a.value), unknown:false, answered:true };
+  }
+  if(q.type === "segment"){
+    const seg = q.segments.find(s=>s.id === a.segment);
+    if(!seg || a.value == null || isNaN(a.value)) return { score:0, unknown:false, answered:false };
+    return { score: q.scoreFn(a.value, seg), unknown:false, answered:true };
+  }
+  return { score:0, unknown:false, answered:false };
+}
+
+function computeResults(){
+  const per = {};
+  QUESTIONS.forEach(q=>{ per[q.id] = scoreFor(q); });
+  const avg = ids => Math.round(ids.reduce((s,i)=>s+per[i].score,0) / ids.length);
+
+  const overall = avg([1,2,3,4,5,6,7,8,9,10]);
+  const access  = avg([1,3,6,9]);
+  const attract = avg([2,7,8]);
+  const achieve = avg([4,5,10]);
+
+  // 3 lowest scores, tie-broken by PRIORITY_ORDER
+  const ranked = QUESTIONS.map(q=>({
+    id:q.id, score: per[q.id].score, prio: PRIORITY_ORDER.indexOf(q.id)
+  })).sort((a,b)=> a.score - b.score || a.prio - b.prio);
+  const top3 = ranked.slice(0,3).map(r=>r.id);
+
+  const leverScores = { Access:access, Attract:attract, Achieve:achieve };
+  const bottleneck = Object.keys(leverScores).sort((a,b)=>leverScores[a]-leverScores[b])[0];
+
+  const unknowns = QUESTIONS.filter(q=>per[q.id].unknown).map(q=>q.id);
+
+  return { per, overall, access, attract, achieve, top3, bottleneck, unknowns };
+}
+
+const band = s => s>=75 ? "good" : s>=50 ? "warn" : "bad";
+const bandLabel = s => s>=75 ? "Healthy" : s>=50 ? "At risk" : "Critical leak";
+const bandColor = s => s>=75 ? "var(--good)" : s>=50 ? "var(--warn)" : "var(--bad)";
+
+/* ============================================================================
+   RENDER
+   ========================================================================== */
+const view = document.getElementById("view");
+const esc = s => String(s).replace(/[&<>"']/g, c=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+
+document.getElementById("brandName").textContent = CONFIG.brandName;
+document.getElementById("footBrand").textContent = CONFIG.brandName;
+document.title = CONFIG.productName + " | " + CONFIG.brandName;
+
+function render(){
+  save();
+  const restart = document.getElementById("restartTop");
+  restart.hidden = state.step === 0;
+
+  if(state.step === 0) return renderIntro();
+  if(state.step >= 1 && state.step <= 10) return renderQuestion(state.step);
+  return renderResults();
+}
+
+function renderIntro(){
+  const answered = Object.keys(state.answers).length;
+  const resume = answered > 0 && !state.completedAt;
+  view.innerHTML = `
+    <div class="card stack">
+      <div>
+        <div class="lever" data-l="Access" style="margin-bottom:12px">Power of Pull · Access · Attract · Achieve</div>
+        <h1>Where is your go-to-market engine leaking revenue?</h1>
+        <p class="dim">Answer 10 quick questions about your GTM engine. We score each against hard B2B SaaS benchmarks,
+        show your three biggest leaks, and hand you a prioritized 30-day action plan. About 6 minutes.</p>
+      </div>
+      <ol class="leak-list" aria-label="What we assess">
+        ${QUESTIONS.map(q=>`<li><span>${String(q.id).padStart(2,"0")}</span><span>${esc(q.name)}</span><span class="dim" style="margin-left:auto">${q.lever}</span></li>`).join("")}
+      </ol>
+      <div class="btn-row">
+        <button class="btn btn-primary" id="startBtn">${resume ? "Resume diagnostic" : "Start the diagnostic"}</button>
+        ${resume ? `<button class="btn btn-secondary" id="freshBtn">Start over</button>` : ""}
+      </div>
+      <small class="dim">No account needed. Your answers stay in this browser until you choose to download the report.</small>
+    </div>`;
+  document.getElementById("startBtn").onclick = ()=>{
+    if(!state.startedAt) state.startedAt = new Date().toISOString();
+    state.step = resume ? Math.min(10, findFirstUnanswered()) : 1;
+    render(); focusHeading();
+  };
+  const fresh = document.getElementById("freshBtn");
+  if(fresh) fresh.onclick = ()=>{ if(confirm("Clear your answers and start over?")) resetAll(); };
+}
+
+function findFirstUnanswered(){
+  for(let i=1;i<=10;i++){ if(!scoreFor(QUESTIONS[i-1]).answered && !(state.answers[i]&&state.answers[i].unknown)) return i; }
+  return 10;
+}
+
+function renderQuestion(step){
+  const q = QUESTIONS[step-1];
+  const a = state.answers[q.id] || {};
+  const answeredCount = QUESTIONS.filter(x=>{ const s=scoreFor(x); return s.answered || s.unknown; }).length;
+  const minsLeft = Math.max(1, Math.round((10 - answeredCount) * CONFIG.secondsPerQuestion / 60));
+  const pct = Math.round((step-1)/10*100);
+
+  view.innerHTML = `
+    <div class="card">
+      <div class="progress-head">
+        <span class="dim">Leak ${step} of 10</span>
+        <span class="dim">~${minsLeft} min left</span>
+      </div>
+      <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct}" aria-label="Diagnostic progress">
+        <div class="progress-fill" style="width:${pct}%"></div>
+      </div>
+
+      <div class="q-meta" style="margin-top:22px">
+        <span class="lever" data-l="${q.lever}">${q.lever}</span>
+        <span class="dim" style="font-size:.8rem">${esc(q.name)}</span>
+      </div>
+      <h1 class="q-prompt" tabindex="-1" id="qHeading">${esc(q.prompt)}</h1>
+      <p class="q-help">${esc(q.help)}</p>
+      <div class="stat-callout"><span class="ic" aria-hidden="true">▹</span><span>${esc(q.stat)}</span></div>
+
+      <div id="control">${renderControl(q,a)}</div>
+
+      <label class="unknown-toggle">
+        <input type="checkbox" id="unknownChk" ${a.unknown ? "checked":""}>
+        <span>I don't know this number offhand.
+          ${a.unknown ? `<span class="unknown-note">Recorded as a score of 0 — the absence of this metric is itself an active revenue leak.</span>` : ``}
+        </span>
+      </label>
+
+      <div class="btn-row">
+        <button class="btn btn-secondary" id="backBtn">${step===1 ? "Intro" : "Back"}</button>
+        <span class="spacer"></span>
+        <button class="btn btn-primary" id="nextBtn">${step===10 ? "See my results" : "Next"}</button>
+      </div>
+      <p class="field-error" id="ctrlErr" style="display:none"></p>
+    </div>`;
+
+  wireControl(q);
+  document.getElementById("unknownChk").onchange = e=>{
+    state.answers[q.id] = Object.assign({}, state.answers[q.id], { unknown: e.target.checked });
+    save(); renderQuestion(step);
+  };
+  document.getElementById("backBtn").onclick = ()=>{ state.step = step-1; render(); focusHeading(); };
+  document.getElementById("nextBtn").onclick = ()=> advance(q, step);
+
+  document.addEventListener("keydown", enterHandler);
+  focusHeading();
+}
+
+function enterHandler(e){
+  if(e.key === "Enter" && e.target.tagName !== "TEXTAREA" && e.target.type !== "checkbox"){
+    const next = document.getElementById("nextBtn");
+    if(next){ e.preventDefault(); next.click(); }
+  }
+}
+
+function renderControl(q,a){
+  if(q.type === "choice"){
+    return `<fieldset><legend>${esc(q.prompt)}</legend>${
+      q.options.map(o=>`
+        <label class="opt">
+          <input type="radio" name="q${q.id}" value="${o.id}" ${a.choice===o.id?"checked":""} ${a.unknown?"disabled":""}>
+          <span><span class="opt-label">${esc(o.label)}</span>${o.desc?`<span class="opt-desc">${esc(o.desc)}</span>`:""}</span>
+        </label>`).join("")
+    }</fieldset>`;
+  }
+  if(q.type === "number"){
+    return `
+      <div class="num-field">
+        <input type="number" id="numIn" inputmode="decimal" min="${q.min}" max="${q.max}" step="${q.step}"
+          placeholder="${q.placeholder}" value="${a.value ?? ""}" ${a.unknown?"disabled":""}
+          aria-label="${esc(q.name)} value">
+        <span class="unit">${esc(q.unit)}</span>
+      </div>
+      <p class="field-note">Benchmark: ${esc(q.benchmark)}. Accepted range ${q.min}–${q.max}.</p>`;
+  }
+  if(q.type === "likert"){
+    const v = a.value ?? 3;
+    return `
+      <div class="likert">
+        <input type="range" id="likert" min="${q.min}" max="${q.max}" step="1" value="${v}" ${a.unknown?"disabled":""}
+          aria-valuemin="${q.min}" aria-valuemax="${q.max}" aria-valuenow="${v}"
+          aria-valuetext="${v} of 5 — ${esc(q.labels[v] || q.labels[3])}" aria-label="${esc(q.name)}">
+        <div class="likert-scale"><span>${esc(q.labels[1])}</span><span>${esc(q.labels[5])}</span></div>
+        <div class="likert-value" id="likertVal">${v} / 5 — ${esc(q.labels[v] || (v>3?q.labels[5]:v<3?q.labels[1]:q.labels[3]))}</div>
+      </div>`;
+  }
+  if(q.type === "segment"){
+    return `
+      <fieldset><legend>Segment</legend>
+        <p class="q-help" style="margin-bottom:2px">Which segment is most of your revenue?</p>
+        ${q.segments.map(s=>`
+          <label class="opt">
+            <input type="radio" name="seg${q.id}" value="${s.id}" ${a.segment===s.id?"checked":""} ${a.unknown?"disabled":""}>
+            <span><span class="opt-label">${esc(s.label)}</span><span class="opt-desc">Benchmark win rate ${s.low}–${s.high}%</span></span>
+          </label>`).join("")}
+      </fieldset>
+      <div class="num-field">
+        <input type="number" id="numIn" inputmode="numeric" min="0" max="100" step="1"
+          placeholder="${q.placeholder}" value="${a.value ?? ""}" ${a.unknown?"disabled":""} aria-label="Win rate percent">
+        <span class="unit">${esc(q.unit)}</span>
+      </div>
+      <p class="field-note">Enter your actual win rate as a whole percentage (0–100).</p>`;
+  }
+  return "";
+}
+
+function wireControl(q){
+  if(q.type === "choice"){
+    view.querySelectorAll(`input[name="q${q.id}"]`).forEach(el=>{
+      el.onchange = ()=>{ state.answers[q.id] = Object.assign({}, state.answers[q.id], { choice: el.value, unknown:false }); save(); };
+    });
+  }
+  if(q.type === "number" || q.type === "segment"){
+    const inp = document.getElementById("numIn");
+    if(inp){
+      inp.oninput = ()=>{
+        let v = parseFloat(inp.value);
+        state.answers[q.id] = Object.assign({}, state.answers[q.id], { value: isNaN(v)?null:v, unknown:false });
+        save();
+      };
+      inp.onblur = ()=>{
+        let v = parseFloat(inp.value);
+        if(!isNaN(v)){
+          const lo = q.type==="segment"?0:q.min, hi = q.type==="segment"?100:q.max;
+          v = clamp(v, lo, hi);
+          inp.value = v;
+          state.answers[q.id] = Object.assign({}, state.answers[q.id], { value:v });
+          save();
+        }
+      };
+    }
+    if(q.type === "segment"){
+      view.querySelectorAll(`input[name="seg${q.id}"]`).forEach(el=>{
+        el.onchange = ()=>{ state.answers[q.id] = Object.assign({}, state.answers[q.id], { segment: el.value, unknown:false }); save(); };
+      });
+    }
+  }
+  if(q.type === "likert"){
+    const sl = document.getElementById("likert");
+    if(sl){
+      const upd = ()=>{
+        const v = parseInt(sl.value,10);
+        const txt = q.labels[v] || (v>3?q.labels[5]:v<3?q.labels[1]:q.labels[3]);
+        sl.setAttribute("aria-valuenow", v);
+        sl.setAttribute("aria-valuetext", `${v} of 5 — ${txt}`);
+        document.getElementById("likertVal").textContent = `${v} / 5 — ${txt}`;
+        state.answers[q.id] = Object.assign({}, state.answers[q.id], { value:v, unknown:false });
+        save();
+      };
+      sl.oninput = upd;
+      if(state.answers[q.id]?.value == null){ state.answers[q.id] = { value:3 }; save(); }
+    }
+  }
+}
+
+function advance(q, step){
+  const err = document.getElementById("ctrlErr");
+  const a = state.answers[q.id] || {};
+  let ok = a.unknown === true;
+
+  if(!ok){
+    if(q.type === "choice") ok = !!a.choice;
+    else if(q.type === "likert") ok = a.value != null;
+    else if(q.type === "number") ok = a.value != null && !isNaN(a.value);
+    else if(q.type === "segment") ok = !!a.segment && a.value != null && !isNaN(a.value);
+  }
+  if(!ok){
+    err.textContent = q.type === "segment"
+      ? "Pick a segment and enter your win rate — or check \"I don't know\"."
+      : "Choose an answer, or check \"I don't know this number offhand\".";
+    err.style.display = "block";
+    return;
+  }
+  document.removeEventListener("keydown", enterHandler);
+  if(step === 10){
+    state.completedAt = new Date().toISOString();
+    state.step = 11;
+  }else{
+    state.step = step + 1;
+  }
+  render(); focusHeading();
+}
+
+/* ---- RESULTS ------------------------------------------------------------- */
+function renderResults(){
+  const R = computeResults();
+  const gated = !!state.lead;
+  const C = 2 * Math.PI * 86;
+  const offset = C * (1 - R.overall/100);
+
+  view.innerHTML = `
+    <div class="card stack" id="results">
+      <div class="print-only" style="margin-bottom:8px">
+        <strong>${esc(CONFIG.brandName)} — ${esc(CONFIG.productName)}</strong><br>
+        <small>Generated ${new Date().toLocaleDateString()} ${state.lead?("· "+esc(state.lead.company)):""}</small>
+      </div>
+
+      <div class="gauge-wrap">
+        <div class="gauge">
+          <svg width="200" height="200" viewBox="0 0 200 200" aria-hidden="true">
+            <circle class="track" cx="100" cy="100" r="86" fill="none" stroke-width="16"></circle>
+            <circle class="val" cx="100" cy="100" r="86" fill="none" stroke-width="16"
+              stroke="${bandColor(R.overall)}" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${C.toFixed(1)}" id="gaugeVal"></circle>
+          </svg>
+          <div class="num"><b id="gaugeNum" aria-hidden="true">0</b><span>Engine efficiency</span></div>
+        </div>
+        <p class="band-pill band-${band(R.overall)}">${bandLabel(R.overall)} · ${R.overall}/100</p>
+        <p class="dim" style="max-width:44ch;font-size:.9rem">
+          ${R.overall>=75 ? "Your engine is fundamentally sound. The leaks below are optimization, not structural risk."
+            : R.overall>=50 ? "Your engine works but is leaking meaningful revenue in specific places. The three below are where to start."
+            : "Your engine has structural leaks that are actively costing you pipeline and bookings. The three below are the priority."}
+        </p>
+      </div>
+
+      <div>
+        <h2>Power of Pull breakdown</h2>
+        <div class="lever-grid">
+          ${["Access","Attract","Achieve"].map(l=>{
+            const sc = R[l.toLowerCase()];
+            return `<div class="lever-card">
+              <div class="lv-name">${l}</div>
+              <div class="lv-score" style="color:${bandColor(sc)}">${sc}</div>
+              <div class="lv-bar"><i style="width:${sc}%;background:${bandColor(sc)}"></i></div>
+              <p class="dim" style="font-size:.8rem;margin:8px 0 0">${LEVERS[l].blurb}</p>
+            </div>`;
+          }).join("")}
+        </div>
+        <p class="dim" style="font-size:.86rem;margin-top:12px">Your tightest constraint right now is <strong>${R.bottleneck}</strong>.</p>
+      </div>
+
+      ${R.unknowns.length ? `<div class="impact-line"><strong>${R.unknowns.length} metric${R.unknowns.length>1?"s":""} you couldn't produce on demand.</strong>
+        Not knowing a number in real time is itself a leak — it means the problem is invisible until it shows up in the results. These scored 0.</div>` : ""}
+
+      <div class="${gated ? "" : "locked"}">
+        <div class="${gated ? "" : "blurred"}">
+          <h2>Your 3 priority leaks</h2>
+          ${R.top3.map((id,i)=>leakCardHTML(id,i,R,gated)).join("")}
+
+          <h2 style="margin-top:26px">All 10 scores</h2>
+          <table class="scores">
+            <thead><tr><th>#</th><th>Leak</th><th>Lever</th><th style="text-align:right">Score</th></tr></thead>
+            <tbody>
+              ${QUESTIONS.map(q=>{
+                const s = R.per[q.id].score;
+                return `<tr><td class="dim">${String(q.id).padStart(2,"0")}</td><td>${esc(q.name)}</td><td class="dim">${q.lever}</td>
+                  <td class="s s-${band(s)}">${s}${R.per[q.id].unknown?" ⚑":""}</td></tr>`;
+              }).join("")}
+            </tbody>
+          </table>
+        </div>
+        ${gated ? "" : `
+          <div class="gate">
+            <span class="lock-tag">🔒 Unlock your full report</span>
+            <h2 style="margin-top:8px">See the full breakdown + 30-day action plan</h2>
+            <p class="dim" style="font-size:.9rem">Get the complete diagnostic — revenue impact estimates, prescribed fixes, owners and success measures for every priority leak — plus a printable PDF.</p>
+            <form id="leadForm" novalidate>
+              <div class="form-grid">
+                <label>Full name<input type="text" name="name" autocomplete="name" required></label>
+                <label>Work email<input type="email" name="email" autocomplete="email" required></label>
+                <label>Company<input type="text" name="company" autocomplete="organization" required></label>
+                <label>Total ARR
+                  <select name="arrRange" required>
+                    <option value="">Select…</option>
+                    ${ARR_RANGES.map(r=>`<option value="${esc(r.label)}">${esc(r.label)}</option>`).join("")}
+                  </select>
+                </label>
+              </div>
+              <label class="consent">
+                <input type="checkbox" name="consent" required>
+                <span>I agree to ${esc(CONFIG.brandName)} processing my company's performance metrics and contact details to generate this report.
+                <a href="${esc(CONFIG.privacyUrl)}" target="_blank" rel="noopener">Privacy</a></span>
+              </label>
+              <p class="form-err" id="formErr" style="display:none"></p>
+              <div class="btn-row"><button type="submit" class="btn btn-primary" id="leadSubmit">Show my full report</button></div>
+              <small class="dim">One email with your report. Unsubscribe any time.</small>
+            </form>
+          </div>`}
+      </div>
+
+      ${gated ? `
+        <div class="cta-block no-print">
+          <h2>Turn this into a plan that ships</h2>
+          <p class="dim" style="font-size:.92rem;max-width:48ch;margin:0 auto 4px">
+            Book a 30-minute Fractional CMO strategy review. We'll pressure-test your three priority leaks and map the first 30 days.</p>
+          <div class="btn-row" style="justify-content:center">
+            <span id="gcal-book-wrap" style="display:inline-flex;align-items:center;"></span>
+            <button class="btn btn-secondary" id="pdfBtn">Free Download PDF</button>
+          </div>
+        </div>` : ""}
+
+      <div class="btn-row no-print">
+        <button class="btn btn-secondary" id="reviewBtn">Review my answers</button>
+        <span class="spacer"></span>
+        <button class="btn btn-secondary" id="restartBtn">Start over</button>
+      </div>
+    </div>`;
+
+  // animate gauge
+  requestAnimationFrame(()=>{
+    const g = document.getElementById("gaugeVal");
+    if(g) g.style.strokeDashoffset = offset.toFixed(1);
+    animateNumber(document.getElementById("gaugeNum"), R.overall, 900);
+  });
+
+  const rev = document.getElementById("reviewBtn");
+  if(rev) rev.onclick = ()=>{ state.step = 1; render(); focusHeading(); };
+  document.getElementById("restartBtn").onclick = ()=>{ if(confirm("Clear everything and start over?")) resetAll(); };
+
+  const form = document.getElementById("leadForm");
+  if(form) form.onsubmit = submitLead;
+
+  const book = document.getElementById("bookBtn");
+const pdf = document.getElementById("pdfBtn");
+  if(pdf) pdf.onclick = ()=> window.print();
+
+  focusHeading();
+}
+
+function leakCardHTML(id,i,R,gated){
+  const q = QUESTIONS[id-1];
+  const rec = RECS[id];
+  const s = R.per[id].score;
+  const a = state.answers[id] || {};
+  let current = "Not tracked";
+  if(!R.per[id].unknown){
+    if(q.type==="choice"){ const o=q.options.find(x=>x.id===a.choice); current = o?o.label:"—"; }
+    else if(q.type==="likert"){ current = (a.value ?? "—") + " / 5"; }
+    else if(q.type==="number"){ current = (a.value ?? "—") + " " + q.unit.replace(/\s*\b(coverage|win rate)\b/,"").trim(); }
+    else if(q.type==="segment"){ const seg=q.segments.find(x=>x.id===a.segment); current = (a.value ?? "—") + "% win rate" + (seg?` (${seg.label})`:""); }
+  }
+  const sevClass = s>=75?"sev-good":s>=50?"sev-warn":"sev-bad";
+
+  let impactStr = "";
+  if(gated && state.lead){
+    const arr = ARR_RANGES.find(r=>r.label === state.lead.arrRange);
+    if(arr){
+      const sevMult = (100 - s)/100;
+      const lo = arr.midM * rec.impact[0] * sevMult;
+      const hi = arr.midM * rec.impact[1] * sevMult;
+      impactStr = `<div class="impact-line"><strong>Illustrative annual exposure:</strong> ~${money(lo)}–${money(hi)}
+        at your ARR band, scaled to how far this leak is from benchmark. Directional — a full audit sizes it precisely.</div>`;
+    }
+  }
+
+  return `
+    <div class="leak-card">
+      <h3><span class="rank-chip">Priority ${i+1}</span> ${esc(q.name)}
+        <span class="sev ${sevClass}">${bandLabel(s)} · ${s}/100</span>
+        <span class="lever" data-l="${q.lever}" style="margin-left:auto">${q.lever}</span></h3>
+      <div class="cmp">
+        <div><div class="k">Your answer</div><div class="v">${esc(current)}</div></div>
+        <div><div class="k">Benchmark</div><div class="v">${esc(q.benchmark)}</div></div>
+      </div>
+      ${gated ? impactStr : ""}
+      ${gated ? `
+        <p style="font-weight:600;margin:12px 0 2px">Fix: ${esc(rec.action)}</p>
+        <div class="meta-grid">
+          <div><div class="k">Cost</div>${esc(rec.cost)}</div>
+          <div><div class="k">Effort</div>${esc(rec.effort)}</div>
+          <div><div class="k">Owner</div>${esc(rec.owner)}</div>
+        </div>
+        <div class="k" style="font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text-dim);font-weight:660">First 30 days</div>
+        <ol class="plan">${rec.plan.map(p=>`<li>${esc(p)}</li>`).join("")}</ol>
+        <p class="measure"><strong>Done when:</strong> ${esc(rec.measure)}</p>
+      ` : `<p class="dim">Fix, cost, owner, 30-day plan and revenue impact unlock with the full report.</p>`}
+    </div>`;
+}
+
+function money(m){ // m in $millions
+  const v = m * 1e6;
+  if(v >= 1e6) return "$" + (v/1e6).toFixed(v/1e6 < 10 ? 1 : 0) + "M";
+  if(v >= 1e3) return "$" + Math.round(v/1e3) + "K";
+  return "$" + Math.round(v);
+}
+
+function animateNumber(el, target, dur){
+  if(!el) return;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(reduce){ el.textContent = target; return; }
+  const start = performance.now();
+  function tick(now){
+    const p = Math.min(1, (now-start)/dur);
+    el.textContent = Math.round(target * (1 - Math.pow(1-p,3)));
+    if(p < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+/* ---- lead submit ------------------------------------------------------- */
+function submitLead(e){
+  e.preventDefault();
+  const f = e.target;
+  const err = document.getElementById("formErr");
+  const data = {
+    name: f.name.value.trim(),
+    email: f.email.value.trim(),
+    company: f.company.value.trim(),
+    arrRange: f.arrRange.value
+  };
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email);
+  if(!data.name || !data.company || !data.arrRange || !emailOk){
+    err.textContent = "Please complete every field with a valid work email."; err.style.display = "block"; return;
+  }
+  if(!f.consent.checked){
+    err.textContent = "Please tick the consent box so we can generate your report."; err.style.display = "block"; return;
+  }
+  err.style.display = "none";
+  state.lead = data;
+  save();
+
+  dispatchWebhook(data);   // fire-and-forget; never blocks the UI
+  renderResults();
+  window.scrollTo({ top:0, behavior:"smooth" });
+}
+
+function buildPayload(lead){
+  const R = computeResults();
+  const p = {
+    submittedAt: new Date().toISOString(),
+    source: "gtm-revenue-engine-audit-diagnostic",
+    pageUrl: location.href,
+    name: lead.name, email: lead.email, company: lead.company, arrRange: lead.arrRange,
+    GTM_Score: R.overall,
+    Access_Score: R.access, Attract_Score: R.attract, Achieve_Score: R.achieve,
+    Pull_Lever_Bottleneck: R.bottleneck,
+    Top_Priority_Leak: QUESTIONS[R.top3[0]-1].name,
+    Top_3_Priority_Leaks: R.top3.map(id=>QUESTIONS[id-1].name),
+    Unknown_Metric_Flags: R.unknowns.map(id=>QUESTIONS[id-1].name),
+    startedAt: state.startedAt, completedAt: state.completedAt
+  };
+  QUESTIONS.forEach(q=>{ p["Leak_"+q.id+"_Score"] = R.per[q.id].score; });
+  return p;
+}
+
+function dispatchWebhook(lead){
+  if(!CONFIG.webhookUrl) return;
+  try{
+    fetch(CONFIG.webhookUrl, {
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify(buildPayload(lead)),
+      keepalive:true
+    }).catch(()=>{});
+  }catch(e){}
+}
+
+/* ============================================================================
+   BOOT + platform plumbing
+   ========================================================================== */
+function focusHeading(){
+  const h = document.getElementById("qHeading") || view.querySelector("h1,h2");
+  if(h){ h.setAttribute("tabindex","-1"); h.focus({preventScroll:false}); }
+}
+
+// offline banner + auto-retry sync
+function syncOnline(){ document.body.classList.toggle("is-offline", !navigator.onLine); }
+window.addEventListener("online", ()=>{ syncOnline(); if(state.lead) dispatchWebhook(state.lead); });
+window.addEventListener("offline", syncOnline);
+
+document.getElementById("restartTop").onclick = ()=>{ if(confirm("Clear everything and start over?")) resetAll(); };
+document.getElementById("clearData").onclick = (e)=>{ e.preventDefault(); if(confirm("Delete all diagnostic data from this browser?")) resetAll(); };
+
+// EMBED: tell the parent page how tall we are, so an iframe can auto-resize.
+// Parent snippet:
+//   window.addEventListener("message", e => {
+//     if (e.data && e.data.type === "gtm-leak-height") {
+//       document.querySelector("#gtm-leak-iframe").style.height = e.data.height + "px";
+//     }
+//   });
+function postHeight(){
+  try{
+    const h = document.documentElement.scrollHeight;
+    parent.postMessage({ type:"gtm-leak-height", height:h }, "*");
+  }catch(e){}
+}
+new ResizeObserver(postHeight).observe(document.body);
+window.addEventListener("load", postHeight);
+
+load();
+syncOnline();
+render();
+</script>
+
+<!-- Google Calendar booking widget init -->
+<script>
+window.addEventListener('load', function() {
+  var target = document.getElementById('gcal-book-wrap');
+  if (target && window.calendar && calendar.schedulingButton) {
+    calendar.schedulingButton.load({
+      url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0vwcmmCRjR0JZoEVRIWoZq0R1xyJqWu90X9AHkEg8M-2rTOXRbfgdyETWvncK4DjOvUsf9_0EJ?gv=true',
+      color: '#10B981',
+      label: 'Book a Strategy Review',
+      target,
+    });
+  }
+});
+</script>
+</body>
+</html>
