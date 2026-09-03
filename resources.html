@@ -38,7 +38,7 @@
       "description":"Free B2B marketing resources including a Revenue Architect ROI calculator, 30-60-90 day onboarding plan, 2026 B2B marketing trends, and marketing spend benchmarks.",
       "inLanguage":"en-CA",
       "datePublished":"2025-06-01",
-      "dateModified":"2026-07-31",
+      "dateModified":"2026-09-03",
       "author":{"@type":"Person","name":"Dean Reid","url":"https://www.optivusprof.ca/philosophy.html#about"},
       "breadcrumb":{"@type":"BreadcrumbList","itemListElement":[
         {"@type":"ListItem","position":1,"name":"Home","item":"https://www.optivusprof.ca/"},
@@ -64,7 +64,8 @@
         {"@type":"HowToStep","position":2,"name":"Days 31-60: Strategy and Execution","text":"Transition from discovery to action. Finalize the growth roadmap, set up essential tracking and analytics, and initiate high-impact experiments. Deliverable: live demand generation programs."},
         {"@type":"HowToStep","position":3,"name":"Days 61-90: Scaling and Optimization","text":"Scale initiatives showing highest ROI. Refine acquisition strategies and begin automating processes for long-term efficiency. Deliverable: pipeline reporting dashboard and automated channel programs."}
       ]
-    }
+    },
+    {"@type": "ItemList", "name": "Revenue Architect Intelligence Series", "description": "Practitioner-written articles on B2B marketing strategy, private equity value creation, and go-to-market diagnostics, by Dean Reid of Optivus.", "itemListElement": [{"@type": "ListItem", "position": 1, "url": "https://www.optivusprof.ca/why-pe-backed-companies-stall-at-20m.html", "name": "Why PE-Backed Companies Stall at $20M"}, {"@type": "ListItem", "position": 2, "url": "https://www.optivusprof.ca/why-90-percent-b2b-marketing-is-performance-theater.html", "name": "Why 90% of B2B Marketing Strategy Is Just Performance Theater"}, {"@type": "ListItem", "position": 3, "url": "https://www.optivusprof.ca/why-revenue-architects-compete-on-price.html", "name": "Why 90% of Revenue Architects Are Competing on Price — and How to Stop"}, {"@type": "ListItem", "position": 4, "url": "https://www.optivusprof.ca/ai-theater-vs-ai-architecture.html", "name": "AI Theater vs. AI Architecture: What B2B Leaders Get Wrong About AI-Driven Revenue"}, {"@type": "ListItem", "position": 5, "url": "https://www.optivusprof.ca/what-a-board-needs-from-marketing.html", "name": "What a Board Actually Needs From Marketing (It Is Not a Dashboard)"}, {"@type": "ListItem", "position": 6, "url": "https://www.optivusprof.ca/marketing-is-a-financial-discipline.html", "name": "Marketing Is a Financial Discipline, Not a Creative Exercise"}, {"@type": "ListItem", "position": 7, "url": "https://www.optivusprof.ca/why-we-dont-gate-our-thinking.html", "name": "Why We Don’t Gate Our Thinking (And Why That Is the Point)"}, {"@type": "ListItem", "position": 8, "url": "https://www.optivusprof.ca/why-b2b-executive-silence-is-a-commercial-risk.html", "name": "Why B2B Executive Silence Is a Commercial Risk"}, {"@type": "ListItem", "position": 9, "url": "https://www.optivusprof.ca/gtm-leak-finder.html", "name": "The 10-Point Go-To-Market Leak Finder"}]}
   ]
 }
 </script>
@@ -168,7 +169,7 @@ body{padding-top:68px;}
 /* === RESOURCES PAGE === */
 :root{
   --ink:#0F172A;--ink2:#1E2937;--green:#10B981;--green2:#34D399;
-  --pale:#D1FAE5;--off:#F8FFFE;--rule:#E2E8F0;--muted:#64748B;
+  --pale:#D1FAE5;--off:#F8FFFE;--rule:#E2E8F0;--muted:#566072;
   --body:#334155;--ff:'Aptos','Inter',system-ui,sans-serif;
   --ffd:'Aptos Display','Aptos','Inter',system-ui,sans-serif;
 }
@@ -361,7 +362,7 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
         <a href="ai-for-marketing.html">AI for Marketing</a>
       </div>
     </li>
-    <li><a href="resources.html" onclick="window.location.href='resources.html';return false;" class="cur">Resources</a></li>
+    <li><a href="resources.html" class="cur">Resources</a></li>
     <li>
       <span>Philosophy &#9662;</span>
       <div class="onav-sub">
@@ -438,7 +439,7 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
       </span>
       <span class="res-tag">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        Updated June 2025
+        Updated September 2026
       </span>
     </div>
   </div>
@@ -446,6 +447,45 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
 
 
 <div class="opt-bc" role="navigation" aria-label="Breadcrumb"><a href="index.html">Home</a><span class="opt-bc-sep">/</span><span class="opt-bc-cur">Resources</span></div>
+
+<!-- IN-PAGE JUMP NAV -->
+<style id="jump-nav-css">
+.jump-nav-wrap{position:sticky;top:68px;z-index:500;background:#fff;border-bottom:1px solid var(--rule);box-shadow:0 1px 0 rgba(15,23,42,.02);}
+.jump-nav{max-width:1100px;margin:0 auto;padding:0 48px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;}
+.jump-nav::-webkit-scrollbar{display:none;}
+.jump-nav a{flex-shrink:0;padding:14px 16px;font-size:12.5px;font-weight:600;color:var(--muted);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s;}
+.jump-nav a:hover{color:var(--green);}
+.jump-nav a.active{color:var(--green);border-bottom-color:var(--green);}
+@media(max-width:640px){.jump-nav{padding:0 20px;}}
+</style>
+<nav class="jump-nav-wrap" aria-label="Page sections">
+  <div class="jump-nav" id="jumpNav">
+    <a href="#practical-resources">Tools &amp; Calculator</a>
+    <a href="#quick-answers">Quick Answers</a>
+    <a href="#why-fractional">Why Fractional</a>
+    <a href="#how-we-work">How We Work</a>
+    <a href="#market-intelligence">Market Intelligence</a>
+    <a href="#blog">Intelligence Series</a>
+  </div>
+</nav>
+<script>
+(function(){
+  var links = document.querySelectorAll('#jumpNav a');
+  var sections = Array.prototype.map.call(links, function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+  function onScroll(){
+    var pos = window.scrollY + 140;
+    var current = sections[0];
+    sections.forEach(function(sec){ if(sec.offsetTop <= pos) current = sec; });
+    links.forEach(function(a){
+      var target = document.querySelector(a.getAttribute('href'));
+      a.classList.toggle('active', target === current);
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+})();
+</script>
+
 <!-- SECTION 1: PRACTICAL RESOURCES -->
 <section class="res-section" id="practical-resources">
   <div class="sec-inner">
@@ -578,10 +618,43 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
   </div>
 </section>
 
-<!-- SECTION 2: WHY FRACTIONAL -->
-<section class="res-section" id="why-fractional">
+<!-- SECTION 2: QUICK ANSWERS (visible content matching FAQPage schema) -->
+<style id="qa-css">
+.qa-grid{display:grid;gap:18px;}
+.qa-item{background:var(--off);border:1px solid var(--rule);border-radius:12px;padding:24px 28px;}
+.qa-item h3{font-family:var(--ffd);font-size:16.5px;font-weight:700;color:var(--ink);margin-bottom:8px;}
+.qa-item p{font-size:14.5px;color:var(--body);line-height:1.75;}
+</style>
+<section class="res-section alt" id="quick-answers">
   <div class="sec-inner">
     <p class="sec-label">Section 02</p>
+    <h2 class="sec-title">Quick Answers</h2>
+    <p class="section-intro">The four questions people ask most before booking a call &mdash; answered directly, no form required.</p>
+    <div class="qa-grid">
+      <div class="qa-item">
+        <h3>What should a fractional CMO accomplish in the first 30 days?</h3>
+        <p>In the first 30 days, a fractional CMO should conduct a deep audit of current marketing performance, technology stack, and customer insights. The primary goals are identifying immediate opportunities for improvement, stabilizing underperforming core channels, and producing a written strategic brief with a 90-day action plan.</p>
+      </div>
+      <div class="qa-item">
+        <h3>What is a good ROI for a Revenue Architect engagement?</h3>
+        <p>A strong Revenue Architect engagement typically delivers ROI exceeding 100% when accounting for revenue increase, marketing cost savings, and strategic value. As a benchmark: a $5,000/month fractional CMO who generates $18,000/month in combined revenue and efficiency gains produces 260% ROI over a 6-month engagement &mdash; a net return of $78,000 on a $30,000 investment.</p>
+      </div>
+      <div class="qa-item">
+        <h3>How much should a B2B company spend on marketing?</h3>
+        <p>Growth-stage B2B companies typically allocate 15&ndash;25% of revenue to marketing. More established companies stabilize at 10&ndash;15%. Budget allocation should prioritize: growth and acquisition (50&ndash;60%), brand and content (20&ndash;25%), and technology and tools (15&ndash;20%). The right number depends on your LTV:CAC ratio &mdash; a healthy target is 3:1 or higher.</p>
+      </div>
+      <div class="qa-item">
+        <h3>What are the biggest B2B marketing trends for 2026?</h3>
+        <p>The five defining B2B marketing trends for 2026 are: (1) AI moving to background infrastructure rather than headline feature, (2) creator-first B2B with employee advocacy and influencer programs replacing anonymous corporate brands, (3) a return to fundamentals &mdash; first-party data and buyer enablement, (4) sales-marketing alignment becoming a necessity rather than aspiration, and (5) revenue-accountable marketing with shared pipeline targets replacing vanity metrics.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: WHY FRACTIONAL -->
+<section class="res-section" id="why-fractional">
+  <div class="sec-inner">
+    <p class="sec-label">Section 03</p>
     <h2 class="sec-title">Why Fractional?</h2>
     <p style="font-size:14px;color:var(--muted);margin-bottom:16px;">For a deeper introduction to the model, read <a href="what-is-a-fractional-cmo.html" style="color:var(--g);font-weight:600;">What Is a Revenue Architect?</a> — the most comprehensive guide to the Revenue Architect model written for $15M–$60M B2B companies.</p>
     <p class="section-intro">The case for the Revenue Architect model - what it is, what it costs, and how it compares to the alternatives. Everything you need to make an informed decision.</p>
@@ -621,7 +694,7 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
 <!-- SECTION 3: HOW WE WORK -->
 <section class="res-section alt" id="how-we-work">
   <div class="sec-inner">
-    <p class="sec-label">Section 03</p>
+    <p class="sec-label">Section 04</p>
     <h2 class="sec-title">How We Work</h2>
     <p class="section-intro">The Optivus operating model - how we onboard, how we build strategy, and what governs every engagement decision from day one.</p>
 
@@ -675,7 +748,7 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
 <!-- SECTION 4: MARKET INTELLIGENCE -->
 <section class="res-section alt" id="market-intelligence">
   <div class="sec-inner">
-    <p class="sec-label">Section 04</p>
+    <p class="sec-label">Section 05</p>
     <h2 class="sec-title">Market Intelligence</h2>
     <p class="section-intro">Quarterly briefings on the trends reshaping B2B marketing - written by a practitioner who applies these insights daily, not a content team chasing keywords.</p>
 
@@ -836,6 +909,21 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
 .blog-no-results{text-align:center;padding:60px 20px;color:var(--muted);}
 .blog-no-results svg{width:48px;height:48px;stroke:var(--rule);fill:none;stroke-width:1.5;margin-bottom:16px;}
 .blog-no-results p{font-size:15px;line-height:1.65;}
+
+/* Excerpt cards (link out to standalone article pages) */
+.blog-excerpt-card{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;transition:box-shadow .2s,border-color .2s;}
+.blog-excerpt-card:hover{box-shadow:0 8px 28px rgba(15,23,42,.08);border-color:rgba(16,185,129,.3);}
+.blog-excerpt-card .blog-card-head{padding:28px 36px 8px;}
+.blog-excerpt-card h3{margin-bottom:8px;}
+.blog-excerpt-card h3 a:hover{color:var(--green)!important;}
+.blog-excerpt-body{padding:0 36px 28px;}
+.blog-read-link{display:inline-flex;align-items:center;gap:7px;margin-top:16px;font-size:14px;font-weight:700;color:var(--green);text-decoration:none;border-bottom:1.5px solid transparent;transition:border-color .2s;}
+.blog-read-link:hover{border-color:var(--green);}
+@media(max-width:720px){
+  .blog-excerpt-card .blog-card-head{padding:24px 24px 4px;}
+  .blog-excerpt-body{padding:0 24px 24px;}
+}
+
 @media(max-width:720px){
   .blog-card-head{flex-direction:column;}
   .blog-toggle-btn{align-self:flex-start;}
@@ -846,7 +934,7 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
 
 <section class="res-section" id="blog">
   <div class="sec-inner">
-    <p class="sec-label">Section 05</p>
+    <p class="sec-label">Section 06</p>
     <h2 class="sec-title">Revenue Architect Intelligence</h2>
     <p class="section-intro">Practitioner-written perspectives on B2B marketing strategy, private equity value creation, and the decisions that move revenue. No filler, no agency voice.</p>
 
@@ -862,33 +950,27 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
         <button class="blog-filter-btn" onclick="blogFilter(this,'gtm-strategy')" data-cat="gtm-strategy">GTM Strategy</button>
         <button class="blog-filter-btn" onclick="blogFilter(this,'demand-generation')" data-cat="demand-generation">Demand Generation</button>
         <button class="blog-filter-btn" onclick="blogFilter(this,'ai-marketing')" data-cat="ai-marketing">AI &amp; Marketing</button>
-        <button class="blog-filter-btn" onclick="blogFilter(this,'demand-generation')" data-cat="demand-generation">Demand Generation</button>
       </div>
     </div>
     <p class="blog-results-meta" id="blogResultsMeta"></p>
 
     <!-- Blog post list -->
     <div class="blog-grid" id="blogGrid">
-
-      <!-- POST 01: Why PE-Backed Companies Stall at $20M -->
-      <article class="blog-card" data-cats="private-equity gtm-strategy demand-generation"
-               data-search="PE private equity stall $20M marketing infrastructure Revenue Architect fractional CMO GTM demand generation pipeline ICP TELUS Veriforce SMART Technologies portco portfolio hold period">
+      <article class="blog-excerpt-card" data-cats="private-equity gtm-strategy demand-generation"
+               data-search="Why PE-Backed Companies Stall at $20M The Marketing Infrastructure Gap Nobody Puts in the Board Deck Private Equity GTM Strategy Demand Generation Revenue Architect">
         <div class="blog-card-head">
           <div class="blog-card-meta">
             <p class="blog-card-series">Revenue Architect Intelligence Series &middot; Private Equity</p>
-            <h3>Why PE-Backed Companies Stall at $20M</h3>
+            <h3><a href="why-pe-backed-companies-stall-at-20m.html" style="color:inherit;text-decoration:none;">Why PE-Backed Companies Stall at $20M</a></h3>
             <p class="blog-card-subtitle">The Marketing Infrastructure Gap Nobody Puts in the Board Deck</p>
             <div class="blog-card-byline">
               <span class="blog-card-author">Dean Reid &nbsp;&middot;&nbsp; Revenue Architect, Optivus</span>
               <span class="blog-card-date">July 2025</span>
             </div>
           </div>
-          <button class="blog-toggle-btn" onclick="blogToggle(this)" aria-expanded="false">Read Post &darr;</button>
         </div>
-
-        <div class="blog-card-body" id="post-01-body">
-          <!-- Key insights -->
-          <div class="blog-insights">
+        <div class="blog-excerpt-body">
+<div class="blog-insights">
             <div class="blog-insight">
               <p class="blog-insight-num">Insight 01</p>
               <p>Marketing is the most underdeveloped value-creation lever in PE portfolios. Sponsors tighten the financials, the org chart, sometimes the ops stack &mdash; and hand marketing to whoever&rsquo;s cheapest.</p>
@@ -902,98 +984,27 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
               <p>A Revenue Architect with real PE-relevant proof points fixes this faster and cheaper than a full-time hire ever will. Ninety days, not eighteen months.</p>
             </div>
           </div>
-          <div class="blog-divider"></div>
-
-          <h2>What PE Firms Are Actually Walking Into</h2>
-          <p>Private equity buys a company on the assumption that it can be pushed to a bigger number and sold. Fine &mdash; that&rsquo;s the whole model, nothing controversial there. What almost never gets pressure-tested at diligence is whether the company can generate enough qualified demand to hit that number. Financial diligence gets three data rooms. Marketing gets a slide with a logo and maybe a website screenshot.</p>
-          <p>It almost never holds up under weight.</p>
-          <p>PwC put a number on the consequence of that in its 2026 outlook: <strong>34% of portfolio companies have now been held for more than five years</strong>, up from 28% just a year earlier. That&rsquo;s not patient capital &mdash; nobody plans a five-plus-year hold on purpose in this environment. That&rsquo;s capital that got stuck because the growth story stopped growing.</p>
-          <p>I&rsquo;d bet real money that most of those extended holds trace back to the same root cause I see over and over: the company was built on founder relationships and referrals, it did $10M&ndash;$20M on that fuel, and then the tank ran dry. Nobody refilled it.</p>
-          <p>You can watch it happen in slow motion. Pipeline gets thinner every quarter. Sales cycles that used to close in six weeks stretch to four months. The CRM (Customer Relationship Management system) turns into a graveyard &mdash; hundreds of &ldquo;leads&rdquo; that are really just names from a trade show two years ago. Someone on the board finally asks for a revenue plan, and the answer is &ldquo;we&rsquo;re asking the reps to work harder.&rdquo; That&rsquo;s not a plan. That&rsquo;s a hope.</p>
-          <p>And the irony is thick right now, because FTI Consulting&rsquo;s AI Radar for Private Equity found that <strong>59% of PE firms already see AI as a primary driver of value creation</strong> &mdash; ahead of the traditional operational levers. Great. Except most of these same portfolio companies don&rsquo;t have the marketing infrastructure to feed an AI-driven anything. You can&rsquo;t automate a demand engine that was never built.</p>
-
-          <h2>Why the Gap Exists &mdash; and What It Actually Costs You</h2>
-
-          <h3>1. Marketing is the last thing PE operationalizes</h3>
-          <p>Walk into any 100-day plan and you&rsquo;ll see finance, ERP (Enterprise Resource Planning), HR, sometimes product. Marketing shows up as a budget line. If it&rsquo;s lucky, it inherits an agency that posts three times a week and calls that a strategy.</p>
-          <p>Nobody installs the things that actually move revenue: a demand engine built around a real ICP (Ideal Customer Profile), positioning that says something specific, account-based targeting, content mapped to how the buyer actually decides, and a measurement system that ties spend to pipeline instead of impressions. These aren&rsquo;t nice-to-haves. I&rsquo;d call them table stakes, except most companies at this revenue band don&rsquo;t even have a table.</p>
-          <p>I built a $989M qualified pipeline at TELUS Enterprise doing exactly this &mdash; not through a bigger budget, through structure. Same playbook at Veriforce produced 27&times; growth in marketing-qualified leads. Neither of those numbers came from a clever campaign. They came from building the plumbing first.</p>
-
-          <h3>2. The $20M ceiling is structural, not a bad quarter</h3>
-          <p>The Cherry Bekaert 2025&ndash;2026 Private Equity Report says what every PE partner already feels in their gut: strategic buyers are competing harder for the same assets, and value-creation capability is what separates the winners at exit. Revenue velocity is the tiebreaker. And you cannot manufacture velocity in the twelve months before you go to market &mdash; that math doesn&rsquo;t work, no matter how good the banker&rsquo;s deck looks.</p>
-          <p>Do the arithmetic yourself. One founder, three account executives, and a VP of Sales can only carry so many active deals at once. There&rsquo;s a hard ceiling on how much pipeline a small direct-sales motion can generate on its own, and that ceiling sits well below where a PE thesis usually wants to land. The constraint was never effort. It&rsquo;s volume &mdash; qualified opportunities entering the top of the funnel, month over month, without depending on any one person&rsquo;s Rolodex.</p>
-          <p>Marketing infrastructure is the only thing that manufactures that volume at scale. Skip it, and you&rsquo;re sending your sales team out to hunt with no map and half a tank of gas.</p>
-          <p>At SMART Technologies, I watched revenue scale from $120M to $700M. Nobody worked harder to make that happen &mdash; a lot of very good salespeople were already working hard before I got there. What changed was systematic: awareness built deliberately, preference earned through consistent positioning, and a steady flow of qualified enterprise buyers arriving already leaning toward yes. Sales closed them. Marketing built the conditions that made closing possible.</p>
-
-          <h3>3. AI is raising the stakes, not lowering them</h3>
-          <p>According to PwC&rsquo;s 2026 M&amp;A Outlook, AI diligence now shows up in nearly every serious deal evaluation. Buyers are checking whether a target actually has the data and technology foundation to use AI well &mdash; not just a slide claiming it does. Marketing sits right in the middle of that test: your CRM data quality, your attribution model, your content library, how tightly your ICP is actually defined. If the marketing infrastructure underneath all of that is broken, your AI readiness score isn&rsquo;t low. It&rsquo;s zero.</p>
-          <p>PE firms that skip this diligence step are quietly underwriting a liability into every portfolio company they touch. Grata&rsquo;s 2025 Private Equity Trends analysis backs this up &mdash; the shift really is moving from financial engineering toward operational excellence, and AI capability has become part of how that&rsquo;s defined now, whether firms are ready for it or not.</p>
-
-          <h3>4. A Revenue Architect closes this in about 90 days</h3>
-          <p>A full-time CMO at a PE-backed B2B company will run you $250K to $350K in total comp, often more if you&rsquo;re competing for talent in a hot market. A Revenue Architect with an actual enterprise track record &mdash; someone who&rsquo;s already built the pipeline, driven the MQL (Marketing Qualified Lead) growth, and lived inside a real B2B sales cycle &mdash; gets you the same strategic and operational leadership for 30 to 40 cents on that dollar.</p>
-          <p>More to the point: there&rsquo;s no recruiting cycle. No ninety-day ramp where a new hire is still learning the org chart. Someone who has done this before can assess the gap in 30 days and start closing it in 60. I say that from experience, not theory.</p>
-          <p>And the deliverable at day 100 shouldn&rsquo;t be a strategy deck sitting in a shared drive. It should be a working demand generation system &mdash; ICP defined, positioning sharpened, channel mix rationalized, pipeline metrics actually instrumented, and sales and marketing agreeing, in writing, on what a qualified lead means. If that last part sounds basic, you&rsquo;d be surprised how often it&rsquo;s the thing nobody&rsquo;s ever written down.</p>
-
-          <div class="blog-divider"></div>
-          <h2>The Three Things Worth Remembering</h2>
-
-          <h3>Insight 01 &mdash; Most stalled portfolio companies are constrained by marketing infrastructure, not market conditions.</h3>
-          <p>Before you extend another hold period, run the actual diagnostic. Is there a defined ICP? A documented buyer journey? A real demand generation motion? A pipeline measurement system anyone trusts? A senior marketing leader who&rsquo;s operated at the revenue level you&rsquo;re targeting, not just below it? Missing even two of those, and you&rsquo;ve found your constraint &mdash; not somewhere in the market, but inside the building.</p>
-
-          <h3>Insight 02 &mdash; The $20M stall is predictable. That also means it&rsquo;s fixable.</h3>
-          <p>It isn&rsquo;t unique to your portfolio company, even if it feels that way from inside the boardroom. It&rsquo;s the structural limit of founder-led selling meeting a bigger ambition. The fix is a GTM architecture rebuild, led by someone who&rsquo;s actually done one &mdash; not a rebrand, not a CRM migration, and please, not more sales headcount thrown at a pipeline problem.</p>
-
-          <h3>Insight 03 &mdash; A Revenue Architect with real PE-relevant credentials is the highest-return marketing dollar a portfolio company can spend right now.</h3>
-          <p>Senior strategy, no recruiting risk, deployable in days, measurable inside a quarter. If your portfolio company sits in the $15M&ndash;$60M range and pipeline isn&rsquo;t moving, the math on a Revenue Architect engagement pays for itself the first time it closes one meaningful deal.</p>
-
-          <div class="blog-divider"></div>
-          <p><strong>I&rsquo;m Dean Reid,</strong> founder of Optivus and Revenue Architect for B2B companies in the $15M&ndash;$60M range. My track record: a $989M enterprise pipeline built at TELUS, 27&times; MQL growth at Veriforce, and revenue scaled from $120M to $700M at SMART Technologies.</p>
-          <p>If you want a straight read on the marketing infrastructure gap inside your portfolio company, visit <a href="https://www.optivusprof.ca" style="color:var(--green);font-weight:600;">optivusprof.ca</a> or reach out through the site directly.</p>
-          <a href="https://calendar.app.google/5v6oNJ8jHkWMVzTTA" target="_blank" rel="noopener" class="blog-cta-inline">Book a free 30-minute discovery call &rarr;</a>
-
-          <!-- Sources -->
-          <div class="blog-sources">
-            <p class="blog-sources-label">Sources</p>
-            <ol>
-              <li><a href="https://www.pwc.com/gx/en/services/deals/trends/private-equity.html" target="_blank" rel="noopener">PwC Global M&amp;A Trends in Private Capital: 2026 Mid-Year Outlook</a></li>
-              <li><a href="https://www.cbh.com/insights/reports/private-equity-report-2025-trends-and-2026-outlook/" target="_blank" rel="noopener">Cherry Bekaert: Private Equity Report &mdash; 2025 Trends and 2026 Outlook</a></li>
-              <li><a href="https://www.fticonsulting.com/insights/articles/four-predictions-private-equity-2025" target="_blank" rel="noopener">FTI Consulting: Four Predictions for Private Equity in 2025</a></li>
-              <li><a href="https://grata.com/resources/private-equity-trends" target="_blank" rel="noopener">Grata: Private Equity Trends 2025</a></li>
-              <li><a href="https://www.pwc.com/us/en/industries/financial-services/library/private-equity-trends.html" target="_blank" rel="noopener">PwC: Next in Private Equity &mdash; Trends Shaping 2025 and Beyond</a></li>
-            </ol>
-          </div>
+          <a href="why-pe-backed-companies-stall-at-20m.html" class="blog-read-link">Read the full post &rarr;</a>
         </div>
-
         <div class="blog-card-footer">
-          <div class="blog-card-tags">
-            <span class="blog-card-tag">Private Equity</span>
-            <span class="blog-card-tag">GTM Strategy</span>
-            <span class="blog-card-tag">Demand Generation</span>
-            <span class="blog-card-tag">Revenue Architect</span>
-          </div>
-          <button class="blog-close-btn" onclick="blogClose(this)" style="display:none;">&uarr; Close post</button>
+          <div class="blog-card-tags"><span class="blog-card-tag">Private Equity</span><span class="blog-card-tag">GTM Strategy</span><span class="blog-card-tag">Demand Generation</span><span class="blog-card-tag">Revenue Architect</span></div>
         </div>
       </article>
-
-      <!-- POST 02: Why 90% of B2B Marketing Strategy Is Just Performance Theater -->
-      <article class="blog-card" data-cats="gtm-strategy demand-generation ai-marketing"
-               data-search="performance theater B2B marketing strategy pipeline attribution SEO AEO content calendar agency retainer MQL SQL ICP E-E-A-T expert attribution proprietary research content cluster topic authority AI search Gartner Forrester Backlinko Semrush Google impressions brand awareness social media LinkedIn">
+      <article class="blog-excerpt-card" data-cats="gtm-strategy demand-generation ai-marketing"
+               data-search="Why 90% of B2B Marketing Strategy Is Just Performance Theater What separates real marketing from expensive noise, and three things you can do about it this quarter GTM Strategy Demand Generation AI &amp; Marketing Content Strategy">
         <div class="blog-card-head">
           <div class="blog-card-meta">
             <p class="blog-card-series">Revenue Architect Intelligence Series &middot; GTM Strategy</p>
-            <h3>Why 90% of B2B Marketing Strategy Is Just Performance Theater</h3>
+            <h3><a href="why-90-percent-b2b-marketing-is-performance-theater.html" style="color:inherit;text-decoration:none;">Why 90% of B2B Marketing Strategy Is Just Performance Theater</a></h3>
             <p class="blog-card-subtitle">What separates real marketing from expensive noise, and three things you can do about it this quarter</p>
             <div class="blog-card-byline">
               <span class="blog-card-author">Dean Reid &nbsp;&middot;&nbsp; Revenue Architect, Optivus</span>
               <span class="blog-card-date">July 2025</span>
             </div>
           </div>
-          <button class="blog-toggle-btn" onclick="blogToggle(this)" aria-expanded="false">Read Post &darr;</button>
         </div>
-
-        <div class="blog-card-body">
-          <!-- Key insights -->
-          <div class="blog-insights">
+        <div class="blog-excerpt-body">
+<div class="blog-insights">
             <div class="blog-insight">
               <p class="blog-insight-num">Insight 01</p>
               <p>Most B2B marketing is built to look busy, not to generate pipeline. Content calendars, social posts, impressions dashboards, agency retainers &mdash; all defensible in isolation, none traceable to a qualified sales conversation. One question cuts through it: where did your SQLs actually come from this quarter? If the answer is fuzzy, that&rsquo;s your diagnosis.</p>
@@ -1007,549 +1018,185 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
               <p>The fix isn&rsquo;t a new strategy. It&rsquo;s a new measurement standard. Real B2B marketing runs on three non-negotiables: expert-attributed content that earns AI and search trust, proprietary research that can&rsquo;t be replicated, and content clusters that own a topic rather than scattered posts that own nothing.</p>
             </div>
           </div>
-          <div class="blog-divider"></div>
-
-          <h2>What Performance Theater Looks Like from the Inside</h2>
-          <p>It doesn&rsquo;t feel like theater. It feels like a lot of work.</p>
-          <p>There&rsquo;s a content calendar. Posts three times a week. A monthly newsletter sitting at 22% open rate. An SEO agency, a trade show, a brand guidelines deck. The team is genuinely busy.</p>
-          <p>And almost no pipeline is sourced by marketing.</p>
-          <p>Performance theater is any marketing activity that produces metrics without producing qualified pipeline. You can&rsquo;t tell it apart from real marketing until you ask one question: where did our SQLs (Sales Qualified Leads) come from this quarter?</p>
-          <p>I&rsquo;ve walked into this situation at companies across five industries over 25 years. The symptoms are always the same. Marketing got measured on activity, not output. The people running it, usually talented, optimized for the numbers they were held to. That&rsquo;s rational behavior inside a broken system.</p>
-          <p>Forrester&rsquo;s B2B Marketing Survey found fewer than 20% of B2B marketers can demonstrate clear revenue attribution for their spend. The other 80% are operating on faith. That&rsquo;s the structural definition of performance theater.</p>
-          <p>Gartner&rsquo;s CMO Spend Survey shows CFOs are cutting budgets for teams that can&rsquo;t connect spend to pipeline. Performance theater isn&rsquo;t just ineffective. Right now, it&rsquo;s a liability.</p>
-
-          <h2>The Five Acts of Performance Theater, and What Real Marketing Looks Like Instead</h2>
-          <p>Performance theater isn&rsquo;t one bad call. It&rsquo;s a pattern where each piece looks defensible, but the whole thing adds up to a function that can&rsquo;t prove its own worth.</p>
-
-          <!-- Comparison table -->
-          <div style="overflow-x:auto;margin:28px 0;">
-            <table style="width:100%;border-collapse:collapse;font-size:14px;">
-              <thead>
-                <tr>
-                  <th style="width:50%;background:var(--ink);color:rgba(255,255,255,.5);padding:10px 16px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;">Performance Theater</th>
-                  <th style="width:50%;background:rgba(16,185,129,.12);color:var(--green);padding:10px 16px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-left:2px solid var(--green);">Real Marketing</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr style="border-bottom:1px solid var(--rule);">
-                  <td colspan="2" style="padding:10px 16px 4px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--off);">Content Production</td>
-                </tr>
-                <tr style="border-bottom:1px solid var(--rule);">
-                  <td style="padding:12px 16px;color:var(--body);vertical-align:top;">Posts written for search volume, not buyer intent. Traffic goes up. Pipeline doesn&rsquo;t move.</td>
-                  <td style="padding:12px 16px;color:var(--body);vertical-align:top;border-left:2px solid rgba(16,185,129,.2);">Content clusters built around two or three topics where you can own the authoritative position. Ten interconnected pieces outperform 50 scattered posts, every time.</td>
-                </tr>
-                <tr style="border-bottom:1px solid var(--rule);">
-                  <td colspan="2" style="padding:10px 16px 4px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--off);">Social Media</td>
-                </tr>
-                <tr style="border-bottom:1px solid var(--rule);">
-                  <td style="padding:12px 16px;color:var(--body);vertical-align:top;">Three posts a week. Engagement tracked. Followers grow. No one can trace a closed deal to any of it.</td>
-                  <td style="padding:12px 16px;color:var(--body);vertical-align:top;border-left:2px solid rgba(16,185,129,.2);">LinkedIn content with a specific, contrarian point of view, driving qualified traffic to something with a real CTA (Call to Action). Every post has a job beyond likes.</td>
-                </tr>
-                <tr style="border-bottom:1px solid var(--rule);">
-                  <td colspan="2" style="padding:10px 16px 4px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--off);">SEO</td>
-                </tr>
-                <tr style="border-bottom:1px solid var(--rule);">
-                  <td style="padding:12px 16px;color:var(--body);vertical-align:top;">Agency produces keyword content at scale. Traffic grows. Pipeline attribution doesn&rsquo;t exist.</td>
-                  <td style="padding:12px 16px;color:var(--body);vertical-align:top;border-left:2px solid rgba(16,185,129,.2);">AEO (Answer Engine Optimization)-optimized content built to answer what your buyers are searching in ChatGPT, Perplexity, and Google AI Overviews. Qualified traffic is the metric, not raw volume.</td>
-                </tr>
-                <tr style="border-bottom:1px solid var(--rule);">
-                  <td colspan="2" style="padding:10px 16px 4px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--off);">Brand Awareness</td>
-                </tr>
-                <tr style="border-bottom:1px solid var(--rule);">
-                  <td style="padding:12px 16px;color:var(--body);vertical-align:top;">Campaign runs. Recall improves 8%. No one asks if those people are in a buying cycle.</td>
-                  <td style="padding:12px 16px;color:var(--body);vertical-align:top;border-left:2px solid rgba(16,185,129,.2);">Positioning clarity in the language of your ICP. A value prop a qualified buyer can repeat back to you. Awareness that converts because it&rsquo;s specific.</td>
-                </tr>
-                <tr style="border-bottom:1px solid var(--rule);">
-                  <td colspan="2" style="padding:10px 16px 4px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--off);">Agency Retainer</td>
-                </tr>
-                <tr>
-                  <td style="padding:12px 16px;color:var(--body);vertical-align:top;">Monthly report lands. Impressions up. CTR up. Pipeline sourced: not in the report.</td>
-                  <td style="padding:12px 16px;color:var(--body);vertical-align:top;border-left:2px solid rgba(16,185,129,.2);">Agency held to MQLs generated, cost per MQL, and pipeline sourced. If they can&rsquo;t report those numbers, the retainer is funding theater.</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h2>What Real B2B Marketing Actually Requires</h2>
-          <p>It&rsquo;s not a campaign or a brand platform. It&rsquo;s a system that takes demand existing in the market and converts it into qualified pipeline. That system needs three things. Without all three, you&rsquo;re performing.</p>
-
-          <h3>1. Expert attribution that earns AI and search engine trust</h3>
-          <p>Every piece I publish through Optivus carries my name, credentials, and a verifiable professional profile. That&rsquo;s not ego. It&rsquo;s E-E-A-T: Experience, Expertise, Authoritativeness, Trustworthiness &mdash; which is how Google evaluates content quality and how AI engines decide what to cite.</p>
-          <p>Google&rsquo;s Search Quality Evaluator Guidelines are clear: content without verifiable author expertise is structurally disadvantaged. AI citation engines work the same way. Named experts with real track records get cited. Anonymous content gets skipped. If your ten highest-traffic posts can&rsquo;t point to a named expert with a verifiable profile, those pages are liabilities.</p>
-          <p>Author bios need credentials and external mentions, not just a job title. &ldquo;Head of Marketing at Acme Corp&rdquo; isn&rsquo;t expert attribution. &ldquo;25 years of VP-level B2B marketing, $989M enterprise pipeline at TELUS, 27&times; MQL growth at Veriforce&rdquo; is.</p>
-
-          <h3>2. Proprietary research that can&rsquo;t be replicated</h3>
-          <p>AI-generated content is infinite and free. Which means it&rsquo;s worthless as a differentiator. The only content that&rsquo;s genuinely scarce is content that contains data nobody else has.</p>
-          <p>A survey of 50 to 100 customers or prospects on a question that challenges something your category takes for granted produces original data AI can&rsquo;t replicate, earns real inbound citations, and positions you as a category authority. One well-executed research asset drives authority signals for 12 to 24 months.</p>
-          <p>Backlinko&rsquo;s content marketing research found original research generates 3&times; more backlinks than standard content and significantly higher citation rates from authoritative sources. In a world where AI engines choose whose content to surface, original data is the most durable competitive advantage a B2B marketing team can build.</p>
-          <p>For a PE-focused consultancy, the right question might be: &ldquo;What percentage of your portfolio companies had a documented marketing strategy at acquisition?&rdquo; The answer, from a real sample, is data that earns citations for years.</p>
-
-          <h3>3. Content clusters that own a topic, not a calendar</h3>
-          <p>A content calendar is a schedule. A content cluster is a territory claim. A cluster produces a network of interconnected, topically authoritative content covering a subject from every angle a qualified buyer approaches it.</p>
-          <p>Semrush&rsquo;s State of Content Marketing Report found topic clusters generate 3.5&times; more organic traffic than isolated keyword posts. Ten interconnected pieces categorically outperform ten scattered posts, not marginally.</p>
-          <p>Schema markup, clear answer formatting, and consistent topical coverage show AI citation impact within days of indexing. Stop producing content outside your clusters until each cluster is complete. A half-built cluster with eight pieces outperforms ten isolated posts.</p>
-          <p>Performance theater isn&rsquo;t a creativity problem. It&rsquo;s an accountability problem. The fix isn&rsquo;t a new campaign. It&rsquo;s a new standard for what marketing is allowed to count as a win.</p>
-
-          <div class="blog-divider"></div>
-          <h2>Three Actions That Separate Real Marketing from Performance Theater</h2>
-          <p>These aren&rsquo;t recommendations. They&rsquo;re operational requirements. If your B2B marketing function can&rsquo;t complete all three, it&rsquo;s performing, not marketing.</p>
-
-          <!-- Action boxes -->
-          <div style="display:flex;flex-direction:column;gap:16px;margin:28px 0;">
-            <div style="background:var(--ink);border-radius:10px;padding:24px 28px;">
-              <p style="font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green);margin-bottom:10px;">Action 01</p>
-              <p style="font-size:15px;font-weight:700;color:#fff;margin-bottom:16px;">Fix Author Attribution Before You Publish Anything New</p>
-              <ul style="padding-left:20px;margin:0;list-style:disc;">
-                <li style="font-size:14px;color:rgba(255,255,255,.75);line-height:1.75;margin-bottom:8px;">Audit your ten highest-traffic posts. Identify the named expert behind each one. Confirm a verifiable professional profile exists: LinkedIn, external mentions, credentials visible on the page.</li>
-                <li style="font-size:14px;color:rgba(255,255,255,.75);line-height:1.75;margin-bottom:8px;">If a post can&rsquo;t point to a real person with a real professional history, it&rsquo;s an E-E-A-T liability in both Google and AI search. Anonymous content is structurally disadvantaged regardless of quality.</li>
-                <li style="font-size:14px;color:rgba(255,255,255,.75);line-height:1.75;margin-bottom:8px;">Author bios need credentials, not job titles. &ldquo;25 years of VP-level B2B marketing, $989M pipeline at TELUS, 27&times; MQL growth at Veriforce&rdquo; is expert attribution. &ldquo;Head of Marketing at Acme Corp&rdquo; is not.</li>
-                <li style="font-size:14px;color:rgba(255,255,255,.75);line-height:1.75;">This is a technical fix with a strategic payoff. AI citation engines use author authority as a primary signal. Named experts get cited. Anonymous content gets passed over.</li>
-              </ul>
-            </div>
-            <div style="background:var(--ink);border-radius:10px;padding:24px 28px;">
-              <p style="font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green);margin-bottom:10px;">Action 02</p>
-              <p style="font-size:15px;font-weight:700;color:#fff;margin-bottom:16px;">Commission One Piece of Proprietary Research This Quarter</p>
-              <ul style="padding-left:20px;margin:0;list-style:disc;">
-                <li style="font-size:14px;color:rgba(255,255,255,.75);line-height:1.75;margin-bottom:8px;">Survey 50 to 100 customers or prospects on a question that challenges something your category assumes to be true. Generic surveys produce generic findings nobody cites.</li>
-                <li style="font-size:14px;color:rgba(255,255,255,.75);line-height:1.75;margin-bottom:8px;">Ask something specific: &ldquo;How many months post-acquisition before marketing infrastructure was formally reviewed?&rdquo; The answer from a real sample is data that earns citations for 12 to 24 months.</li>
-                <li style="font-size:14px;color:rgba(255,255,255,.75);line-height:1.75;margin-bottom:8px;">Publish findings as a standalone report with a landing page, a detailed blog post, and a LinkedIn summary. Use the data in every subsequent cluster piece as a cited internal source.</li>
-                <li style="font-size:14px;color:rgba(255,255,255,.75);line-height:1.75;">This is the highest-ROI content investment a B2B marketing team can make, and the one thing performance theater genuinely cannot replicate.</li>
-              </ul>
-            </div>
-            <div style="background:var(--ink);border-radius:10px;padding:24px 28px;">
-              <p style="font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green);margin-bottom:10px;">Action 03</p>
-              <p style="font-size:15px;font-weight:700;color:#fff;margin-bottom:16px;">Replace Your Content Calendar with a Content Cluster Strategy</p>
-              <ul style="padding-left:20px;margin:0;list-style:disc;">
-                <li style="font-size:14px;color:rgba(255,255,255,.75);line-height:1.75;margin-bottom:8px;">Pick two or three topics where you can credibly own the authoritative position. Not topics you find interesting. Topics your ICP is actively searching that nobody in your competitive set has answered completely.</li>
-                <li style="font-size:14px;color:rgba(255,255,255,.75);line-height:1.75;margin-bottom:8px;">Build depth: ten interconnected pieces per cluster covering the topic from every angle a qualified buyer approaches it. Pillar post, supporting posts, FAQ posts, data posts, comparison posts. Each links to the others.</li>
-                <li style="font-size:14px;color:rgba(255,255,255,.75);line-height:1.75;margin-bottom:8px;">Apply schema markup, clear answer formatting, and consistent topical coverage to every piece. These structural signals show AI citation impact within days, faster than traditional SEO signals appear.</li>
-                <li style="font-size:14px;color:rgba(255,255,255,.75);line-height:1.75;">Stop producing content outside your clusters until each cluster is complete. The cluster is the asset, not the individual post.</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="blog-divider"></div>
-          <h2>Three Things to Take Away</h2>
-
-          <h3>If you can&rsquo;t trace marketing activity to qualified pipeline, it&rsquo;s performance theater.</h3>
-          <p>That&rsquo;s the whole diagnostic. Not impressions, not engagement, not brand recall. Pipeline. Audit your current marketing spend against that standard. The results will be clarifying, probably uncomfortably so.</p>
-
-          <h3>The AI search shift is eliminating performance theater faster than any CMO could.</h3>
-          <p>AI engines surface named experts, original research, and topically authoritative clusters. They ignore anonymous content, isolated posts, and agency-produced commodity content. The companies that have been performing are about to find their content invisible to the engines their buyers now use. The gap is widening fast.</p>
-
-          <h3>The three actions aren&rsquo;t optional. They&rsquo;re the entry price for being findable in 2026.</h3>
-          <p>Fix author attribution. Commission proprietary research. Build content clusters. These aren&rsquo;t advanced tactics. They&rsquo;re the baseline for B2B content to be cited by AI engines, trusted by qualified buyers, and attributed to revenue. Without all three, you&rsquo;re producing content for an audience of no one.</p>
-
-          <div class="blog-divider"></div>
-          <p>If your marketing function is performing instead of producing, reach out at <a href="mailto:dean.reid@optivusprof.ca" style="color:var(--green);font-weight:600;">dean.reid@optivusprof.ca</a> or visit <a href="https://www.optivusprof.ca" style="color:var(--green);font-weight:600;">optivusprof.ca</a>.</p>
-          <a href="https://calendar.app.google/5v6oNJ8jHkWMVzTTA" target="_blank" rel="noopener" class="blog-cta-inline">Book a free 30-minute discovery call &rarr;</a>
-
-          <!-- Sources -->
-          <div class="blog-sources">
-            <p class="blog-sources-label">Sources</p>
-            <ol>
-              <li>Forrester: B2B Marketing Survey, Revenue Attribution</li>
-              <li>Gartner: CMO Spend Survey 2025</li>
-              <li>Google: Search Quality Evaluator Guidelines, E-E-A-T Framework</li>
-              <li>Backlinko: Content Marketing Statistics, Original Research</li>
-              <li>Semrush: State of Content Marketing, Topic Cluster Performance</li>
-            </ol>
-          </div>
+          <a href="why-90-percent-b2b-marketing-is-performance-theater.html" class="blog-read-link">Read the full post &rarr;</a>
         </div>
-
         <div class="blog-card-footer">
-          <div class="blog-card-tags">
-            <span class="blog-card-tag">GTM Strategy</span>
-            <span class="blog-card-tag">Demand Generation</span>
-            <span class="blog-card-tag">AI &amp; Marketing</span>
-            <span class="blog-card-tag">Content Strategy</span>
-          </div>
-          <button class="blog-close-btn" onclick="blogClose(this)" style="display:none;">&uarr; Close post</button>
+          <div class="blog-card-tags"><span class="blog-card-tag">GTM Strategy</span><span class="blog-card-tag">Demand Generation</span><span class="blog-card-tag">AI &amp; Marketing</span><span class="blog-card-tag">Content Strategy</span></div>
         </div>
       </article>
-
-
-      <!-- POST 03: Fractional CMO Category of One -->
-      <article class="blog-card" data-cats="gtm-strategy private-equity"
-               data-search="Revenue Architect category of one fractional CMO GTM governance AI-native revenue engine exit-ready CMO commercial governance partner valuation multiple board accountability mid-market B2B $20M stall enterprise pattern recognition TELUS Bell PwC differentiation positioning Revenue Architect">
+      <article class="blog-excerpt-card" data-cats="gtm-strategy private-equity"
+               data-search="Why 90% of Revenue Architects Are Competing on Price — and How to Stop The three positioning spikes that separate a Category of One from a commodity hire GTM Strategy Revenue Architect Private Equity Category Design">
         <div class="blog-card-head">
           <div class="blog-card-meta">
-            <p class="blog-card-series">Revenue Architect Intelligence Series &middot; GTM Strategy</p>
-            <h3>Why 90% of Revenue Architects Are Competing on Price &mdash; and How to Stop</h3>
+            <p class="blog-card-series">Revenue Architect Intelligence Series &middot; Positioning</p>
+            <h3><a href="why-revenue-architects-compete-on-price.html" style="color:inherit;text-decoration:none;">Why 90% of Revenue Architects Are Competing on Price — and How to Stop</a></h3>
             <p class="blog-card-subtitle">The three positioning spikes that separate a Category of One from a commodity hire</p>
             <div class="blog-card-byline">
               <span class="blog-card-author">Dean Reid &nbsp;&middot;&nbsp; Revenue Architect, Optivus</span>
               <span class="blog-card-date">August 2026</span>
             </div>
           </div>
-          <button class="blog-toggle-btn" onclick="blogToggle(this)" aria-expanded="false">Read Post &darr;</button>
         </div>
-        <div class="blog-card-body">
-          <div class="blog-insights">
+        <div class="blog-excerpt-body">
+<div class="blog-insights">
             <div class="blog-insight"><p class="blog-insight-num">Insight 01</p><p>Most Revenue Architects compete on price and availability. The moment you justify your rate against a full-time hire, you have already lost the positioning battle. The right comparison is not &ldquo;cheaper than full-time&rdquo; &mdash; it is &ldquo;better than full-time because of a specific, unfair advantage.&rdquo;</p></div>
             <div class="blog-insight"><p class="blog-insight-num">Insight 02</p><p>Enterprise pattern recognition is the differentiator junior consultants cannot replicate. Spending 25 years inside TELUS, Bell, and PwC gives you the ability to apply $1B-company governance to a $20M business in 30 days, not 18 months.</p></div>
             <div class="blog-insight"><p class="blog-insight-num">Insight 03</p><p>There are three &ldquo;poles&rdquo; a Revenue Architect can own: GTM Governance Architect, AI-Native Revenue Engine Builder, or Exit-Ready Commercial Advisor. Owning one makes you the only call worth making.</p></div>
           </div>
-          <div class="blog-divider"></div>
-          <h2>What a Revenue Architect Is Actually Being Hired to Solve</h2>
-          <p>The standard pitch goes something like this: senior marketing leadership at a fraction of the cost of a full-time hire. It is technically accurate. It is also completely undifferentiated. Every consultant in Canada says the same thing in slightly different words. The result is a market where buyers compare day rates and reference lists instead of strategic fit and proof of results.</p>
-          <p>The real job description is not &ldquo;run marketing cheaper.&rdquo; It is to solve a specific constraint that is costing the company measurable pipeline. For a $20M&ndash;$60M B2B company, that constraint is almost always one of three things: the GTM (Go-to-Market) architecture has never been built, the board cannot see or trust the commercial metrics, or the company needs to look fundable or acquirable in 18 months.</p>
-          <h2>What Is a GTM Governance Architect &mdash; and Why Boards Want One</h2>
-          <p>A GTM Governance Architect frames marketing as a financial accountability function rather than a creative or channel management function. The question they answer is not &ldquo;what campaigns should we run?&rdquo; but &ldquo;how do we make the commercial engine transparent and accountable to the board?&rdquo;</p>
-          <p>At TELUS Enterprise, the $989M qualified pipeline we built was not a campaign result. It was a governance result &mdash; a measurement framework that made every marketing dollar traceable to revenue and every channel decision defensible to the CFO. The same principle scaled at Veriforce, where MQL (Marketing Qualified Lead) volume grew 27 times in 12 months through a structured accountability system that sales actually trusted.</p>
-          <p><strong>What a board wants from a Revenue Architect:</strong> not a marketing update, but a commercial audit. Not impressions and clicks, but pipeline by source, cost per qualified opportunity, and forecast confidence. If your Revenue Architect cannot produce those three numbers by the end of month one, you have hired a campaign manager, not a commercial leader.</p>
-          <h2>What Is an AI-Native Revenue Engine Builder</h2>
-          <p>An AI-native approach rebuilds the revenue engine so that ICP (Ideal Customer Profile) refinement, lead scoring, pipeline forecasting, and content sequencing run on structured AI workflows instead of manual effort. The result is a 40&ndash;60% compression in the time between strategy and market-ready execution.</p>
-          <p>For high-growth B2B SaaS or technology companies that need to scale pipeline without scaling headcount, this is the only model that makes economic sense at a $15M&ndash;$60M revenue band. A 10-person marketing function built on AI infrastructure outperforms a 30-person team running on manual processes.</p>
-          <h2>What Is an Exit-Ready Commercial Advisor &mdash; and When Do You Need One</h2>
-          <p>An exit-ready Revenue Architect frames every commercial decision through the lens of acquisition valuation. Every company going into a sale process needs a documented ICP, a repeatable demand generation motion with proven MQL-to-SQL conversion, a CRM with clean attribution data, and a marketing budget with defensible cost-per-opportunity by channel. Most companies have none of these documented when they enter the process.</p>
-          <p>I built the commercial narrative at SMART Technologies that supported revenue scaling from $120M to $700M. That was not a branding exercise. It was a systematic build of proof points, pipeline documentation, and category positioning that made every revenue number credible to the people writing the check.</p>
-          <h2>The Four Questions Worth Asking Before Signing Any Engagement</h2>
-          <ul>
-            <li>Can they name a specific pipeline number they built and the methodology behind it?</li>
-            <li>Have they built a demand generation engine from zero, or only inherited one?</li>
-            <li>Can they present to a board on commercial metrics, not marketing metrics?</li>
-            <li>Do they have a documented framework for the first 90 days?</li>
-          </ul>
-          <div class="blog-divider"></div>
-          <p><strong>I&rsquo;m Dean Reid,</strong> Revenue Architect and founder of Optivus. $989M enterprise pipeline at TELUS, 27&times; MQL growth at Veriforce, revenue from $120M to $700M at SMART Technologies. <a href="what-is-a-fractional-cmo.html" style="color:var(--green);font-weight:600;">Start here</a> or book a 30-minute call.</p>
-          <a href="https://calendar.app.google/5v6oNJ8jHkWMVzTTA" target="_blank" rel="noopener" class="blog-cta-inline">Book a free discovery call &rarr;</a>
+          <a href="why-revenue-architects-compete-on-price.html" class="blog-read-link">Read the full post &rarr;</a>
         </div>
         <div class="blog-card-footer">
           <div class="blog-card-tags"><span class="blog-card-tag">GTM Strategy</span><span class="blog-card-tag">Revenue Architect</span><span class="blog-card-tag">Private Equity</span><span class="blog-card-tag">Category Design</span></div>
-          <button class="blog-close-btn" onclick="blogClose(this)" style="display:none;">&uarr; Close post</button>
         </div>
       </article>
-
-      <!-- POST 04: AI for Marketing — Revenue Architecture -->
-      <article class="blog-card" data-cats="ai-marketing gtm-strategy"
-               data-search="AI marketing revenue architecture AI theater AI native governance B2B AI strategy data governance framework CFO board AI risk ICP RevOps content AI tools marketing automation 40% 60% faster TELUS Bell enterprise AI workflow">
+      <article class="blog-excerpt-card" data-cats="ai-marketing gtm-strategy"
+               data-search="AI Theater vs. AI Architecture: What B2B Leaders Get Wrong About AI-Driven Revenue Why most AI marketing adoption creates risk without returns — and what the architecture alternative looks like AI &amp; Marketing Revenue Architecture GTM Strategy Governance">
         <div class="blog-card-head">
           <div class="blog-card-meta">
-            <p class="blog-card-series">Revenue Architect Intelligence Series &middot; AI &amp; Marketing</p>
-            <h3>AI Theater vs. AI Architecture: What B2B Leaders Get Wrong About AI-Driven Revenue</h3>
-            <p class="blog-card-subtitle">Why most AI marketing adoption creates risk without returns &mdash; and what the architecture alternative looks like</p>
+            <p class="blog-card-series">Revenue Architect Intelligence Series &middot; AI & Marketing</p>
+            <h3><a href="ai-theater-vs-ai-architecture.html" style="color:inherit;text-decoration:none;">AI Theater vs. AI Architecture: What B2B Leaders Get Wrong About AI-Driven Revenue</a></h3>
+            <p class="blog-card-subtitle">Why most AI marketing adoption creates risk without returns — and what the architecture alternative looks like</p>
             <div class="blog-card-byline">
               <span class="blog-card-author">Dean Reid &nbsp;&middot;&nbsp; Revenue Architect, Optivus</span>
               <span class="blog-card-date">August 2026</span>
             </div>
           </div>
-          <button class="blog-toggle-btn" onclick="blogToggle(this)" aria-expanded="false">Read Post &darr;</button>
         </div>
-        <div class="blog-card-body">
-          <div class="blog-insights">
+        <div class="blog-excerpt-body">
+<div class="blog-insights">
             <div class="blog-insight"><p class="blog-insight-num">Insight 01</p><p>Most B2B companies are practicing AI Theater: deploying tools without a strategy, creating content faster without improving the content, and generating data without the governance framework to trust it. AI Theater creates liability. AI Architecture creates revenue.</p></div>
             <div class="blog-insight"><p class="blog-insight-num">Insight 02</p><p>The CFO and board do not care about your AI tools. They care about two things: does AI reduce cost-per-qualified-opportunity, and does it introduce data or brand risk? Every AI deployment that cannot answer both questions is a liability, not an asset.</p></div>
             <div class="blog-insight"><p class="blog-insight-num">Insight 03</p><p>An AI-native revenue architecture compresses the time between strategy and market-ready execution by 40&ndash;60%. At $15M&ndash;$60M revenue, that compression is the difference between a marketing function that perpetually lags the sales team and one that consistently delivers qualified pipeline.</p></div>
           </div>
-          <div class="blog-divider"></div>
-          <h2>What Is AI Theater in B2B Marketing</h2>
-          <p>AI Theater in B2B marketing is the deployment of AI tools without a governing strategy for how those tools connect to revenue. A company practicing AI Theater has subscriptions, produces content faster, and generates more activity. The pipeline does not move. The board asks what the AI budget is actually producing. Nobody can answer.</p>
-          <p>Forrester&rsquo;s B2B Marketing Survey found fewer than 20% of B2B marketers can demonstrate clear revenue attribution for their spend. The introduction of AI tools without attribution infrastructure makes that number worse &mdash; more content, more activity, same inability to trace any of it to closed revenue.</p>
-          <h2>What Is AI-Native Revenue Architecture</h2>
-          <p>AI-native revenue architecture is the systematic rebuild of a B2B commercial operation so that AI is embedded in the core workflows that produce pipeline. In a traditionally structured marketing function, a team manages ICP research, content production, campaign execution, lead scoring, and reporting through manual coordination. The workflow is slow, the handoffs are lossy, and the output is linear &mdash; proportional to headcount.</p>
-          <p>In an AI-native architecture, ICP (Ideal Customer Profile) refinement runs on a structured data workflow. Content production runs on a prompt engineering framework calibrated to your positioning. Lead scoring updates dynamically based on behavioral data. Reporting is automated to board-ready format. <strong>The result is a 40&ndash;60% compression in time from strategy to market-ready execution.</strong></p>
-          <h2>What AI Governance Means for a $50M&ndash;$100M B2B Company</h2>
-          <p>AI governance for a B2B marketing function means a documented framework defining: which data can be fed into which AI systems, what the review process is for AI-generated content, how AI-sourced insights are validated before informing strategic decisions, and who is accountable when an AI output causes a problem. Most $50M&ndash;$100M B2B companies have none of these documented. For a company approaching a fundraise or acquisition, this is a material liability. Every serious acquirer&rsquo;s commercial due diligence team now asks for AI usage documentation.</p>
-          <h2>What the Right AI-for-Marketing Engagement Looks Like in the First 90 Days</h2>
-          <p>Phase one is the audit: which AI tools are in use, what data is flowing through them, and what the current governance posture is. Phase two is the architecture: building the AI workflow stack that connects ICP, content, lead scoring, and reporting. Phase three is the calibration: running the system through one full demand generation cycle and measuring output quality and pipeline contribution. By day 90, the system is running and the board has a defensible answer to &ldquo;what is AI actually producing?&rdquo;</p>
-          <div class="blog-divider"></div>
-          <p><strong>I&rsquo;m Dean Reid,</strong> Revenue Architect at Optivus. I build AI-native revenue architectures for B2B companies at $15M&ndash;$60M revenue with governance frameworks that are defensible to a CFO or board. Learn more about the <a href="ai-for-marketing.html" style="color:var(--green);font-weight:600;">AI for Marketing engagement</a>.</p>
-          <a href="https://calendar.app.google/5v6oNJ8jHkWMVzTTA" target="_blank" rel="noopener" class="blog-cta-inline">Book a free discovery call &rarr;</a>
+          <a href="ai-theater-vs-ai-architecture.html" class="blog-read-link">Read the full post &rarr;</a>
         </div>
         <div class="blog-card-footer">
           <div class="blog-card-tags"><span class="blog-card-tag">AI &amp; Marketing</span><span class="blog-card-tag">Revenue Architecture</span><span class="blog-card-tag">GTM Strategy</span><span class="blog-card-tag">Governance</span></div>
-          <button class="blog-close-btn" onclick="blogClose(this)" style="display:none;">&uarr; Close post</button>
         </div>
       </article>
-
-      <!-- POST 05: Board Advisor — Revenue Governor -->
-      <article class="blog-card" data-cats="private-equity gtm-strategy"
-               data-search="board advisor revenue governor commercial governance partner exit readiness valuation multiple due diligence board marketing accountability strategic drift commercial blind spot independent voice B2B board CFO investor diligence commercial audit pre-exit">
+      <article class="blog-excerpt-card" data-cats="private-equity gtm-strategy"
+               data-search="What a Board Actually Needs From Marketing (It Is Not a Dashboard) The shift from growth advisor to revenue governor — and why independent commercial oversight is a fiduciary necessity Board Governance Exit Readiness Private Equity Commercial Oversight">
         <div class="blog-card-head">
           <div class="blog-card-meta">
-            <p class="blog-card-series">Revenue Architect Intelligence Series &middot; Board &amp; Governance</p>
-            <h3>What a Board Actually Needs From Marketing (It Is Not a Dashboard)</h3>
-            <p class="blog-card-subtitle">The shift from growth advisor to revenue governor &mdash; and why independent commercial oversight is a fiduciary necessity</p>
+            <p class="blog-card-series">Revenue Architect Intelligence Series &middot; Board Governance</p>
+            <h3><a href="what-a-board-needs-from-marketing.html" style="color:inherit;text-decoration:none;">What a Board Actually Needs From Marketing (It Is Not a Dashboard)</a></h3>
+            <p class="blog-card-subtitle">The shift from growth advisor to revenue governor — and why independent commercial oversight is a fiduciary necessity</p>
             <div class="blog-card-byline">
               <span class="blog-card-author">Dean Reid &nbsp;&middot;&nbsp; Revenue Architect, Optivus</span>
               <span class="blog-card-date">August 2026</span>
             </div>
           </div>
-          <button class="blog-toggle-btn" onclick="blogToggle(this)" aria-expanded="false">Read Post &darr;</button>
         </div>
-        <div class="blog-card-body">
-          <div class="blog-insights">
+        <div class="blog-excerpt-body">
+<div class="blog-insights">
             <div class="blog-insight"><p class="blog-insight-num">Insight 01</p><p>Most B2B boards have deep financial and operational expertise and a massive blind spot on the integrity of their revenue engine. Marketing reports are presented, metrics are shared, and nobody at the board table has the commercial expertise to challenge them. This is not a marketing problem. It is a governance problem.</p></div>
             <div class="blog-insight"><p class="blog-insight-num">Insight 02</p><p>A board-level growth advisor who cannot independently audit the commercial engine is just another opinion in the room. The value of external commercial oversight is not the advice &mdash; it is the independence. Better the board finds the gaps in the GTM strategy before the acquirer does.</p></div>
             <div class="blog-insight"><p class="blog-insight-num">Insight 03</p><p>Exit-readiness is a commercial function, not a financial one. The acquirer&rsquo;s due diligence team will validate every revenue number. The company that cannot produce a clean attribution model, a documented ICP, and a repeatable demand generation motion will not get the multiple the banker&rsquo;s deck promises.</p></div>
           </div>
-          <div class="blog-divider"></div>
-          <h2>What Does a Board-Level Growth Advisor Actually Do</h2>
-          <p>A board-level growth advisor provides independent oversight of a company&rsquo;s commercial engine &mdash; the GTM strategy, demand generation infrastructure, ICP definition, sales and marketing alignment, and revenue attribution model. The role is not strategic cheerleading or monthly status updates. It is the independent audit function that the board is missing and that no internal team member can provide without a conflict of interest.</p>
-          <h2>What Is Strategic Drift &mdash; and Why Boards Cannot See It</h2>
-          <p>Strategic drift in a commercial context is the progressive misalignment between what the marketing function is doing and what the business plan requires. It happens slowly: a campaign designed to build enterprise pipeline gradually shifts toward generating leads that are easier to produce but harder to close. Boards cannot see strategic drift because they are receiving reporting from the people responsible for the drift.</p>
-          <h2>What Is Exit Readiness From a Commercial Perspective</h2>
-          <p>Exit readiness from a commercial perspective is the condition in which every revenue number the company presents during an M&amp;A process is fully supported by documented evidence: a clean CRM with complete attribution data, a documented ICP, a demand generation model with proven MQL-to-SQL conversion rates by channel, and a marketing budget with cost-per-qualified-opportunity by channel for the trailing 12 months.</p>
-          <p>Most $15M&ndash;$60M B2B companies do not have all four documented when they enter a sale process. The gap between what the company can produce and what the acquirer is expecting is the gap between the projected multiple and the actual closing multiple.</p>
-          <div class="blog-divider"></div>
-          <p><strong>I&rsquo;m Dean Reid,</strong> Board-Level Growth Advisor and Revenue Architect at Optivus. I provide independent commercial oversight for B2B companies at $15M&ndash;$100M revenue &mdash; with particular focus on exit readiness and commercial governance for PE-backed portfolios. Learn more about the <a href="board-advisor.html" style="color:var(--green);font-weight:600;">Board Advisor engagement</a>.</p>
-          <a href="https://calendar.app.google/5v6oNJ8jHkWMVzTTA" target="_blank" rel="noopener" class="blog-cta-inline">Request a Commercial Gap Assessment &rarr;</a>
+          <a href="what-a-board-needs-from-marketing.html" class="blog-read-link">Read the full post &rarr;</a>
         </div>
         <div class="blog-card-footer">
           <div class="blog-card-tags"><span class="blog-card-tag">Board Governance</span><span class="blog-card-tag">Exit Readiness</span><span class="blog-card-tag">Private Equity</span><span class="blog-card-tag">Commercial Oversight</span></div>
-          <button class="blog-close-btn" onclick="blogClose(this)" style="display:none;">&uarr; Close post</button>
         </div>
       </article>
-
-      <!-- POST 06: Philosophy — Revenue Discipline Manifesto -->
-      <article class="blog-card" data-cats="gtm-strategy demand-generation"
-               data-search="B2B marketing philosophy revenue discipline contrarian anti-marketing random acts of marketing vanity metrics capital allocation commercial governance marketing accountability financial discipline pipeline not impressions marketing fails activity enemy of progress senior judgment AI infrastructure">
+      <article class="blog-excerpt-card" data-cats="gtm-strategy demand-generation"
+               data-search="Marketing Is a Financial Discipline, Not a Creative Exercise The contrarian POV on why most B2B marketing fails — and the five non-negotiable disciplines that fix it Philosophy Revenue Discipline GTM Strategy Contrarian POV">
         <div class="blog-card-head">
           <div class="blog-card-meta">
             <p class="blog-card-series">Revenue Architect Intelligence Series &middot; Philosophy</p>
-            <h3>Marketing Is a Financial Discipline, Not a Creative Exercise</h3>
-            <p class="blog-card-subtitle">The contrarian POV on why most B2B marketing fails &mdash; and the five non-negotiable disciplines that fix it</p>
+            <h3><a href="marketing-is-a-financial-discipline.html" style="color:inherit;text-decoration:none;">Marketing Is a Financial Discipline, Not a Creative Exercise</a></h3>
+            <p class="blog-card-subtitle">The contrarian POV on why most B2B marketing fails — and the five non-negotiable disciplines that fix it</p>
             <div class="blog-card-byline">
               <span class="blog-card-author">Dean Reid &nbsp;&middot;&nbsp; Revenue Architect, Optivus</span>
               <span class="blog-card-date">August 2026</span>
             </div>
           </div>
-          <button class="blog-toggle-btn" onclick="blogToggle(this)" aria-expanded="false">Read Post &darr;</button>
         </div>
-        <div class="blog-card-body">
-          <div class="blog-insights">
+        <div class="blog-excerpt-body">
+<div class="blog-insights">
             <div class="blog-insight"><p class="blog-insight-num">Insight 01</p><p>Marketing strategy without a revenue target is not strategy. It is an opinion about where to spend money. Every engagement I run begins with the same question: what is the specific revenue number this commercial function is being held accountable to produce? If nobody can answer that, the strategy document is wallpaper.</p></div>
             <div class="blog-insight"><p class="blog-insight-num">Insight 02</p><p>Vanity metrics are not just useless &mdash; they are strategically dangerous. A marketing team optimized on impressions, follower counts, and open rates has learned to produce the appearance of productivity without the substance. Boards that accept these metrics are funding the problem, not the solution.</p></div>
             <div class="blog-insight"><p class="blog-insight-num">Insight 03</p><p>AI is infrastructure, not strategy. The Revenue Architect who tells you AI will solve your pipeline problem is selling you a tool. AI compresses execution time. It does not make bad strategy faster &mdash; it makes bad strategy more expensive, because you produce the wrong output at higher velocity.</p></div>
           </div>
-          <div class="blog-divider"></div>
-          <h2>Why Most B2B Marketing Is a Waste of Money</h2>
-          <p>Most B2B marketing fails not because the people running it are incompetent, but because the system they are operating inside rewards the wrong outcomes. A marketing manager who produces 50 LinkedIn posts, runs a webinar series, and hits a 22% email open rate has, by any conventional marketing metric, had a productive quarter. If none of that activity produced a single qualified sales conversation, the quarter was a commercial failure dressed up as a marketing success.</p>
-          <p>After 25 years in the VP seat at TELUS, Bell, SMART Technologies, and Veriforce, I have seen this pattern repeat itself in every industry and at every revenue level. The companies that scaled &mdash; from $120M to $700M at SMART, from 30 MQLs to 803 per month at Veriforce &mdash; did not do it with better campaigns. They did it by installing accountability frameworks that made marketing a financial function, not a creative one.</p>
-          <h2>The Five Non-Negotiable Disciplines</h2>
-          <ul>
-            <li><strong>Marketing is a financial function.</strong> It is the function that manufactures qualified demand, and it should be held accountable to a pipeline number the same way sales is held accountable to a revenue number.</li>
-            <li><strong>Activity is the enemy of progress.</strong> Less, done with precision and accountability, consistently outperforms more, done with energy but without strategic direction.</li>
-            <li><strong>Vanity metrics are a strategic risk.</strong> The metric that matters is marketing-sourced pipeline: how many qualified opportunities entered the funnel this quarter, and what did it cost to produce each one?</li>
-            <li><strong>Junior execution is an expensive lesson.</strong> The quality of the strategy that reaches the market is limited by the judgment of the people executing it.</li>
-            <li><strong>AI is infrastructure, not strategy.</strong> AI compresses the time between a strategic decision and its market-ready execution by 40&ndash;60%. It does not make bad strategies work.</li>
-          </ul>
-          <div class="blog-divider"></div>
-          <p><strong>I&rsquo;m Dean Reid,</strong> Revenue Architect at Optivus. My philosophy is built from 25 years of VP-level pattern recognition across TELUS, Bell, SMART Technologies, and Veriforce. Read <a href="philosophy.html" style="color:var(--green);font-weight:600;">the full Optivus philosophy</a>.</p>
-          <a href="https://calendar.app.google/5v6oNJ8jHkWMVzTTA" target="_blank" rel="noopener" class="blog-cta-inline">Challenge our thinking &rarr;</a>
+          <a href="marketing-is-a-financial-discipline.html" class="blog-read-link">Read the full post &rarr;</a>
         </div>
         <div class="blog-card-footer">
           <div class="blog-card-tags"><span class="blog-card-tag">Philosophy</span><span class="blog-card-tag">Revenue Discipline</span><span class="blog-card-tag">GTM Strategy</span><span class="blog-card-tag">Contrarian POV</span></div>
-          <button class="blog-close-btn" onclick="blogClose(this)" style="display:none;">&uarr; Close post</button>
         </div>
       </article>
-
-      <!-- POST 07: Resources — Strategic Intelligence Center -->
-      <article class="blog-card" data-cats="gtm-strategy ai-marketing"
-               data-search="B2B resources strategic intelligence commercial intelligence library consulting in public no gate gated content thought leadership tools diagnostics ROI calculator channel diagnostic PE playbook exit readiness resources page 2026 trends market intelligence">
+      <article class="blog-excerpt-card" data-cats="gtm-strategy ai-marketing"
+               data-search="Why We Don’t Gate Our Thinking (And Why That Is the Point) The case for consulting in public — and what a genuine strategic intelligence center looks like for B2B leaders Strategy Intelligence Consulting in Public Private Equity">
         <div class="blog-card-head">
           <div class="blog-card-meta">
             <p class="blog-card-series">Revenue Architect Intelligence Series &middot; Strategy</p>
-            <h3>Why We Don&rsquo;t Gate Our Thinking (And Why That Is the Point)</h3>
-            <p class="blog-card-subtitle">The case for consulting in public &mdash; and what a genuine strategic intelligence center looks like for B2B leaders</p>
+            <h3><a href="why-we-dont-gate-our-thinking.html" style="color:inherit;text-decoration:none;">Why We Don’t Gate Our Thinking (And Why That Is the Point)</a></h3>
+            <p class="blog-card-subtitle">The case for consulting in public — and what a genuine strategic intelligence center looks like for B2B leaders</p>
             <div class="blog-card-byline">
               <span class="blog-card-author">Dean Reid &nbsp;&middot;&nbsp; Revenue Architect, Optivus</span>
               <span class="blog-card-date">August 2026</span>
             </div>
           </div>
-          <button class="blog-toggle-btn" onclick="blogToggle(this)" aria-expanded="false">Read Post &darr;</button>
         </div>
-        <div class="blog-card-body">
-          <div class="blog-insights">
+        <div class="blog-excerpt-body">
+<div class="blog-insights">
             <div class="blog-insight"><p class="blog-insight-num">Insight 01</p><p>Gating your best thinking behind a form is a signal of insecurity, not demand. The consultants who gate their frameworks are telling the market that the framework is the product. The ones who give it away are telling the market that they are the product &mdash; and the framework is just evidence of what they can do.</p></div>
             <div class="blog-insight"><p class="blog-insight-num">Insight 02</p><p>A resources page that is a dumping ground for SEO-driven blog posts is a liability dressed as a library. The only content that builds commercial authority is content that contains data, frameworks, or perspectives that nobody else has.</p></div>
             <div class="blog-insight"><p class="blog-insight-num">Insight 03</p><p>Interactive diagnostics are the highest-value commercial content a B2B consultancy can publish. A CEO who runs your GTM diagnostic and gets a specific, actionable result in 60 seconds has experienced your consulting judgment directly, without a discovery call. That is a more powerful qualification than any lead magnet.</p></div>
           </div>
-          <div class="blog-divider"></div>
-          <h2>What Is Consulting in Public</h2>
-          <p>Consulting in public is the practice of sharing your actual frameworks, diagnostic tools, and strategic perspectives openly &mdash; without a form, without a gate, and without a nurture sequence. The logic is counterintuitive to most marketing-trained minds but obvious to anyone who has sold professional services: the buyer who understands your methodology before they call you is not harder to close. They are already sold.</p>
-          <p>The resources on this page are the actual diagnostic tools, frameworks, and intelligence briefings used inside client engagements. If they help you solve a problem without hiring Optivus, that is the intended outcome. If they demonstrate the depth of thinking that goes into every engagement, that is the intended side effect.</p>
-          <h2>What Makes a Resources Page a Strategic Intelligence Center</h2>
-          <p><strong>Interactive diagnostic tools</strong> provide immediate, specific, personalized output without requiring a conversation. The GTM Leak Score diagnostic produces a score across four dimensions of commercial health in 60 seconds. The Marketing Channel Diagnostic surfaces prioritized recommendations from a 78&times;78 matrix of tactics and failure modes. These are structured judgment frameworks, made interactive.</p>
-          <p><strong>Original intelligence briefings</strong> are not &ldquo;10 tips for better marketing&rdquo; but &ldquo;why 90% of PE-backed companies stall at $20M and what the marketing infrastructure gap has to do with it.&rdquo; This is the content that AI engines cite, not because it is optimized for AI, but because it contains specific, original, verifiable claims from a named expert with a documented track record.</p>
-          <h2>Why No-Gate Content Outperforms Gated Content for B2B Professional Services</h2>
-          <p>Gated content produces email addresses. No-gate content produces authority. For professional services, the product is the judgment of a specific person &mdash; and that judgment cannot be communicated through a nurture email. It can only be demonstrated through the quality of the thinking that person publishes freely.</p>
-          <div class="blog-divider"></div>
-          <p><strong>I&rsquo;m Dean Reid,</strong> Revenue Architect at Optivus. Everything on this page is ungated because the value is in using it, not downloading it. If something here helped you think more clearly about a commercial problem, <a href="https://calendar.app.google/5v6oNJ8jHkWMVzTTA" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;">book 30 minutes</a>.</p>
-          <a href="https://calendar.app.google/5v6oNJ8jHkWMVzTTA" target="_blank" rel="noopener" class="blog-cta-inline">Book a free discovery call &rarr;</a>
+          <a href="why-we-dont-gate-our-thinking.html" class="blog-read-link">Read the full post &rarr;</a>
         </div>
         <div class="blog-card-footer">
           <div class="blog-card-tags"><span class="blog-card-tag">Strategy</span><span class="blog-card-tag">Intelligence</span><span class="blog-card-tag">Consulting in Public</span><span class="blog-card-tag">Private Equity</span></div>
-          <button class="blog-close-btn" onclick="blogClose(this)" style="display:none;">&uarr; Close post</button>
         </div>
       </article>
-
-      <!-- POST 08: Thought Leadership — Category Architect -->
-      <article class="blog-card" data-cats="gtm-strategy ai-marketing"
-               data-search="executive thought leadership category architect strategic narrative B2B CEO LinkedIn content ghostwriter category design one big idea commercial authority market leadership silence is a strategic risk AI thought extraction category positioning partner B2B visibility content strategy">
+      <article class="blog-excerpt-card" data-cats="gtm-strategy ai-marketing"
+               data-search="Why B2B Executive Silence Is a Commercial Risk The shift from ghostwriting to category architecture — and why the CEO who defines the problem owns the market Thought Leadership Category Design AI &amp; Marketing AEO">
         <div class="blog-card-head">
           <div class="blog-card-meta">
             <p class="blog-card-series">Revenue Architect Intelligence Series &middot; Thought Leadership</p>
-            <h3>Why B2B Executive Silence Is a Commercial Risk</h3>
-            <p class="blog-card-subtitle">The shift from ghostwriting to category architecture &mdash; and why the CEO who defines the problem owns the market</p>
+            <h3><a href="why-b2b-executive-silence-is-a-commercial-risk.html" style="color:inherit;text-decoration:none;">Why B2B Executive Silence Is a Commercial Risk</a></h3>
+            <p class="blog-card-subtitle">The shift from ghostwriting to category architecture — and why the CEO who defines the problem owns the market</p>
             <div class="blog-card-byline">
               <span class="blog-card-author">Dean Reid &nbsp;&middot;&nbsp; Revenue Architect, Optivus</span>
               <span class="blog-card-date">August 2026</span>
             </div>
           </div>
-          <button class="blog-toggle-btn" onclick="blogToggle(this)" aria-expanded="false">Read Post &darr;</button>
         </div>
-        <div class="blog-card-body">
-          <div class="blog-insights">
+        <div class="blog-excerpt-body">
+<div class="blog-insights">
             <div class="blog-insight"><p class="blog-insight-num">Insight 01</p><p>In a crowded B2B market, the executive who defines the problem owns the category. If you are not visibly articulating the problem your buyers are experiencing &mdash; with specificity and authority &mdash; your competitors are defining it for you. This is not a branding consideration. It is a commercial risk.</p></div>
             <div class="blog-insight"><p class="blog-insight-num">Insight 02</p><p>Thought leadership that does not express a point of view is not thought leadership. It is content. Content builds traffic. Point of view builds authority. Authority is what makes a $250K engagement easier to close than a $50K one from a competitor who produces the same volume of content with less conviction.</p></div>
             <div class="blog-insight"><p class="blog-insight-num">Insight 03</p><p>One hour of an executive&rsquo;s thinking, extracted correctly, produces a month of market-leading presence across LinkedIn, long-form essays, and keynote frameworks. The constraint is never the executive&rsquo;s ideas &mdash; it is the workflow that converts those ideas into formatted, distributed, attributable content at the speed the market requires.</p></div>
           </div>
-          <div class="blog-divider"></div>
-          <h2>What Is Executive Thought Leadership in B2B</h2>
-          <p>Executive thought leadership in B2B is the systematic publication of specific, expert, opinionated perspectives on the problems your target buyers are actively trying to solve. A single LinkedIn post is not thought leadership. A consistent, strategic, cross-channel presence built around a coherent point of view &mdash; maintained over 12 to 24 months &mdash; is thought leadership.</p>
-          <p>What separates thought leadership from content marketing is not the channel or the format. It is the specificity of the perspective and the credibility of the person expressing it. A 24-year-old with a ChatGPT account can produce B2B marketing tips at scale. A Revenue Architect with 25 years of VP-level operational experience across TELUS, Bell, SMART Technologies, and Veriforce can produce the specific, evidence-based, counterintuitive perspectives that buyers and AI engines actually cite.</p>
-          <h2>What Is Category Architecture for B2B Executives</h2>
-          <p>Category architecture is the strategic process of defining and naming the problem your company solves in a way that positions your solution as the natural answer. It is the difference between &ldquo;we offer Revenue Architect services&rdquo; and &ldquo;we install the commercial governance that makes marketing accountable to the board.&rdquo; The first statement describes a service. The second defines a category and positions Optivus as the authority in that category before any competitor can occupy the same space.</p>
-          <h2>How AI Engines Decide What Thought Leadership to Cite</h2>
-          <p>AI engines &mdash; Perplexity, ChatGPT Search, Google AI Overviews, Claude &mdash; cite thought leadership based on four signals: named expert attribution with verifiable credentials, specific and quantifiable claims that cannot be replicated from generic sources, topical depth that demonstrates authority across a content cluster, and consistent publication that establishes the source as an ongoing authority.</p>
-          <p>The executive who publishes consistently, under their own name, with specific evidence, on a defined set of topics they are demonstrably qualified to address, will be cited by AI engines in preference to anonymous, generic, or unverifiable content. This is not a technical optimization. It is the natural result of building genuine commercial authority and expressing it publicly.</p>
-          <div class="blog-divider"></div>
-          <p><strong>I&rsquo;m Dean Reid,</strong> Revenue Architect and Category Architect at Optivus. The Executive Thought-Leadership Partner engagement converts your operational expertise into a market-leading commercial presence using an AI-native workflow that produces a month of content from one hour of your thinking. Learn more about the <a href="thought-leadership.html" style="color:var(--green);font-weight:600;">Thought Leadership engagement</a>.</p>
-          <a href="https://calendar.app.google/5v6oNJ8jHkWMVzTTA" target="_blank" rel="noopener" class="blog-cta-inline">Book a narrative strategy session &rarr;</a>
+          <a href="why-b2b-executive-silence-is-a-commercial-risk.html" class="blog-read-link">Read the full post &rarr;</a>
         </div>
         <div class="blog-card-footer">
           <div class="blog-card-tags"><span class="blog-card-tag">Thought Leadership</span><span class="blog-card-tag">Category Design</span><span class="blog-card-tag">AI &amp; Marketing</span><span class="blog-card-tag">AEO</span></div>
-          <button class="blog-close-btn" onclick="blogClose(this)" style="display:none;">&uarr; Close post</button>
         </div>
       </article>
-
-      <!-- POST 09: The 10-Point Go-To-Market Leak Finder -->
-      <article class="blog-card" data-cats="gtm-strategy demand-generation private-equity"
-               data-search="10 point GTM leak finder revenue leak audit mid-market CEO sales marketing funnel benchmark speed to first response lead qualification pipeline coverage win rate sales cycle CAC payback content distinctiveness AI answer engine visibility martech stack retention push pull power of pull hagel access attract achieve">
+      <article class="blog-excerpt-card" data-cats="gtm-strategy demand-generation private-equity"
+               data-search="The 10-Point Go-To-Market Leak Finder A one-page audit for mid-market CEOs: where revenue is quietly leaking across your sales and marketing funnel, and what benchmark says you should be seeing instead GTM Strategy Demand Generation Revenue Leaks Diagnostic">
         <div class="blog-card-head">
           <div class="blog-card-meta">
             <p class="blog-card-series">Revenue Architect Intelligence Series &middot; Diagnostic</p>
-            <h3>The 10-Point Go-To-Market Leak Finder</h3>
+            <h3><a href="gtm-leak-finder.html" style="color:inherit;text-decoration:none;">The 10-Point Go-To-Market Leak Finder</a></h3>
             <p class="blog-card-subtitle">A one-page audit for mid-market CEOs: where revenue is quietly leaking across your sales and marketing funnel, and what benchmark says you should be seeing instead</p>
             <div class="blog-card-byline">
               <span class="blog-card-author">Dean Reid &nbsp;&middot;&nbsp; Revenue Architect, Optivus</span>
               <span class="blog-card-date">September 2026</span>
             </div>
           </div>
-          <button class="blog-toggle-btn" onclick="blogToggle(this)" aria-expanded="false">Read Post &darr;</button>
         </div>
-        <div class="blog-card-body">
-          <div class="blog-insights">
+        <div class="blog-excerpt-body">
+<div class="blog-insights">
             <div class="blog-insight"><p class="blog-insight-num">Insight 01</p><p>Drift tested this directly: it submitted real lead forms to 433 B2B SaaS companies and timed the replies. Average response time was 42 hours. 55% never responded within 5 business days. Only 7% responded within 5 minutes &mdash; and leads contacted within an hour are roughly 7&times; more likely to qualify than leads contacted later. Most companies are losing this leak before a rep ever says a word.</p></div>
             <div class="blog-insight"><p class="blog-insight-num">Insight 02</p><p>The 2026 Aleph x Benchmarkit report &mdash; full-year 2025 actuals across 342 SaaS and AI-native companies &mdash; found a median CAC payback of 16 months. Top-quartile companies recover it in 6 months or fewer. Bottom-quartile companies take 24 months or more. That spread is the difference between a company that can self-fund its next growth cohort and one that can&rsquo;t.</p></div>
             <div class="blog-insight"><p class="blog-insight-num">Insight 03</p><p>Series A investors in H1 2026 underwrite pipeline coverage of 3 to 4&times; quota and win rates of 25&ndash;35% at SMB, sliding to 12&ndash;18% at enterprise. Run your own numbers against that, and you find out exactly which stage of the funnel is quietly failing to produce enough of the right opportunities.</p></div>
           </div>
-          <div class="blog-divider"></div>
-
-          <p>Revenue doesn&rsquo;t usually disappear in one dramatic failure. It leaks &mdash; a few points here, a few weeks there &mdash; across ten places most CEOs never look at side by side because they sit in different people&rsquo;s dashboards. This is the one-page version of that side-by-side view. Ten checks, ten benchmarks, run through your own numbers in under twenty minutes.</p>
-          <p>Picture a mid-market CEO reviewing a board deck. Revenue is up. The team is busy. Nobody&rsquo;s lying in that meeting. But underneath the top-line number, a lead sat unanswered for two days last month, the pipeline going into this quarter was 2.1&times; coverage instead of 3&times;, and the last renewal cycle quietly lost four accounts nobody flagged until they were gone. None of these show up as a single line item anywhere. Each one, alone, looks like a rounding error. Stacked together, they&rsquo;re the entire growth-rate gap between this company and the one just ahead of it in the market.</p>
-
-          <h2>The Root Cause: Push Versus Pull</h2>
-          <p>These ten leaks show up together instead of in isolation for a reason. In <em>The Power of Pull</em>, John Hagel III, John Seely Brown, and Lang Davison argued that most organizations are still built for a push world: forecast demand, then build a standardized process to meet it, then stockpile the resources needed to run that process. That model rewards predictability. It has almost nothing to say about speed, magnetism, or getting better through participation &mdash; exactly what a market running on pull now requires instead.</p>
-          <p>The authors named three levers for operating in a pull world:</p>
-          <ul>
-            <li><strong>Access</strong> &mdash; pulling in resources the moment you need them, instead of stockpiling them in advance.</li>
-            <li><strong>Attract</strong> &mdash; becoming a magnet for the right opportunity, instead of chasing it down.</li>
-            <li><strong>Achieve</strong> &mdash; getting better by participating in a live flow of knowledge, instead of repeating a fixed process.</li>
-          </ul>
-          <p>Every leak on this list sorts cleanly into one of the three, which is the tell that they were never ten separate problems. They&rsquo;re one structural mismatch, showing up in ten places.</p>
-
-          <h2>The 10 Leaks, and the Benchmark for Each</h2>
-
-          <h3>1. Speed to first response &mdash; Access</h3>
-          <p>Time from a lead&rsquo;s first inquiry to a human&rsquo;s first reply. Benchmark: under 1 hour, ideally under 5 minutes. If your average sits anywhere near the 42-hour industry norm, this is very likely your single highest-ROI fix, and the cheapest one on this list to act on this week.</p>
-
-          <h3>2. Lead qualification clarity &mdash; Attract</h3>
-          <p>Ask your Head of Marketing and your Head of Sales, separately, to define what makes a lead sales-ready. If you get two different answers, that gap is where good leads quietly die in a handoff nobody owns. There&rsquo;s no external benchmark for this one &mdash; either the two definitions match, or they don&rsquo;t.</p>
-
-          <h3>3. Pipeline coverage ratio &mdash; Access</h3>
-          <p>Total open pipeline value divided by the quarter&rsquo;s revenue target. Benchmark: 3 to 4&times; coverage. Below that, you don&rsquo;t have a closing problem yet &mdash; you have a pipeline-generation problem that will show up as a closing problem next quarter.</p>
-
-          <h3>4. Win rate by segment &mdash; Achieve</h3>
-          <p>Closed-won divided by total qualified opportunities, split by deal size. Benchmark: 25&ndash;35% at SMB, 12&ndash;18% at enterprise. A win rate meaningfully below your segment&rsquo;s benchmark usually means the deals entering the pipeline were never well-qualified in the first place, which routes back to Leak 2.</p>
-
-          <h3>5. Sales cycle length versus benchmark &mdash; Achieve</h3>
-          <p>Median B2B sales cycle now runs about 84 days and has lengthened roughly 22% since 2022, mainly because deals now involve six to ten decision-makers instead of two or three. If your cycle is well above benchmark for your deal size, the question isn&rsquo;t &ldquo;why is sales slow.&rdquo; It&rsquo;s which of those six to ten stakeholders isn&rsquo;t getting the material they need to say yes internally.</p>
-
-          <h3>6. CAC payback period &mdash; Access</h3>
-          <p>Fully loaded sales and marketing cost to acquire a customer, divided by the gross profit that customer generates monthly. Benchmark: under 18 months, under 12 for top-tier efficiency. The most common way this number gets flattered is by quietly excluding SDR salaries from the calculation. Include them &mdash; the real number is the only one worth knowing.</p>
-
-          <h3>7. Content distinctiveness &mdash; Attract</h3>
-          <p>Pull your last four pieces of published content next to your closest competitor&rsquo;s. If a reader couldn&rsquo;t tell whose is whose without checking the logo, your content isn&rsquo;t losing to a better competitor; it&rsquo;s failing to register as a distinct choice at all. This is the AI-era version of a positioning problem.</p>
-
-          <h3>8. AI answer engine visibility &mdash; Attract</h3>
-          <p>Ask ChatGPT, Perplexity, or Gemini to recommend vendors in your category and see whether you&rsquo;re named. AI answer engines typically surface only a handful of brands per response, not a full page of results, and buyers increasingly trust that shortlist. If you&rsquo;re not on it, you&rsquo;re losing deals before your sales team ever hears about them.</p>
-
-          <h3>9. Martech stack data readiness &mdash; Access</h3>
-          <p>The average enterprise stack runs 91 tools and actively uses only 49% of them. Before adding one more AI tool to the stack, check whether your CRM data is clean enough for the tools you already own to work properly. This is usually the highest-leverage item on this list for a company that&rsquo;s already bought more tools than it uses.</p>
-
-          <h3>10. Post-sale revenue retention &mdash; Achieve</h3>
-          <p>Revenue kept and expanded from existing customers over the trailing twelve months. This is the leak CEOs feel latest and regret most, because by the time a churn number looks bad, the damage was already done a full renewal cycle earlier. If nobody in the company can produce this number inside of five minutes, that itself is the finding.</p>
-
-          <div class="blog-divider"></div>
-          <h2>Three Takeaways</h2>
-
-          <h3>Takeaway 01 &mdash; Run the audit this week, not next quarter</h3>
-          <ul>
-            <li>Block 20 minutes and pull the actual number for each of the 10 leaks, not an estimate from memory.</li>
-            <li>Where a number doesn&rsquo;t exist yet, like Leak 2&rsquo;s qualification definition or Leak 10&rsquo;s retention figure, write down that it doesn&rsquo;t exist. That&rsquo;s a finding, not a gap in the exercise.</li>
-            <li>Compare each number against the benchmark listed for it, not against your own result from a year ago.</li>
-            <li>Circle the three leaks furthest from benchmark. Those three are worth more of your time this quarter than the other seven combined.</li>
-            <li>Put a single owner&rsquo;s name next to each of those three leaks before the meeting ends &mdash; not a team or a department.</li>
-          </ul>
-
-          <h3>Takeaway 02 &mdash; Fix the cheapest leak first, not the most interesting one</h3>
-          <ul>
-            <li>Rank your three worst leaks by how much it costs to fix each one, not by how exciting the fix sounds.</li>
-            <li>Speed to first response (Leak 1) and lead qualification clarity (Leak 2) are almost always the cheapest fixes on this list and often the highest-leverage.</li>
-            <li>Start there even if a bigger strategic leak, like Leak 9&rsquo;s stack cleanup, feels more urgent. Momentum from an early win buys you room to tackle the slower fix.</li>
-            <li>Set a 30-day check-in on the cheap fix specifically, before starting the expensive one.</li>
-            <li>Only move to the next leak once the first one shows a measurable change, not just a completed task.</li>
-          </ul>
-
-          <h3>Takeaway 03 &mdash; Put one person in the room who can see all ten numbers</h3>
-          <ul>
-            <li>Name one person, not a committee, who receives all 10 numbers on the same report, on the same day, every month.</li>
-            <li>That person doesn&rsquo;t need to own every function. They need visibility across marketing, sales, and customer success at once.</li>
-            <li>If that person doesn&rsquo;t exist in your company today, that absence is itself the biggest leak on this list.</li>
-            <li>Give that person the authority to flag a leak directly to you, the CEO, without it being softened by whichever department it makes look bad.</li>
-            <li>Re-run the full 10-point audit every quarter, on the same day, so leaks get caught while they&rsquo;re still cheap to fix.</li>
-          </ul>
-          <p>None of these ten leaks require a bigger budget to find. They require someone who&rsquo;s actually looking at all ten at once, on a schedule, instead of discovering them one at a time, in board meetings, after the quarter that mattered has already closed.</p>
-
-          <div class="blog-divider"></div>
-          <p><strong>I&rsquo;m Dean Reid,</strong> Fractional CMO at Optivus. My approach is built from 25 years of VP-level pattern recognition across TELUS, Bell Canada, SMART Technologies, and Veriforce, applied now to finding exactly where revenue is leaking before it shows up as a missed number on a board slide. Prefer a guided version of this audit? Run the <a href="revenue-engine-audit.html" style="color:var(--green);font-weight:600;">Revenue Engine Audit</a> for a scored, prioritized report.</p>
-          <a href="https://calendar.app.google/5v6oNJ8jHkWMVzTTA" target="_blank" rel="noopener" class="blog-cta-inline">Book a free discovery call &rarr;</a>
-
-          <!-- Sources -->
-          <div class="blog-sources">
-            <p class="blog-sources-label">Sources</p>
-            <ol>
-              <li>Hagel III, J., Seely Brown, J., &amp; Davison, L. (2010). <em>The Power of Pull: How Small Moves, Smartly Made, Can Set Big Things in Motion.</em> Basic Books.</li>
-              <li>Drift (Lead Response Report). Test of 433 B2B SaaS companies via real submitted lead forms: average response time 42 hours, 55% no response within 5 business days, 7% responded within 5 minutes.</li>
-              <li>Oldroyd, J. (Lead Response Management Study, with InsideSales.com). Analysis of 15,000+ leads found contacts made within one hour are roughly 7&times; more likely to qualify than later contacts; corroborated by Harvard Business Review&rsquo;s independent analysis of the same phenomenon.</li>
-              <li>Aleph x Benchmarkit (2026). SaaS &amp; AI Performance Benchmarks, full-year 2025 actuals across 342 SaaS and AI-native software companies. Median CAC payback 16 months; top quartile 6 months or fewer; bottom quartile 24 months or more.</li>
-              <li>Causo Hub (H1 2026). B2B SaaS GTM Benchmark Report. Pipeline coverage of 3 to 4&times; quota and win rates of 25&ndash;35% (SMB) to 12&ndash;18% (Enterprise) cited as the H1 2026 Series A underwriting standard.</li>
-              <li>PipelineGrader (2026). The State of B2B Sales in 2026. Median B2B sales cycle approximately 84 days, lengthened roughly 22% since 2022, attributed in part to 6&ndash;10 decision-makers per deal.</li>
-              <li>Gartner Marketing Technology Survey (2025) and chiefmartec &amp; MartechTribe Martech for 2026 report: average enterprise stack of 91 tools, 49% utilization.</li>
-            </ol>
-          </div>
+          <a href="gtm-leak-finder.html" class="blog-read-link">Read the full post &rarr;</a>
         </div>
         <div class="blog-card-footer">
-          <div class="blog-card-tags">
-            <span class="blog-card-tag">GTM Strategy</span>
-            <span class="blog-card-tag">Demand Generation</span>
-            <span class="blog-card-tag">Revenue Leaks</span>
-            <span class="blog-card-tag">Diagnostic</span>
-          </div>
-          <button class="blog-close-btn" onclick="blogClose(this)" style="display:none;">&uarr; Close post</button>
+          <div class="blog-card-tags"><span class="blog-card-tag">GTM Strategy</span><span class="blog-card-tag">Demand Generation</span><span class="blog-card-tag">Revenue Leaks</span><span class="blog-card-tag">Diagnostic</span></div>
         </div>
       </article>
 
@@ -1570,7 +1217,7 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
   var currentQuery = '';
 
   function getCards(){
-    return document.querySelectorAll('#blogGrid .blog-card');
+    return document.querySelectorAll('#blogGrid .blog-excerpt-card');
   }
 
   function normalize(s){
@@ -1616,42 +1263,12 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
     applyFilters();
   };
 
-  window.blogToggle = function(btn){
-    var card = btn.closest('.blog-card');
-    var body = card.querySelector('.blog-card-body');
-    var footer = card.querySelector('.blog-card-footer');
-    var closeBtn = footer ? footer.querySelector('.blog-close-btn') : null;
-    var isOpen = body.classList.contains('open');
-    if(isOpen){
-      body.classList.remove('open');
-      btn.innerHTML = 'Read Post &darr;';
-      btn.setAttribute('aria-expanded','false');
-      if(closeBtn) closeBtn.style.display = 'none';
-    } else {
-      body.classList.add('open');
-      btn.innerHTML = 'Close &uarr;';
-      btn.setAttribute('aria-expanded','true');
-      if(closeBtn) closeBtn.style.display = '';
-      // smooth scroll to top of card so the header stays in view
-      setTimeout(function(){
-        var top = card.getBoundingClientRect().top + window.pageYOffset - 90;
-        window.scrollTo({top: Math.max(0, top), behavior: 'smooth'});
-      }, 50);
-    }
-  };
-
-  window.blogClose = function(btn){
-    var card = btn.closest('.blog-card');
-    var toggleBtn = card.querySelector('.blog-toggle-btn');
-    if(toggleBtn) blogToggle(toggleBtn);
-  };
-
   // Initialize count on load
   applyFilters();
 })();
 </script>
 
-<!-- CTA BAND --><!-- CTA BAND -->
+<!-- CTA BAND -->
 <section style="background:var(--ink);padding:72px 0;border-top:1px solid rgba(52,211,153,.1);">
   <div class="sec-inner" style="text-align:center;">
     <p style="font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--green2);margin-bottom:14px;">Ready to apply this?</p>
@@ -1660,4 +1277,56 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
     <a href="https://calendar.app.google/5v6oNJ8jHkWMVzTTA" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#fff;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:16px 32px;border-radius:6px;text-decoration:none;transition:background .2s;">Book a Free Discovery Call &rarr;</a>
   </div>
 </section>
+
+<footer>
+  <div class="footer-body">
+    <div class="footer-col-brand">
+      <p class="foot-brand">Dean <span>Reid</span></p>
+      <p class="foot-sub">Revenue Architect &nbsp;&middot;&nbsp; B2B Commercial Strategist &nbsp;&middot;&nbsp; Canada</p>
+      <p class="foot-desc">Fractional marketing leadership for B2B companies that need senior strategy without the full-time overhead. Scoped to your situation.</p>
+      <div class="footer-social">
+        <a href="https://www.linkedin.com/in/deanreid1/" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 16 16" width="15" height="15" fill="currentColor"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg>
+        </a>
+        <a href="https://calendar.app.google/5v6oNJ8jHkWMVzTTA" target="_blank" rel="noopener" aria-label="Book a call">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-col-nav">
+      <p class="footer-col-heading">Six Offerings</p>
+      <ul class="footer-col-links">
+        <li><a href="index.html">Revenue Architect for B2B Growth</a></li>
+        <li><a href="board-advisor.html">Board-Level Growth Advisor</a></li>
+        <li><a href="growth-playbook.html">Growth Playbook in 30 Days</a></li>
+        <li><a href="cx-audit.html">Customer Journey &amp; CX Audit</a></li>
+        <li><a href="ai-for-marketing.html">Fractional Head of AI for Marketing</a></li>
+        <li><a href="thought-leadership.html">Executive Thought-Leadership Partner</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Optivus. Revenue Architecture. Canada. &nbsp;&middot;&nbsp; <a href="privacy-policy.pdf" download style="color:rgba(255,255,255,0.6);text-decoration:none;">Privacy Policy &darr;</a></p>
+    <p>Revenue Architect &nbsp;&middot;&nbsp; Board Advisor &nbsp;&middot;&nbsp; AI Marketing &nbsp;&middot;&nbsp; B2B Growth Strategy &nbsp;&middot;&nbsp; Go-To-Market Consultant</p>
+  </div>
+</footer>
+
+<script id="onav-js">
+(function(){
+  var h=document.getElementById('onav-hbg'),
+      d=document.getElementById('onav-drw'),
+      o=document.getElementById('onav-ovl'),
+      x=document.getElementById('onav-drw-x');
+  if(!h||!d)return;
+  function op(){d.classList.add('open');if(o)o.style.display='block';h.classList.add('x');document.body.style.overflow='hidden';}
+  function cl(){d.classList.remove('open');if(o)o.style.display='none';h.classList.remove('x');document.body.style.overflow='';}
+  h.addEventListener('click',function(){d.classList.contains('open')?cl():op();});
+  if(x)x.addEventListener('click',cl);
+  if(o)o.addEventListener('click',cl);
+  d.querySelectorAll('a').forEach(function(a){a.addEventListener('click',cl);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')cl();});
+})();
+</script>
+</body>
+</html>
 
