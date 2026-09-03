@@ -488,6 +488,54 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
       <p class="calc-cta">ROI &gt; 100% = strong investment case &nbsp;&middot;&nbsp; <a href="https://calendar.app.google/5v6oNJ8jHkWMVzTTA" target="_blank" rel="noopener">Book a call to validate your numbers &rarr;</a></p>
     </div>
 
+    <script>
+    (function(){
+      function fmtDollar(n){
+        return '$' + Math.round(n).toLocaleString('en-US');
+      }
+      function fmtK(n){
+        var sign = n < 0 ? '-' : '';
+        var abs = Math.abs(n);
+        return sign + '$' + Math.round(abs/1000).toLocaleString('en-US') + 'K';
+      }
+      function calc(){
+        var fee = parseInt(document.getElementById('c-fee').value, 10);
+        var rev = parseInt(document.getElementById('c-rev').value, 10);
+        var sav = parseInt(document.getElementById('c-sav').value, 10);
+        var mo  = parseInt(document.getElementById('c-mo').value, 10);
+
+        document.getElementById('v-fee').textContent = fmtDollar(fee);
+        document.getElementById('v-rev').textContent = fmtDollar(rev);
+        document.getElementById('v-sav').textContent = fmtDollar(sav);
+        document.getElementById('v-mo').textContent = mo + (mo === 1 ? ' month' : ' months');
+
+        var investment = fee * mo;
+        var benefits = (rev + sav) * mo;
+        var net = benefits - investment;
+        var roi = investment > 0 ? (net / investment) * 100 : 0;
+
+        document.getElementById('r-inv').textContent = fmtK(investment);
+        document.getElementById('r-ben').textContent = fmtK(benefits);
+        document.getElementById('r-net').textContent = fmtK(net);
+        document.getElementById('r-roi').textContent = Math.round(roi) + '%';
+
+        var roiEl = document.getElementById('r-roi').closest('.calc-metric');
+        if(roiEl){
+          roiEl.classList.toggle('highlight', roi >= 100);
+        }
+      }
+
+      ['c-fee','c-rev','c-sav','c-mo'].forEach(function(id){
+        var el = document.getElementById(id);
+        if(el){
+          el.addEventListener('input', calc);
+        }
+      });
+
+      calc();
+    })();
+    </script>
+
         <div class="prac-grid">
 
       <div class="prac-card">
@@ -1373,6 +1421,134 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
         </div>
         <div class="blog-card-footer">
           <div class="blog-card-tags"><span class="blog-card-tag">Thought Leadership</span><span class="blog-card-tag">Category Design</span><span class="blog-card-tag">AI &amp; Marketing</span><span class="blog-card-tag">AEO</span></div>
+          <button class="blog-close-btn" onclick="blogClose(this)" style="display:none;">&uarr; Close post</button>
+        </div>
+      </article>
+
+      <!-- POST 09: The 10-Point Go-To-Market Leak Finder -->
+      <article class="blog-card" data-cats="gtm-strategy demand-generation private-equity"
+               data-search="10 point GTM leak finder revenue leak audit mid-market CEO sales marketing funnel benchmark speed to first response lead qualification pipeline coverage win rate sales cycle CAC payback content distinctiveness AI answer engine visibility martech stack retention push pull power of pull hagel access attract achieve">
+        <div class="blog-card-head">
+          <div class="blog-card-meta">
+            <p class="blog-card-series">Revenue Architect Intelligence Series &middot; Diagnostic</p>
+            <h3>The 10-Point Go-To-Market Leak Finder</h3>
+            <p class="blog-card-subtitle">A one-page audit for mid-market CEOs: where revenue is quietly leaking across your sales and marketing funnel, and what benchmark says you should be seeing instead</p>
+            <div class="blog-card-byline">
+              <span class="blog-card-author">Dean Reid &nbsp;&middot;&nbsp; Revenue Architect, Optivus</span>
+              <span class="blog-card-date">September 2026</span>
+            </div>
+          </div>
+          <button class="blog-toggle-btn" onclick="blogToggle(this)" aria-expanded="false">Read Post &darr;</button>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-insights">
+            <div class="blog-insight"><p class="blog-insight-num">Insight 01</p><p>Drift tested this directly: it submitted real lead forms to 433 B2B SaaS companies and timed the replies. Average response time was 42 hours. 55% never responded within 5 business days. Only 7% responded within 5 minutes &mdash; and leads contacted within an hour are roughly 7&times; more likely to qualify than leads contacted later. Most companies are losing this leak before a rep ever says a word.</p></div>
+            <div class="blog-insight"><p class="blog-insight-num">Insight 02</p><p>The 2026 Aleph x Benchmarkit report &mdash; full-year 2025 actuals across 342 SaaS and AI-native companies &mdash; found a median CAC payback of 16 months. Top-quartile companies recover it in 6 months or fewer. Bottom-quartile companies take 24 months or more. That spread is the difference between a company that can self-fund its next growth cohort and one that can&rsquo;t.</p></div>
+            <div class="blog-insight"><p class="blog-insight-num">Insight 03</p><p>Series A investors in H1 2026 underwrite pipeline coverage of 3 to 4&times; quota and win rates of 25&ndash;35% at SMB, sliding to 12&ndash;18% at enterprise. Run your own numbers against that, and you find out exactly which stage of the funnel is quietly failing to produce enough of the right opportunities.</p></div>
+          </div>
+          <div class="blog-divider"></div>
+
+          <p>Revenue doesn&rsquo;t usually disappear in one dramatic failure. It leaks &mdash; a few points here, a few weeks there &mdash; across ten places most CEOs never look at side by side because they sit in different people&rsquo;s dashboards. This is the one-page version of that side-by-side view. Ten checks, ten benchmarks, run through your own numbers in under twenty minutes.</p>
+          <p>Picture a mid-market CEO reviewing a board deck. Revenue is up. The team is busy. Nobody&rsquo;s lying in that meeting. But underneath the top-line number, a lead sat unanswered for two days last month, the pipeline going into this quarter was 2.1&times; coverage instead of 3&times;, and the last renewal cycle quietly lost four accounts nobody flagged until they were gone. None of these show up as a single line item anywhere. Each one, alone, looks like a rounding error. Stacked together, they&rsquo;re the entire growth-rate gap between this company and the one just ahead of it in the market.</p>
+
+          <h2>The Root Cause: Push Versus Pull</h2>
+          <p>These ten leaks show up together instead of in isolation for a reason. In <em>The Power of Pull</em>, John Hagel III, John Seely Brown, and Lang Davison argued that most organizations are still built for a push world: forecast demand, then build a standardized process to meet it, then stockpile the resources needed to run that process. That model rewards predictability. It has almost nothing to say about speed, magnetism, or getting better through participation &mdash; exactly what a market running on pull now requires instead.</p>
+          <p>The authors named three levers for operating in a pull world:</p>
+          <ul>
+            <li><strong>Access</strong> &mdash; pulling in resources the moment you need them, instead of stockpiling them in advance.</li>
+            <li><strong>Attract</strong> &mdash; becoming a magnet for the right opportunity, instead of chasing it down.</li>
+            <li><strong>Achieve</strong> &mdash; getting better by participating in a live flow of knowledge, instead of repeating a fixed process.</li>
+          </ul>
+          <p>Every leak on this list sorts cleanly into one of the three, which is the tell that they were never ten separate problems. They&rsquo;re one structural mismatch, showing up in ten places.</p>
+
+          <h2>The 10 Leaks, and the Benchmark for Each</h2>
+
+          <h3>1. Speed to first response &mdash; Access</h3>
+          <p>Time from a lead&rsquo;s first inquiry to a human&rsquo;s first reply. Benchmark: under 1 hour, ideally under 5 minutes. If your average sits anywhere near the 42-hour industry norm, this is very likely your single highest-ROI fix, and the cheapest one on this list to act on this week.</p>
+
+          <h3>2. Lead qualification clarity &mdash; Attract</h3>
+          <p>Ask your Head of Marketing and your Head of Sales, separately, to define what makes a lead sales-ready. If you get two different answers, that gap is where good leads quietly die in a handoff nobody owns. There&rsquo;s no external benchmark for this one &mdash; either the two definitions match, or they don&rsquo;t.</p>
+
+          <h3>3. Pipeline coverage ratio &mdash; Access</h3>
+          <p>Total open pipeline value divided by the quarter&rsquo;s revenue target. Benchmark: 3 to 4&times; coverage. Below that, you don&rsquo;t have a closing problem yet &mdash; you have a pipeline-generation problem that will show up as a closing problem next quarter.</p>
+
+          <h3>4. Win rate by segment &mdash; Achieve</h3>
+          <p>Closed-won divided by total qualified opportunities, split by deal size. Benchmark: 25&ndash;35% at SMB, 12&ndash;18% at enterprise. A win rate meaningfully below your segment&rsquo;s benchmark usually means the deals entering the pipeline were never well-qualified in the first place, which routes back to Leak 2.</p>
+
+          <h3>5. Sales cycle length versus benchmark &mdash; Achieve</h3>
+          <p>Median B2B sales cycle now runs about 84 days and has lengthened roughly 22% since 2022, mainly because deals now involve six to ten decision-makers instead of two or three. If your cycle is well above benchmark for your deal size, the question isn&rsquo;t &ldquo;why is sales slow.&rdquo; It&rsquo;s which of those six to ten stakeholders isn&rsquo;t getting the material they need to say yes internally.</p>
+
+          <h3>6. CAC payback period &mdash; Access</h3>
+          <p>Fully loaded sales and marketing cost to acquire a customer, divided by the gross profit that customer generates monthly. Benchmark: under 18 months, under 12 for top-tier efficiency. The most common way this number gets flattered is by quietly excluding SDR salaries from the calculation. Include them &mdash; the real number is the only one worth knowing.</p>
+
+          <h3>7. Content distinctiveness &mdash; Attract</h3>
+          <p>Pull your last four pieces of published content next to your closest competitor&rsquo;s. If a reader couldn&rsquo;t tell whose is whose without checking the logo, your content isn&rsquo;t losing to a better competitor; it&rsquo;s failing to register as a distinct choice at all. This is the AI-era version of a positioning problem.</p>
+
+          <h3>8. AI answer engine visibility &mdash; Attract</h3>
+          <p>Ask ChatGPT, Perplexity, or Gemini to recommend vendors in your category and see whether you&rsquo;re named. AI answer engines typically surface only a handful of brands per response, not a full page of results, and buyers increasingly trust that shortlist. If you&rsquo;re not on it, you&rsquo;re losing deals before your sales team ever hears about them.</p>
+
+          <h3>9. Martech stack data readiness &mdash; Access</h3>
+          <p>The average enterprise stack runs 91 tools and actively uses only 49% of them. Before adding one more AI tool to the stack, check whether your CRM data is clean enough for the tools you already own to work properly. This is usually the highest-leverage item on this list for a company that&rsquo;s already bought more tools than it uses.</p>
+
+          <h3>10. Post-sale revenue retention &mdash; Achieve</h3>
+          <p>Revenue kept and expanded from existing customers over the trailing twelve months. This is the leak CEOs feel latest and regret most, because by the time a churn number looks bad, the damage was already done a full renewal cycle earlier. If nobody in the company can produce this number inside of five minutes, that itself is the finding.</p>
+
+          <div class="blog-divider"></div>
+          <h2>Three Takeaways</h2>
+
+          <h3>Takeaway 01 &mdash; Run the audit this week, not next quarter</h3>
+          <ul>
+            <li>Block 20 minutes and pull the actual number for each of the 10 leaks, not an estimate from memory.</li>
+            <li>Where a number doesn&rsquo;t exist yet, like Leak 2&rsquo;s qualification definition or Leak 10&rsquo;s retention figure, write down that it doesn&rsquo;t exist. That&rsquo;s a finding, not a gap in the exercise.</li>
+            <li>Compare each number against the benchmark listed for it, not against your own result from a year ago.</li>
+            <li>Circle the three leaks furthest from benchmark. Those three are worth more of your time this quarter than the other seven combined.</li>
+            <li>Put a single owner&rsquo;s name next to each of those three leaks before the meeting ends &mdash; not a team or a department.</li>
+          </ul>
+
+          <h3>Takeaway 02 &mdash; Fix the cheapest leak first, not the most interesting one</h3>
+          <ul>
+            <li>Rank your three worst leaks by how much it costs to fix each one, not by how exciting the fix sounds.</li>
+            <li>Speed to first response (Leak 1) and lead qualification clarity (Leak 2) are almost always the cheapest fixes on this list and often the highest-leverage.</li>
+            <li>Start there even if a bigger strategic leak, like Leak 9&rsquo;s stack cleanup, feels more urgent. Momentum from an early win buys you room to tackle the slower fix.</li>
+            <li>Set a 30-day check-in on the cheap fix specifically, before starting the expensive one.</li>
+            <li>Only move to the next leak once the first one shows a measurable change, not just a completed task.</li>
+          </ul>
+
+          <h3>Takeaway 03 &mdash; Put one person in the room who can see all ten numbers</h3>
+          <ul>
+            <li>Name one person, not a committee, who receives all 10 numbers on the same report, on the same day, every month.</li>
+            <li>That person doesn&rsquo;t need to own every function. They need visibility across marketing, sales, and customer success at once.</li>
+            <li>If that person doesn&rsquo;t exist in your company today, that absence is itself the biggest leak on this list.</li>
+            <li>Give that person the authority to flag a leak directly to you, the CEO, without it being softened by whichever department it makes look bad.</li>
+            <li>Re-run the full 10-point audit every quarter, on the same day, so leaks get caught while they&rsquo;re still cheap to fix.</li>
+          </ul>
+          <p>None of these ten leaks require a bigger budget to find. They require someone who&rsquo;s actually looking at all ten at once, on a schedule, instead of discovering them one at a time, in board meetings, after the quarter that mattered has already closed.</p>
+
+          <div class="blog-divider"></div>
+          <p><strong>I&rsquo;m Dean Reid,</strong> Fractional CMO at Optivus. My approach is built from 25 years of VP-level pattern recognition across TELUS, Bell Canada, SMART Technologies, and Veriforce, applied now to finding exactly where revenue is leaking before it shows up as a missed number on a board slide. Prefer a guided version of this audit? Run the <a href="revenue-engine-audit.html" style="color:var(--green);font-weight:600;">Revenue Engine Audit</a> for a scored, prioritized report.</p>
+          <a href="https://calendar.app.google/5v6oNJ8jHkWMVzTTA" target="_blank" rel="noopener" class="blog-cta-inline">Book a free discovery call &rarr;</a>
+
+          <!-- Sources -->
+          <div class="blog-sources">
+            <p class="blog-sources-label">Sources</p>
+            <ol>
+              <li>Hagel III, J., Seely Brown, J., &amp; Davison, L. (2010). <em>The Power of Pull: How Small Moves, Smartly Made, Can Set Big Things in Motion.</em> Basic Books.</li>
+              <li>Drift (Lead Response Report). Test of 433 B2B SaaS companies via real submitted lead forms: average response time 42 hours, 55% no response within 5 business days, 7% responded within 5 minutes.</li>
+              <li>Oldroyd, J. (Lead Response Management Study, with InsideSales.com). Analysis of 15,000+ leads found contacts made within one hour are roughly 7&times; more likely to qualify than later contacts; corroborated by Harvard Business Review&rsquo;s independent analysis of the same phenomenon.</li>
+              <li>Aleph x Benchmarkit (2026). SaaS &amp; AI Performance Benchmarks, full-year 2025 actuals across 342 SaaS and AI-native software companies. Median CAC payback 16 months; top quartile 6 months or fewer; bottom quartile 24 months or more.</li>
+              <li>Causo Hub (H1 2026). B2B SaaS GTM Benchmark Report. Pipeline coverage of 3 to 4&times; quota and win rates of 25&ndash;35% (SMB) to 12&ndash;18% (Enterprise) cited as the H1 2026 Series A underwriting standard.</li>
+              <li>PipelineGrader (2026). The State of B2B Sales in 2026. Median B2B sales cycle approximately 84 days, lengthened roughly 22% since 2022, attributed in part to 6&ndash;10 decision-makers per deal.</li>
+              <li>Gartner Marketing Technology Survey (2025) and chiefmartec &amp; MartechTribe Martech for 2026 report: average enterprise stack of 91 tools, 49% utilization.</li>
+            </ol>
+          </div>
+        </div>
+        <div class="blog-card-footer">
+          <div class="blog-card-tags">
+            <span class="blog-card-tag">GTM Strategy</span>
+            <span class="blog-card-tag">Demand Generation</span>
+            <span class="blog-card-tag">Revenue Leaks</span>
+            <span class="blog-card-tag">Diagnostic</span>
+          </div>
           <button class="blog-close-btn" onclick="blogClose(this)" style="display:none;">&uarr; Close post</button>
         </div>
       </article>
