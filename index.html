@@ -2181,26 +2181,6 @@ body{padding-top:68px;}
       BOOK A FREE DISCOVERY CALL <span class="hero-btn-arrow">→</span>
     </a>
   </div>
-
-  <style id="problem-row-css">
-  .problem-row{display:flex;flex-wrap:wrap;gap:0;margin:8px 0 36px;padding:16px 0;border-top:1px solid rgba(255,255,255,.12);border-bottom:1px solid rgba(255,255,255,.12);opacity:0;animation:fadeUp 0.9s 0.4s forwards;}
-  .problem-row-item{display:flex;align-items:baseline;gap:8px;padding:6px 22px 6px 0;margin-right:22px;border-right:1px solid rgba(255,255,255,.12);text-decoration:none;transition:opacity .15s;}
-  .problem-row-item:last-child{border-right:none;margin-right:0;padding-right:0;}
-  .problem-row-item:hover{opacity:.75;}
-  .problem-row-mark{color:#34D399;font-weight:700;font-size:13px;flex-shrink:0;}
-  .problem-row-item strong{color:#fff;font-size:14px;font-weight:600;white-space:nowrap;text-decoration:underline;text-decoration-color:rgba(255,255,255,.28);text-underline-offset:3px;}
-  .problem-row-item:hover strong{text-decoration-color:#34D399;}
-  .problem-row-item span{color:rgba(255,255,255,.55);font-size:13px;}
-  .problem-row-arrow{color:rgba(255,255,255,.35);font-size:12px;margin-left:2px;}
-  @media(max-width:900px){.problem-row{gap:10px;}.problem-row-item{border-right:none;margin-right:0;padding:4px 0;flex-basis:100%;}}
-  @media(max-width:640px){.problem-row-item span{display:none;}}
-  </style>
-  <div class="problem-row" aria-label="Common revenue leaks — click to see how each is fixed">
-    <a href="cx-audit.html" class="problem-row-item"><span class="problem-row-mark">!</span><strong>High churn</strong><span>&nbsp;— hurts what your company is worth</span><span class="problem-row-arrow">→</span></a>
-    <a href="gtm-leak-finder.html" class="problem-row-item"><span class="problem-row-mark">!</span><strong>Disconnected systems</strong><span>&nbsp;— you lose deals because of it</span><span class="problem-row-arrow">→</span></a>
-    <a href="why-pe-backed-companies-stall-at-20m.html" class="problem-row-item"><span class="problem-row-mark">!</span><strong>Growth by heroics</strong><span>&nbsp;— if they leave, so does the value</span><span class="problem-row-arrow">→</span></a>
-    <a href="growth-playbook.html" class="problem-row-item"><span class="problem-row-mark">!</span><strong>Low share of wallet</strong><span>&nbsp;— money sitting on the table</span><span class="problem-row-arrow">→</span></a>
-  </div>
 </header>
 
 <!-- COMPANY MARQUEE RIBBON -->
@@ -2210,6 +2190,41 @@ body{padding-top:68px;}
   </div>
 </div>
 
+
+<!-- PROBLEM CARDS -->
+<style id="problem-cards-css">
+.problem-cards-section{background:var(--off-white,#F5F2ED);padding:48px 80px;}
+.problem-cards-inner{max-width:1100px;margin:0 auto;}
+.problem-cards-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+.problem-card{background:#fff;border:2px solid #34D399;border-radius:14px;padding:20px 22px;text-decoration:none;display:block;transition:transform .15s,box-shadow .15s;}
+.problem-card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(16,185,129,.15);}
+.problem-card h3{font-size:15px;font-weight:700;color:var(--body-text,#0F172A);margin-bottom:6px;line-height:1.3;}
+.problem-card p{font-size:13px;color:var(--body-text,#0F172A);opacity:.7;line-height:1.5;margin:0;}
+@media(max-width:900px){.problem-cards-section{padding:40px 40px;}.problem-cards-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.problem-cards-section{padding:32px 20px;}.problem-cards-grid{grid-template-columns:1fr;}}
+</style>
+<section class="problem-cards-section" aria-label="Common revenue leaks — click to see how each is fixed">
+  <div class="problem-cards-inner">
+    <div class="problem-cards-grid">
+      <a href="cx-audit.html" class="problem-card">
+        <h3>High Churn</h3>
+        <p>Hurts what your company is worth</p>
+      </a>
+      <a href="gtm-leak-finder.html" class="problem-card">
+        <h3>Disconnected Systems</h3>
+        <p>You lose deals because of it</p>
+      </a>
+      <a href="why-pe-backed-companies-stall-at-20m.html" class="problem-card">
+        <h3>Growth by Heroics</h3>
+        <p>If they leave, so does the value</p>
+      </a>
+      <a href="growth-playbook.html" class="problem-card">
+        <h3>Low Share of Wallet</h3>
+        <p>Money sitting on the table</p>
+      </a>
+    </div>
+  </div>
+</section>
 
 <!-- SOCIAL PROOF -->
 <section class="social-proof" aria-label="Why clients choose Optivus">
