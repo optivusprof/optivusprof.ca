@@ -97,7 +97,8 @@
 #onav-logo img{height:50px;width:50px;object-fit:contain;display:block;}
 #onav-links{display:flex;align-items:stretch;list-style:none;
   margin:0;padding:0;height:68px;flex:1;}
-#onav-links>li{position:relative;display:flex;align-items:center;}
+#onav-links>li{position:relative;display:flex;align-items:center;z-index:1;}
+#onav-links>li:hover{z-index:100001;}
 #onav-links>li>a,
 #onav-links>li>span{
   display:flex;align-items:center;height:68px;padding:0 15px;
@@ -297,7 +298,13 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
         <a href="ai-for-marketing.html">AI for Marketing</a>
       </div>
     </li>
-    <li><a href="resources.html">Resources</a></li>
+    <li>
+      <span>Resources &#9662;</span>
+      <div class="onav-sub">
+        <a href="resources.html">All Resources &amp; Tools</a>
+        <a href="resources.html#blog">Intelligence Series</a>
+      </div>
+    </li>
     <li>
       <span>Philosophy &#9662;</span>
       <div class="onav-sub">
@@ -333,7 +340,9 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
       <a href="cx-audit.html" class="opt-dl">Customer Journey & CX Audit</a>
       <a href="thought-leadership.html" class="opt-dl">Executive Thought-Leadership Partner</a>
       <a href="ai-for-marketing.html" class="opt-dl">AI for Marketing</a>
-  <a href="resources.html">Resources</a>
+  <p class="onav-drw-lbl">Resources</p>
+  <a href="resources.html" class="opt-dl">All Resources &amp; Tools</a>
+  <a href="resources.html#blog" class="opt-dl">Intelligence Series</a>
   <p class="onav-drw-lbl">Philosophy</p>
   <a href="philosophy.html">Our Philosophy</a>
   <a href="philosophy.html#about">About Dean Reid</a>
@@ -382,7 +391,7 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
           <p>AI-native revenue architecture is the systematic rebuild of a B2B commercial operation so that AI is embedded in the core workflows that produce pipeline. In a traditionally structured marketing function, a team manages ICP research, content production, campaign execution, lead scoring, and reporting through manual coordination. The workflow is slow, the handoffs are lossy, and the output is linear &mdash; proportional to headcount.</p>
           <p>In an AI-native architecture, ICP (Ideal Customer Profile) refinement runs on a structured data workflow. Content production runs on a prompt engineering framework calibrated to your positioning. Lead scoring updates dynamically based on behavioral data. Reporting is automated to board-ready format. <strong>The result is a 40&ndash;60% compression in time from strategy to market-ready execution.</strong></p>
           <h2>What AI Governance Means for a $50M&ndash;$100M B2B Company</h2>
-          <p>AI governance for a B2B marketing function means a documented framework defining: which data can be fed into which AI systems, what the review process is for AI-generated content, how AI-sourced insights are validated before informing strategic decisions, and who is accountable when an AI output causes a problem. Most $50M&ndash;$100M B2B companies have none of these documented. For a company approaching a fundraise or acquisition, this is a material liability. Every serious acquirer&rsquo;s commercial due diligence team now asks for AI usage documentation.</p>
+          <p>AI governance for a B2B marketing function means a documented framework defining: which data can be fed into which AI systems, what the review process is for AI-generated content, how AI-sourced insights are validated before informing strategic decisions, and who is accountable when an AI output causes a problem. This is exactly the data governance framework built into every <a href="ai-for-marketing.html" style="color:var(--ocean-blue);font-weight:600;">AI for Marketing</a> engagement. Most $50M&ndash;$100M B2B companies have none of these documented. For a company approaching a fundraise or acquisition, this is a material liability. Every serious acquirer&rsquo;s commercial due diligence team now asks for AI usage documentation.</p>
           <h2>What the Right AI-for-Marketing Engagement Looks Like in the First 90 Days</h2>
           <p>Phase one is the audit: which AI tools are in use, what data is flowing through them, and what the current governance posture is. Phase two is the architecture: building the AI workflow stack that connects ICP, content, lead scoring, and reporting. Phase three is the calibration: running the system through one full demand generation cycle and measuring output quality and pipeline contribution. By day 90, the system is running and the board has a defensible answer to &ldquo;what is AI actually producing?&rdquo;</p>
           <div class="blog-divider"></div>

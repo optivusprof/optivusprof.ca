@@ -97,7 +97,8 @@
 #onav-logo img{height:50px;width:50px;object-fit:contain;display:block;}
 #onav-links{display:flex;align-items:stretch;list-style:none;
   margin:0;padding:0;height:68px;flex:1;}
-#onav-links>li{position:relative;display:flex;align-items:center;}
+#onav-links>li{position:relative;display:flex;align-items:center;z-index:1;}
+#onav-links>li:hover{z-index:100001;}
 #onav-links>li>a,
 #onav-links>li>span{
   display:flex;align-items:center;height:68px;padding:0 15px;
@@ -297,7 +298,13 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
         <a href="ai-for-marketing.html">AI for Marketing</a>
       </div>
     </li>
-    <li><a href="resources.html">Resources</a></li>
+    <li>
+      <span>Resources &#9662;</span>
+      <div class="onav-sub">
+        <a href="resources.html">All Resources &amp; Tools</a>
+        <a href="resources.html#blog">Intelligence Series</a>
+      </div>
+    </li>
     <li>
       <span>Philosophy &#9662;</span>
       <div class="onav-sub">
@@ -333,7 +340,9 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
       <a href="cx-audit.html" class="opt-dl">Customer Journey & CX Audit</a>
       <a href="thought-leadership.html" class="opt-dl">Executive Thought-Leadership Partner</a>
       <a href="ai-for-marketing.html" class="opt-dl">AI for Marketing</a>
-  <a href="resources.html">Resources</a>
+  <p class="onav-drw-lbl">Resources</p>
+  <a href="resources.html" class="opt-dl">All Resources &amp; Tools</a>
+  <a href="resources.html#blog" class="opt-dl">Intelligence Series</a>
   <p class="onav-drw-lbl">Philosophy</p>
   <a href="philosophy.html">Our Philosophy</a>
   <a href="philosophy.html#about">About Dean Reid</a>
@@ -390,7 +399,7 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
           <p>It doesn&rsquo;t feel like theater. It feels like a lot of work.</p>
           <p>There&rsquo;s a content calendar. Posts three times a week. A monthly newsletter sitting at 22% open rate. An SEO agency, a trade show, a brand guidelines deck. The team is genuinely busy.</p>
           <p>And almost no pipeline is sourced by marketing.</p>
-          <p>Performance theater is any marketing activity that produces metrics without producing qualified pipeline. You can&rsquo;t tell it apart from real marketing until you ask one question: where did our SQLs (Sales Qualified Leads) come from this quarter?</p>
+          <p>Performance theater is any marketing activity that produces metrics without producing qualified pipeline. You can&rsquo;t tell it apart from real marketing until you ask one question: where did our SQLs (Sales Qualified Leads) come from this quarter? A <a href="cx-audit.html" style="color:var(--green);font-weight:600;">Customer Journey &amp; CX Audit</a> answers that question with a map, not a guess &mdash; tracing exactly where pipeline is being lost between first touch and closed deal.</p>
           <p>I&rsquo;ve walked into this situation at companies across five industries over 25 years. The symptoms are always the same. Marketing got measured on activity, not output. The people running it, usually talented, optimized for the numbers they were held to. That&rsquo;s rational behavior inside a broken system.</p>
           <p>Forrester&rsquo;s B2B Marketing Survey found fewer than 20% of B2B marketers can demonstrate clear revenue attribution for their spend. The other 80% are operating on faith. That&rsquo;s the structural definition of performance theater.</p>
           <p>Gartner&rsquo;s CMO Spend Survey shows CFOs are cutting budgets for teams that can&rsquo;t connect spend to pipeline. Performance theater isn&rsquo;t just ineffective. Right now, it&rsquo;s a liability.</p>

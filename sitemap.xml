@@ -2,21 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
-  <url><loc>https://www.optivusprof.ca/</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://www.optivusprof.ca/growth-playbook.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://www.optivusprof.ca/board-advisor.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://www.optivusprof.ca/cx-audit.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://www.optivusprof.ca/thought-leadership.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://www.optivusprof.ca/ai-for-marketing.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://www.optivusprof.ca/seo-playbook.html</loc><priority>0.85</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://www.optivusprof.ca/what-is-a-fractional-cmo.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://www.optivusprof.ca/fractional-cmo-cost-canada.html</loc><priority>0.85</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://www.optivusprof.ca/fractional-cmo-vs-full-time.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://www.optivusprof.ca/resources.html</loc><priority>0.85</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://www.optivusprof.ca/philosophy.html</loc><priority>0.75</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://www.optivusprof.ca/alignment-scorecard.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://www.optivusprof.ca/roadmap-generator.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://www.optivusprof.ca/marketing-channel-diagnostic.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://www.optivusprof.ca/privacy-policy.html</loc><priority>0.3</priority><changefreq>yearly</changefreq></url>
+  <url><loc>https://www.optivusprof.ca/</loc><lastmod>2026-09-03</lastmod><priority>1.0</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.optivusprof.ca/growth-playbook.html</loc><lastmod>2026-09-04</lastmod><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.optivusprof.ca/board-advisor.html</loc><lastmod>2026-09-04</lastmod><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.optivusprof.ca/cx-audit.html</loc><lastmod>2026-09-04</lastmod><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.optivusprof.ca/thought-leadership.html</loc><lastmod>2026-09-04</lastmod><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.optivusprof.ca/ai-for-marketing.html</loc><lastmod>2026-09-04</lastmod><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.optivusprof.ca/seo-playbook.html</loc><lastmod>2026-06-01</lastmod><priority>0.85</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.optivusprof.ca/what-is-a-fractional-cmo.html</loc><lastmod>2026-06-01</lastmod><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.optivusprof.ca/fractional-cmo-cost-canada.html</loc><lastmod>2026-06-01</lastmod><priority>0.85</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.optivusprof.ca/fractional-cmo-vs-full-time.html</loc><lastmod>2026-06-01</lastmod><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.optivusprof.ca/resources.html</loc><lastmod>2026-09-03</lastmod><priority>0.85</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.optivusprof.ca/philosophy.html</loc><lastmod>2026-06-01</lastmod><priority>0.75</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.optivusprof.ca/alignment-scorecard.html</loc><lastmod>2026-06-01</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.optivusprof.ca/roadmap-generator.html</loc><lastmod>2026-06-01</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.optivusprof.ca/marketing-channel-diagnostic.html</loc><lastmod>2026-06-01</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
+
+  <!-- Revenue Architect Intelligence Series -->
+  <url><loc>https://www.optivusprof.ca/why-pe-backed-companies-stall-at-20m.html</loc><lastmod>2025-07-01</lastmod><priority>0.75</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.optivusprof.ca/why-90-percent-b2b-marketing-is-performance-theater.html</loc><lastmod>2025-07-01</lastmod><priority>0.75</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.optivusprof.ca/why-revenue-architects-compete-on-price.html</loc><lastmod>2026-08-01</lastmod><priority>0.75</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.optivusprof.ca/ai-theater-vs-ai-architecture.html</loc><lastmod>2026-08-01</lastmod><priority>0.75</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.optivusprof.ca/what-a-board-needs-from-marketing.html</loc><lastmod>2026-08-01</lastmod><priority>0.75</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.optivusprof.ca/marketing-is-a-financial-discipline.html</loc><lastmod>2026-08-01</lastmod><priority>0.75</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.optivusprof.ca/why-we-dont-gate-our-thinking.html</loc><lastmod>2026-08-01</lastmod><priority>0.75</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.optivusprof.ca/why-b2b-executive-silence-is-a-commercial-risk.html</loc><lastmod>2026-08-01</lastmod><priority>0.75</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.optivusprof.ca/gtm-leak-finder.html</loc><lastmod>2026-09-03</lastmod><priority>0.75</priority><changefreq>monthly</changefreq></url>
+
+  <url><loc>https://www.optivusprof.ca/privacy-policy.html</loc><lastmod>2025-06-01</lastmod><priority>0.3</priority><changefreq>yearly</changefreq></url>
 
 </urlset>

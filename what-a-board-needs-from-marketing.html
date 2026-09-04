@@ -97,7 +97,8 @@
 #onav-logo img{height:50px;width:50px;object-fit:contain;display:block;}
 #onav-links{display:flex;align-items:stretch;list-style:none;
   margin:0;padding:0;height:68px;flex:1;}
-#onav-links>li{position:relative;display:flex;align-items:center;}
+#onav-links>li{position:relative;display:flex;align-items:center;z-index:1;}
+#onav-links>li:hover{z-index:100001;}
 #onav-links>li>a,
 #onav-links>li>span{
   display:flex;align-items:center;height:68px;padding:0 15px;
@@ -297,7 +298,13 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
         <a href="ai-for-marketing.html">AI for Marketing</a>
       </div>
     </li>
-    <li><a href="resources.html">Resources</a></li>
+    <li>
+      <span>Resources &#9662;</span>
+      <div class="onav-sub">
+        <a href="resources.html">All Resources &amp; Tools</a>
+        <a href="resources.html#blog">Intelligence Series</a>
+      </div>
+    </li>
     <li>
       <span>Philosophy &#9662;</span>
       <div class="onav-sub">
@@ -333,7 +340,9 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
       <a href="cx-audit.html" class="opt-dl">Customer Journey & CX Audit</a>
       <a href="thought-leadership.html" class="opt-dl">Executive Thought-Leadership Partner</a>
       <a href="ai-for-marketing.html" class="opt-dl">AI for Marketing</a>
-  <a href="resources.html">Resources</a>
+  <p class="onav-drw-lbl">Resources</p>
+  <a href="resources.html" class="opt-dl">All Resources &amp; Tools</a>
+  <a href="resources.html#blog" class="opt-dl">Intelligence Series</a>
   <p class="onav-drw-lbl">Philosophy</p>
   <a href="philosophy.html">Our Philosophy</a>
   <a href="philosophy.html#about">About Dean Reid</a>
@@ -376,7 +385,7 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
           </div>
           <div class="blog-divider"></div>
           <h2>What Does a Board-Level Growth Advisor Actually Do</h2>
-          <p>A board-level growth advisor provides independent oversight of a company&rsquo;s commercial engine &mdash; the GTM strategy, demand generation infrastructure, ICP definition, sales and marketing alignment, and revenue attribution model. The role is not strategic cheerleading or monthly status updates. It is the independent audit function that the board is missing and that no internal team member can provide without a conflict of interest.</p>
+          <p>A board-level growth advisor provides independent oversight of a company&rsquo;s commercial engine &mdash; the GTM strategy, demand generation infrastructure, ICP definition, sales and marketing alignment, and revenue attribution model. When those elements have never been formally documented, the fastest way to establish that baseline is the <a href="growth-playbook.html" style="color:var(--green);font-weight:600;">Growth Playbook in 30 Days</a>, which produces exactly that foundation before ongoing oversight begins. The board advisor role itself is not strategic cheerleading or monthly status updates. It is the independent audit function that the board is missing and that no internal team member can provide without a conflict of interest.</p>
           <h2>What Is Strategic Drift &mdash; and Why Boards Cannot See It</h2>
           <p>Strategic drift in a commercial context is the progressive misalignment between what the marketing function is doing and what the business plan requires. It happens slowly: a campaign designed to build enterprise pipeline gradually shifts toward generating leads that are easier to produce but harder to close. Boards cannot see strategic drift because they are receiving reporting from the people responsible for the drift.</p>
           <h2>What Is Exit Readiness From a Commercial Perspective</h2>

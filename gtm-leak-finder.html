@@ -97,7 +97,8 @@
 #onav-logo img{height:50px;width:50px;object-fit:contain;display:block;}
 #onav-links{display:flex;align-items:stretch;list-style:none;
   margin:0;padding:0;height:68px;flex:1;}
-#onav-links>li{position:relative;display:flex;align-items:center;}
+#onav-links>li{position:relative;display:flex;align-items:center;z-index:1;}
+#onav-links>li:hover{z-index:100001;}
 #onav-links>li>a,
 #onav-links>li>span{
   display:flex;align-items:center;height:68px;padding:0 15px;
@@ -297,7 +298,13 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
         <a href="ai-for-marketing.html">AI for Marketing</a>
       </div>
     </li>
-    <li><a href="resources.html">Resources</a></li>
+    <li>
+      <span>Resources &#9662;</span>
+      <div class="onav-sub">
+        <a href="resources.html">All Resources &amp; Tools</a>
+        <a href="resources.html#blog">Intelligence Series</a>
+      </div>
+    </li>
     <li>
       <span>Philosophy &#9662;</span>
       <div class="onav-sub">
@@ -333,7 +340,9 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
       <a href="cx-audit.html" class="opt-dl">Customer Journey & CX Audit</a>
       <a href="thought-leadership.html" class="opt-dl">Executive Thought-Leadership Partner</a>
       <a href="ai-for-marketing.html" class="opt-dl">AI for Marketing</a>
-  <a href="resources.html">Resources</a>
+  <p class="onav-drw-lbl">Resources</p>
+  <a href="resources.html" class="opt-dl">All Resources &amp; Tools</a>
+  <a href="resources.html#blog" class="opt-dl">Intelligence Series</a>
   <p class="onav-drw-lbl">Philosophy</p>
   <a href="philosophy.html">Our Philosophy</a>
   <a href="philosophy.html#about">About Dean Reid</a>

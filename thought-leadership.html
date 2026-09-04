@@ -18,6 +18,12 @@
 <meta property="og:title" content="Executive Thought-Leadership Partner | Optivus">
 <meta property="og:description" content="Executive-level thought leadership content for B2B founders and senior leaders. LinkedIn strategy, long-form writing, keynote development, and category positioning — built around your actual voice and expertise.">
 <meta property="og:url" content="https://www.optivusprof.ca/thought-leadership.html">
+<meta property="og:image" content="https://www.optivusprof.ca/assets/logo.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Executive Thought-Leadership Partner | Optivus">
+<meta name="twitter:description" content="Executive-level thought leadership content for B2B founders and senior leaders. LinkedIn strategy, long-form writing, keynote development, and category positioning — built around your actual voice and expertise.">
+<meta name="twitter:image" content="https://www.optivusprof.ca/assets/logo.png">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230F172A'/%3E%3Ctext x='50%25' y='54%25' font-family='system-ui' font-weight='800' font-size='20' fill='%2310B981' text-anchor='middle' dominant-baseline='middle'%3EO%3C/text%3E%3C/svg%3E">
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,11 +32,44 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script type="application/ld+json">{
   "@context":"https://schema.org",
-  "@type":"Service",
-  "name":"Executive Thought-Leadership Partner",
-  "provider":{"@type":"Organization","name":"Optivus","url":"https://www.optivusprof.ca"},
-  "description":"Executive-level thought leadership content for B2B founders and senior leaders. LinkedIn strategy, long-form writing, keynote development, and category positioning — built around your actual voice and expertise.",
-  "areaServed":"Canada"
+  "@graph":[
+    {
+      "@type":"Service",
+      "@id":"https://www.optivusprof.ca/thought-leadership.html#service",
+      "name":"Executive Thought-Leadership Partner",
+      "serviceType":"Executive Content Strategy & Category Positioning",
+      "provider":{"@id":"https://www.optivusprof.ca/#dean-reid"},
+      "description":"Executive-level thought leadership content for B2B founders and senior leaders. LinkedIn strategy, long-form writing, keynote development, and category positioning — built around your actual voice and expertise.",
+      "areaServed":"Canada",
+      "url":"https://www.optivusprof.ca/thought-leadership.html",
+      "audience":{"@type":"BusinessAudience","audienceType":"Senior leaders at $15M-$60M B2B companies who want a credible public profile"}
+    },
+    {
+      "@type":"Organization",
+      "@id":"https://www.optivusprof.ca/#organization",
+      "name":"Optivus",
+      "url":"https://www.optivusprof.ca/",
+      "founder":{"@id":"https://www.optivusprof.ca/#dean-reid"}
+    },
+    {
+      "@type":"WebPage",
+      "@id":"https://www.optivusprof.ca/thought-leadership.html#webpage",
+      "url":"https://www.optivusprof.ca/thought-leadership.html",
+      "name":"Executive Thought-Leadership Partner | Optivus — Revenue Architect Canada",
+      "description":"Executive-level thought leadership content for B2B founders and senior leaders. LinkedIn strategy, long-form writing, keynote development, and category positioning — built around your actual voice and expertise.",
+      "datePublished":"2025-01-01",
+      "dateModified":"2026-09-04",
+      "about":{"@id":"https://www.optivusprof.ca/thought-leadership.html#service"},
+      "breadcrumb":{
+        "@type":"BreadcrumbList",
+        "itemListElement":[
+          {"@type":"ListItem","position":1,"name":"Home","item":"https://www.optivusprof.ca/"},
+          {"@type":"ListItem","position":2,"name":"Other Services","item":"https://www.optivusprof.ca/#offerings"},
+          {"@type":"ListItem","position":3,"name":"Executive Thought-Leadership Partner","item":"https://www.optivusprof.ca/thought-leadership.html"}
+        ]
+      }
+    }
+  ]
 }</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","name":"Executive Thought-Leadership Partner - FAQ","mainEntity":[{"@type":"Question","name":"How do you capture my voice if you are writing the content?","acceptedAnswer":{"@type":"Answer","text":"We start with structured interviews — typically 60–90 minutes of conversation about your views on your industry, your company, and the problems your buyers face. From there, we draft in your voice and refine with your feedback until it sounds like you, not us."}},{"@type":"Question","name":"How much time does this require from me each month?","acceptedAnswer":{"@type":"Answer","text":"One monthly strategy session (60 minutes) plus review time on content drafts. We handle the research, structuring, writing, and publishing. Your time is invested in the thinking, not the production."}},{"@type":"Question","name":"What platforms do you focus on?","acceptedAnswer":{"@type":"Answer","text":"LinkedIn is the primary channel for most B2B executives. Depending on your goals and audience, we may also develop content for industry publications, podcasts, or conference speaking. The strategy defines the mix."}},{"@type":"Question","name":"How long before we see results?","acceptedAnswer":{"@type":"Answer","text":"Thought leadership compounds over time. Most executives see meaningful engagement growth within 60–90 days, inbound mentions and connection requests within 90–120 days, and deal-attributable outcomes within 6 months of consistent output."}}]}</script>
 <style>
@@ -44,7 +83,8 @@
 #onav-logo img{height:50px;width:50px;object-fit:contain;display:block;}
 #onav-links{display:flex;align-items:stretch;list-style:none;
   margin:0;padding:0;height:68px;flex:1;}
-#onav-links>li{position:relative;display:flex;align-items:center;}
+#onav-links>li{position:relative;display:flex;align-items:center;z-index:1;}
+#onav-links>li:hover{z-index:100001;}
 #onav-links>li>a,
 #onav-links>li>span{
   display:flex;align-items:center;height:68px;padding:0 15px;
@@ -1809,27 +1849,6 @@ h3 {
 /* ═══════════════════════════════════════════════════ */
 
 </style>
-<style id="nav-resources-fix">
-/* Ensure Resources link is always clickable */
-#onav-links > li:nth-child(3) {
-  position: relative;
-  z-index: 100001 !important;
-}
-#onav-links > li:nth-child(3) > a {
-  pointer-events: auto !important;
-  cursor: pointer !important;
-  position: relative;
-  z-index: 100001 !important;
-}
-/* Prevent Other Services dropdown from overlapping Resources */
-#onav-links > li:nth-child(2) .onav-sub {
-  z-index: 99997 !important;
-}
-/* Prevent Philosophy dropdown from overlapping Resources */
-#onav-links > li:nth-child(4) .onav-sub {
-  z-index: 99997 !important;
-}
-</style>
 <style id="opt-bc-css">
 .opt-bc{max-width:1160px;margin:0 auto;padding:0px 80px 22px;display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;font-family:'Aptos','Inter',system-ui,sans-serif;}
 .opt-bc a{color:#475569!important;text-decoration:none;transition:color .15s;}
@@ -1859,7 +1878,13 @@ h3 {
         <a href="ai-for-marketing.html">AI for Marketing</a>
       </div>
     </li>
-    <li><a href="resources.html" onclick="window.location.href='resources.html';return false;">Resources</a></li>
+    <li>
+      <span>Resources &#9662;</span>
+      <div class="onav-sub">
+        <a href="resources.html">All Resources &amp; Tools</a>
+        <a href="resources.html#blog">Intelligence Series</a>
+      </div>
+    </li>
     <li>
       <span>Philosophy &#9662;</span>
       <div class="onav-sub">
@@ -1895,7 +1920,9 @@ h3 {
       <a href="cx-audit.html" class="opt-dl">Customer Journey & CX Audit</a>
       <a href="thought-leadership.html" class="opt-dl">Executive Thought-Leadership Partner</a>
       <a href="ai-for-marketing.html" class="opt-dl">AI for Marketing</a>
-  <a href="resources.html">Resources</a>
+  <p class="onav-drw-lbl">Resources</p>
+  <a href="resources.html" class="opt-dl">All Resources &amp; Tools</a>
+  <a href="resources.html#blog" class="opt-dl">Intelligence Series</a>
   <p class="onav-drw-lbl">Philosophy</p>
   <a href="philosophy.html">Our Philosophy</a>
   <a href="philosophy.html#about">About Dean Reid</a>
@@ -1940,21 +1967,33 @@ h3 {
         
 <div class="off-block reveal reveal-d1">
   <div class="block-eyebrow">The Problem</div>
-  <h3>Your expertise is not visible where your buyers look</h3>
-  <p>Most B2B founders and senior leaders have genuine expertise and a strong point of view. But turning that into a consistent, credible public presence takes time, structure, and strategic clarity that most executives cannot find in their calendars. The result: competitors without your depth of knowledge appear more credible because they show up consistently, and they end up defining the category while you stay quiet. This isn't ghostwriting - it's a strategic partner who understands GTM, positioning, and board dynamics well enough to challenge your thinking, not just transcribe it.</p>
+  <h2>Your expertise is not visible where your buyers look</h2>
+  <p>Most B2B founders and senior leaders have genuine expertise and a strong point of view. But turning that into a consistent, credible public presence takes time, structure, and strategic clarity that most executives cannot find in their calendars. The result: competitors without your depth of knowledge appear more credible because they show up consistently, and they end up defining the category while you stay quiet - the same dynamic explored in <a href="why-b2b-executive-silence-is-a-commercial-risk.html" style="color:var(--ocean-blue);font-weight:600;">why B2B executive silence is a commercial risk</a>. This isn't ghostwriting - it's a strategic partner who understands GTM, positioning, and board dynamics well enough to challenge your thinking, not just transcribe it.</p>
   
 </div>
 <div class="off-block reveal reveal-d1">
   <div class="block-eyebrow">Who This Is For</div>
-  <h3>Founders and executives who want to lead their category</h3>
+  <h2>Founders and executives who want to lead their category</h2>
   <p>Senior leaders at $15M–$60M B2B companies who want to build a credible public profile that generates inbound deals, investor attention, and speaking opportunities — without spending hours writing content themselves. The best fit is a leader with genuine expertise who needs a strategic partner to extract, structure, and publish it.</p>
   
 </div>
         <div class="pull-quote reveal"><p>"The leaders who shape their category do not wait for journalists to discover them. They consistently and deliberately put their thinking into the market — and let it compound."</p></div>
         
 <div class="off-block reveal">
+  <div class="block-eyebrow">The Cadence</div>
+  <h2>How the engagement runs month to month</h2>
+  <p>One structured interview to start, then a repeatable monthly rhythm.</p>
+  <ul class="deliver-list">
+    <li><span class="di">✓</span><strong>Kick-off interview</strong> — 60&ndash;90 minutes of structured conversation about your views on your industry, your company, and the problems your buyers face. This becomes the source material for everything that follows.</li>
+    <li><span class="di">✓</span><strong>Monthly strategy session</strong> — 60 minutes reviewing what landed, what's next, and any new thinking worth capturing.</li>
+    <li><span class="di">✓</span><strong>Drafting &amp; review</strong> — AI-assisted drafting turns the conversation into LinkedIn posts, long-form pieces, and talking points in your voice; you review and refine, not write from scratch.</li>
+    <li><span class="di">✓</span><strong>Publishing</strong> — 2&ndash;4 long-form posts per month plus the ongoing LinkedIn content calendar, published on a consistent cadence rather than in bursts.</li>
+  </ul>
+</div>
+        
+<div class="off-block reveal">
   <div class="block-eyebrow">What&rsquo;s Included</div>
-  <h3>Deliverables</h3>
+  <h2>Deliverables</h2>
   <ul class="deliver-list"><li><span class="di">✓</span>LinkedIn strategy and content calendar — topics, cadence, and format built around your business goals, not a generic posting schedule</li><li><span class="di">✓</span>Long-form content — articles, essays, and opinion pieces drafted in your voice, in service of the one category you want to own</li><li><span class="di">✓</span>Keynote and presentation development — structuring your expertise into talks that land with investors, buyers, and peers</li><li><span class="di">✓</span>Category positioning — defining the space you want to own and the narrative that gets you there before a competitor claims it</li><li><span class="di">✓</span>Podcast and media preparation — talking points, angles, and responses that keep you the one shaping the conversation</li><li><span class="di">✓</span>Audience growth strategy — how to build a following that converts to inbound deals, not just impressions</li></ul>
 </div>
         
@@ -1965,7 +2004,7 @@ h3 {
         
         
 <div class="faq-section" id="faq" itemscope itemtype="https://schema.org/FAQPage">
-  <p class="faq-title">Frequently Asked Questions</p>
+  <h2 class="faq-title">Frequently Asked Questions</h2>
   
 <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
   <button class="faq-q" aria-expanded="false"><span itemprop="name">How do you capture my voice if you are writing the content?</span><span class="faq-arrow">▾</span></button>
@@ -1989,16 +2028,15 @@ h3 {
 <div class="off-sidebar">
   <div class="s-card s-card-pricing">
     <div class="s-card-header">
-      <p class="s-label">Investment</p>
-      <p class="s-title">Executive Thought-Leadership Partner</p>
+      <p class="s-label">Engagement Details</p>
+      <h3 class="s-title">Executive Thought-Leadership Partner</h3>
     </div>
     <div class="s-rows">
 <div class="s-row"><span class="s-row-label">Model</span><span class="s-row-value">Monthly retainer</span></div>
-<div class="s-row"><span class="s-row-label">Fee</span><span class="s-row-value highlight">On request</span></div>
-<div class="s-row"><span class="s-row-label">Minimum</span><span class="s-row-value">3-month minimum</span></div>
+<div class="s-row"><span class="s-row-label">Minimum</span><span class="s-row-value highlight">3-month minimum</span></div>
 <div class="s-row"><span class="s-row-label">Capacity</span><span class="s-row-value">5 executive clients maximum</span></div></div>
   </div>
-  <div class="s-card s-card-scope"><div class="s-card-header"><p class="s-label">What&rsquo;s Included</p><p class="s-title">Deliverables</p></div><div class="scope-items"><div class="scope-line"><span class="scope-check">✓</span>Monthly strategy session</div><div class="scope-line"><span class="scope-check">✓</span>LinkedIn content calendar</div><div class="scope-line"><span class="scope-check">✓</span>2–4 long-form posts per month</div><div class="scope-line"><span class="scope-check">✓</span>Keynote development (optional)</div><div class="scope-line"><span class="scope-check">✓</span>Media prep (optional)</div><div class="scope-line"><span class="scope-check">✓</span>Category narrative document</div></div></div>
+  <div class="s-card s-card-scope"><div class="s-card-header"><p class="s-label">What&rsquo;s Included</p><h3 class="s-title">Deliverables</h3></div><div class="scope-items"><div class="scope-line"><span class="scope-check">✓</span>Monthly strategy session</div><div class="scope-line"><span class="scope-check">✓</span>LinkedIn content calendar</div><div class="scope-line"><span class="scope-check">✓</span>2–4 long-form posts per month</div><div class="scope-line"><span class="scope-check">✓</span>Keynote development (optional)</div><div class="scope-line"><span class="scope-check">✓</span>Media prep (optional)</div><div class="scope-line"><span class="scope-check">✓</span>Category narrative document</div></div></div>
   <div class="s-card s-card-cta">
     <div class="cta-eyebrow">Start the conversation</div>
     <p class="cta-q">"If you have expertise worth sharing but no consistent way to share it, that is a competitive disadvantage. 30 minutes to map out what a thought leadership program would look like for you."</p>
@@ -2011,10 +2049,14 @@ h3 {
 
 <div class="off-block" style="margin-top:40px;padding:24px;background:var(--off-white);border-radius:8px;border:1px solid var(--rule);">
   <div class="block-eyebrow">Related Resources</div>
+  <h2 style="font-size:15px;font-weight:700;color:var(--ink);margin:2px 0 4px;">Explore more</h2>
   <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:8px;">
     <a href="what-is-a-fractional-cmo.html" style="font-size:13px;color:var(--ocean-blue);font-weight:600;text-decoration:none;">What is a Revenue Architect? &rarr;</a>
     <a href="resources.html" style="font-size:13px;color:var(--ocean-blue);font-weight:600;text-decoration:none;">Free Tools &amp; Resources &rarr;</a>
     <a href="marketing-channel-diagnostic.html" style="font-size:13px;color:var(--ocean-blue);font-weight:600;text-decoration:none;">Channel Diagnostic Tool &rarr;</a>
+    <a href="why-b2b-executive-silence-is-a-commercial-risk.html" style="font-size:13px;color:var(--ocean-blue);font-weight:600;text-decoration:none;">Why B2B Executive Silence Is a Commercial Risk &rarr;</a>
+    <a href="why-we-dont-gate-our-thinking.html" style="font-size:13px;color:var(--ocean-blue);font-weight:600;text-decoration:none;">Why We Don&rsquo;t Gate Our Thinking &rarr;</a>
+    <a href="why-revenue-architects-compete-on-price.html" style="font-size:13px;color:var(--ocean-blue);font-weight:600;text-decoration:none;">Why Revenue Architects Compete on Price &rarr;</a>
     <a href="philosophy.html" style="font-size:13px;color:var(--ocean-blue);font-weight:600;text-decoration:none;">Our Philosophy &rarr;</a>
   </div>
 </div>
@@ -2054,7 +2096,7 @@ h3 {
   </div>
 
   <div class="footer-bottom">
-    <p>&copy; 2025 Optivus. Revenue Architecture. Canada. &nbsp;&middot;&nbsp; <a href="privacy-policy.pdf" download style="color:rgba(255,255,255,0.6);text-decoration:none;">Privacy Policy ↓</a></p>
+    <p>&copy; 2026 Optivus. Revenue Architecture. Canada. &nbsp;&middot;&nbsp; <a href="privacy-policy.pdf" download style="color:rgba(255,255,255,0.6);text-decoration:none;">Privacy Policy ↓</a></p>
     <p>Revenue Architect &nbsp;&middot;&nbsp; Board Advisor &nbsp;&middot;&nbsp; AI Marketing &nbsp;&middot;&nbsp; B2B Growth Strategy &nbsp;&middot;&nbsp; Go-To-Market Consultant</p>
   </div>
 </footer>

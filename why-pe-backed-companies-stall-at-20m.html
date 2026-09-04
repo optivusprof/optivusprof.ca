@@ -97,7 +97,8 @@
 #onav-logo img{height:50px;width:50px;object-fit:contain;display:block;}
 #onav-links{display:flex;align-items:stretch;list-style:none;
   margin:0;padding:0;height:68px;flex:1;}
-#onav-links>li{position:relative;display:flex;align-items:center;}
+#onav-links>li{position:relative;display:flex;align-items:center;z-index:1;}
+#onav-links>li:hover{z-index:100001;}
 #onav-links>li>a,
 #onav-links>li>span{
   display:flex;align-items:center;height:68px;padding:0 15px;
@@ -297,7 +298,13 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
         <a href="ai-for-marketing.html">AI for Marketing</a>
       </div>
     </li>
-    <li><a href="resources.html">Resources</a></li>
+    <li>
+      <span>Resources &#9662;</span>
+      <div class="onav-sub">
+        <a href="resources.html">All Resources &amp; Tools</a>
+        <a href="resources.html#blog">Intelligence Series</a>
+      </div>
+    </li>
     <li>
       <span>Philosophy &#9662;</span>
       <div class="onav-sub">
@@ -333,7 +340,9 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
       <a href="cx-audit.html" class="opt-dl">Customer Journey & CX Audit</a>
       <a href="thought-leadership.html" class="opt-dl">Executive Thought-Leadership Partner</a>
       <a href="ai-for-marketing.html" class="opt-dl">AI for Marketing</a>
-  <a href="resources.html">Resources</a>
+  <p class="onav-drw-lbl">Resources</p>
+  <a href="resources.html" class="opt-dl">All Resources &amp; Tools</a>
+  <a href="resources.html#blog" class="opt-dl">Intelligence Series</a>
   <p class="onav-drw-lbl">Philosophy</p>
   <a href="philosophy.html">Our Philosophy</a>
   <a href="philosophy.html#about">About Dean Reid</a>
@@ -391,7 +400,7 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
           <p>It almost never holds up under weight.</p>
           <p>PwC put a number on the consequence of that in its 2026 outlook: <strong>34% of portfolio companies have now been held for more than five years</strong>, up from 28% just a year earlier. That&rsquo;s not patient capital &mdash; nobody plans a five-plus-year hold on purpose in this environment. That&rsquo;s capital that got stuck because the growth story stopped growing.</p>
           <p>I&rsquo;d bet real money that most of those extended holds trace back to the same root cause I see over and over: the company was built on founder relationships and referrals, it did $10M&ndash;$20M on that fuel, and then the tank ran dry. Nobody refilled it.</p>
-          <p>You can watch it happen in slow motion. Pipeline gets thinner every quarter. Sales cycles that used to close in six weeks stretch to four months. The CRM (Customer Relationship Management system) turns into a graveyard &mdash; hundreds of &ldquo;leads&rdquo; that are really just names from a trade show two years ago. Someone on the board finally asks for a revenue plan, and the answer is &ldquo;we&rsquo;re asking the reps to work harder.&rdquo; That&rsquo;s not a plan. That&rsquo;s a hope.</p>
+          <p>You can watch it happen in slow motion. Pipeline gets thinner every quarter. Sales cycles that used to close in six weeks stretch to four months. The CRM (Customer Relationship Management system) turns into a graveyard &mdash; hundreds of &ldquo;leads&rdquo; that are really just names from a trade show two years ago. Someone on the board finally asks for a revenue plan, and the answer is &ldquo;we&rsquo;re asking the reps to work harder.&rdquo; That&rsquo;s not a plan. That&rsquo;s a hope &mdash; and it&rsquo;s exactly the moment a <a href="board-advisor.html" style="color:var(--green);font-weight:600;">Board-Level Growth Advisor</a> should already have been in the room.</p>
           <p>And the irony is thick right now, because FTI Consulting&rsquo;s AI Radar for Private Equity found that <strong>59% of PE firms already see AI as a primary driver of value creation</strong> &mdash; ahead of the traditional operational levers. Great. Except most of these same portfolio companies don&rsquo;t have the marketing infrastructure to feed an AI-driven anything. You can&rsquo;t automate a demand engine that was never built.</p>
 
           <h2>Why the Gap Exists &mdash; and What It Actually Costs You</h2>
@@ -423,7 +432,7 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
           <p>Before you extend another hold period, run the actual diagnostic. Is there a defined ICP? A documented buyer journey? A real demand generation motion? A pipeline measurement system anyone trusts? A senior marketing leader who&rsquo;s operated at the revenue level you&rsquo;re targeting, not just below it? Missing even two of those, and you&rsquo;ve found your constraint &mdash; not somewhere in the market, but inside the building.</p>
 
           <h3>Insight 02 &mdash; The $20M stall is predictable. That also means it&rsquo;s fixable.</h3>
-          <p>It isn&rsquo;t unique to your portfolio company, even if it feels that way from inside the boardroom. It&rsquo;s the structural limit of founder-led selling meeting a bigger ambition. The fix is a GTM architecture rebuild, led by someone who&rsquo;s actually done one &mdash; not a rebrand, not a CRM migration, and please, not more sales headcount thrown at a pipeline problem.</p>
+          <p>It isn&rsquo;t unique to your portfolio company, even if it feels that way from inside the boardroom. It&rsquo;s the structural limit of founder-led selling meeting a bigger ambition. The fix is a GTM architecture rebuild, led by someone who&rsquo;s actually done one &mdash; not a rebrand, not a CRM migration, and please, not more sales headcount thrown at a pipeline problem. The <a href="growth-playbook.html" style="color:var(--green);font-weight:600;">Growth Playbook in 30 Days</a> is that rebuild, scoped and delivered on a fixed timeline.</p>
 
           <h3>Insight 03 &mdash; A Revenue Architect with real PE-relevant credentials is the highest-return marketing dollar a portfolio company can spend right now.</h3>
           <p>Senior strategy, no recruiting risk, deployable in days, measurable inside a quarter. If your portfolio company sits in the $15M&ndash;$60M range and pipeline isn&rsquo;t moving, the math on a Revenue Architect engagement pays for itself the first time it closes one meaningful deal.</p>

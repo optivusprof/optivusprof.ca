@@ -97,7 +97,8 @@
 #onav-logo img{height:50px;width:50px;object-fit:contain;display:block;}
 #onav-links{display:flex;align-items:stretch;list-style:none;
   margin:0;padding:0;height:68px;flex:1;}
-#onav-links>li{position:relative;display:flex;align-items:center;}
+#onav-links>li{position:relative;display:flex;align-items:center;z-index:1;}
+#onav-links>li:hover{z-index:100001;}
 #onav-links>li>a,
 #onav-links>li>span{
   display:flex;align-items:center;height:68px;padding:0 15px;
@@ -297,7 +298,13 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
         <a href="ai-for-marketing.html">AI for Marketing</a>
       </div>
     </li>
-    <li><a href="resources.html">Resources</a></li>
+    <li>
+      <span>Resources &#9662;</span>
+      <div class="onav-sub">
+        <a href="resources.html">All Resources &amp; Tools</a>
+        <a href="resources.html#blog">Intelligence Series</a>
+      </div>
+    </li>
     <li>
       <span>Philosophy &#9662;</span>
       <div class="onav-sub">
@@ -333,7 +340,9 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
       <a href="cx-audit.html" class="opt-dl">Customer Journey & CX Audit</a>
       <a href="thought-leadership.html" class="opt-dl">Executive Thought-Leadership Partner</a>
       <a href="ai-for-marketing.html" class="opt-dl">AI for Marketing</a>
-  <a href="resources.html">Resources</a>
+  <p class="onav-drw-lbl">Resources</p>
+  <a href="resources.html" class="opt-dl">All Resources &amp; Tools</a>
+  <a href="resources.html#blog" class="opt-dl">Intelligence Series</a>
   <p class="onav-drw-lbl">Philosophy</p>
   <a href="philosophy.html">Our Philosophy</a>
   <a href="philosophy.html#about">About Dean Reid</a>
@@ -377,7 +386,7 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
           <div class="blog-divider"></div>
           <h2>What a Revenue Architect Is Actually Being Hired to Solve</h2>
           <p>The standard pitch goes something like this: senior marketing leadership at a fraction of the cost of a full-time hire. It is technically accurate. It is also completely undifferentiated. Every consultant in Canada says the same thing in slightly different words. The result is a market where buyers compare day rates and reference lists instead of strategic fit and proof of results.</p>
-          <p>The real job description is not &ldquo;run marketing cheaper.&rdquo; It is to solve a specific constraint that is costing the company measurable pipeline. For a $20M&ndash;$60M B2B company, that constraint is almost always one of three things: the GTM (Go-to-Market) architecture has never been built, the board cannot see or trust the commercial metrics, or the company needs to look fundable or acquirable in 18 months.</p>
+          <p>The real job description is not &ldquo;run marketing cheaper.&rdquo; It is to solve a specific constraint that is costing the company measurable pipeline. For a $20M&ndash;$60M B2B company, that constraint is almost always one of three things: the GTM (Go-to-Market) architecture has never been built &mdash; which is exactly what the <a href="growth-playbook.html" style="color:var(--green);font-weight:600;">Growth Playbook in 30 Days</a> is scoped to fix &mdash; the board cannot see or trust the commercial metrics, or the company needs to look fundable or acquirable in 18 months.</p>
           <h2>What Is a GTM Governance Architect &mdash; and Why Boards Want One</h2>
           <p>A GTM Governance Architect frames marketing as a financial accountability function rather than a creative or channel management function. The question they answer is not &ldquo;what campaigns should we run?&rdquo; but &ldquo;how do we make the commercial engine transparent and accountable to the board?&rdquo;</p>
           <p>At TELUS Enterprise, the $989M qualified pipeline we built was not a campaign result. It was a governance result &mdash; a measurement framework that made every marketing dollar traceable to revenue and every channel decision defensible to the CFO. The same principle scaled at Veriforce, where MQL (Marketing Qualified Lead) volume grew 27 times in 12 months through a structured accountability system that sales actually trusted.</p>
@@ -387,7 +396,7 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
           <p>For high-growth B2B SaaS or technology companies that need to scale pipeline without scaling headcount, this is the only model that makes economic sense at a $15M&ndash;$60M revenue band. A 10-person marketing function built on AI infrastructure outperforms a 30-person team running on manual processes.</p>
           <h2>What Is an Exit-Ready Commercial Advisor &mdash; and When Do You Need One</h2>
           <p>An exit-ready Revenue Architect frames every commercial decision through the lens of acquisition valuation. Every company going into a sale process needs a documented ICP, a repeatable demand generation motion with proven MQL-to-SQL conversion, a CRM with clean attribution data, and a marketing budget with defensible cost-per-opportunity by channel. Most companies have none of these documented when they enter the process.</p>
-          <p>I built the commercial narrative at SMART Technologies that supported revenue scaling from $120M to $700M. That was not a branding exercise. It was a systematic build of proof points, pipeline documentation, and category positioning that made every revenue number credible to the people writing the check.</p>
+          <p>I built the commercial narrative at SMART Technologies that supported revenue scaling from $120M to $700M. That was not a branding exercise. It was a systematic build of proof points, pipeline documentation, and category positioning that made every revenue number credible to the people writing the check - the same discipline behind the <a href="thought-leadership.html" style="color:var(--green);font-weight:600;">Executive Thought-Leadership Partner</a> engagement, applied to the founder or CEO instead of the company.</p>
           <h2>The Four Questions Worth Asking Before Signing Any Engagement</h2>
           <ul>
             <li>Can they name a specific pipeline number they built and the methodology behind it?</li>

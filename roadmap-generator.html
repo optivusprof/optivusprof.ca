@@ -34,7 +34,8 @@
 #onav-logo img{height:50px;width:50px;object-fit:contain;display:block;}
 #onav-links{display:flex;align-items:stretch;list-style:none;
   margin:0;padding:0;height:68px;flex:1;}
-#onav-links>li{position:relative;display:flex;align-items:center;}
+#onav-links>li{position:relative;display:flex;align-items:center;z-index:1;}
+#onav-links>li:hover{z-index:100001;}
 #onav-links>li>a,
 #onav-links>li>span{
   display:flex;align-items:center;height:68px;padding:0 15px;
@@ -302,27 +303,6 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
   .rg-roadmap,.rg-kpi-row{page-break-inside:avoid!important;break-inside:avoid!important;}
 }
 </style>
-<style id="nav-resources-fix">
-/* Ensure Resources link is always clickable */
-#onav-links > li:nth-child(3) {
-  position: relative;
-  z-index: 100001 !important;
-}
-#onav-links > li:nth-child(3) > a {
-  pointer-events: auto !important;
-  cursor: pointer !important;
-  position: relative;
-  z-index: 100001 !important;
-}
-/* Prevent Other Services dropdown from overlapping Resources */
-#onav-links > li:nth-child(2) .onav-sub {
-  z-index: 99997 !important;
-}
-/* Prevent Philosophy dropdown from overlapping Resources */
-#onav-links > li:nth-child(4) .onav-sub {
-  z-index: 99997 !important;
-}
-</style>
 <style id="opt-bc-css">
 .opt-bc{max-width:1160px;margin:0 auto;padding:0px 80px 22px;display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;font-family:'Aptos','Inter',system-ui,sans-serif;}
 .opt-bc a{color:#475569!important;text-decoration:none;transition:color .15s;}
@@ -352,7 +332,13 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
         <a href="ai-for-marketing.html">AI for Marketing</a>
       </div>
     </li>
-    <li><a href="resources.html" onclick="window.location.href='resources.html';return false;">Resources</a></li>
+    <li>
+      <span>Resources &#9662;</span>
+      <div class="onav-sub">
+        <a href="resources.html">All Resources &amp; Tools</a>
+        <a href="resources.html#blog">Intelligence Series</a>
+      </div>
+    </li>
     <li>
       <span>Philosophy &#9662;</span>
       <div class="onav-sub">
@@ -388,7 +374,9 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
       <a href="cx-audit.html" class="opt-dl">Customer Journey & CX Audit</a>
       <a href="thought-leadership.html" class="opt-dl">Executive Thought-Leadership Partner</a>
       <a href="ai-for-marketing.html" class="opt-dl">AI for Marketing</a>
-  <a href="resources.html">Resources</a>
+  <p class="onav-drw-lbl">Resources</p>
+  <a href="resources.html" class="opt-dl">All Resources &amp; Tools</a>
+  <a href="resources.html#blog" class="opt-dl">Intelligence Series</a>
   <p class="onav-drw-lbl">Philosophy</p>
   <a href="philosophy.html">Our Philosophy</a>
   <a href="philosophy.html#about">About Dean Reid</a>

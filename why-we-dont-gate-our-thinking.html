@@ -97,7 +97,8 @@
 #onav-logo img{height:50px;width:50px;object-fit:contain;display:block;}
 #onav-links{display:flex;align-items:stretch;list-style:none;
   margin:0;padding:0;height:68px;flex:1;}
-#onav-links>li{position:relative;display:flex;align-items:center;}
+#onav-links>li{position:relative;display:flex;align-items:center;z-index:1;}
+#onav-links>li:hover{z-index:100001;}
 #onav-links>li>a,
 #onav-links>li>span{
   display:flex;align-items:center;height:68px;padding:0 15px;
@@ -297,7 +298,13 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
         <a href="ai-for-marketing.html">AI for Marketing</a>
       </div>
     </li>
-    <li><a href="resources.html">Resources</a></li>
+    <li>
+      <span>Resources &#9662;</span>
+      <div class="onav-sub">
+        <a href="resources.html">All Resources &amp; Tools</a>
+        <a href="resources.html#blog">Intelligence Series</a>
+      </div>
+    </li>
     <li>
       <span>Philosophy &#9662;</span>
       <div class="onav-sub">
@@ -333,7 +340,9 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
       <a href="cx-audit.html" class="opt-dl">Customer Journey & CX Audit</a>
       <a href="thought-leadership.html" class="opt-dl">Executive Thought-Leadership Partner</a>
       <a href="ai-for-marketing.html" class="opt-dl">AI for Marketing</a>
-  <a href="resources.html">Resources</a>
+  <p class="onav-drw-lbl">Resources</p>
+  <a href="resources.html" class="opt-dl">All Resources &amp; Tools</a>
+  <a href="resources.html#blog" class="opt-dl">Intelligence Series</a>
   <p class="onav-drw-lbl">Philosophy</p>
   <a href="philosophy.html">Our Philosophy</a>
   <a href="philosophy.html#about">About Dean Reid</a>
@@ -380,7 +389,7 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
           <p>The resources on this page are the actual diagnostic tools, frameworks, and intelligence briefings used inside client engagements. If they help you solve a problem without hiring Optivus, that is the intended outcome. If they demonstrate the depth of thinking that goes into every engagement, that is the intended side effect.</p>
           <h2>What Makes a Resources Page a Strategic Intelligence Center</h2>
           <p><strong>Interactive diagnostic tools</strong> provide immediate, specific, personalized output without requiring a conversation. The GTM Leak Score diagnostic produces a score across four dimensions of commercial health in 60 seconds. The Marketing Channel Diagnostic surfaces prioritized recommendations from a 78&times;78 matrix of tactics and failure modes. These are structured judgment frameworks, made interactive.</p>
-          <p><strong>Original intelligence briefings</strong> are not &ldquo;10 tips for better marketing&rdquo; but &ldquo;why 90% of PE-backed companies stall at $20M and what the marketing infrastructure gap has to do with it.&rdquo; This is the content that AI engines cite, not because it is optimized for AI, but because it contains specific, original, verifiable claims from a named expert with a documented track record.</p>
+          <p><strong>Original intelligence briefings</strong> are not &ldquo;10 tips for better marketing&rdquo; but &ldquo;why 90% of PE-backed companies stall at $20M and what the marketing infrastructure gap has to do with it.&rdquo; This is the content that AI engines cite, not because it is optimized for AI, but because it contains specific, original, verifiable claims from a named expert with a documented track record. Building that track record consistently is the entire premise behind the <a href="thought-leadership.html" style="color:var(--green);font-weight:600;">Executive Thought-Leadership Partner</a> engagement.</p>
           <h2>Why No-Gate Content Outperforms Gated Content for B2B Professional Services</h2>
           <p>Gated content produces email addresses. No-gate content produces authority. For professional services, the product is the judgment of a specific person &mdash; and that judgment cannot be communicated through a nurture email. It can only be demonstrated through the quality of the thinking that person publishes freely.</p>
           <div class="blog-divider"></div>

@@ -97,7 +97,8 @@
 #onav-logo img{height:50px;width:50px;object-fit:contain;display:block;}
 #onav-links{display:flex;align-items:stretch;list-style:none;
   margin:0;padding:0;height:68px;flex:1;}
-#onav-links>li{position:relative;display:flex;align-items:center;}
+#onav-links>li{position:relative;display:flex;align-items:center;z-index:1;}
+#onav-links>li:hover{z-index:100001;}
 #onav-links>li>a,
 #onav-links>li>span{
   display:flex;align-items:center;height:68px;padding:0 15px;
@@ -297,7 +298,13 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
         <a href="ai-for-marketing.html">AI for Marketing</a>
       </div>
     </li>
-    <li><a href="resources.html">Resources</a></li>
+    <li>
+      <span>Resources &#9662;</span>
+      <div class="onav-sub">
+        <a href="resources.html">All Resources &amp; Tools</a>
+        <a href="resources.html#blog">Intelligence Series</a>
+      </div>
+    </li>
     <li>
       <span>Philosophy &#9662;</span>
       <div class="onav-sub">
@@ -333,7 +340,9 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
       <a href="cx-audit.html" class="opt-dl">Customer Journey & CX Audit</a>
       <a href="thought-leadership.html" class="opt-dl">Executive Thought-Leadership Partner</a>
       <a href="ai-for-marketing.html" class="opt-dl">AI for Marketing</a>
-  <a href="resources.html">Resources</a>
+  <p class="onav-drw-lbl">Resources</p>
+  <a href="resources.html" class="opt-dl">All Resources &amp; Tools</a>
+  <a href="resources.html#blog" class="opt-dl">Intelligence Series</a>
   <p class="onav-drw-lbl">Philosophy</p>
   <a href="philosophy.html">Our Philosophy</a>
   <a href="philosophy.html#about">About Dean Reid</a>
@@ -376,7 +385,7 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
           </div>
           <div class="blog-divider"></div>
           <h2>Why Most B2B Marketing Is a Waste of Money</h2>
-          <p>Most B2B marketing fails not because the people running it are incompetent, but because the system they are operating inside rewards the wrong outcomes. A marketing manager who produces 50 LinkedIn posts, runs a webinar series, and hits a 22% email open rate has, by any conventional marketing metric, had a productive quarter. If none of that activity produced a single qualified sales conversation, the quarter was a commercial failure dressed up as a marketing success.</p>
+          <p>Most B2B marketing fails not because the people running it are incompetent, but because the system they are operating inside rewards the wrong outcomes. A marketing manager who produces 50 LinkedIn posts, runs a webinar series, and hits a 22% email open rate has, by any conventional marketing metric, had a productive quarter. If none of that activity produced a single qualified sales conversation, the quarter was a commercial failure dressed up as a marketing success. Fixing that gap is the entire premise behind the <a href="growth-playbook.html" style="color:var(--green);font-weight:600;">Growth Playbook in 30 Days</a> &mdash; a documented strategy that ties every activity to a revenue outcome.</p>
           <p>After 25 years in the VP seat at TELUS, Bell, SMART Technologies, and Veriforce, I have seen this pattern repeat itself in every industry and at every revenue level. The companies that scaled &mdash; from $120M to $700M at SMART, from 30 MQLs to 803 per month at Veriforce &mdash; did not do it with better campaigns. They did it by installing accountability frameworks that made marketing a financial function, not a creative one.</p>
           <h2>The Five Non-Negotiable Disciplines</h2>
           <ul>
@@ -384,7 +393,7 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
             <li><strong>Activity is the enemy of progress.</strong> Less, done with precision and accountability, consistently outperforms more, done with energy but without strategic direction.</li>
             <li><strong>Vanity metrics are a strategic risk.</strong> The metric that matters is marketing-sourced pipeline: how many qualified opportunities entered the funnel this quarter, and what did it cost to produce each one?</li>
             <li><strong>Junior execution is an expensive lesson.</strong> The quality of the strategy that reaches the market is limited by the judgment of the people executing it.</li>
-            <li><strong>AI is infrastructure, not strategy.</strong> AI compresses the time between a strategic decision and its market-ready execution by 40&ndash;60%. It does not make bad strategies work.</li>
+            <li><strong>AI is infrastructure, not strategy.</strong> AI compresses the time between a strategic decision and its market-ready execution by 40&ndash;60%. It does not make bad strategies work &mdash; which is the whole case for <a href="ai-for-marketing.html" style="color:var(--green);font-weight:600;">applying AI with governance</a> rather than adopting tools for their own sake.</li>
           </ul>
           <div class="blog-divider"></div>
           <p><strong>I&rsquo;m Dean Reid,</strong> Revenue Architect at Optivus. My philosophy is built from 25 years of VP-level pattern recognition across TELUS, Bell, SMART Technologies, and Veriforce. Read <a href="philosophy.html" style="color:var(--green);font-weight:600;">the full Optivus philosophy</a>.</p>

@@ -29,7 +29,8 @@
 #onav-logo{display:flex;align-items:center;margin-right:28px;flex-shrink:0;text-decoration:none;}
 #onav-logo img{height:50px;width:50px;object-fit:contain;display:block;}
 #onav-links{display:flex;align-items:stretch;list-style:none;margin:0;padding:0;height:68px;flex:1;}
-#onav-links>li{position:relative;display:flex;align-items:center;}
+#onav-links>li{position:relative;display:flex;align-items:center;z-index:1;}
+#onav-links>li:hover{z-index:100001;}
 #onav-links>li>a,#onav-links>li>span{display:flex;align-items:center;height:68px;padding:0 15px;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.82);text-decoration:none;white-space:nowrap;cursor:pointer;transition:color .2s,background .2s;user-select:none;}
 #onav-links>li>a:hover,#onav-links>li>a.cur,#onav-links>li>span:hover{color:#34D399;background:rgba(52,211,153,.07);}
 .onav-sub{display:none;position:absolute;top:68px;left:0;min-width:230px;background:#1E2937;border:1px solid rgba(52,211,153,.18);border-top:2px solid #10B981;border-radius:0 0 10px 10px;box-shadow:0 16px 40px rgba(0,0,0,.45);z-index:100000;padding:6px 0;}
@@ -235,7 +236,13 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
         <a href="ai-for-marketing.html">AI for Marketing</a>
       </div>
     </li>
-    <li><a href="resources.html">Resources</a></li>
+    <li>
+      <span>Resources &#9662;</span>
+      <div class="onav-sub">
+        <a href="resources.html">All Resources &amp; Tools</a>
+        <a href="resources.html#blog">Intelligence Series</a>
+      </div>
+    </li>
     <li>
       <span>Philosophy &#9662;</span>
       <div class="onav-sub">
@@ -268,7 +275,9 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
   <a href="cx-audit.html" class="opt-dl">Customer Journey &amp; CX Audit</a>
   <a href="thought-leadership.html" class="opt-dl">Executive Thought-Leadership Partner</a>
   <a href="ai-for-marketing.html" class="opt-dl">AI for Marketing</a>
-  <a href="resources.html">Resources</a>
+  <p class="onav-drw-lbl">Resources</p>
+  <a href="resources.html" class="opt-dl">All Resources &amp; Tools</a>
+  <a href="resources.html#blog" class="opt-dl">Intelligence Series</a>
   <p class="onav-drw-lbl">Philosophy</p>
   <a href="philosophy.html">Our Philosophy</a>
   <a href="philosophy.html#about">About Dean Reid</a>
