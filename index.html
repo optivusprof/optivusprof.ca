@@ -2382,6 +2382,123 @@ body{padding-top:68px;}
   </div>
 </section>
 
+<!-- GTM MATURITY AUDIT -->
+<section class="gtma-section" aria-label="GTM Maturity Audit">
+  <style id="gtma-css">
+  .gtma-section { background: var(--off-white); padding: 88px 80px; }
+  .gtma-section-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+  .gtma-eyebrow {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    font-weight: 700; color: var(--ocean-blue); margin-bottom: 16px;
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+  }
+  .gtma-eyebrow::before, .gtma-eyebrow::after { content:''; width:40px; height:1px; background: var(--soft-cyan); display:block; }
+  .gtma-headline {
+    font-family: var(--ff-display); font-size: clamp(26px, 3.2vw, 36px); font-weight: 700;
+    color: var(--dark-blue); line-height: 1.18; margin-bottom: 14px; letter-spacing: -0.01em;
+  }
+  .gtma-sub { font-size: 15.5px; color: var(--muted); line-height: 1.7; margin-bottom: 40px; }
+
+  .gtma-static-summary {
+    background: var(--off-white); border: 1px solid rgba(15,23,42,0.08); border-radius: 16px;
+    padding: 32px 36px; text-align: left; margin-bottom: 28px;
+  }
+  .gtma-static-h { font-family: var(--ff-display); font-size: 17px; font-weight: 700; color: var(--dark-blue); margin-bottom: 12px; }
+  .gtma-static-p { font-size: 14px; color: var(--muted); line-height: 1.75; margin-bottom: 16px; }
+  .gtma-static-p:last-child { margin-bottom: 0; }
+  .gtma-static-list { margin: 0 0 16px; padding-left: 22px; }
+  .gtma-static-list li { font-size: 14.5px; color: var(--ink); line-height: 1.8; margin-bottom: 8px; }
+
+  .gtma-card {
+    background: var(--ink); border-radius: 20px; padding: 44px 40px;
+    text-align: left; box-shadow: 0 20px 40px -8px rgba(15,23,42,0.25);
+  }
+
+  .gtma-progress-track { width:100%; height:4px; background: rgba(255,255,255,0.12); border-radius:2px; margin-bottom: 28px; overflow:hidden; }
+  .gtma-progress-fill { height:100%; background: var(--ocean-blue); border-radius:2px; transition: width 0.35s ease; }
+  .gtma-step-label { font-size: 11px; color: var(--soft-cyan); text-transform: uppercase; letter-spacing: 0.14em; font-weight:700; margin-bottom: 16px; }
+  .gtma-question { font-family: var(--ff-display); font-size: 22px; font-weight: 700; color: #ffffff; line-height: 1.3; margin-bottom: 28px; }
+
+  .gtma-toggle-group { display: flex; gap: 12px; }
+  .gtma-toggle-btn {
+    flex: 1; padding: 16px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.04); color: #ffffff; font-family: var(--ff-body);
+    cursor: pointer; transition: all 0.2s; font-weight: 600; font-size: 14px;
+  }
+  .gtma-toggle-btn:hover { border-color: var(--soft-cyan); background: rgba(52,211,153,0.08); }
+  .gtma-toggle-btn.active { border-color: var(--ocean-blue); background: rgba(16,185,129,0.18); color: var(--soft-cyan); }
+
+  .gtma-slide-wrap { margin: 8px 0 4px; }
+  .gtma-slide-value { text-align:center; font-family: var(--ff-display); font-size: 32px; font-weight:700; color: var(--soft-cyan); margin-bottom: 14px; }
+  .gtma-slide-input {
+    width: 100%; height: 6px; border-radius: 3px; -webkit-appearance: none; appearance: none;
+    cursor: pointer; background: rgba(255,255,255,0.14); outline: none;
+  }
+  .gtma-slide-input::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none; width: 20px; height: 20px; border-radius: 50%;
+    background: var(--ocean-blue); cursor: pointer; border: 3px solid #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  }
+  .gtma-slide-input::-moz-range-thumb {
+    width: 20px; height: 20px; border-radius: 50%; background: var(--ocean-blue);
+    cursor: pointer; border: 3px solid #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  }
+  .gtma-slide-labels { display:flex; justify-content:space-between; color: rgba(255,255,255,0.55); font-size: 12.5px; margin-top: 12px; font-weight: 500; }
+
+  .gtma-next-btn {
+    width: 100%; background: var(--ocean-blue); color: #ffffff; padding: 15px;
+    border: none; border-radius: 8px; font-weight: 700; margin-top: 28px; font-size: 13px;
+    letter-spacing: 0.06em; text-transform: uppercase; font-family: var(--ff-body);
+    cursor: pointer; transition: background-color 0.2s; text-decoration:none; display:block; text-align:center;
+  }
+  .gtma-next-btn:hover { background-color: var(--dark-blue); }
+  .gtma-next-btn:disabled { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.4); cursor:not-allowed; }
+
+  .gtma-intro-h { font-family: var(--ff-display); font-size: 26px; font-weight:700; color:#ffffff; margin-bottom: 16px; text-align:center; }
+  .gtma-intro-p { color: rgba(255,255,255,0.65); margin-bottom: 8px; line-height: 1.6; text-align:center; font-size: 14.5px; }
+
+  .gtma-result-stage { font-size: 11px; letter-spacing:0.14em; text-transform:uppercase; font-weight:700; color: var(--soft-cyan); margin-bottom: 10px; text-align:center; }
+  .gtma-result-h { font-family: var(--ff-display); font-size: 26px; font-weight: 700; color:#ffffff; margin-bottom: 18px; text-align:center; }
+  .gtma-result-p { color: rgba(255,255,255,0.7); margin-bottom: 24px; line-height: 1.7; font-size: 15px; text-align:center; }
+  .gtma-result-box {
+    background: rgba(255,255,255,0.04); padding: 22px 24px; border-radius: 12px;
+    margin-bottom: 26px; border: 1px solid rgba(255,255,255,0.1);
+  }
+  .gtma-result-box-label { font-weight: 700; color: #ffffff; font-size: 15px; margin-bottom: 8px; }
+  .gtma-result-box-text { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.65; }
+
+  @media(max-width:640px){
+    .gtma-section{padding:64px 20px;}
+    .gtma-card{padding:32px 24px;}
+    .gtma-question{font-size:19px;}
+  }
+  </style>
+
+  <div class="gtma-section-inner">
+    <p class="gtma-eyebrow">Free Diagnostic</p>
+    <h2 class="gtma-headline">Where is your GTM engine actually leaking revenue?</h2>
+    <p class="gtma-sub">Seven questions, sixty seconds, no email required. A direct read on which part of your go-to-market motion breaks down first.</p>
+
+    <div class="gtma-static-summary">
+      <h3 class="gtma-static-h">What the GTM Maturity Audit covers</h3>
+      <p class="gtma-static-p">The audit scores your go-to-market engine across three pillars &mdash; Strategic Foundation, Pipeline &amp; Attribution, and Execution Engine &mdash; using seven direct questions:</p>
+      <ol class="gtma-static-list">
+        <li>Is your ICP documented and consistently used across the team?</li>
+        <li>How strong is your market positioning &mdash; commoditized or category-defining?</li>
+        <li>How predictable is your pipeline quarter to quarter?</li>
+        <li>How confident are you in your attribution data?</li>
+        <li>Are most marketing decisions still made by the founder or CEO?</li>
+        <li>How systematized is your demand generation engine?</li>
+        <li>Do you have board-ready marketing reporting today?</li>
+      </ol>
+      <p class="gtma-static-p"><strong>Strategic Foundation</strong> weak: ICP and positioning aren&rsquo;t locked down yet, so every channel and hire layered on top is guessing instead of targeting. <strong>Pipeline &amp; Attribution</strong> weak: you&rsquo;re spending on marketing without a reliable read on what&rsquo;s actually producing revenue &mdash; a forecasting problem, and eventually a board-confidence problem. <strong>Execution Engine</strong> weak: marketing decisions still run through one person, channels are ad-hoc, and there&rsquo;s no reporting cadence anyone outside the room can rely on &mdash; a ceiling on growth, not a strategy.</p>
+    </div>
+
+    <div class="gtma-card">
+      <div id="gtma-content"></div>
+    </div>
+  </div>
+</section>
+
 <!-- SITE-WIDE FAQ -->
 <section class="site-faq" aria-label="Frequently asked questions" itemscope itemtype="https://schema.org/FAQPage">
   <div class="site-faq-inner">
@@ -2584,125 +2701,63 @@ body{padding-top:68px;}
   </div>
 </article>
 
-<!-- SEO CONTENT BLOCK - REDESIGNED -->
-
-
-<!-- GTM MATURITY AUDIT -->
-<section class="gtma-section" aria-label="GTM Maturity Audit">
-  <style id="gtma-css">
-  .gtma-section { background: var(--off-white); padding: 88px 80px; }
-  .gtma-section-inner { max-width: 700px; margin: 0 auto; text-align: center; }
-  .gtma-eyebrow {
-    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-    font-weight: 700; color: var(--ocean-blue); margin-bottom: 16px;
-    display: flex; align-items: center; justify-content: center; gap: 12px;
-  }
-  .gtma-eyebrow::before, .gtma-eyebrow::after { content:''; width:40px; height:1px; background: var(--soft-cyan); display:block; }
-  .gtma-headline {
-    font-family: var(--ff-display); font-size: clamp(26px, 3.2vw, 36px); font-weight: 700;
-    color: var(--dark-blue); line-height: 1.18; margin-bottom: 14px; letter-spacing: -0.01em;
-  }
-  .gtma-sub { font-size: 15.5px; color: var(--muted); line-height: 1.7; margin-bottom: 40px; }
-
-  .gtma-static-summary {
-    background: var(--off-white); border: 1px solid rgba(15,23,42,0.08); border-radius: 16px;
-    padding: 32px 36px; text-align: left; margin-bottom: 28px;
-  }
-  .gtma-static-h { font-family: var(--ff-display); font-size: 17px; font-weight: 700; color: var(--dark-blue); margin-bottom: 12px; }
-  .gtma-static-p { font-size: 14px; color: var(--muted); line-height: 1.75; margin-bottom: 16px; }
-  .gtma-static-p:last-child { margin-bottom: 0; }
-  .gtma-static-list { margin: 0 0 16px; padding-left: 22px; }
-  .gtma-static-list li { font-size: 14.5px; color: var(--ink); line-height: 1.8; margin-bottom: 8px; }
-
-  .gtma-card {
-    background: var(--ink); border-radius: 20px; padding: 44px 40px;
-    text-align: left; box-shadow: 0 20px 40px -8px rgba(15,23,42,0.25);
-  }
-
-  .gtma-progress-track { width:100%; height:4px; background: rgba(255,255,255,0.12); border-radius:2px; margin-bottom: 28px; overflow:hidden; }
-  .gtma-progress-fill { height:100%; background: var(--ocean-blue); border-radius:2px; transition: width 0.35s ease; }
-  .gtma-step-label { font-size: 11px; color: var(--soft-cyan); text-transform: uppercase; letter-spacing: 0.14em; font-weight:700; margin-bottom: 16px; }
-  .gtma-question { font-family: var(--ff-display); font-size: 22px; font-weight: 700; color: #ffffff; line-height: 1.3; margin-bottom: 28px; }
-
-  .gtma-toggle-group { display: flex; gap: 12px; }
-  .gtma-toggle-btn {
-    flex: 1; padding: 16px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.14);
-    background: rgba(255,255,255,0.04); color: #ffffff; font-family: var(--ff-body);
-    cursor: pointer; transition: all 0.2s; font-weight: 600; font-size: 14px;
-  }
-  .gtma-toggle-btn:hover { border-color: var(--soft-cyan); background: rgba(52,211,153,0.08); }
-  .gtma-toggle-btn.active { border-color: var(--ocean-blue); background: rgba(16,185,129,0.18); color: var(--soft-cyan); }
-
-  .gtma-slide-wrap { margin: 8px 0 4px; }
-  .gtma-slide-value { text-align:center; font-family: var(--ff-display); font-size: 32px; font-weight:700; color: var(--soft-cyan); margin-bottom: 14px; }
-  .gtma-slide-input {
-    width: 100%; height: 6px; border-radius: 3px; -webkit-appearance: none; appearance: none;
-    cursor: pointer; background: rgba(255,255,255,0.14); outline: none;
-  }
-  .gtma-slide-input::-webkit-slider-thumb {
-    -webkit-appearance: none; appearance: none; width: 20px; height: 20px; border-radius: 50%;
-    background: var(--ocean-blue); cursor: pointer; border: 3px solid #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-  }
-  .gtma-slide-input::-moz-range-thumb {
-    width: 20px; height: 20px; border-radius: 50%; background: var(--ocean-blue);
-    cursor: pointer; border: 3px solid #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-  }
-  .gtma-slide-labels { display:flex; justify-content:space-between; color: rgba(255,255,255,0.55); font-size: 12.5px; margin-top: 12px; font-weight: 500; }
-
-  .gtma-next-btn {
-    width: 100%; background: var(--ocean-blue); color: #ffffff; padding: 15px;
-    border: none; border-radius: 8px; font-weight: 700; margin-top: 28px; font-size: 13px;
-    letter-spacing: 0.06em; text-transform: uppercase; font-family: var(--ff-body);
-    cursor: pointer; transition: background-color 0.2s; text-decoration:none; display:block; text-align:center;
-  }
-  .gtma-next-btn:hover { background-color: var(--dark-blue); }
-  .gtma-next-btn:disabled { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.4); cursor:not-allowed; }
-
-  .gtma-intro-h { font-family: var(--ff-display); font-size: 26px; font-weight:700; color:#ffffff; margin-bottom: 16px; text-align:center; }
-  .gtma-intro-p { color: rgba(255,255,255,0.65); margin-bottom: 8px; line-height: 1.6; text-align:center; font-size: 14.5px; }
-
-  .gtma-result-stage { font-size: 11px; letter-spacing:0.14em; text-transform:uppercase; font-weight:700; color: var(--soft-cyan); margin-bottom: 10px; text-align:center; }
-  .gtma-result-h { font-family: var(--ff-display); font-size: 26px; font-weight: 700; color:#ffffff; margin-bottom: 18px; text-align:center; }
-  .gtma-result-p { color: rgba(255,255,255,0.7); margin-bottom: 24px; line-height: 1.7; font-size: 15px; text-align:center; }
-  .gtma-result-box {
-    background: rgba(255,255,255,0.04); padding: 22px 24px; border-radius: 12px;
-    margin-bottom: 26px; border: 1px solid rgba(255,255,255,0.1);
-  }
-  .gtma-result-box-label { font-weight: 700; color: #ffffff; font-size: 15px; margin-bottom: 8px; }
-  .gtma-result-box-text { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.65; }
-
-  @media(max-width:640px){
-    .gtma-section{padding:64px 20px;}
-    .gtma-card{padding:32px 24px;}
-    .gtma-question{font-size:19px;}
-  }
-  </style>
-
-  <div class="gtma-section-inner">
-    <p class="gtma-eyebrow">Free Diagnostic</p>
-    <h2 class="gtma-headline">Where is your GTM engine actually leaking revenue?</h2>
-    <p class="gtma-sub">Seven questions, sixty seconds, no email required. A direct read on which part of your go-to-market motion breaks down first.</p>
-
-    <div class="gtma-static-summary">
-      <h3 class="gtma-static-h">What the GTM Maturity Audit covers</h3>
-      <p class="gtma-static-p">The audit scores your go-to-market engine across three pillars &mdash; Strategic Foundation, Pipeline &amp; Attribution, and Execution Engine &mdash; using seven direct questions:</p>
-      <ol class="gtma-static-list">
-        <li>Is your ICP documented and consistently used across the team?</li>
-        <li>How strong is your market positioning &mdash; commoditized or category-defining?</li>
-        <li>How predictable is your pipeline quarter to quarter?</li>
-        <li>How confident are you in your attribution data?</li>
-        <li>Are most marketing decisions still made by the founder or CEO?</li>
-        <li>How systematized is your demand generation engine?</li>
-        <li>Do you have board-ready marketing reporting today?</li>
-      </ol>
-      <p class="gtma-static-p"><strong>Strategic Foundation</strong> weak: ICP and positioning aren&rsquo;t locked down yet, so every channel and hire layered on top is guessing instead of targeting. <strong>Pipeline &amp; Attribution</strong> weak: you&rsquo;re spending on marketing without a reliable read on what&rsquo;s actually producing revenue &mdash; a forecasting problem, and eventually a board-confidence problem. <strong>Execution Engine</strong> weak: marketing decisions still run through one person, channels are ad-hoc, and there&rsquo;s no reporting cadence anyone outside the room can rely on &mdash; a ceiling on growth, not a strategy.</p>
-    </div>
-
-    <div class="gtma-card">
-      <div id="gtma-content"></div>
+<!-- SIX OFFERINGS OVERVIEW -->
+<style id="six-offerings-css">
+.six-off-section{background:var(--off-white,#F5F2ED);padding:72px 80px;}
+.six-off-inner{max-width:1100px;margin:0 auto;}
+.six-off-eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ocean-blue,#10B981);text-align:center;margin-bottom:14px;}
+.six-off-headline{font-family:var(--ff-display);font-size:clamp(26px,3.2vw,36px);font-weight:700;color:var(--dark-blue,#0F172A);text-align:center;margin-bottom:44px;}
+.six-off-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.six-off-card{background:#fff;border:1px solid rgba(15,23,42,.08);border-radius:14px;padding:26px 26px 24px;text-decoration:none;display:block;transition:transform .15s,box-shadow .15s,border-color .15s;}
+.six-off-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(15,23,42,.08);border-color:var(--soft-cyan,#34D399);}
+.six-off-card h3{font-size:16.5px;font-weight:700;color:var(--dark-blue,#0F172A);margin-bottom:8px;}
+.six-off-card p{font-size:13.5px;color:var(--muted,#566072);line-height:1.65;margin:0 0 14px;}
+.six-off-card span{font-size:12.5px;font-weight:700;color:var(--ocean-blue,#10B981);}
+@media(max-width:900px){.six-off-section{padding:56px 40px;}.six-off-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.six-off-section{padding:44px 20px;}.six-off-grid{grid-template-columns:1fr;}}
+</style>
+<section class="six-off-section" aria-label="Six ways to work with Optivus">
+  <div class="six-off-inner">
+    <p class="six-off-eyebrow">Six Offerings</p>
+    <h2 class="six-off-headline">Other ways to work with Optivus</h2>
+    <div class="six-off-grid">
+      <a href="growth-playbook.html" class="six-off-card">
+        <h3>Growth Playbook in 30 Days</h3>
+        <p>A complete B2B go-to-market strategy delivered in 30 days — ICP, positioning, channel architecture, and a 90-day roadmap.</p>
+        <span>Fixed-fee project &rarr;</span>
+      </a>
+      <a href="board-advisor.html" class="six-off-card">
+        <h3>Board-Level Growth Advisor</h3>
+        <p>A fractional advisory seat focused on commercial strategy, revenue growth, and marketing governance at the leadership table.</p>
+        <span>Monthly retainer &rarr;</span>
+      </a>
+      <a href="cx-audit.html" class="six-off-card">
+        <h3>Customer Journey &amp; CX Audit</h3>
+        <p>A structured audit of the full customer journey, from first touch to retention, identifying friction and revenue leakage.</p>
+        <span>Fixed-fee project &rarr;</span>
+      </a>
+      <a href="ai-for-marketing.html" class="six-off-card">
+        <h3>AI for Marketing</h3>
+        <p>Practical AI integration for B2B marketing teams — strategy, workflow design, and training focused on measurable output.</p>
+        <span>Project or retainer &rarr;</span>
+      </a>
+      <a href="thought-leadership.html" class="six-off-card">
+        <h3>Executive Thought-Leadership Partner</h3>
+        <p>Executive-level content for B2B founders — LinkedIn strategy, long-form writing, and category positioning built around your voice.</p>
+        <span>Monthly retainer &rarr;</span>
+      </a>
+      <a href="resources.html" class="six-off-card">
+        <h3>Free Tools &amp; Resources</h3>
+        <p>Diagnostics, calculators, and the Revenue Architect Intelligence Series — no email required to use any of it.</p>
+        <span>Free &rarr;</span>
+      </a>
     </div>
   </div>
 </section>
+
+<!-- SEO CONTENT BLOCK - REDESIGNED -->
+
+
 
 <script>
 const gtma = {
