@@ -2161,6 +2161,26 @@ body{padding-top:68px;}
     </span>
   </h1>
 
+  <style id="problem-row-css">
+  .problem-row{display:flex;flex-wrap:wrap;gap:0;margin:8px 0 36px;padding:16px 0;border-top:1px solid rgba(255,255,255,.12);border-bottom:1px solid rgba(255,255,255,.12);opacity:0;animation:fadeUp 0.9s 0.4s forwards;}
+  .problem-row-item{display:flex;align-items:baseline;gap:8px;padding:6px 22px 6px 0;margin-right:22px;border-right:1px solid rgba(255,255,255,.12);text-decoration:none;transition:opacity .15s;}
+  .problem-row-item:last-child{border-right:none;margin-right:0;padding-right:0;}
+  .problem-row-item:hover{opacity:.75;}
+  .problem-row-mark{color:#F0997B;font-weight:700;font-size:13px;flex-shrink:0;}
+  .problem-row-item strong{color:#fff;font-size:14px;font-weight:600;white-space:nowrap;text-decoration:underline;text-decoration-color:rgba(255,255,255,.28);text-underline-offset:3px;}
+  .problem-row-item:hover strong{text-decoration-color:#F0997B;}
+  .problem-row-item span{color:rgba(255,255,255,.55);font-size:13px;}
+  .problem-row-arrow{color:rgba(255,255,255,.35);font-size:12px;margin-left:2px;}
+  @media(max-width:900px){.problem-row{gap:10px;}.problem-row-item{border-right:none;margin-right:0;padding:4px 0;flex-basis:100%;}}
+  @media(max-width:640px){.problem-row-item span{display:none;}}
+  </style>
+  <div class="problem-row" aria-label="Common revenue leaks — click to see how each is fixed">
+    <a href="cx-audit.html" class="problem-row-item"><span class="problem-row-mark">!</span><strong>High churn</strong><span>&nbsp;— hurts what your company is worth</span><span class="problem-row-arrow">→</span></a>
+    <a href="gtm-leak-finder.html" class="problem-row-item"><span class="problem-row-mark">!</span><strong>Disconnected systems</strong><span>&nbsp;— you lose deals because of it</span><span class="problem-row-arrow">→</span></a>
+    <a href="why-pe-backed-companies-stall-at-20m.html" class="problem-row-item"><span class="problem-row-mark">!</span><strong>Growth by heroics</strong><span>&nbsp;— if they leave, so does the value</span><span class="problem-row-arrow">→</span></a>
+    <a href="growth-playbook.html" class="problem-row-item"><span class="problem-row-mark">!</span><strong>Low share of wallet</strong><span>&nbsp;— money sitting on the table</span><span class="problem-row-arrow">→</span></a>
+  </div>
+
 
   <p class="hero-desc">
     I embed directly into your team as your Revenue Architect — building the go-to-market strategy, demand generation engine, and commercial governance your board is asking for. Optivus works with PE-backed B2B companies at $15M–$60M in revenue, turning fragmented commercial operations into a GTM system that produces predictable, attributable pipeline.
@@ -2191,41 +2211,6 @@ body{padding-top:68px;}
   </div>
 </div>
 
-<!-- PROBLEM STRIP -->
-<style id="problem-strip-css">
-.problem-strip{background:var(--white,#fff);padding:56px 80px;border-bottom:1px solid rgba(15,23,42,.06);}
-.problem-strip-inner{max-width:1100px;margin:0 auto;}
-.problem-strip-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted,#566072);text-align:center;margin-bottom:28px;}
-.problem-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
-.problem-item{padding:18px 20px 18px 18px;border:1px solid rgba(15,23,42,.08);border-left:3px solid #D85A30;border-radius:8px;}
-.problem-item h3{font-size:14.5px;font-weight:700;color:var(--dark-blue,#0F172A);margin-bottom:6px;}
-.problem-item p{font-size:13px;color:var(--muted,#566072);line-height:1.6;margin:0;}
-@media(max-width:900px){.problem-strip{padding:44px 40px;}.problem-grid{grid-template-columns:1fr 1fr;}}
-@media(max-width:600px){.problem-strip{padding:36px 20px;}.problem-grid{grid-template-columns:1fr;}}
-</style>
-<section class="problem-strip" aria-label="Common revenue leaks">
-  <div class="problem-strip-inner">
-    <p class="problem-strip-label">Sound familiar?</p>
-    <div class="problem-grid">
-      <div class="problem-item">
-        <h3>High churn</h3>
-        <p>Customers leave. That hurts what your company is worth.</p>
-      </div>
-      <div class="problem-item">
-        <h3>Disconnected systems</h3>
-        <p>Your tools don't talk to each other. You lose deals because of it.</p>
-      </div>
-      <div class="problem-item">
-        <h3>Growth depends on heroics</h3>
-        <p>One person carries growth. If they leave, so does the value.</p>
-      </div>
-      <div class="problem-item">
-        <h3>Low share of wallet</h3>
-        <p>Old customers don't buy more. That's money sitting on the table.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- SOCIAL PROOF -->
 <section class="social-proof" aria-label="Why clients choose Optivus">
