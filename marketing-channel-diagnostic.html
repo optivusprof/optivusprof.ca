@@ -313,17 +313,11 @@ h1,h2,h3,h4,h5,h6,p,span,a,button,select,li,td,th,div {
 
 /* ── EMPTY STATE ── */
 #empty-state {
-  text-align: center !important; padding: 80px 40px !important;
+  text-align: center !important; padding: 24px 40px !important;
   background: #fff !important; border-radius: 14px !important;
   border: 1px solid #E2E8F0 !important;
   display: flex !important; flex-direction: column !important;
   align-items: center !important;
-}
-.empty-icon-wrap {
-  width: 64px; height: 64px; border-radius: 16px;
-  background: rgba(16,185,129,.1); border: 1px solid rgba(16,185,129,.2);
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 20px; font-size: 28px;
 }
 #empty-state h2 {
   font-family: var(--ffd) !important;
@@ -492,12 +486,12 @@ h1,h2,h3,h4,h5,h6,p,span,a,button,select,li,td,th,div {
 /* Print button */
 #print-btn {
   display: inline-flex !important; align-items: center !important; gap: 6px !important;
-  background: none !important; border: 1.5px solid #E2E8F0 !important;
+  background: #fff !important; border: 1.5px solid #10B981 !important;
   border-radius: 7px !important; padding: 8px 16px !important;
-  font-size: 12px !important; font-weight: 600 !important; color: #64748B !important;
+  font-size: 12px !important; font-weight: 700 !important; color: #10B981 !important;
   cursor: pointer !important; transition: all .2s !important; margin-top: 16px !important;
 }
-#print-btn:hover { border-color: #0F172A !important; color: #0F172A !important; }
+#print-btn:hover { background: #10B981 !important; color: #fff !important; }
 
 /* ── CTA BAND ── */
 .diag-cta {
@@ -670,7 +664,6 @@ footer { background: #0F172A !important; border-top: 1px solid rgba(52,211,153,.
 
 <div class="opt-bc" role="navigation" aria-label="Breadcrumb"><a href="index.html">Home</a><span class="opt-bc-sep">/</span><a href="resources.html">Resources</a><span class="opt-bc-sep">/</span><span class="opt-bc-cur">Channel Diagnostic</span></div>
   <div id="empty-state">
-    <div class="empty-icon-wrap">&#128202;</div>
     <h2>Select a channel and tactic to begin</h2>
     <p>Choose the marketing channel that is not hitting targets, then identify the specific tactic that is falling short. Prioritized cross-channel fixes will appear here.</p>
   </div>
