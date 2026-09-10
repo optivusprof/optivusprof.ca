@@ -98,7 +98,7 @@ function render(cat, tactic) {
   top5Card.innerHTML = `
     <div class="top5-header">
       <div class="top5-header-icon"><i data-lucide="star" style="width:14px;height:14px;color:#fff;stroke-width:2"></i></div>
-      <span class="top5-title">Top 5 Highest-Impact Cross-Channel Activations</span>
+      <span class="top5-title">Top 5 Highest-Impact Cross-Channel Activations, to Improve Performance</span>
       <span class="top5-subtitle">AI-scored · ${tactic.length > 35 ? tactic.slice(0,32)+'…' : tactic}</span>
     </div>
     <div class="top5-rows">${top5Body}</div>
@@ -157,6 +157,7 @@ function render(cat, tactic) {
 
   document.getElementById('cat-count-chip').textContent = (catCount - 1) + ' supporting categories';
   document.getElementById('tactic-count-chip').textContent = totalSupport + ' support tactics';
+  document.getElementById('results-title').textContent = tactic + ' — Cross-Channel Fixes';
   document.getElementById('print-btn').classList.add('visible');
 
   // Auto-expand first non-same category card

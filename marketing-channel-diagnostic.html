@@ -423,52 +423,71 @@ h1,h2,h3,h4,h5,h6,p,span,a,button,select,li,td,th,div {
   background: #fff !important; border: 1px solid #E2E8F0 !important;
   border-radius: 12px !important; overflow: hidden !important;
 }
-.acc-header {
+.acc-trigger {
   padding: 14px 20px !important; cursor: pointer !important;
   display: flex !important; align-items: center !important; gap: 12px !important;
   transition: background .15s !important;
   border-bottom: 1px solid transparent !important;
 }
-.acc-header:hover { background: #F8FFFE !important; }
-.acc-header.open { border-bottom-color: #E2E8F0 !important; }
-.acc-cat-icon {
+.acc-trigger:hover { background: #F8FFFE !important; }
+.acc-card.open .acc-trigger { border-bottom-color: #E2E8F0 !important; }
+.acc-cat-icon-wrap {
   width: 36px !important; height: 36px !important; border-radius: 8px !important;
   display: flex !important; align-items: center !important; justify-content: center !important;
   flex-shrink: 0 !important;
 }
-.acc-cat-label {
+.acc-cat-name {
   font-size: 13px !important; font-weight: 700 !important; color: #0F172A !important;
-  flex: 1 !important;
+  flex-shrink: 0 !important;
 }
-.acc-count {
-  font-size: 11px !important; color: #64748B !important;
-  margin-right: 8px !important;
+.acc-rec-snippet {
+  font-size: 12px !important; color: #64748B !important;
+  flex: 1 !important; overflow: hidden !important; text-overflow: ellipsis !important;
+  white-space: nowrap !important; min-width: 0 !important;
 }
-.acc-chev {
-  color: #64748B !important; font-size: 12px !important;
-  transition: transform .2s !important;
+.acc-count-chip {
+  font-size: 11px !important; font-weight: 600 !important; color: #64748B !important;
+  background: #F8FFFE !important; border: 1px solid #E2E8F0 !important;
+  border-radius: 20px !important; padding: 3px 10px !important;
+  flex-shrink: 0 !important; white-space: nowrap !important;
 }
-.acc-header.open .acc-chev { transform: rotate(180deg) !important; }
-.acc-body { display: none !important; padding: 0 !important; }
-.acc-body.open { display: block !important; }
-.acc-row {
-  display: flex !important; align-items: flex-start !important; gap: 12px !important;
-  padding: 12px 20px !important; border-bottom: 1px solid #E2E8F0 !important;
+.acc-chevron {
+  color: #64748B !important; flex-shrink: 0 !important;
+  transition: transform .2s !important; display: flex !important;
 }
-.acc-row:last-child { border-bottom: none !important; }
-.acc-row:hover { background: #F8FFFE !important; }
-.acc-rank {
-  font-size: 10px !important; font-weight: 700 !important;
-  color: #10B981 !important; flex-shrink: 0 !important;
-  width: 20px !important; margin-top: 2px !important;
+.acc-card.open .acc-chevron { transform: rotate(180deg) !important; }
+.acc-card .acc-body { display: none !important; padding: 0 !important; }
+.acc-card.open .acc-body { display: block !important; }
+.tactics-section-label {
+  font-size: 10px !important; font-weight: 700 !important; letter-spacing: .08em !important;
+  text-transform: uppercase !important; color: #94A3B8 !important;
+  padding: 14px 20px 6px !important;
 }
-.acc-tactic {
-  font-size: 13px !important; font-weight: 600 !important;
-  color: #0F172A !important; margin-bottom: 3px !important;
+.tactic-rows { padding-bottom: 6px !important; }
+.tactic-item {
+  display: flex !important; align-items: flex-start !important; gap: 10px !important;
+  padding: 9px 20px !important; border-top: 1px solid #F1F5F9 !important;
 }
-.acc-rec {
-  font-size: 12px !important; color: #64748B !important; line-height: 1.5 !important;
+.tactic-item:hover { background: #F8FFFE !important; }
+.tactic-dot {
+  width: 6px !important; height: 6px !important; border-radius: 50% !important;
+  flex-shrink: 0 !important; margin-top: 6px !important;
 }
+.tactic-name {
+  font-size: 13px !important; font-weight: 600 !important; color: #0F172A !important;
+  flex-shrink: 0 !important;
+}
+.tactic-sep { font-size: 13px !important; color: #CBD5E1 !important; flex-shrink: 0 !important; }
+.tactic-action { font-size: 12.5px !important; color: #64748B !important; line-height: 1.55 !important; }
+.self-tactic { background: rgba(16,185,129,.05) !important; }
+.self-tactic-text { font-size: 13px !important; font-weight: 700 !important; color: #0F172A !important; }
+.self-badge {
+  display: inline-flex !important; align-items: center !important;
+  font-size: 10px !important; font-weight: 700 !important; color: #10B981 !important;
+  background: rgba(16,185,129,.1) !important; border-radius: 20px !important;
+  padding: 2px 8px !important; margin-left: 8px !important;
+}
+.top5-rows { padding: 0 !important; }
 
 /* Print button */
 #print-btn {
@@ -650,6 +669,12 @@ footer { background: #0F172A !important; border-top: 1px solid rgba(52,211,153,.
 
 
 <div class="opt-bc" role="navigation" aria-label="Breadcrumb"><a href="index.html">Home</a><span class="opt-bc-sep">/</span><a href="resources.html">Resources</a><span class="opt-bc-sep">/</span><span class="opt-bc-cur">Channel Diagnostic</span></div>
+  <div id="empty-state">
+    <div class="empty-icon-wrap">&#128202;</div>
+    <h2>Select a channel and tactic to begin</h2>
+    <p>Choose the marketing channel that is not hitting targets, then identify the specific tactic that is falling short. Prioritized cross-channel fixes will appear here.</p>
+  </div>
+
 <!-- SELECTOR BAR -->
 <div class="selector-bar">
   <div class="selector-inner">
@@ -678,18 +703,11 @@ footer { background: #0F172A !important; border-top: 1px solid rgba(52,211,153,.
     </div>
     <div class="selector-divider"></div>
     <button class="selector-reset" id="reset-btn" onclick="resetDiagnostic()">&#8635; Reset</button>
-    <button class="selector-reset" id="print-btn" onclick="window.print()" style="display:none;">&#128438; Print</button>
   </div>
 </div>
 
 <!-- CONTENT -->
 <div class="main-content">
-
-  <div id="empty-state">
-    <div class="empty-icon-wrap">&#128202;</div>
-    <h2>Select a channel and tactic to begin</h2>
-    <p>Choose the marketing channel that is not hitting targets, then identify the specific tactic that is falling short. Prioritized cross-channel fixes will appear here.</p>
-  </div>
 
   <div id="results">
     <div class="results-hd">
@@ -700,6 +718,7 @@ footer { background: #0F172A !important; border-top: 1px solid rgba(52,211,153,.
       </div>
     </div>
     <div id="cross-grid"></div>
+    <button class="selector-reset" id="print-btn" onclick="window.print()" style="display:none;margin-bottom:24px;">&#128438; Print</button>
     <div class="diag-cta">
       <div class="diag-cta-text">
         <h3>This diagnostic shows what to fix. Optivus builds the fix.</h3>
