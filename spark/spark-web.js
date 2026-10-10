@@ -431,9 +431,8 @@
     });
   }
   // ------------------------------------------------------------ download the report as a PDF
-  // The Google Apps Script builds the PDF (the same one it attaches to the report email) from the choice answers and
-  // sends it back. No email is sent and nothing is recorded. Without the script, or if it fails, the browser's own
-  // "Save as PDF" print option is used instead.
+  // SparkCore.reportPdf draws the PDF right here in the browser (the same file the report email attaches), so it
+  // works offline and nothing is sent anywhere. If it ever fails, the browser's own print window opens instead.
   function choiceOnly(answers) {  // free-text notes never leave the browser
     var out = {};
     Object.keys(answers).forEach(function (k) {
@@ -442,33 +441,26 @@
     });
     return out;
   }
-  var pdfBusy = false;
-  function downloadPdf(a) {
-    if (pdfBusy) return;
-    if (!CFG.leadEndpoint) return printReport(a, "");
-    pdfBusy = true;
-    flash("Preparing your PDF…");
-    var controller = window.AbortController ? new AbortController() : null;
-    var timer = setTimeout(function () { if (controller) controller.abort(); }, 45000);
-    fetch(CFG.leadEndpoint, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" },
-                              body: JSON.stringify({ v: 1, action: "pdf", idea_name: a.idea_name, answers: choiceOnly(a.answers), bank_version: bank.version }),
-                              signal: controller ? controller.signal : undefined })
-      .then(function (r) { return r.json(); })
-      .then(function (d) {
-        if (!d || !d.ok || !d.pdf) throw new Error((d && d.error) || "no PDF");
-        var bin = atob(d.pdf), bytes = new Uint8Array(bin.length);
-        for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
-        var link = document.createElement("a");
-        link.href = URL.createObjectURL(new Blob([bytes], { type: "application/pdf" }));
-        link.download = d.name || "SPARK_Report.pdf";
-        document.body.appendChild(link); link.click(); link.remove();
-        setTimeout(function () { URL.revokeObjectURL(link.href); }, 4000);
-        flash("PDF downloaded ✓");
-      })
-      .catch(function () { printReport(a, "We couldn't make the PDF just now. In the print window, choose “Save as PDF”."); })
-      .then(function () { clearTimeout(timer); pdfBusy = false; });
+  function reportLink(a) {
+    var base = (CFG.siteUrl || "https://www.optivusprof.ca/").replace(/\/?$/, "/") + "spark/";
+    return base + "#/r?i=" + encodeURIComponent(a.idea_name.slice(0, 80)) + "&a=" + C.packAnswers(bank, a.answers);
   }
-  // Opens the browser's print window on the report, where "Save as PDF" is one of the printers.
+  function downloadPdf(a) {
+    try {
+      var pdf = C.reportPdf(bank, result(a), a.idea_name, { appName: APP.name, appVersion: APP.version,
+                                                            date: (a.updated_at || now()).slice(0, 10), reportUrl: reportLink(a) });
+      var bytes = new Uint8Array(pdf.length);
+      for (var i = 0; i < pdf.length; i++) bytes[i] = pdf.charCodeAt(i);
+      var link = document.createElement("a");
+      link.href = URL.createObjectURL(new Blob([bytes], { type: "application/pdf" }));
+      link.download = "SPARK_Report_" + (a.idea_name.replace(/[^A-Za-z0-9]+/g, "_").slice(0, 40) || "idea") + ".pdf";
+      document.body.appendChild(link); link.click(); link.remove();
+      setTimeout(function () { URL.revokeObjectURL(link.href); }, 4000);
+      flash("PDF downloaded ✓");
+    } catch (err) {
+      printReport(a, "We couldn't make the PDF just now. In the print window, choose \u201cSave as PDF\u201d.");
+    }
+  }  // Opens the browser's print window on the report, where "Save as PDF" is one of the printers.
   function printReport(a, message) {
     var frame = document.getElementById("report-frame");
     if (!frame) {

@@ -854,160 +854,590 @@ var SparkCore = (function () {
     return toEntities(body);
   }
 
-  /* Print layout of the full report for the PDF attachment. Google's HTML-to-PDF conversion copes with tables and inline
-   * styles but not SVG, flexbox, grid or CSS variables, so the charts are drawn as coloured table cells. */
-  function pdfHtml(bank, result, ideaName, opts) {
-    opts = opts || {};
-    var e = escapeHtml, rep = result.report, v = result.verdict, mix = rep.evidence_mix, t = result.tiles, th = bank.thresholds;
-    var ink = ZONE_INK[result.zone], soft = ZONE_SOFT[result.zone];
-    var F = "font-family:Arial,Helvetica,sans-serif;";
-    var STATUS_INK = { passed: "#065F46", unproven: "#92400E", failed: "#B91C1C", complete: "#065F46" };
-    var TD = "padding:6px 7px;border-bottom:1px solid #E2D9C8;vertical-align:top;" + F + "font-size:10.5px;line-height:1.4;color:#0F172A;";
-    var TH = "padding:6px 7px;border-bottom:1.5px solid #94A3B8;text-align:left;vertical-align:bottom;" + F + "font-size:9px;color:#64748B;";
-    var DOT = " &middot; ";
-    function h2(s) {
-      return '<h2 style="' + F + 'font-size:16px;color:#0F172A;margin:22px 0 8px;padding:0 0 5px;border-bottom:2px solid #10B981">' + s + "</h2>";
+  // ------------------------------------------------------------------- PDF report
+  /* A small PDF writer, so the downloaded and emailed report looks like the on-screen one. It runs the same way in the
+   * browser and in Apps Script: no libraries and no DOM. Letter pages, Helvetica (built into every PDF reader), and
+   * vector shapes for the dial, tiles, cards and charts, so it stays sharp at any zoom and the text can be selected.
+   * The whole file is plain ASCII, so its length in characters is its length in bytes. */
+  var PDF_W = 612, PDF_H = 792, PDF_M = 40, PDF_BOTTOM = 52;
+  // Helvetica and Helvetica-Bold advance widths (1/1000 em) for characters 32 to 126.
+  var HELV_W = [278, 278, 355, 556, 556, 889, 667, 191, 333, 333, 389, 584, 278, 333, 278, 278, 556, 556, 556, 556, 556, 556, 556,
+    556, 556, 556, 278, 278, 584, 584, 584, 556, 1015, 667, 667, 722, 722, 667, 611, 778, 722, 278, 500, 667, 556, 833, 722, 778, 667,
+    778, 722, 667, 611, 722, 667, 944, 667, 667, 611, 278, 278, 278, 469, 556, 333, 556, 556, 500, 556, 556, 278, 556, 556, 222, 222,
+    500, 222, 833, 556, 556, 556, 556, 333, 500, 278, 556, 500, 722, 500, 500, 500, 334, 260, 334, 584];
+  var HELVB_W = [278, 333, 474, 556, 556, 889, 722, 238, 333, 333, 389, 584, 278, 333, 278, 278, 556, 556, 556, 556, 556, 556, 556,
+    556, 556, 556, 333, 333, 584, 584, 584, 611, 975, 722, 722, 722, 722, 667, 611, 778, 722, 278, 556, 722, 611, 833, 722, 778, 667,
+    778, 722, 667, 611, 722, 667, 944, 667, 667, 611, 333, 278, 333, 584, 556, 333, 556, 611, 556, 611, 556, 333, 611, 611, 278, 278,
+    556, 278, 889, 611, 611, 611, 611, 389, 556, 333, 611, 556, 778, 556, 556, 500, 389, 280, 389, 584];
+  // Unicode characters that WinAnsiEncoding places in 128-159. Latin-1 (160-255) maps to itself.
+  var PDF_WIN = { 8364: 128, 8218: 130, 8222: 132, 8230: 133, 8216: 145, 8217: 146, 8220: 147, 8221: 148, 8226: 149,
+                  8211: 150, 8212: 151, 8482: 153 };
+
+  function pdfCodes(s) {  // a string as WinAnsi codes; anything the fonts can't show becomes "?"
+    var out = [];
+    s = String(s == null ? "" : s);
+    for (var i = 0; i < s.length; i++) {
+      var n = s.charCodeAt(i);
+      if (n >= 0xDC00 && n <= 0xDFFF) continue;              // second half of a pair: the first half became "?"
+      if (n >= 32 && n <= 126) out.push(n);
+      else if (n >= 160 && n <= 255) out.push(n);
+      else if (PDF_WIN[n]) out.push(PDF_WIN[n]);
+      else out.push(n === 9 || n === 10 || n === 13 ? 32 : 63);
     }
-    function p(s, extra) { return '<p style="' + F + "font-size:11px;line-height:1.5;color:#334155;margin:0 0 7px;" + (extra || "") + '">' + s + "</p>"; }
-    function bar(pct, colour) {
-      if (pct == null) return '<span style="' + F + 'font-size:10px;color:#64748B">No answers yet</span>';
-      var w = Math.max(0, Math.min(100, Math.round(pct)));
-      return '<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse"><tr>' +
-        (w > 0 ? '<td width="' + w + '%" bgcolor="' + colour + '" style="background:' + colour + ';height:11px;font-size:1px;line-height:1px">&nbsp;</td>' : "") +
-        (w < 100 ? '<td width="' + (100 - w) + '%" bgcolor="#EFEAE2" style="background:#EFEAE2;height:11px;font-size:1px;line-height:1px">&nbsp;</td>' : "") +
-        "</tr></table>";
+    return out;
+  }
+  function pdfCharW(code, bold) {
+    if (code >= 32 && code <= 126) return (bold ? HELVB_W : HELV_W)[code - 32];
+    if (code === 133 || code === 151) return 1000;
+    if (code === 149) return 350;
+    if (code === 145 || code === 146) return bold ? 278 : 222;
+    if (code === 147 || code === 148) return bold ? 500 : 333;
+    if (code === 160 || code === 183) return 278;
+    return 556;
+  }
+  function pdfTextW(s, size, bold, spacing) {
+    var codes = pdfCodes(s), w = 0;
+    for (var i = 0; i < codes.length; i++) w += pdfCharW(codes[i], bold);
+    return w * size / 1000 + (spacing || 0) * codes.length;
+  }
+  function pdfStr(s) {
+    var codes = pdfCodes(s), out = "";
+    for (var i = 0; i < codes.length; i++) {
+      var c = codes[i];
+      if (c === 40 || c === 41 || c === 92) out += "\\" + String.fromCharCode(c);
+      else if (c > 126) out += "\\" + ("00" + c.toString(8)).slice(-3);
+      else out += String.fromCharCode(c);
     }
-    function list(items, empty) {
-      if (!items.length) return p(empty, "color:#64748B");
-      return '<ul style="margin:0;padding-left:16px">' + items.map(function (f) {
-        return '<li style="' + F + 'font-size:10.5px;line-height:1.45;color:#0F172A;margin:0 0 5px">' + e(f.text) + (f.knockout ? " <strong>(knockout)</strong>" : "") + "</li>";
-      }).join("") + "</ul>";
+    return "(" + out + ")";
+  }
+  function pdfNum(v) { var r = Math.round(v * 100) / 100; return String(r === 0 ? 0 : r); }
+  function pdfRgb(hex) {
+    var n = parseInt(hex.slice(1), 16);
+    return [n >> 16, (n >> 8) & 255, n & 255].map(function (c) { return String(Math.round(c / 255 * 1000) / 1000); }).join(" ");
+  }
+
+  /* Drawing surface. Coordinates are in points from the TOP-left of the page; text y is the baseline. */
+  function PdfCanvas() { this.pages = []; this.newPage(); }
+  PdfCanvas.prototype = {
+    newPage: function () { this.ops = []; this.links = []; this.pages.push({ ops: this.ops, links: this.links }); },
+    p: function (x, y) { return pdfNum(x) + " " + pdfNum(PDF_H - y); },
+    rect: function (x, y, w, h, hex) {
+      this.ops.push(pdfRgb(hex) + " rg " + pdfNum(x) + " " + pdfNum(PDF_H - y - h) + " " + pdfNum(w) + " " + pdfNum(h) + " re f");
+    },
+    rrectPath: function (x, y, w, h, r) {
+      r = Math.min(r, w / 2, h / 2);
+      var k = 0.5523 * r, x1 = x + w, y1 = y + h, me = this;
+      function c(ax, ay, bx, by, cx, cy) { return me.p(ax, ay) + " " + me.p(bx, by) + " " + me.p(cx, cy) + " c"; }
+      return this.p(x + r, y) + " m " + this.p(x1 - r, y) + " l " + c(x1 - r + k, y, x1, y + r - k, x1, y + r) + " " +
+        this.p(x1, y1 - r) + " l " + c(x1, y1 - r + k, x1 - r + k, y1, x1 - r, y1) + " " + this.p(x + r, y1) + " l " +
+        c(x + r - k, y1, x, y1 - r + k, x, y1 - r) + " " + this.p(x, y + r) + " l " + c(x, y + r - k, x + r - k, y, x + r, y) + " h";
+    },
+    rrect: function (x, y, w, h, r, hex) { this.ops.push(pdfRgb(hex) + " rg " + this.rrectPath(x, y, w, h, r) + " f"); },
+    rrectStroke: function (x, y, w, h, r, hex, lw) {
+      this.ops.push(pdfRgb(hex) + " RG " + pdfNum(lw) + " w " + this.rrectPath(x, y, w, h, r) + " S");
+    },
+    line: function (x1, y1, x2, y2, hex, lw, round) {
+      this.ops.push(pdfRgb(hex) + " RG " + pdfNum(lw) + " w " + (round ? 1 : 0) + " J " + this.p(x1, y1) + " m " + this.p(x2, y2) + " l S");
+    },
+    arcPath: function (cx, cy, r, a0, a1, move) {  // math angles (0 = right, PI/2 = up)
+      var parts = [], n = Math.max(1, Math.ceil(Math.abs(a1 - a0) / (Math.PI / 2))), d = (a1 - a0) / n, me = this;
+      function pt(a, rad) { return [cx + rad * Math.cos(a), cy - rad * Math.sin(a)]; }
+      if (move) parts.push(this.p.apply(this, pt(a0, r)) + " m");
+      for (var i = 0; i < n; i++) {
+        var t0 = a0 + i * d, t1 = t0 + d, k = 4 / 3 * Math.tan(d / 4) * r;
+        var p0 = pt(t0, r), p3 = pt(t1, r);
+        var p1 = [p0[0] - k * Math.sin(t0), p0[1] - k * Math.cos(t0)], p2 = [p3[0] + k * Math.sin(t1), p3[1] + k * Math.cos(t1)];
+        parts.push(me.p(p1[0], p1[1]) + " " + me.p(p2[0], p2[1]) + " " + me.p(p3[0], p3[1]) + " c");
+      }
+      return parts.join(" ");
+    },
+    arc: function (cx, cy, r, a0, a1, hex, lw) {
+      this.ops.push(pdfRgb(hex) + " RG " + pdfNum(lw) + " w 0 J " + this.arcPath(cx, cy, r, a0, a1, true) + " S");
+    },
+    circle: function (cx, cy, r, hex) { this.ops.push(pdfRgb(hex) + " rg " + this.arcPath(cx, cy, r, 0, 2 * Math.PI, true) + " h f"); },
+    circleStroke: function (cx, cy, r, hex, lw) {
+      this.ops.push(pdfRgb(hex) + " RG " + pdfNum(lw) + " w " + this.arcPath(cx, cy, r, 0, 2 * Math.PI, true) + " h S");
+    },
+    halfDisc: function (cx, cy, r, hex) {  // the left half, for the "not yet proven" icon
+      this.ops.push(pdfRgb(hex) + " rg " + this.arcPath(cx, cy, r, Math.PI / 2, 3 * Math.PI / 2, true) + " h f");
+    },
+    poly: function (pts, hex) {
+      var me = this;
+      this.ops.push(pdfRgb(hex) + " rg " + pts.map(function (q, i) { return me.p(q[0], q[1]) + (i ? " l" : " m"); }).join(" ") + " h f");
+    },
+    polyline: function (pts, hex, lw) {
+      var me = this;
+      this.ops.push(pdfRgb(hex) + " RG " + pdfNum(lw) + " w 1 J 1 j " +
+        pts.map(function (q, i) { return me.p(q[0], q[1]) + (i ? " l" : " m"); }).join(" ") + " S");
+    },
+    text: function (x, y, s, size, bold, hex, spacing) {
+      if (s === "" || s == null) return;
+      this.ops.push("BT /" + (bold ? "F2" : "F1") + " " + pdfNum(size) + " Tf " + pdfRgb(hex) + " rg " + pdfNum(spacing || 0) + " Tc " +
+        this.p(x, y) + " Td " + pdfStr(s) + " Tj ET");
+    },
+    link: function (x, y, w, h, url) { this.links.push([x, PDF_H - y - h, x + w, PDF_H - y, url]); },
+    build: function (title, producer) {
+      var objs = [];
+      function add(s) { objs.push(s); return objs.length; }
+      function ref(n) { return n + " 0 R"; }
+      var catalog = add(""), pagesId = add("");
+      var font1 = add("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>");
+      var font2 = add("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>");
+      var kids = [];
+      this.pages.forEach(function (pg) {
+        var content = pg.ops.join("\n");
+        var contentId = add("<< /Length " + content.length + " >>\nstream\n" + content + "\nendstream");
+        var annots = pg.links.map(function (l) {
+          return add("<< /Type /Annot /Subtype /Link /Rect [" + l.slice(0, 4).map(pdfNum).join(" ") + "] /Border [0 0 0] " +
+                     "/A << /S /URI /URI " + pdfStr(l[4]) + " >> >>");
+        });
+        kids.push(add("<< /Type /Page /Parent " + ref(pagesId) + " /MediaBox [0 0 " + PDF_W + " " + PDF_H + "] " +
+          "/Resources << /Font << /F1 " + ref(font1) + " /F2 " + ref(font2) + " >> >> /Contents " + ref(contentId) +
+          (annots.length ? " /Annots [" + annots.map(ref).join(" ") + "]" : "") + " >>"));
+      });
+      objs[catalog - 1] = "<< /Type /Catalog /Pages " + ref(pagesId) + " >>";
+      objs[pagesId - 1] = "<< /Type /Pages /Kids [" + kids.map(ref).join(" ") + "] /Count " + kids.length + " >>";
+      var info = add("<< /Title " + pdfStr(title) + " /Producer " + pdfStr(producer) + " /Creator " + pdfStr(producer) + " >>");
+      var out = "%PDF-1.4\n", offsets = [];
+      objs.forEach(function (o, i) { offsets.push(out.length); out += (i + 1) + " 0 obj\n" + o + "\nendobj\n"; });
+      var xref = out.length;
+      out += "xref\n0 " + (objs.length + 1) + "\n0000000000 65535 f \n";
+      offsets.forEach(function (o) { out += ("0000000000" + o).slice(-10) + " 00000 n \n"; });
+      return out + "trailer\n<< /Size " + (objs.length + 1) + " /Root " + ref(catalog) + " /Info " + ref(info) + " >>\nstartxref\n" +
+        xref + "\n%%EOF\n";
     }
-    var h = [];
-    h.push('<html><head><meta charset="utf-8"><title>SPARK report - ' + e(ideaName) + '</title></head><body style="margin:28px 32px;background:#ffffff">');
-    // cover
-    h.push('<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse"><tr><td bgcolor="#0F172A" style="background:#0F172A;' +
-           'padding:22px 26px;border-bottom:4px solid #10B981;' + F + '"><div style="font-size:11px;font-weight:bold;color:#10B981;letter-spacing:1px">PRISM - SPARK' +
-           '<span style="color:#94A3B8;font-weight:normal;letter-spacing:0"> &nbsp;Startup Potential Assessment &amp; Rating Kit</span></div>' +
-           '<div style="font-size:24px;font-weight:bold;color:#ffffff;padding-top:10px">' + e(ideaName) + "</div>" +
-           '<div style="font-size:11px;color:#CBD5E1;padding-top:6px">Idea assessment report' + DOT + e(opts.date || "") + DOT + e(result.depth.label) +
-           "</div></td></tr></table>");
-    // verdict
-    h.push('<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin-top:16px"><tr>' +
-           '<td bgcolor="' + soft + '" style="background:' + soft + ";border-left:6px solid " + ink + ";padding:16px 18px;" + F + '">' +
-           '<div style="font-size:40px;font-weight:bold;line-height:1;color:' + ink + '">' + result.rating +
-           '<span style="font-size:16px;color:#64748B;font-weight:normal">/100</span><span style="font-size:10px;color:#475569;font-weight:bold;letter-spacing:1px"> &nbsp;SPARK RATING</span></div>' +
-           '<div style="font-size:20px;font-weight:bold;color:' + ink + ';padding-top:8px">' + e(v.label) + (v.code === "test" ? ": " + e(lowerFirst(v.headline)) : "") + "</div>" +
-           '<div style="font-size:12px;color:#0F172A;padding-top:5px">Recommended action: <strong>' + e(v.action) + "</strong></div>" +
-           '<div style="font-size:11px;line-height:1.5;color:#334155;padding-top:6px">' + e(rep.why) + "</div></td></tr></table>");
-    // rating scale with a marker at the rating
-    var r = Math.max(0, Math.min(99, result.rating));
-    var gap = function (w) { return '<td width="' + w + '%" style="font-size:1px;line-height:1px;height:8px">&nbsp;</td>'; };
-    var band = function (w, colour) {
-      return '<td width="' + w + '%" bgcolor="' + colour + '" style="background:' + colour + ';height:9px;font-size:1px;line-height:1px">&nbsp;</td>';
-    };
-    h.push('<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin-top:12px"><tr>' + (r > 0 ? gap(r) : "") +
-           '<td width="1%" bgcolor="#0F172A" style="background:#0F172A;font-size:1px;line-height:1px;height:8px">&nbsp;</td>' + (r < 99 ? gap(99 - r) : "") + "</tr></table>" +
-           '<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse"><tr>' + band(th.ratingRedMax + 1, "#DC2626") +
-           band(th.ratingYellowMax - th.ratingRedMax, "#F59E0B") + band(99 - th.ratingYellowMax, "#10B981") + "</tr></table>" +
-           '<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse"><tr>' +
-           '<td style="' + F + 'font-size:9px;color:#B91C1C;padding-top:3px">Not a good idea 0-' + th.ratingRedMax + "</td>" +
-           '<td align="center" style="' + F + 'font-size:9px;color:#92400E;padding-top:3px">Maybe ' + (th.ratingRedMax + 1) + "-" + th.ratingYellowMax + "</td>" +
-           '<td align="right" style="' + F + 'font-size:9px;color:#065F46;padding-top:3px">Good idea ' + (th.ratingYellowMax + 1) + "-100</td></tr></table>");
-    // at a glance
-    var tile = function (num, of, label, bad) {
-      return '<td width="20%" align="center" bgcolor="#F5F2ED" style="background:#F5F2ED;padding:9px 4px;' + F + '"><div style="font-size:18px;font-weight:bold;color:' +
-             (bad ? "#B91C1C" : "#0F172A") + '">' + num + (of ? '<span style="font-size:10px;color:#64748B;font-weight:normal">' + of + "</span>" : "") +
-             '</div><div style="font-size:9px;line-height:1.3;color:#475569;padding-top:2px">' + label + "</div></td>";
-    };
-    h.push('<table width="100%" cellpadding="0" cellspacing="4" style="margin-top:12px"><tr>' + tile(t.core_passed, "/" + t.core_total, "Core stages passed") +
-           tile(t.passed, "/" + t.scored_total, "Stages passed") + tile(t.failed, "", "Stages failed", t.failed > 0) +
-           tile(mix.observed_or_better_pct, "%", "Answers backed by real behaviour") + tile(result.progress.pct, "%", "Of the assessment completed") + "</tr></table>");
-    // action plan
-    var recs = rep.recommendations;
-    h.push(h2("Your action plan"));
-    recs.slice(0, 3).forEach(function (rec) {
-      var edge = rec.kind === "rethink" || rec.kind === "resolve" ? "#DC2626" : "#10B981";
-      h.push('<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:0 0 8px;page-break-inside:avoid"><tr>' +
-             '<td width="34" valign="top" style="border-left:5px solid ' + edge + ';padding:10px 0 10px 10px">' +
-             '<table cellpadding="0" cellspacing="0"><tr><td width="24" height="24" align="center" bgcolor="#0F172A" style="background:#0F172A;' + F +
-             'font-size:12px;font-weight:bold;color:#ffffff">' + rec.priority + "</td></tr></table></td>" +
-             '<td valign="top" bgcolor="#FAF8F4" style="background:#FAF8F4;padding:10px 12px;' + F + '">' +
-             '<div style="font-size:12.5px;font-weight:bold;color:#0F172A">' + e(rec.title) + "</div>" +
-             '<div style="font-size:10.5px;line-height:1.45;color:#334155;padding-top:4px"><strong>Why:</strong> ' + e(rec.why) + "</div>" +
-             '<div style="font-size:10.5px;line-height:1.45;color:#334155;padding-top:3px"><strong>How:</strong> ' + e(rec.how) + "</div>" +
-             '<div style="font-size:10px;color:#475569;padding-top:4px">' + (rec.success ? "<strong>Done when:</strong> " + e(rec.success) : "") +
-             (rec.success && rec.time ? " &nbsp;&middot;&nbsp; " : "") + (rec.time ? "<strong>Effort:</strong> " + e(rec.time) : "") + "</div></td></tr></table>");
+  };
+
+  /* Word-wraps styled runs ([{t, b: bold, c: colour}]) into lines of positioned parts. */
+  function pdfWrap(runs, size, width) {
+    var lines = [], parts = [], w = 0, space = null;
+    function flush() { lines.push({ parts: parts, w: w }); parts = []; w = 0; space = null; }
+    function place(tok, run, sw) {
+      var tw = pdfTextW(tok, size, run.b), last = parts[parts.length - 1];
+      if (last && last.b === run.b && last.c === run.c) last.t += (sw ? " " : "") + tok;
+      else parts.push({ t: (sw ? " " : "") + tok, b: run.b, c: run.c, x: w });
+      w += sw + tw;
+    }
+    runs.forEach(function (run) {
+      String(run.t == null ? "" : run.t).split(/(\s+)/).forEach(function (tok) {
+        if (!tok) return;
+        if (/^\s+$/.test(tok)) { if (parts.length) space = run; return; }
+        var sw = space ? pdfTextW(" ", size, space.b) : 0;
+        if (parts.length && w + sw + pdfTextW(tok, size, run.b) > width) { flush(); sw = 0; }
+        while (!parts.length && tok.length > 1 && pdfTextW(tok, size, run.b) > width) {   // a word longer than the line
+          var cut = tok.length - 1;
+          while (cut > 1 && pdfTextW(tok.slice(0, cut), size, run.b) > width) cut--;
+          place(tok.slice(0, cut), run, 0); flush(); tok = tok.slice(cut);
+        }
+        place(tok, run, sw);
+        space = null;
+      });
     });
-    if (recs.length > 3) {
-      h.push('<div style="' + F + 'font-size:12px;font-weight:bold;color:#0F172A;margin:14px 0 4px">The rest of the plan</div>' +
-             '<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse"><tr><th style="' + TH + '" width="4%">#</th>' +
-             '<th style="' + TH + '" width="46%">STEP</th><th style="' + TH + '" width="18%">STAGE</th><th style="' + TH + '" width="20%">DONE WHEN</th>' +
-             '<th style="' + TH + '" width="12%">EFFORT</th></tr>' + recs.slice(3).map(function (rec) {
-               return '<tr style="page-break-inside:avoid"><td style="' + TD + '">' + rec.priority + '</td><td style="' + TD + '"><strong>' + e(rec.title) + "</strong><br>" +
-                 '<span style="color:#475569">' + e(rec.how) + '</span></td><td style="' + TD + '">' + e(rec.stage_short) + (rec.core ? " (core)" : "") +
-                 '</td><td style="' + TD + '">' + e(rec.success) + '</td><td style="' + TD + '">' + e(rec.time) + "</td></tr>";
-             }).join("") + "</table>");
+    if (parts.length) flush();
+    return lines;
+  }
+  function pdfDrawLines(cv, lines, x, y, size, lh, align, width) {
+    lines.forEach(function (ln, i) {
+      var off = align === "right" ? width - ln.w : align === "center" ? (width - ln.w) / 2 : 0;
+      var base = y + i * lh + (lh + size * 0.7) / 2;
+      ln.parts.forEach(function (part) { cv.text(x + off + part.x, base, part.t, size, part.b, part.c); });
+    });
+    return y + lines.length * lh;
+  }
+
+  /* The full report as a PDF (same content and look as reportHtml). Returns the file as a string of byte values.
+   * opts: { appName, appVersion, date, reportUrl } */
+  function reportPdf(bank, result, ideaName, opts) {
+    opts = opts || {};
+    var rep = result.report, v = result.verdict, mix = rep.evidence_mix, tl = result.tiles, th = bank.thresholds, recs = rep.recommendations;
+    var cv = new PdfCanvas(), M = PDF_M, W = PDF_W - 2 * PDF_M, L = { y: 0 };
+    var C = { ink: "#0F172A", sec: "#475569", muted: "#64748B", rule: "#E2D9C8", off: "#F5F2ED", em: "#10B981", deep: "#065F46",
+              pale: "#D1FAE5", red: "#DC2626", redInk: "#B91C1C", amber: "#F59E0B", amberInk: "#92400E", amberNum: "#B45309",
+              slate: "#94A3B8", white: "#FFFFFF", light: "#CBD5E1", track: "#F5F2ED" };
+    var ratingInk = { red: C.redInk, yellow: C.amberNum, green: C.deep }[result.zone];
+    var labelInk = { red: C.redInk, yellow: C.amberInk, green: C.deep }[result.zone];
+    var statusInk = { passed: C.deep, complete: C.deep, failed: C.redInk, unproven: C.amberInk, in_progress: C.amberInk, not_started: C.muted };
+    var DOT = " " + String.fromCharCode(183) + " ";
+    var DASH = String.fromCharCode(8211);
+    function R(t, b, c) { return { t: t, b: !!b, c: c || C.ink }; }
+    function wrap(runs, size, width) { return pdfWrap(typeof runs === "string" ? [R(runs)] : runs, size, width); }
+    function ensure(h) {
+      if (L.y + h <= PDF_H - PDF_BOTTOM) return false;
+      cv.newPage(); L.y = PDF_M;
+      return true;
     }
-    // where the idea stands
-    h.push(h2("Where the idea stands"));
-    h.push(p("Each bar is a stage's score out of 100, coloured by its status. Core stages decide the verdict."));
-    h.push('<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse">' + result.stages.filter(function (s) { return s.scored; }).map(function (s) {
-      return '<tr style="page-break-inside:avoid"><td width="32%" style="padding:4px 8px 4px 0;' + F + "font-size:10.5px;color:#0F172A;" + (s.core ? "font-weight:bold;" : "") + '">' +
-        s.id + ". " + e(s.short) + (s.core ? ' <span style="font-size:8.5px;color:#065F46">CORE</span>' : "") + "</td>" +
-        '<td width="46%" style="padding:4px 0">' + bar(s.score, STATUS_FILL[s.status] || "#CBD5E1") + "</td>" +
-        '<td width="22%" style="padding:4px 0 4px 8px;' + F + "font-size:10px;color:" + (STATUS_INK[s.status] || "#0F172A") + '">' +
-        (s.score != null ? s.score + DOT : "") + e(s.status_label) + "</td></tr>";
-    }).join("") + "</table>");
-    // evidence
+    function icon(kind, x, y, s, hex) {  // the status symbols, drawn in an s x s box
+      if (kind === "passed" || kind === "complete" || kind === "green") {
+        cv.polyline([[x + s * 0.12, y + s * 0.55], [x + s * 0.4, y + s * 0.82], [x + s * 0.9, y + s * 0.2]], hex, s * 0.17);
+      } else if (kind === "failed" || kind === "red") {
+        cv.line(x + s * 0.18, y + s * 0.18, x + s * 0.82, y + s * 0.82, hex, s * 0.17, true);
+        cv.line(x + s * 0.82, y + s * 0.18, x + s * 0.18, y + s * 0.82, hex, s * 0.17, true);
+      } else if (kind === "unproven" || kind === "in_progress" || kind === "yellow") {
+        cv.circleStroke(x + s / 2, y + s / 2, s * 0.4, hex, s * 0.12);
+        cv.halfDisc(x + s / 2, y + s / 2, s * 0.4, hex);
+      } else {
+        cv.circleStroke(x + s / 2, y + s / 2, s * 0.4, hex, s * 0.12);
+      }
+    }
+    function star(cx, cy, r, hex) {
+      var pts = [];
+      for (var i = 0; i < 8; i++) {
+        var a = Math.PI / 2 - i * Math.PI / 4, rad = i % 2 ? r * 0.36 : r;
+        pts.push([cx + rad * Math.cos(a), cy - rad * Math.sin(a)]);
+      }
+      cv.poly(pts, hex);
+    }
+    function key(items, x, y, width, size) {  // coloured squares with labels, centred, wrapping onto more lines
+      var rows = [[]], rowW = [0], gap = 12;
+      items.forEach(function (it) {
+        var w = 6 + 4 + pdfTextW(it[1], size, false);
+        var r = rows.length - 1;
+        if (rows[r].length && rowW[r] + gap + w > width) { rows.push([]); rowW.push(0); r++; }
+        rowW[r] += (rows[r].length ? gap : 0) + w; rows[r].push([it, w]);
+      });
+      rows.forEach(function (row, ri) {
+        var cx = x + (width - rowW[ri]) / 2, base = y + ri * (size + 5) + size;
+        row.forEach(function (cell) {
+          cv.rect(cx, base - size * 0.72, 6, 6, cell[0][0]);
+          cv.text(cx + 10, base, cell[0][1], size, false, cell[0][2] || cell[0][0]);
+          cx += cell[1] + gap;
+        });
+      });
+      return rows.length * (size + 5);
+    }
+    function pill(text, x, y) {
+      var w = pdfTextW(text, 6.5, true, 0.4) + 8;
+      cv.rrect(x, y, w, 10, 5, C.pale);
+      cv.text(x + 4, y + 7.3, text, 6.5, true, C.deep, 0.4);
+      return w;
+    }
+    function bullets(items, x, width, size, lh, colour) {  // returns {h, draw(y)}
+      var wrapped = items.map(function (it) { return wrap(typeof it === "string" ? [R(it, false, colour)] : it, size, width - 11); });
+      var h = 0;
+      wrapped.forEach(function (ls) { h += ls.length * lh + 4; });
+      return {
+        h: h, items: wrapped,
+        draw: function (y) {
+          wrapped.forEach(function (ls) {
+            cv.circle(x + 3, y + lh / 2 + 0.3, 1.5, colour || C.ink);
+            pdfDrawLines(cv, ls, x + 11, y, size, lh);
+            y += ls.length * lh + 4;
+          });
+          return y;
+        }
+      };
+    }
+    function section(title, lede, keep) {
+      var ledeLines = lede ? wrap([R(lede, false, C.sec)], 10.5, W) : [];
+      ensure(46 + ledeLines.length * 15 + (keep || 0));
+      if (L.y > PDF_M + 1) { cv.line(M, L.y, M + W, L.y, C.rule, 0.75); L.y += 20; }
+      cv.text(M, L.y + 15, title, 16.5, true, C.ink);
+      L.y += 26;
+      if (ledeLines.length) { pdfDrawLines(cv, ledeLines, M, L.y, 10.5, 15); L.y += ledeLines.length * 15 + 10; }
+    }
+    function subhead(title, size, keep) {
+      ensure(size + 14 + (keep || 0));
+      cv.text(M, L.y + size, title, size, true, C.ink);
+      L.y += size + 10;
+    }
+
+    // ---- cover band
+    var titleLines = wrap([R(ideaName, true, C.white)], 26, W);
+    var coverH = 96 + titleLines.length * 31;
+    cv.rect(0, 0, PDF_W, coverH, C.ink);
+    cv.rect(0, coverH, PDF_W, 4, C.em);
+    star(M + 5, 37.5, 6, C.em);
+    cv.text(M + 16, 41.5, "PRISM - SPARK", 10, true, C.white, 0.3);
+    cv.text(M + 24 + pdfTextW("PRISM - SPARK", 10, true, 0.3), 41.5, "Startup Potential Assessment & Rating Kit", 10, false, C.slate);
+    pdfDrawLines(cv, titleLines, M, 58, 26, 31);
+    cv.text(M, 58 + titleLines.length * 31 + 20, "Idea assessment report" + DOT + (opts.date || "") + DOT + result.depth.label, 10.5, false, C.light);
+    L.y = coverH + 4 + 26;
+
+    // ---- verdict panel: dial on the left, rating and verdict on the right
+    var top = L.y, dialW = 196, s = dialW / 320, cx = M + dialW / 2, cy = top + 160 * s, r = 120 * s;
+    function ang(val) { return Math.PI - (val / 100) * Math.PI; }
+    cv.arc(cx, cy, r, ang(0), ang(th.ratingRedMax + 0.5), C.red, 26 * s);
+    cv.arc(cx, cy, r, ang(th.ratingRedMax + 0.5), ang(th.ratingYellowMax + 0.5), C.amber, 26 * s);
+    cv.arc(cx, cy, r, ang(th.ratingYellowMax + 0.5), ang(100), C.em, 26 * s);
+    var na = ang(Math.max(0, Math.min(100, result.rating))), nr = r - 18 * s;
+    cv.line(cx, cy, cx + nr * Math.cos(na), cy - nr * Math.sin(na), C.ink, 6 * s, true);
+    cv.circle(cx, cy, 9 * s, C.ink);
+    cv.text(M + 22 * s, top + 180 * s, "0", 8, false, C.muted);
+    cv.text(M + 298 * s - pdfTextW("100", 8, false), top + 180 * s, "100", 8, false, C.muted);
+    var keyH = key([[C.red, "Not a good idea 0" + DASH + th.ratingRedMax], [C.amberNum, "Maybe " + (th.ratingRedMax + 1) + DASH + th.ratingYellowMax],
+                    [C.deep, "Good idea " + (th.ratingYellowMax + 1) + DASH + "100"]], M, top + 188 * s, dialW, 8);
+    var leftH = 188 * s + keyH;
+
+    var rx = M + dialW + 24, rw = W - dialW - 24;
+    var verdictText = v.label + (v.code === "test" ? ": " + lowerFirst(v.headline) : "");
+    var verdictLines = wrap([R(verdictText, true, labelInk)], 17, rw - 22);
+    var actionLines = wrap([R("Recommended action: "), R(v.action, true)], 11, rw);
+    var whyLines = wrap([R(rep.why)], 10, rw - 28);
+    var whyH = whyLines.length * 14 + 18;
+    var rightH = 54 + verdictLines.length * 22 + 4 + actionLines.length * 15 + 10 + whyH;
+    var ry = top + Math.max(0, (leftH - rightH) / 2);
+    var num = String(result.rating);
+    cv.text(rx, ry + 44, num, 50, true, ratingInk);
+    var nx = rx + pdfTextW(num, 50, true) + 5;
+    cv.text(nx, ry + 44, "/100", 17, false, C.muted);
+    cv.text(nx + pdfTextW("/100", 17, false) + 10, ry + 44, "SPARK RATING", 9, true, C.sec, 0.9);
+    ry += 54;
+    icon(result.zone, rx, ry + 4, 14, labelInk);
+    pdfDrawLines(cv, verdictLines, rx + 21, ry, 17, 22);
+    ry += verdictLines.length * 22 + 4;
+    pdfDrawLines(cv, actionLines, rx, ry, 11, 15);
+    ry += actionLines.length * 15 + 10;
+    cv.rrect(rx, ry, rw, whyH, 6, C.off);
+    cv.rect(rx, ry, 3.5, whyH, C.em);
+    pdfDrawLines(cv, whyLines, rx + 16, ry + 9, 10, 14);
+    L.y = top + Math.max(leftH, rightH) + 22;
+
+    // ---- at a glance
+    var tileGap = 8, tileW = (W - 4 * tileGap) / 5, tileH = 62;
+    [[tl.core_passed, "/" + tl.core_total, "Core stages passed"], [tl.passed, "/" + tl.scored_total, "Stages passed"],
+     [tl.failed, "", "Stages failed", tl.failed > 0], [mix.observed_or_better_pct, "%", "Answers backed by real behaviour"],
+     [result.progress.pct, "%", "Of the assessment completed"]].forEach(function (tile, i) {
+      var x = M + i * (tileW + tileGap), n = String(tile[0]);
+      cv.rrect(x, L.y, tileW, tileH, 8, C.off);
+      cv.text(x + 11, L.y + 25, n, 19, true, tile[3] ? C.redInk : C.ink);
+      if (tile[1]) cv.text(x + 12 + pdfTextW(n, 19, true), L.y + 25, tile[1], 10, true, C.muted);
+      pdfDrawLines(cv, wrap([R(tile[2], false, C.sec)], 8.5, tileW - 20), x + 11, L.y + 33, 8.5, 10.5);
+    });
+    L.y += tileH + 26;
+
+    // ---- action plan
+    var lede = v.code === "proceed" ? "The evidence supports the idea. These steps strengthen it and move you to launch planning."
+      : v.code === "abandon" ? "As it stands, this idea can't meet the goals you set. Resolve the first item before investing more."
+      : v.code === "change" ? "The evidence contradicts the idea in at least one place. Start with what counts against it."
+      : "These are the steps most likely to change the verdict, in the order to do them.";
+    section("Your action plan", lede, 90);
+    recs.slice(0, 3).forEach(function (rec) {
+      var x = M, bodyX = x + 54, bodyW = W - 54 - 16;
+      var tLines = wrap([R(rec.title, true)], 12.5, bodyW);
+      var whyL = wrap([R("Why: ", true), R(rec.why, false, C.ink)], 9.5, bodyW);
+      var howL = wrap([R("How: ", true), R(rec.how, false, C.ink)], 9.5, bodyW);
+      var meta = [];
+      if (rec.success) meta.push(R("Done when: ", true, C.sec), R(rec.success, false, C.sec));
+      if (rec.time) meta.push(R((rec.success ? DOT : "") + "Effort: ", true, C.sec), R(rec.time, false, C.sec));
+      var metaL = meta.length ? wrap(meta, 9, bodyW) : [];
+      var h = 14 + tLines.length * 16 + 4 + whyL.length * 13.5 + 3 + howL.length * 13.5 + (metaL.length ? 6 + metaL.length * 12.5 : 0) + 14;
+      ensure(h + 10);
+      var edge = rec.kind === "rethink" || rec.kind === "resolve" ? C.red : C.em, y = L.y;
+      cv.rrect(x, y, W, h, 9, edge);
+      cv.rrect(x + 4.5, y, W - 4.5, h, 9, C.white);
+      cv.rect(x + 4.5, y + 0.6, 9, h - 1.2, C.white);
+      cv.rrectStroke(x, y, W, h, 9, C.rule, 0.75);
+      cv.rect(x, y + 6, 4.5, h - 12, edge);
+      cv.circle(x + 31, y + 27, 13, C.ink);
+      var pn = String(rec.priority);
+      cv.text(x + 31 - pdfTextW(pn, 12, true) / 2, y + 31.3, pn, 12, true, C.white);
+      var yy = y + 14;
+      pdfDrawLines(cv, tLines, bodyX, yy, 12.5, 16); yy += tLines.length * 16 + 4;
+      pdfDrawLines(cv, whyL, bodyX, yy, 9.5, 13.5); yy += whyL.length * 13.5 + 3;
+      pdfDrawLines(cv, howL, bodyX, yy, 9.5, 13.5); yy += howL.length * 13.5;
+      if (metaL.length) pdfDrawLines(cv, metaL, bodyX, yy + 6, 9, 12.5);
+      L.y += h + 10;
+    });
+
+    // tables: header row, then rows that never split across pages (the header repeats on a new page)
+    function table(cols, rows, size) {
+      var pad = 6;
+      function header() {
+        var x = M;
+        cols.forEach(function (c) { cv.text(x + pad, L.y + 12, c.label.toUpperCase(), 7.5, true, C.muted, 0.6); x += c.w; });
+        L.y += 18;
+        cv.line(M, L.y, M + W, L.y, C.slate, 1);
+      }
+      ensure(18 + 30);
+      header();
+      rows.forEach(function (cells) {
+        var measured = cells.map(function (cell, i) {
+          var inner = cols[i].w - 2 * pad - (cell.icon ? 13 : 0), h = 0;
+          var blocks = (cell.blocks || []).map(function (b) {
+            var ls = wrap(b.runs, b.size || size, inner); h += ls.length * (b.lh || size * 1.4); return { lines: ls, size: b.size || size, lh: b.lh || size * 1.4 };
+          });
+          if (cell.pill) h += 13;
+          return { blocks: blocks, h: h, cell: cell };
+        });
+        var rowH = Math.max.apply(null, measured.map(function (m) { return m.h; })) + 2 * pad;
+        if (ensure(rowH)) header();
+        var x = M;
+        measured.forEach(function (m, i) {
+          var yy = L.y + pad, tx = x + pad;
+          if (m.cell.icon) { icon(m.cell.icon, tx, yy + 2.5, 9, m.cell.iconColour); tx += 13; }
+          m.blocks.forEach(function (b) { pdfDrawLines(cv, b.lines, tx, yy, b.size, b.lh); yy += b.lines.length * b.lh; });
+          if (m.cell.pill) pill(m.cell.pill, tx, yy + 2);
+          x += cols[i].w;
+        });
+        L.y += rowH;
+        cv.line(M, L.y, M + W, L.y, C.rule, 0.6);
+      });
+      L.y += 14;
+    }
+
+    if (recs.length > 3) {
+      subhead("The rest of the plan", 12, 60);
+      table([{ label: "#", w: 24 }, { label: "Step", w: 226 }, { label: "Stage", w: 100 }, { label: "Done when", w: 118 }, { label: "Effort", w: 72 }],
+        recs.slice(3).map(function (rec) {
+          return [{ blocks: [{ runs: [R(String(rec.priority))] }] },
+                  { blocks: [{ runs: [R(rec.title, true)] }, { runs: [R(rec.how, false, C.muted)], size: 8.5, lh: 12 }] },
+                  { blocks: [{ runs: [R(rec.stage_short)] }], pill: rec.core ? "CORE" : "" },
+                  { blocks: [{ runs: [R(rec.success || "")] }] },
+                  { blocks: [{ runs: [R(rec.time || "")] }] }];
+        }), 9);
+    }
+
+    // ---- where the idea stands: stage bars
+    var scored = result.stages.filter(function (st) { return st.scored; });
+    var sc = W / 680, labelW = 200 * sc, barW = 330 * sc, rowH = 28, chartTop = 22;
+    var chartH = chartTop + scored.length * rowH + 6;
+    section("Where the idea stands", "Each bar is a stage's score out of 100, coloured by its status. Core stages, marked with a dot, decide the verdict.", chartH + 30);
+    var y0 = L.y;
+    [0, 50, 100].forEach(function (val) {
+      var gx = M + labelW + barW * val / 100;
+      cv.line(gx, y0 + chartTop - 6, gx, y0 + chartH - 4, C.rule, 0.75);
+      cv.text(gx - pdfTextW(String(val), 8, false) / 2, y0 + 12, String(val), 8, false, C.muted);
+    });
+    scored.forEach(function (st, i) {
+      var y = y0 + chartTop + i * rowH, label = st.id + ". " + st.short, bold = !!st.core;
+      var lw = pdfTextW(label, 9.5, bold) + (st.core ? 9 : 0);
+      cv.text(M + labelW - 8 - lw, y + 15, label, 9.5, bold, C.ink);
+      if (st.core) cv.circle(M + labelW - 10.5, y + 11.6, 2.4, C.ink);
+      cv.rrect(M + labelW, y + 5, barW, 14, 2.5, C.track);
+      if (st.score == null) { cv.text(M + labelW + 7, y + 15.5, "No answers yet", 8.5, false, C.muted); return; }
+      var bw = Math.max(2, barW * st.score / 100), fill = STATUS_FILL[st.status] || "#CBD5E1";
+      cv.rrect(M + labelW, y + 5, bw, 14, 2.5, fill);
+      cv.text(M + labelW + barW + 7, y + 15.5, st.score + DOT + st.status_label, 9, false, C.ink);
+    });
+    L.y = y0 + chartH + 4;
+    L.y += key([[C.em, "Passed"], [C.amber, "Not yet proven", C.amberNum], [C.red, "Failed"]], M, L.y, W, 8.5) + 6;
+    cv.circle(M + W / 2 - 22, L.y + 3.3, 2.2, C.muted);
+    cv.text(M + W / 2 - 17, L.y + 6.5, "core stage", 8.5, false, C.muted);
+    L.y += 22;
+
+    // ---- how strong is the evidence
     var untestedPct = 0, againstN = 0;
     mix.levels.forEach(function (l) { if (l.key === "untested") untestedPct = l.pct; if (l.key === "against") againstN = l.count; });
-    h.push(h2("How strong is the evidence?"));
-    h.push(p(mix.total ? mix.observed_or_better_pct + "% of your " + mix.total + " scored answers rest on what people actually did, committed or measured. " +
+    var mixText = mix.total ? mix.observed_or_better_pct + "% of your " + mix.total + " scored answers rest on what people actually did, committed or measured. " +
       untestedPct + "% are still untested or opinion." + (againstN ? " " + againstN + " answer" + (againstN === 1 ? " counts" : "s count") + " against the idea." : "")
-      : "No scored answers yet."));
-    h.push('<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse">' + mix.levels.map(function (l) {
-      return '<tr><td width="32%" style="padding:3px 8px 3px 0;' + F + 'font-size:10.5px;color:#0F172A">' + e(l.label) + "</td>" +
-        '<td width="46%" style="padding:3px 0">' + bar(l.count ? l.pct : 0, EVIDENCE_FILL[l.key]) + "</td>" +
-        '<td width="22%" style="padding:3px 0 3px 8px;' + F + 'font-size:10px;color:#475569">' + l.count + " (" + l.pct + "%)</td></tr>";
-    }).join("") + "</table>");
-    // what the answers say
-    h.push(h2("What the answers say"));
-    var col = function (title, colour, body) {
-      return '<td width="33%" valign="top" bgcolor="#F5F2ED" style="background:#F5F2ED;border-top:4px solid ' + colour + ';padding:9px 10px">' +
-        '<div style="' + F + 'font-size:11.5px;font-weight:bold;color:#0F172A;padding-bottom:5px">' + title + "</div>" + body + "</td>";
-    };
-    h.push('<table width="100%" cellpadding="0" cellspacing="5" style="page-break-inside:avoid"><tr>' +
-           col("Supports the idea", "#10B981", list(rep.supports, "No strong support yet.")) +
-           col("Counts against it", "#DC2626", list(rep.against, "No evidence against the idea so far.")) +
-           col("Still untested", "#F59E0B", list(rep.untested, "Nothing marked untested.") +
-               (rep.untested_more ? p("And " + rep.untested_more + " more.", "color:#64748B") : "")) + "</tr></table>");
-    if (rep.change.length) {
-      h.push('<div style="' + F + 'font-size:12px;font-weight:bold;color:#0F172A;margin:12px 0 5px">What would change the verdict</div>' +
-             list(rep.change.map(function (c) { return { text: c.text }; }), ""));
+      : "No scored answers yet.";
+    var mixLines = wrap([R(mixText, false, C.sec)], 10.5, W);
+    var legendRows = Math.ceil(mix.levels.length / 2);
+    var evH = 16 + 10 + mixLines.length * 15 + 10 + 30 + 14 + legendRows * 19 + 30;
+    ensure(evH);
+    L.y += 6;
+    cv.text(M, L.y + 15, "How strong is the evidence?", 16.5, true, C.ink);
+    L.y += 26;
+    pdfDrawLines(cv, mixLines, M, L.y, 10.5, 15); L.y += mixLines.length * 15 + 10;
+    if (!mix.total) {
+      cv.rrect(M, L.y, W, 28, 4, C.track);
+      cv.text(M + W / 2 - pdfTextW("No scored answers yet", 10, false) / 2, L.y + 18, "No scored answers yet", 10, false, C.muted);
+    } else {
+      var bx = M;
+      cv.rrect(M, L.y, W, 28, 4, C.track);
+      mix.levels.forEach(function (l) {
+        if (!l.count) return;
+        var segW = W * l.count / mix.total;
+        cv.rect(bx, L.y, segW, 28, EVIDENCE_FILL[l.key]);
+        if (segW >= 30) {
+          var lbl = l.pct + "%";
+          cv.text(bx + segW / 2 - pdfTextW(lbl, 9.5, true) / 2, L.y + 17.5, lbl, 9.5, true, EVIDENCE_TEXT[l.key]);
+        }
+        bx += segW;
+      });
     }
-    // stage by stage
-    h.push(h2("Stage by stage"));
-    h.push('<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse"><tr><th style="' + TH + '" width="27%">STAGE</th>' +
-           '<th style="' + TH + '" width="15%">STATUS</th><th style="' + TH + '" width="8%">SCORE</th><th style="' + TH + '" width="50%">REASON</th></tr>' +
-           result.stages.map(function (s) {
-             return '<tr style="page-break-inside:avoid"><td style="' + TD + '"><strong>' + s.id + ". " + e(s.short) + "</strong>" +
-               (s.core ? ' <span style="font-size:8.5px;color:#065F46">CORE</span>' : "") +
-               '</td><td style="' + TD + "color:" + (STATUS_INK[s.status] || "#475569") + ';font-weight:bold">' + e(s.status_label) + '</td><td style="' + TD + '">' +
-               (s.score != null ? s.score : "-") + '</td><td style="' + TD + '">' + e(s.reason) + "</td></tr>";
-           }).join("") + "</table>");
-    // method + footer
-    h.push(h2("How this assessment works"));
-    h.push(p("SPARK applies the Entrepreneur's Idea Validation Framework: 124 questions across 16 stages, from defining the idea to making the decision. " +
-             "Each scored stage has gate questions that set the minimum evidence needed to pass. A stage fails only on evidence against the idea, never on missing " +
-             "evidence. The verdict comes from fixed rules: the five core stages (problem, customer, validation, solution and willingness to pay) must pass for a " +
-             "\"Good idea\". The same answers always produce the same report, and no AI is used."));
-    if (opts.reportUrl) h.push(p('See this report online, with the interactive charts: <a href="' + e(opts.reportUrl) + '" style="color:#065F46">open your SPARK report</a>.'));
-    h.push('<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin-top:18px"><tr><td bgcolor="#0F172A" style="background:#0F172A;' +
-           'padding:10px 14px;border-top:3px solid #10B981;' + F + 'font-size:9px;color:#94A3B8">' + e(opts.appName || "PRISM - SPARK") + " v" + e(opts.appVersion || "") +
-           DOT + "question bank " + e(result.bank_version) + DOT + "generated " + e(opts.date || "") + DOT + "Optivus" + DOT + "optivusprof.ca</td></tr></table>");
-    h.push("</body></html>");
-    return toEntities(h.join(""));
+    L.y += 28 + 14;
+    mix.levels.forEach(function (l, i) {
+      var lx = M + (i % 2) * (W / 2), ly = L.y + Math.floor(i / 2) * 19;
+      cv.rrect(lx, ly, 10, 10, 2, EVIDENCE_FILL[l.key]);
+      cv.text(lx + 16, ly + 8.8, l.label + ": " + l.count + " (" + l.pct + "%)", 9.5, false, C.ink);
+    });
+    L.y += legendRows * 19 + 4;
+    var noteLines = wrap([R("Evidence levels follow the framework's rule: opinion is not evidence, what people do beats what they say, and commitments " +
+      "of money, time or reputation are strongest.", false, C.muted)], 9, W);
+    pdfDrawLines(cv, noteLines, M, L.y, 9, 12.5); L.y += noteLines.length * 12.5 + 16;
+
+    // ---- what the answers say: three columns
+    var colGap = 10, colW = (W - 2 * colGap) / 3;
+    function listOf(items, empty) {
+      return items.length ? items.map(function (f) { return [R(f.text + (f.knockout ? " (knockout)" : ""), false, C.ink)]; }) : null;
+    }
+    var cols = [["Supports the idea", "passed", C.em, listOf(rep.supports), "No strong support yet."],
+                ["Counts against it", "failed", C.red, listOf(rep.against), "No evidence against the idea so far."],
+                ["Still untested", "?", C.amber, listOf(rep.untested), "Nothing marked untested."]].map(function (c, i) {
+      var b = c[3] ? bullets(c[3], M + i * (colW + colGap) + 12, colW - 24, 9, 12.5, C.ink) : null;
+      var emptyL = c[3] ? [] : wrap([R(c[4], false, C.muted)], 9, colW - 24);
+      var extra = c[1] === "?" && rep.untested_more ? 14 : 0;
+      return { c: c, b: b, emptyL: emptyL, h: 16 + 22 + (b ? b.h : emptyL.length * 12.5) + extra + 10 };
+    });
+    var colsH = Math.max.apply(null, cols.map(function (c) { return c.h; }));
+    section("What the answers say", "", colsH + 10);
+    cols.forEach(function (col, i) {
+      var x = M + i * (colW + colGap), y = L.y;
+      cv.rrect(x, y, colW, colsH, 9, col.c[2]);
+      cv.rrect(x, y + 4, colW, colsH - 4, 9, C.off);
+      cv.rect(x, y + 4, colW, 10, C.off);
+      if (col.c[1] === "?") cv.text(x + 12, y + 27, "?", 11, true, C.amberInk);
+      else icon(col.c[1], x + 11, y + 18, 10, col.c[1] === "passed" ? C.deep : C.redInk);
+      cv.text(x + 26, y + 27, col.c[0], 10.5, true, C.ink);
+      var yy = y + 38;
+      if (col.b) yy = col.b.draw(yy);
+      else { pdfDrawLines(cv, col.emptyL, x + 12, yy, 9, 12.5); yy += col.emptyL.length * 12.5; }
+      if (col.c[1] === "?" && rep.untested_more) cv.text(x + 12, yy + 9, "And " + rep.untested_more + " more.", 9, false, C.muted);
+    });
+    L.y += colsH + 18;
+    if (rep.change.length) {
+      var ch = bullets(rep.change.map(function (c) { return c.text; }), M, W, 10, 14, C.ink);
+      subhead("What would change the verdict", 12.5, Math.min(ch.h, 120));
+      ensure(ch.h);
+      L.y = ch.draw(L.y) + 10;
+    }
+
+    // ---- stage by stage
+    section("Stage by stage", "", 60);
+    table([{ label: "Stage", w: 150 }, { label: "Status", w: 98 }, { label: "Score", w: 44 }, { label: "Reason", w: 248 }],
+      result.stages.map(function (st) {
+        return [{ blocks: [{ runs: [R(st.id + ". " + st.short, true)] }], pill: st.core ? "CORE" : "" },
+                { blocks: [{ runs: [R(st.status_label, true, statusInk[st.status] || C.sec)] }], icon: st.status, iconColour: statusInk[st.status] || C.sec },
+                { blocks: [{ runs: [R(st.score != null ? String(st.score) : DASH)] }] },
+                { blocks: [{ runs: [R(st.reason)] }] }];
+      }), 9);
+
+    // ---- method, link and footer band
+    var m1 = wrap([R("SPARK applies the Entrepreneur's Idea Validation Framework: 124 questions across 16 stages, from defining the idea to making " +
+      "the decision. Each scored stage has gate questions that set the minimum evidence needed to pass. A stage fails only on evidence against " +
+      "the idea, never on missing evidence. The verdict comes from fixed rules: the five core stages (problem, customer, validation, solution and " +
+      "willingness to pay) must pass for a \"Good idea\". The same answers always produce the same report, and no AI is used.", false, C.sec)], 9.5, W);
+    var m2 = wrap([R("Answer scales are built on published research and practice, including Fitzpatrick's The Mom Test, Blank's customer development, " +
+      "Guest, Bunce & Johnson (2006) on interview saturation, Camuffo et al. (2020) on hypothesis-driven entrepreneurship, Skok's SaaS " +
+      "unit-economics benchmarks, Helmer's 7 Powers and Azoulay et al. (2020) on founder experience.", false, C.sec)], 9.5, W);
+    section("How this assessment works", "", (m1.length + m2.length) * 13.5 + 70);
+    pdfDrawLines(cv, m1, M, L.y, 9.5, 13.5); L.y += m1.length * 13.5 + 7;
+    pdfDrawLines(cv, m2, M, L.y, 9.5, 13.5); L.y += m2.length * 13.5 + 12;
+    if (opts.reportUrl) {
+      var lead = "View this report online, with the interactive charts: ", linkText = "open your SPARK report";
+      var lx = M + pdfTextW(lead, 9.5, false);
+      cv.text(M, L.y + 10, lead, 9.5, false, C.sec);
+      cv.text(lx, L.y + 10, linkText, 9.5, true, C.deep);
+      cv.line(lx, L.y + 12, lx + pdfTextW(linkText, 9.5, true), L.y + 12, C.deep, 0.6);
+      cv.link(lx, L.y, pdfTextW(linkText, 9.5, true), 14, opts.reportUrl);
+      L.y += 24;
+    }
+    ensure(30);
+    cv.rect(M, L.y, W, 3, C.em);
+    cv.rect(M, L.y + 3, W, 24, C.ink);
+    cv.text(M + 12, L.y + 18.5, (opts.appName || "PRISM - SPARK") + " v" + (opts.appVersion || "") + DOT + "question bank " + result.bank_version +
+            DOT + "generated " + (opts.date || "") + DOT + "Optivus" + DOT + "optivusprof.ca", 8, false, C.slate);
+
+    // ---- page footers
+    var total = cv.pages.length, short = ideaName.length > 60 ? ideaName.slice(0, 57) + "..." : ideaName;
+    cv.pages.forEach(function (pg, i) {
+      cv.ops = pg.ops;
+      cv.text(M, PDF_H - 24, "PRISM - SPARK" + DOT + short, 8, false, C.muted);
+      var pgText = "Page " + (i + 1) + " of " + total;
+      cv.text(M + W - pdfTextW(pgText, 8, false), PDF_H - 24, pgText, 8, false, C.muted);
+    });
+    return cv.build("SPARK report - " + ideaName, (opts.appName || "PRISM - SPARK") + " v" + (opts.appVersion || ""));
   }
 
   return {
@@ -1016,7 +1446,7 @@ var SparkCore = (function () {
     applyAnswer: applyAnswer, markStageUntested: markStageUntested, reconcile: reconcile,
     remainingInStage: remainingInStage, quickRemaining: quickRemaining, stageComplete: stageComplete, progress: progress,
     scoreStage: scoreStage, score: score, lowerFirst: lowerFirst, escapeHtml: escapeHtml,
-    stageBars: stageBars, evidenceBar: evidenceBar, dial: dial, reportHtml: reportHtml, emailHtml: emailHtml, pdfHtml: pdfHtml,
+    stageBars: stageBars, evidenceBar: evidenceBar, dial: dial, reportHtml: reportHtml, emailHtml: emailHtml, reportPdf: reportPdf,
     packAnswers: packAnswers, unpackAnswers: unpackAnswers
   };
 })();
