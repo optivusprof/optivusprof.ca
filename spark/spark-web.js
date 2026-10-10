@@ -331,7 +331,7 @@
       (res.depth.quick_done ? "" : '<a class="btn" href="' + base + '/quick">Continue quick screen</a>') +
       '<a class="btn btn-primary" href="' + base + '/report">Open your full report</a>' +
       (CFG.leadEndpoint ? '<a class="btn" href="#email-card" data-scroll="email-card">Email me the report</a>' : "") +
-      '<button class="btn" type="button" data-download="' + a.id + '">Download report</button></div></div>');
+      '<button class="btn" type="button" data-download="' + a.id + '">Download PDF</button></div></div>');
     h.push('<h1 class="idea-title">' + e(a.idea_name) + "</h1>");
     if ((a.review || []).length) h.push('<p class="notice no-print">The question bank changed, so ' + a.review.length + " answer(s) need answering again: " +
       a.review.map(function (r) { return '<a href="' + base + "/stage/" + bank.qById[r].stage + '">Q' + r + "</a>"; }).join(", ") + ".</p>");
@@ -421,7 +421,7 @@
   function renderReport(a) {
     page('<div class="report-bar no-print"><a href="#/a/' + a.id + '/results">← Back to results</a><span class="toolbar-actions">' +
       '<button class="btn" type="button" data-print-report>Print / save as PDF</button>' +
-      '<button class="btn" type="button" data-download="' + a.id + '">Download report</button>' +
+      '<button class="btn" type="button" data-download="' + a.id + '">Download PDF</button>' +
       (CFG.leadEndpoint ? '<a class="btn btn-primary" href="#/a/' + a.id + '/results" data-goto-email>Email me the report</a>' : "") +
       '</span></div><iframe class="report-frame" id="report-frame" title="SPARK report"></iframe>', "report-page");
     var frame = document.getElementById("report-frame");
@@ -430,13 +430,56 @@
       try { frame.style.height = (frame.contentDocument.documentElement.scrollHeight + 20) + "px"; } catch (err) { /* ignore */ }
     });
   }
-  function downloadReport(a) {
-    var blob = new Blob([reportFor(a)], { type: "text/html" });
-    var link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "SPARK_Report_" + (a.idea_name.replace(/[^A-Za-z0-9]+/g, "_").slice(0, 40) || "assessment") + ".html";
-    document.body.appendChild(link); link.click(); link.remove();
-    setTimeout(function () { URL.revokeObjectURL(link.href); }, 2000);
+  // ------------------------------------------------------------ download the report as a PDF
+  // The Google Apps Script builds the PDF (the same one it attaches to the report email) from the choice answers and
+  // sends it back. No email is sent and nothing is recorded. Without the script, or if it fails, the browser's own
+  // "Save as PDF" print option is used instead.
+  function choiceOnly(answers) {  // free-text notes never leave the browser
+    var out = {};
+    Object.keys(answers).forEach(function (k) {
+      var q = bank.qById[k], v = answers[k];
+      if (q && q.type !== "T" && v.o) out[k] = v.auto ? { o: v.o, auto: v.auto, by: v.by } : { o: v.o };
+    });
+    return out;
+  }
+  var pdfBusy = false;
+  function downloadPdf(a) {
+    if (pdfBusy) return;
+    if (!CFG.leadEndpoint) return printReport(a, "");
+    pdfBusy = true;
+    flash("Preparing your PDF…");
+    var controller = window.AbortController ? new AbortController() : null;
+    var timer = setTimeout(function () { if (controller) controller.abort(); }, 45000);
+    fetch(CFG.leadEndpoint, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" },
+                              body: JSON.stringify({ v: 1, action: "pdf", idea_name: a.idea_name, answers: choiceOnly(a.answers), bank_version: bank.version }),
+                              signal: controller ? controller.signal : undefined })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (!d || !d.ok || !d.pdf) throw new Error((d && d.error) || "no PDF");
+        var bin = atob(d.pdf), bytes = new Uint8Array(bin.length);
+        for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+        var link = document.createElement("a");
+        link.href = URL.createObjectURL(new Blob([bytes], { type: "application/pdf" }));
+        link.download = d.name || "SPARK_Report.pdf";
+        document.body.appendChild(link); link.click(); link.remove();
+        setTimeout(function () { URL.revokeObjectURL(link.href); }, 4000);
+        flash("PDF downloaded ✓");
+      })
+      .catch(function () { printReport(a, "We couldn't make the PDF just now. In the print window, choose “Save as PDF”."); })
+      .then(function () { clearTimeout(timer); pdfBusy = false; });
+  }
+  // Opens the browser's print window on the report, where "Save as PDF" is one of the printers.
+  function printReport(a, message) {
+    var frame = document.getElementById("report-frame");
+    if (!frame) {
+      history.pushState(null, "", "#/a/" + a.id + "/report");
+      renderReport(a);
+      frame = document.getElementById("report-frame");
+    }
+    if (message) flash(message, true);
+    var doc = frame.contentDocument;
+    if (doc && doc.readyState === "complete" && doc.querySelector(".report")) frame.contentWindow.print();
+    else frame.addEventListener("load", function () { frame.contentWindow.print(); }, { once: true });
   }
 
   // ------------------------------------------------------------ report opened from the email link
@@ -455,7 +498,7 @@
     shared = { id: "shared", idea_name: idea, answers: answers, updated_at: now() };
     page('<div class="report-bar no-print"><a href="#/">← SPARK home</a><span class="toolbar-actions">' +
       '<button class="btn" type="button" data-print-report>Print / save as PDF</button>' +
-      '<button class="btn" type="button" data-download-shared>Download report</button>' +
+      '<button class="btn" type="button" data-download-shared>Download PDF</button>' +
       '<button class="btn btn-primary" type="button" data-import-shared>Keep working on this idea</button>' +
       '</span></div><iframe class="report-frame" id="report-frame" title="SPARK report"></iframe>', "report-page");
     var frame = document.getElementById("report-frame");
@@ -541,11 +584,11 @@
         delete store.assessments[el.dataset.delete]; saveStore(store); renderHome();
       }
     } else if (el.dataset.downloadShared !== undefined && shared) {
-      downloadReport(shared);
+      downloadPdf(shared);
     } else if (el.dataset.importShared !== undefined && shared) {
       importShared();
     } else if (el.dataset.download) {
-      downloadReport(getA(el.dataset.download));
+      downloadPdf(getA(el.dataset.download));
     } else if (el.dataset.printReport !== undefined) {
       var f = document.getElementById("report-frame"); if (f) f.contentWindow.print();
     } else if (el.dataset.scroll) {
