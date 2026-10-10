@@ -1,0 +1,25 @@
+/* Web edition extras, on top of optivus_tokens.css and spark.css (the desktop app's styles). */
+.site-link { color: #CBD5E1; font-size: 14px; font-weight: 600; text-decoration: none; margin-left: 4px; white-space: nowrap; }
+.site-link:hover { color: #fff; }
+.local-note { margin-top: 14px; }
+
+/* "Email me this report" */
+.email-card { border-top: 4px solid var(--emerald); }
+.email-card form { display: grid; gap: 12px; margin-top: 8px; }
+.ef-row { display: grid; gap: 4px; }
+.ef-row label { font-weight: 600; font-size: 14px; }
+.ef-row input { min-height: 44px; font: inherit; padding: 8px 12px; border: 1.5px solid var(--line); border-radius: 6px; }
+.ef-row input:focus { border-color: var(--emerald); outline: none; box-shadow: 0 0 0 3px var(--emerald-pale); }
+.ef-check { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; cursor: pointer; }
+.ef-check input { width: 20px; height: 20px; margin-top: 1px; flex: 0 0 auto; accent-color: var(--emerald); }
+.ef-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.ef-privacy { margin: 0; }
+.ef-status { margin: 0; font-size: 14px; font-weight: 600; }
+.ef-status.is-ok { color: var(--emerald-deep); }
+.ef-status.is-bad { color: var(--status-danger); }
+
+/* Report view: the report renders in its own frame so its styles stay separate */
+.report-page .page { max-width: 980px; }
+.report-bar { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.report-bar .toolbar-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.report-frame { width: 100%; min-height: 80vh; border: 0; border-radius: 14px; background: var(--off-white); display: block; }

@@ -1,0 +1,53 @@
+/* ==========================================================
+   OPTIVUS BRAND TOKENS for PRISM - SPARK
+   Read from the live optivusprof.ca stylesheet (:root) on 2026-10-10:
+     --ink #0F172A · --ink-mid #1E2937 · --ocean-blue (emerald) #10B981
+     --dark-blue (deep emerald) #065F46 · --soft-cyan #34D399 · --pale-blue #D1FAE5
+     --off-white #F5F2ED · --rule #E2D9C8 · --muted #94A3B8
+     fonts 'Aptos Display' / 'Aptos', 'Inter', system-ui
+   The site's palette is Tailwind slate + emerald, so the status colours SPARK
+   needs that the site doesn't have (amber, red) come from the same family.
+   Loaded before spark.css; contains only custom properties.
+   ========================================================== */
+:root {
+  /* Brand */
+  --ink: #0F172A;
+  --ink-mid: #1E2937;
+  --emerald: #10B981;
+  --emerald-deep: #065F46;
+  --emerald-soft: #34D399;
+  --emerald-pale: #D1FAE5;
+  --off-white: #F5F2ED;
+  --rule: #E2D9C8;
+  --slate-muted: #94A3B8;
+
+  --font: 'Aptos', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Aptos Display', 'Aptos', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Roles used throughout spark.css */
+  --accent: var(--emerald);
+  --accent-strong: var(--emerald-deep);
+  --accent-soft: var(--emerald-pale);
+  --brand-blue: var(--ink);
+  --brand-blue-soft: rgba(15, 23, 42, 0.06);
+
+  --bg-base: #ffffff;
+  --bg-panel: #ffffff;
+  --bg-elevated: var(--off-white);
+
+  --text-primary: var(--ink);
+  /* The site's #94A3B8 is used on its dark bands; on white it is too faint for body text,
+     so secondary text uses the darker slates from the same family. */
+  --text-secondary: #475569;
+  --text-muted: #64748B;
+
+  --status-good: var(--emerald-deep);
+  --status-good-soft: var(--emerald-pale);
+  --status-warn: #92400E;
+  --status-warn-soft: #FEF3C7;
+  --status-danger: #B91C1C;
+  --status-danger-soft: #FEE2E2;
+
+  --shadow-sm: 0 2px 12px rgba(6, 95, 70, 0.08);
+  --shadow-md: 0 8px 32px rgba(6, 95, 70, 0.10);
+}
