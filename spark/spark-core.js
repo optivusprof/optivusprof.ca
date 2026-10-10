@@ -571,6 +571,34 @@ var SparkCore = (function () {
     };
   }
 
+  // -------------------------------------------------------------- report links
+  /* Choice answers packed into a short link, so the report email can open the full report on the website.
+   * Each answer is "<question id><option id>", plus "~<id>" when skipped by another answer or "!" when the stage
+   * was marked untested; answers are joined by ".". Free text, names and emails are never included. */
+  function packAnswers(bank, answers) {
+    answers = normalize(answers);
+    return Object.keys(answers).map(Number).sort(function (a, b) { return a - b; }).filter(function (qid) {
+      var q = bank.qById[qid], v = answers[qid];
+      return q && q.type !== "T" && v.o && bank.option(qid, v.o);
+    }).map(function (qid) {
+      var v = answers[qid];
+      return qid + v.o + (v.auto === "skip" ? "~" + v.by : v.auto === "stage" ? "!" : "");
+    }).join(".");
+  }
+  function unpackAnswers(bank, packed) {
+    var answers = {};
+    String(packed || "").split(".").slice(0, 300).forEach(function (item) {
+      var m = /^(\d{1,4})([a-z]{1,3})(?:~(\d{1,4})|(!))?$/.exec(item);
+      if (!m) return;
+      var qid = parseInt(m[1], 10), q = bank.qById[qid];
+      if (!q || q.type === "T" || !bank.option(qid, m[2])) return;
+      var entry = { o: m[2] };
+      if (m[3]) { entry.auto = "skip"; entry.by = parseInt(m[3], 10); } else if (m[4]) entry.auto = "stage";
+      answers[qid] = entry;
+    });
+    return reconcile(bank, answers).answers;
+  }
+
   // ------------------------------------------------------------------- charts
   var INK = "#0F172A", MUTED = "#64748B", RULE = "#E2D9C8";
   var STATUS_FILL = { passed: "#10B981", unproven: "#F59E0B", failed: "#DC2626" };
@@ -754,26 +782,232 @@ var SparkCore = (function () {
     return h.join("");
   }
 
-  /* Short, inline-styled email body (email clients strip <style> and SVG, so the full report is attached). */
-  function emailHtml(result, firstName, ideaName, footerHtml) {
-    var e = escapeHtml, v = result.verdict;
-    var colour = { red: "#B91C1C", yellow: "#92400E", green: "#065F46" }[result.zone];
-    var steps = result.report.recommendations.slice(0, 3).map(function (r) {
-      return '<li style="margin:0 0 10px"><strong>' + e(r.title) + '</strong><br><span style="color:#475569">' + e(r.how) + "</span></li>";
+  var ZONE_INK = { red: "#B91C1C", yellow: "#92400E", green: "#065F46" };
+  var ZONE_SOFT = { red: "#FEE2E2", yellow: "#FEF3C7", green: "#D1FAE5" };
+  // Email clients and converters don't always honour the character set, so anything outside plain ASCII
+  // becomes an HTML entity. (The class lists only printable ASCII, so it survives any copy and paste.)
+  function toEntities(html) {
+    return html.replace(/[^\t\n\r -~]/g, function (c) { return "&#" + c.charCodeAt(0) + ";"; });
+  }
+
+  /* The email itself. Email clients (Gmail, Outlook, phone apps) ignore <style>, SVG, flexbox and grid, so this is
+   * built from tables and inline styles only. opts: { reportUrl, pdfAttached } */
+  function emailHtml(result, firstName, ideaName, footerHtml, opts) {
+    opts = opts || {};
+    var e = escapeHtml, v = result.verdict, t = result.tiles, rep = result.report;
+    var F = "font-family:Aptos,'Segoe UI',Arial,Helvetica,sans-serif;";
+    var ink = ZONE_INK[result.zone], soft = ZONE_SOFT[result.zone];
+    function button(label) {
+      return '<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:4px 0"><tr>' +
+        '<td bgcolor="#065F46" style="background:#065F46;border-radius:6px"><a href="' + e(opts.reportUrl) + '" target="_blank" style="' + F +
+        'display:inline-block;padding:14px 28px;font-size:16px;font-weight:bold;color:#ffffff;text-decoration:none;border-radius:6px">' + label +
+        "</a></td></tr></table>";
+    }
+    function stat(num, of, label, bad) {
+      return '<td width="33%" align="center" bgcolor="#F5F2ED" style="background:#F5F2ED;border-radius:8px;padding:12px 6px;' + F + '">' +
+        '<div style="font-size:24px;font-weight:bold;line-height:1.1;color:' + (bad ? "#B91C1C" : "#0F172A") + '">' + num +
+        (of ? '<span style="font-size:13px;color:#64748B;font-weight:normal">' + of + "</span>" : "") + "</div>" +
+        '<div style="font-size:12px;line-height:1.3;color:#475569;padding-top:4px">' + label + "</div></td>";
+    }
+    var steps = rep.recommendations.slice(0, 3).map(function (r) {
+      return '<tr><td width="42" valign="top" style="padding:0 12px 16px 0"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>' +
+        '<td width="30" height="30" align="center" bgcolor="#0F172A" style="background:#0F172A;border-radius:15px;' + F +
+        'font-size:14px;font-weight:bold;color:#ffffff">' + r.priority + "</td></tr></table></td>" +
+        '<td valign="top" style="padding:0 0 16px;' + F + 'font-size:15px;line-height:1.5;color:#0F172A"><strong>' + e(r.title) + "</strong><br>" +
+        '<span style="font-size:14px;color:#475569">' + e(r.how) + "</span>" +
+        (r.success || r.time ? '<br><span style="font-size:13px;color:#64748B">' + (r.success ? "Done when: " + e(r.success) : "") +
+          (r.success && r.time ? " &middot; " : "") + (r.time ? "Effort: " + e(r.time) : "") + "</span>" : "") + "</td></tr>";
     }).join("");
-    var body = '<div style="font-family:Aptos,Segoe UI,Arial,sans-serif;color:#0F172A;max-width:600px;line-height:1.5">' +
-      '<div style="background:#0F172A;color:#fff;padding:18px 22px;border-bottom:3px solid #10B981"><strong style="color:#10B981">✦</strong> ' +
-      "<strong>PRISM - SPARK</strong> · Startup Potential Assessment</div>" +
-      '<div style="padding:20px 22px;background:#fff">' +
-      "<p>Hi " + e(firstName || "there") + ",</p><p>Here is your SPARK report for <strong>" + e(ideaName) + "</strong>.</p>" +
-      '<p style="font-size:30px;font-weight:800;color:' + colour + ';margin:8px 0">' + result.rating + '<span style="font-size:15px;color:#64748B">/100</span> ' +
-      e(v.label) + (v.code === "test" ? ": " + e(lowerFirst(v.headline)) : "") + "</p>" +
-      "<p>Recommended action: <strong>" + e(v.action) + "</strong>. " + e(result.report.why) + "</p>" +
-      (steps ? '<p style="margin-top:18px"><strong>Your next three steps</strong></p><ol style="padding-left:20px">' + steps + "</ol>" : "") +
-      '<p style="background:#D1FAE5;padding:10px 12px;border-radius:6px">Your full report, with charts and the complete action plan, is attached. ' +
-      "Open it in any web browser, and print or save it as a PDF from there.</p>" + (footerHtml || "") + "</div></div>";
-    // Email clients don't always honour the character set, so every non-ASCII character becomes an HTML entity.
-    return body.replace(/[\u0080-\uFFFF]/g, function (c) { return "&#" + c.charCodeAt(0) + ";"; });
+    var body = '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F5F2ED" style="background:#F5F2ED">' +
+      '<tr><td align="center" style="padding:24px 12px">' +
+      '<table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;background:#ffffff;border-radius:10px">' +
+      // header band
+      '<tr><td bgcolor="#0F172A" style="background:#0F172A;padding:20px 28px;border-bottom:4px solid #10B981;border-radius:10px 10px 0 0;' + F + '">' +
+      '<span style="font-size:15px;font-weight:bold;color:#ffffff;letter-spacing:.5px"><span style="color:#10B981">&#10022;</span> PRISM - SPARK</span>' +
+      '<span style="font-size:13px;color:#94A3B8"> &nbsp;by Optivus</span></td></tr>' +
+      // greeting
+      '<tr><td style="padding:26px 28px 6px;' + F + 'font-size:16px;line-height:1.55;color:#0F172A">Hi ' + e(firstName || "there") + ",<br><br>" +
+      "Here is your SPARK assessment for <strong>" + e(ideaName) + "</strong>.</td></tr>" +
+      // verdict card
+      '<tr><td style="padding:14px 28px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">' +
+      '<tr><td bgcolor="' + soft + '" style="background:' + soft + ";border-left:6px solid " + ink + ';border-radius:8px;padding:18px 20px;' + F + '">' +
+      '<div style="font-size:46px;font-weight:bold;line-height:1;color:' + ink + '">' + result.rating +
+      '<span style="font-size:18px;color:#64748B;font-weight:normal">/100</span>' +
+      '<span style="font-size:12px;color:#475569;font-weight:bold;letter-spacing:1px"> &nbsp;SPARK RATING</span></div>' +
+      '<div style="font-size:22px;font-weight:bold;color:' + ink + ';padding-top:10px">' + e(v.label) + (v.code === "test" ? ": " + e(lowerFirst(v.headline)) : "") + "</div>" +
+      '<div style="font-size:15px;color:#0F172A;padding-top:6px">Recommended action: <strong>' + e(v.action) + "</strong></div>" +
+      '<div style="font-size:14px;line-height:1.5;color:#334155;padding-top:8px">' + e(rep.why) + "</div></td></tr></table></td></tr>" +
+      // stats
+      '<tr><td style="padding:6px 22px 4px"><table role="presentation" width="100%" cellpadding="0" cellspacing="6" border="0"><tr>' +
+      stat(t.core_passed, "/" + t.core_total, "Core stages passed") + stat(t.passed, "/" + t.scored_total, "Stages passed") +
+      stat(t.failed, "", "Stages failed", t.failed > 0) + "</tr></table></td></tr>" +
+      // main button
+      (opts.reportUrl ? '<tr><td style="padding:18px 28px 4px">' + button("View your full report") +
+        '<div style="' + F + 'font-size:13px;color:#64748B;padding-top:6px">Opens on optivusprof.ca with the charts, the complete action plan and every stage.</div></td></tr>' : "") +
+      // next steps
+      (steps ? '<tr><td style="padding:22px 28px 4px;' + F + 'font-size:18px;font-weight:bold;color:#0F172A">Your next three steps</td></tr>' +
+        '<tr><td style="padding:10px 28px 0"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">' + steps + "</table></td></tr>" : "") +
+      (opts.pdfAttached ? '<tr><td style="padding:4px 28px 0;' + F + 'font-size:14px;color:#334155">A PDF copy of the full report is attached, ready to save or print.</td></tr>' : "") +
+      (opts.reportUrl && steps ? '<tr><td style="padding:16px 28px 6px">' + button("See the complete action plan") + "</td></tr>" : "") +
+      '<tr><td style="padding:6px 28px 24px">' + (footerHtml || "") + "</td></tr>" +
+      "</table></td></tr></table>";
+    return toEntities(body);
+  }
+
+  /* Print layout of the full report for the PDF attachment. Google's HTML-to-PDF conversion copes with tables and inline
+   * styles but not SVG, flexbox, grid or CSS variables, so the charts are drawn as coloured table cells. */
+  function pdfHtml(bank, result, ideaName, opts) {
+    opts = opts || {};
+    var e = escapeHtml, rep = result.report, v = result.verdict, mix = rep.evidence_mix, t = result.tiles, th = bank.thresholds;
+    var ink = ZONE_INK[result.zone], soft = ZONE_SOFT[result.zone];
+    var F = "font-family:Arial,Helvetica,sans-serif;";
+    var STATUS_INK = { passed: "#065F46", unproven: "#92400E", failed: "#B91C1C", complete: "#065F46" };
+    var TD = "padding:6px 7px;border-bottom:1px solid #E2D9C8;vertical-align:top;" + F + "font-size:10.5px;line-height:1.4;color:#0F172A;";
+    var TH = "padding:6px 7px;border-bottom:1.5px solid #94A3B8;text-align:left;vertical-align:bottom;" + F + "font-size:9px;color:#64748B;";
+    var DOT = " &middot; ";
+    function h2(s) {
+      return '<h2 style="' + F + 'font-size:16px;color:#0F172A;margin:22px 0 8px;padding:0 0 5px;border-bottom:2px solid #10B981">' + s + "</h2>";
+    }
+    function p(s, extra) { return '<p style="' + F + "font-size:11px;line-height:1.5;color:#334155;margin:0 0 7px;" + (extra || "") + '">' + s + "</p>"; }
+    function bar(pct, colour) {
+      if (pct == null) return '<span style="' + F + 'font-size:10px;color:#64748B">No answers yet</span>';
+      var w = Math.max(0, Math.min(100, Math.round(pct)));
+      return '<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse"><tr>' +
+        (w > 0 ? '<td width="' + w + '%" bgcolor="' + colour + '" style="background:' + colour + ';height:11px;font-size:1px;line-height:1px">&nbsp;</td>' : "") +
+        (w < 100 ? '<td width="' + (100 - w) + '%" bgcolor="#EFEAE2" style="background:#EFEAE2;height:11px;font-size:1px;line-height:1px">&nbsp;</td>' : "") +
+        "</tr></table>";
+    }
+    function list(items, empty) {
+      if (!items.length) return p(empty, "color:#64748B");
+      return '<ul style="margin:0;padding-left:16px">' + items.map(function (f) {
+        return '<li style="' + F + 'font-size:10.5px;line-height:1.45;color:#0F172A;margin:0 0 5px">' + e(f.text) + (f.knockout ? " <strong>(knockout)</strong>" : "") + "</li>";
+      }).join("") + "</ul>";
+    }
+    var h = [];
+    h.push('<html><head><meta charset="utf-8"><title>SPARK report - ' + e(ideaName) + '</title></head><body style="margin:28px 32px;background:#ffffff">');
+    // cover
+    h.push('<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse"><tr><td bgcolor="#0F172A" style="background:#0F172A;' +
+           'padding:22px 26px;border-bottom:4px solid #10B981;' + F + '"><div style="font-size:11px;font-weight:bold;color:#10B981;letter-spacing:1px">PRISM - SPARK' +
+           '<span style="color:#94A3B8;font-weight:normal;letter-spacing:0"> &nbsp;Startup Potential Assessment &amp; Rating Kit</span></div>' +
+           '<div style="font-size:24px;font-weight:bold;color:#ffffff;padding-top:10px">' + e(ideaName) + "</div>" +
+           '<div style="font-size:11px;color:#CBD5E1;padding-top:6px">Idea assessment report' + DOT + e(opts.date || "") + DOT + e(result.depth.label) +
+           "</div></td></tr></table>");
+    // verdict
+    h.push('<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin-top:16px"><tr>' +
+           '<td bgcolor="' + soft + '" style="background:' + soft + ";border-left:6px solid " + ink + ";padding:16px 18px;" + F + '">' +
+           '<div style="font-size:40px;font-weight:bold;line-height:1;color:' + ink + '">' + result.rating +
+           '<span style="font-size:16px;color:#64748B;font-weight:normal">/100</span><span style="font-size:10px;color:#475569;font-weight:bold;letter-spacing:1px"> &nbsp;SPARK RATING</span></div>' +
+           '<div style="font-size:20px;font-weight:bold;color:' + ink + ';padding-top:8px">' + e(v.label) + (v.code === "test" ? ": " + e(lowerFirst(v.headline)) : "") + "</div>" +
+           '<div style="font-size:12px;color:#0F172A;padding-top:5px">Recommended action: <strong>' + e(v.action) + "</strong></div>" +
+           '<div style="font-size:11px;line-height:1.5;color:#334155;padding-top:6px">' + e(rep.why) + "</div></td></tr></table>");
+    // rating scale with a marker at the rating
+    var r = Math.max(0, Math.min(99, result.rating));
+    var gap = function (w) { return '<td width="' + w + '%" style="font-size:1px;line-height:1px;height:8px">&nbsp;</td>'; };
+    var band = function (w, colour) {
+      return '<td width="' + w + '%" bgcolor="' + colour + '" style="background:' + colour + ';height:9px;font-size:1px;line-height:1px">&nbsp;</td>';
+    };
+    h.push('<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin-top:12px"><tr>' + (r > 0 ? gap(r) : "") +
+           '<td width="1%" bgcolor="#0F172A" style="background:#0F172A;font-size:1px;line-height:1px;height:8px">&nbsp;</td>' + (r < 99 ? gap(99 - r) : "") + "</tr></table>" +
+           '<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse"><tr>' + band(th.ratingRedMax + 1, "#DC2626") +
+           band(th.ratingYellowMax - th.ratingRedMax, "#F59E0B") + band(99 - th.ratingYellowMax, "#10B981") + "</tr></table>" +
+           '<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse"><tr>' +
+           '<td style="' + F + 'font-size:9px;color:#B91C1C;padding-top:3px">Not a good idea 0-' + th.ratingRedMax + "</td>" +
+           '<td align="center" style="' + F + 'font-size:9px;color:#92400E;padding-top:3px">Maybe ' + (th.ratingRedMax + 1) + "-" + th.ratingYellowMax + "</td>" +
+           '<td align="right" style="' + F + 'font-size:9px;color:#065F46;padding-top:3px">Good idea ' + (th.ratingYellowMax + 1) + "-100</td></tr></table>");
+    // at a glance
+    var tile = function (num, of, label, bad) {
+      return '<td width="20%" align="center" bgcolor="#F5F2ED" style="background:#F5F2ED;padding:9px 4px;' + F + '"><div style="font-size:18px;font-weight:bold;color:' +
+             (bad ? "#B91C1C" : "#0F172A") + '">' + num + (of ? '<span style="font-size:10px;color:#64748B;font-weight:normal">' + of + "</span>" : "") +
+             '</div><div style="font-size:9px;line-height:1.3;color:#475569;padding-top:2px">' + label + "</div></td>";
+    };
+    h.push('<table width="100%" cellpadding="0" cellspacing="4" style="margin-top:12px"><tr>' + tile(t.core_passed, "/" + t.core_total, "Core stages passed") +
+           tile(t.passed, "/" + t.scored_total, "Stages passed") + tile(t.failed, "", "Stages failed", t.failed > 0) +
+           tile(mix.observed_or_better_pct, "%", "Answers backed by real behaviour") + tile(result.progress.pct, "%", "Of the assessment completed") + "</tr></table>");
+    // action plan
+    var recs = rep.recommendations;
+    h.push(h2("Your action plan"));
+    recs.slice(0, 3).forEach(function (rec) {
+      var edge = rec.kind === "rethink" || rec.kind === "resolve" ? "#DC2626" : "#10B981";
+      h.push('<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:0 0 8px;page-break-inside:avoid"><tr>' +
+             '<td width="34" valign="top" style="border-left:5px solid ' + edge + ';padding:10px 0 10px 10px">' +
+             '<table cellpadding="0" cellspacing="0"><tr><td width="24" height="24" align="center" bgcolor="#0F172A" style="background:#0F172A;' + F +
+             'font-size:12px;font-weight:bold;color:#ffffff">' + rec.priority + "</td></tr></table></td>" +
+             '<td valign="top" bgcolor="#FAF8F4" style="background:#FAF8F4;padding:10px 12px;' + F + '">' +
+             '<div style="font-size:12.5px;font-weight:bold;color:#0F172A">' + e(rec.title) + "</div>" +
+             '<div style="font-size:10.5px;line-height:1.45;color:#334155;padding-top:4px"><strong>Why:</strong> ' + e(rec.why) + "</div>" +
+             '<div style="font-size:10.5px;line-height:1.45;color:#334155;padding-top:3px"><strong>How:</strong> ' + e(rec.how) + "</div>" +
+             '<div style="font-size:10px;color:#475569;padding-top:4px">' + (rec.success ? "<strong>Done when:</strong> " + e(rec.success) : "") +
+             (rec.success && rec.time ? " &nbsp;&middot;&nbsp; " : "") + (rec.time ? "<strong>Effort:</strong> " + e(rec.time) : "") + "</div></td></tr></table>");
+    });
+    if (recs.length > 3) {
+      h.push('<div style="' + F + 'font-size:12px;font-weight:bold;color:#0F172A;margin:14px 0 4px">The rest of the plan</div>' +
+             '<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse"><tr><th style="' + TH + '" width="4%">#</th>' +
+             '<th style="' + TH + '" width="46%">STEP</th><th style="' + TH + '" width="18%">STAGE</th><th style="' + TH + '" width="20%">DONE WHEN</th>' +
+             '<th style="' + TH + '" width="12%">EFFORT</th></tr>' + recs.slice(3).map(function (rec) {
+               return '<tr style="page-break-inside:avoid"><td style="' + TD + '">' + rec.priority + '</td><td style="' + TD + '"><strong>' + e(rec.title) + "</strong><br>" +
+                 '<span style="color:#475569">' + e(rec.how) + '</span></td><td style="' + TD + '">' + e(rec.stage_short) + (rec.core ? " (core)" : "") +
+                 '</td><td style="' + TD + '">' + e(rec.success) + '</td><td style="' + TD + '">' + e(rec.time) + "</td></tr>";
+             }).join("") + "</table>");
+    }
+    // where the idea stands
+    h.push(h2("Where the idea stands"));
+    h.push(p("Each bar is a stage's score out of 100, coloured by its status. Core stages decide the verdict."));
+    h.push('<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse">' + result.stages.filter(function (s) { return s.scored; }).map(function (s) {
+      return '<tr style="page-break-inside:avoid"><td width="32%" style="padding:4px 8px 4px 0;' + F + "font-size:10.5px;color:#0F172A;" + (s.core ? "font-weight:bold;" : "") + '">' +
+        s.id + ". " + e(s.short) + (s.core ? ' <span style="font-size:8.5px;color:#065F46">CORE</span>' : "") + "</td>" +
+        '<td width="46%" style="padding:4px 0">' + bar(s.score, STATUS_FILL[s.status] || "#CBD5E1") + "</td>" +
+        '<td width="22%" style="padding:4px 0 4px 8px;' + F + "font-size:10px;color:" + (STATUS_INK[s.status] || "#0F172A") + '">' +
+        (s.score != null ? s.score + DOT : "") + e(s.status_label) + "</td></tr>";
+    }).join("") + "</table>");
+    // evidence
+    var untestedPct = 0, againstN = 0;
+    mix.levels.forEach(function (l) { if (l.key === "untested") untestedPct = l.pct; if (l.key === "against") againstN = l.count; });
+    h.push(h2("How strong is the evidence?"));
+    h.push(p(mix.total ? mix.observed_or_better_pct + "% of your " + mix.total + " scored answers rest on what people actually did, committed or measured. " +
+      untestedPct + "% are still untested or opinion." + (againstN ? " " + againstN + " answer" + (againstN === 1 ? " counts" : "s count") + " against the idea." : "")
+      : "No scored answers yet."));
+    h.push('<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse">' + mix.levels.map(function (l) {
+      return '<tr><td width="32%" style="padding:3px 8px 3px 0;' + F + 'font-size:10.5px;color:#0F172A">' + e(l.label) + "</td>" +
+        '<td width="46%" style="padding:3px 0">' + bar(l.count ? l.pct : 0, EVIDENCE_FILL[l.key]) + "</td>" +
+        '<td width="22%" style="padding:3px 0 3px 8px;' + F + 'font-size:10px;color:#475569">' + l.count + " (" + l.pct + "%)</td></tr>";
+    }).join("") + "</table>");
+    // what the answers say
+    h.push(h2("What the answers say"));
+    var col = function (title, colour, body) {
+      return '<td width="33%" valign="top" bgcolor="#F5F2ED" style="background:#F5F2ED;border-top:4px solid ' + colour + ';padding:9px 10px">' +
+        '<div style="' + F + 'font-size:11.5px;font-weight:bold;color:#0F172A;padding-bottom:5px">' + title + "</div>" + body + "</td>";
+    };
+    h.push('<table width="100%" cellpadding="0" cellspacing="5" style="page-break-inside:avoid"><tr>' +
+           col("Supports the idea", "#10B981", list(rep.supports, "No strong support yet.")) +
+           col("Counts against it", "#DC2626", list(rep.against, "No evidence against the idea so far.")) +
+           col("Still untested", "#F59E0B", list(rep.untested, "Nothing marked untested.") +
+               (rep.untested_more ? p("And " + rep.untested_more + " more.", "color:#64748B") : "")) + "</tr></table>");
+    if (rep.change.length) {
+      h.push('<div style="' + F + 'font-size:12px;font-weight:bold;color:#0F172A;margin:12px 0 5px">What would change the verdict</div>' +
+             list(rep.change.map(function (c) { return { text: c.text }; }), ""));
+    }
+    // stage by stage
+    h.push(h2("Stage by stage"));
+    h.push('<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse"><tr><th style="' + TH + '" width="27%">STAGE</th>' +
+           '<th style="' + TH + '" width="15%">STATUS</th><th style="' + TH + '" width="8%">SCORE</th><th style="' + TH + '" width="50%">REASON</th></tr>' +
+           result.stages.map(function (s) {
+             return '<tr style="page-break-inside:avoid"><td style="' + TD + '"><strong>' + s.id + ". " + e(s.short) + "</strong>" +
+               (s.core ? ' <span style="font-size:8.5px;color:#065F46">CORE</span>' : "") +
+               '</td><td style="' + TD + "color:" + (STATUS_INK[s.status] || "#475569") + ';font-weight:bold">' + e(s.status_label) + '</td><td style="' + TD + '">' +
+               (s.score != null ? s.score : "-") + '</td><td style="' + TD + '">' + e(s.reason) + "</td></tr>";
+           }).join("") + "</table>");
+    // method + footer
+    h.push(h2("How this assessment works"));
+    h.push(p("SPARK applies the Entrepreneur's Idea Validation Framework: 124 questions across 16 stages, from defining the idea to making the decision. " +
+             "Each scored stage has gate questions that set the minimum evidence needed to pass. A stage fails only on evidence against the idea, never on missing " +
+             "evidence. The verdict comes from fixed rules: the five core stages (problem, customer, validation, solution and willingness to pay) must pass for a " +
+             "\"Good idea\". The same answers always produce the same report, and no AI is used."));
+    if (opts.reportUrl) h.push(p('See this report online, with the interactive charts: <a href="' + e(opts.reportUrl) + '" style="color:#065F46">open your SPARK report</a>.'));
+    h.push('<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin-top:18px"><tr><td bgcolor="#0F172A" style="background:#0F172A;' +
+           'padding:10px 14px;border-top:3px solid #10B981;' + F + 'font-size:9px;color:#94A3B8">' + e(opts.appName || "PRISM - SPARK") + " v" + e(opts.appVersion || "") +
+           DOT + "question bank " + e(result.bank_version) + DOT + "generated " + e(opts.date || "") + DOT + "Optivus" + DOT + "optivusprof.ca</td></tr></table>");
+    h.push("</body></html>");
+    return toEntities(h.join(""));
   }
 
   return {
@@ -782,7 +1016,8 @@ var SparkCore = (function () {
     applyAnswer: applyAnswer, markStageUntested: markStageUntested, reconcile: reconcile,
     remainingInStage: remainingInStage, quickRemaining: quickRemaining, stageComplete: stageComplete, progress: progress,
     scoreStage: scoreStage, score: score, lowerFirst: lowerFirst, escapeHtml: escapeHtml,
-    stageBars: stageBars, evidenceBar: evidenceBar, dial: dial, reportHtml: reportHtml, emailHtml: emailHtml
+    stageBars: stageBars, evidenceBar: evidenceBar, dial: dial, reportHtml: reportHtml, emailHtml: emailHtml, pdfHtml: pdfHtml,
+    packAnswers: packAnswers, unpackAnswers: unpackAnswers
   };
 })();
 

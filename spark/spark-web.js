@@ -68,6 +68,7 @@
 
   function render() {
     var r = parse(), p = r.path;
+    if (p[0] === "r") return renderShared(r.query);
     if (p[0] === "a" && p[1]) {
       var a = getA(p[1]);
       if (!a) return renderNotFound();
@@ -438,6 +439,38 @@
     setTimeout(function () { URL.revokeObjectURL(link.href); }, 2000);
   }
 
+  // ------------------------------------------------------------ report opened from the email link
+  // The link holds only the idea name and the choice answers (see SparkCore.packAnswers), so the same
+  // report is rebuilt here, in the visitor's browser. Nothing is saved unless they choose to keep working on it.
+  var shared = null;
+  function renderShared(query) {
+    var answers = C.unpackAnswers(bank, query.a);
+    root.dataset.view = "shared"; delete root.dataset.aid;
+    if (!Object.keys(answers).length) {
+      return page('<section class="hero"><p class="eyebrow">Report link</p><h1>That report link is incomplete</h1><p class="lede">The link may have been ' +
+        "cut short when it was copied. Open it again from the button in your SPARK email, or start a new assessment.</p>" +
+        '<a class="btn btn-primary" href="#/">Start an assessment</a></section>');
+    }
+    var idea = String(query.i || "").replace(/\s+/g, " ").trim().slice(0, 80) || "Your idea";
+    shared = { id: "shared", idea_name: idea, answers: answers, updated_at: now() };
+    page('<div class="report-bar no-print"><a href="#/">← SPARK home</a><span class="toolbar-actions">' +
+      '<button class="btn" type="button" data-print-report>Print / save as PDF</button>' +
+      '<button class="btn" type="button" data-download-shared>Download report</button>' +
+      '<button class="btn btn-primary" type="button" data-import-shared>Keep working on this idea</button>' +
+      '</span></div><iframe class="report-frame" id="report-frame" title="SPARK report"></iframe>', "report-page");
+    var frame = document.getElementById("report-frame");
+    frame.srcdoc = reportFor(shared);
+    frame.addEventListener("load", function () {
+      try { frame.style.height = (frame.contentDocument.documentElement.scrollHeight + 20) + "px"; } catch (err) { /* ignore */ }
+    });
+  }
+  function importShared() {
+    var id = newAssessment(shared.idea_name);
+    store.assessments[id].answers = JSON.parse(JSON.stringify(shared.answers));
+    saveStore(store);
+    go("#/a/" + id + "/results");
+  }
+
   function renderNotFound() {
     page('<section class="hero"><p class="eyebrow">Not found</p><h1>That assessment isn\'t here</h1><p class="lede">Assessments are saved in the browser ' +
       "they were made in. It may have been deleted, or made on another device or browser.</p>" +
@@ -474,7 +507,7 @@
   });
 
   document.addEventListener("click", function (ev) {
-    var el = ev.target.closest("[data-value],[data-clear],[data-quick-go],[data-untested],[data-rename],[data-duplicate],[data-export],[data-delete],[data-download],[data-print-report],[data-scroll],[data-goto-email]");
+    var el = ev.target.closest("[data-value],[data-clear],[data-quick-go],[data-untested],[data-rename],[data-duplicate],[data-export],[data-delete],[data-download],[data-print-report],[data-scroll],[data-goto-email],[data-download-shared],[data-import-shared]");
     if (!el) return;
     var view = root.dataset.view, a = root.dataset.aid ? getA(root.dataset.aid) : null;
     if (el.dataset.value !== undefined && a) {
@@ -507,6 +540,10 @@
       if (window.confirm("Delete this assessment and all of its answers from this browser? This cannot be undone.")) {
         delete store.assessments[el.dataset.delete]; saveStore(store); renderHome();
       }
+    } else if (el.dataset.downloadShared !== undefined && shared) {
+      downloadReport(shared);
+    } else if (el.dataset.importShared !== undefined && shared) {
+      importShared();
     } else if (el.dataset.download) {
       downloadReport(getA(el.dataset.download));
     } else if (el.dataset.printReport !== undefined) {
