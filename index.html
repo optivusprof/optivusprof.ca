@@ -73,10 +73,10 @@
       "isPartOf": { "@id": "https://www.optivusprof.ca/#website" },
       "about": { "@id": "https://www.optivusprof.ca/#dean-reid" },
       "datePublished": "2025-01-01",
-      "dateModified": "2026-09-03",
+      "dateModified": "2026-10-11",
       "speakable": {
         "@type": "SpeakableSpecification",
-        "cssSelector": ["#hero h1", ".hero-desc", ".aeo-answer", ".sp-headline"]
+        "cssSelector": ["#hero h1", ".hero-desc", ".aeo-answer", ".dx-sec-head h2"]
       },
       "breadcrumb": {
         "@type": "BreadcrumbList",
@@ -2058,6 +2058,84 @@ body{padding-top:68px;}
 @media(max-width:600px){.marquee-logo{padding:0 20px;}.marquee-logo img{height:22px;}}
 @keyframes marquee-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 </style>
+<style id="dx-css">
+/* === HOME PAGE: DIAGNOSIS HERO, PROOF AND "WHAT HAPPENS" SECTIONS ===
+   Uses the existing brand tokens (--ink, --ocean-blue, --soft-cyan, --dark-blue, --off-white). */
+#hero.dx-hero{min-height:0;display:block;padding:56px 80px 64px;border-bottom:3px solid var(--ocean-blue);}
+.dx-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;}
+#hero.dx-hero h1{font-size:clamp(36px,5.6vw,68px);font-weight:700;line-height:1.03;letter-spacing:-.02em;max-width:none;margin:0 0 18px;opacity:1;animation:none;}
+#hero.dx-hero h1 .accent{display:inline;}
+.dx-kicker{display:block;font-family:var(--ff-body);font-size:11.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--soft-cyan);line-height:1.5;margin-bottom:16px;}
+#hero.dx-hero .hero-desc{font-size:18px;line-height:1.55;font-weight:400;color:rgba(255,255,255,.82);max-width:620px;margin:0 0 26px;opacity:1;animation:none;}
+
+.dx-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.dx-btn{display:flex;align-items:flex-start;gap:14px;text-align:left;min-height:88px;padding:16px 18px;border-radius:12px;border:1.5px solid rgba(52,211,153,.24);background:rgba(255,255,255,.05);color:#fff;font-family:var(--ff-body);cursor:pointer;transition:background .2s,border-color .2s;}
+.dx-btn:hover{background:rgba(52,211,153,.12);border-color:rgba(52,211,153,.55);}
+.dx-btn[aria-pressed="true"]{background:var(--ocean-blue);border-color:var(--ocean-blue);color:#fff;}
+.dx-num{font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--soft-cyan);padding-top:4px;}
+.dx-btn-label{display:block;font-family:var(--ff-display);font-size:17.5px;font-weight:700;line-height:1.2;margin-bottom:5px;}
+.dx-btn-sub{display:block;font-size:13.5px;line-height:1.45;color:rgba(255,255,255,.74);}
+.dx-btn[aria-pressed="true"] .dx-num,.dx-btn[aria-pressed="true"] .dx-btn-sub{color:#fff;}
+.dx-btn:focus-visible,.dx-step:focus-visible,.dx-more:focus-visible{outline:3px solid var(--soft-cyan);outline-offset:3px;}
+
+.dx-panel{margin-top:16px;padding:30px;background:#fff;border-radius:16px;display:flex;flex-wrap:wrap;gap:28px 44px;scroll-margin-top:84px;}
+.dx-what{flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:12px;}
+.dx-panel p.dx-label{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#475569;}
+.dx-panel .dx-what h2{font-family:var(--ff-display);font-size:30px!important;font-weight:700;line-height:1.12;letter-spacing:-.015em;color:var(--ink);margin:0;}
+.dx-what>p{font-size:16px;line-height:1.65;color:#334155;max-width:520px;}
+.dx-step{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:60px;padding:14px 18px;border:1.5px solid #E2E8F0;border-radius:12px;text-decoration:none;color:var(--ink);transition:border-color .2s,box-shadow .2s;}
+.dx-step:hover{border-color:var(--ocean-blue);box-shadow:0 8px 20px rgba(16,185,129,.15);}
+.dx-step-kind{display:block;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#475569;margin-bottom:2px;}
+.dx-step-title{display:block;font-size:15.5px;font-weight:700;line-height:1.3;}
+.dx-step-arrow{font-size:18px;color:var(--dark-blue);flex-shrink:0;}
+.dx-fix{flex:1 1 380px;min-width:0;padding:26px;border-radius:14px;background:var(--ink);color:#fff;display:flex;flex-direction:column;gap:12px;}
+.dx-panel .dx-fix p.dx-label{color:var(--soft-cyan);}
+.dx-fix h3{font-family:var(--ff-display);font-size:24px;font-weight:700;line-height:1.15;color:#fff;}
+.dx-fix>p{font-size:15px;line-height:1.6;color:rgba(255,255,255,.8);}
+.dx-panel .dx-fix p.dx-format{font-size:13px;line-height:1.5;font-weight:600;color:#fff;padding:10px 0;border-top:1px solid rgba(255,255,255,.14);border-bottom:1px solid rgba(255,255,255,.14);}
+.dx-actions{margin-top:auto;padding-top:6px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 22px;}
+.dx-more{font-size:14.5px;font-weight:600;color:#fff;}
+.dx-more:hover{color:var(--soft-cyan);}
+
+.dx-section{padding:80px;background:var(--white);border-bottom:1px solid var(--rule);}
+.dx-section.alt{background:var(--off-white);}
+.dx-sec-inner{max-width:1100px;margin:0 auto;}
+.dx-sec-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 32px;margin-bottom:28px;}
+.dx-section .dx-sec-head h2{font-family:var(--ff-display);font-size:clamp(26px,3.4vw,40px)!important;font-weight:700;line-height:1.1;letter-spacing:-.01em;color:var(--ink);margin:0;}
+.dx-sec-head p{font-size:15px;line-height:1.6;color:#475569;max-width:520px;}
+.dx-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px;}
+.dx-stat{padding:28px;background:#fff;border:1px solid var(--rule);border-radius:12px;}
+.dx-stat-num{font-family:var(--ff-display);font-size:52px;font-weight:700;line-height:1;letter-spacing:-.03em;color:var(--dark-blue);margin-bottom:10px;}
+.dx-stat p{font-size:15px;line-height:1.5;color:#334155;}
+.dx-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:12px;overflow:hidden;}
+.dx-steps>div{padding:28px;background:#fff;}
+.dx-steps p.dx-when{font-size:11px;line-height:1.5;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dark-blue);}
+.dx-steps h3{font-family:var(--ff-display);font-size:20px;font-weight:700;line-height:1.25;color:var(--ink);margin:8px 0;}
+.dx-steps p{font-size:14.5px;line-height:1.6;color:#475569;}
+
+@media(max-width:1280px){#hero.dx-hero{padding:52px 60px 60px;}.dx-section{padding:72px 60px;}}
+@media(max-width:1000px){.dx-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:768px){
+  #hero.dx-hero{padding:40px 24px 44px;}
+  #hero.dx-hero h1{font-size:clamp(34px,8vw,44px);margin:0 0 16px;}
+  #hero.dx-hero .hero-desc{font-size:16px;margin:0 0 22px;}
+  .dx-section{padding:56px 24px;}
+  .dx-stats,.dx-steps{grid-template-columns:1fr;}
+  .dx-panel{padding:22px;}
+  .dx-actions .hero-btn-primary{width:100%;justify-content:center;}
+}
+@media(max-width:600px){
+  #hero.dx-hero{padding:32px 20px 36px;}
+  .dx-section{padding:48px 20px;}
+  .dx-grid{gap:8px;}
+  .dx-btn{min-height:60px;padding:12px 14px;align-items:center;}
+  .dx-num,.dx-btn-sub{display:none;}
+  .dx-btn-label{font-size:15px;margin-bottom:0;}
+  .dx-panel .dx-what h2{font-size:25px!important;}
+  .dx-stat-num{font-size:44px;}
+}
+@media(prefers-reduced-motion:reduce){.dx-btn,.dx-step{transition:none;}}
+</style>
   <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
   <script src="https://calendar.google.com/calendar/scheduling-button-script.js" defer></script>
 </head>
@@ -2101,12 +2179,22 @@ body{padding-top:68px;}
 (function() {
   var target = document.currentScript;
   window.addEventListener('load', function() {
-    calendar.schedulingButton.load({
-      url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0vwcmmCRjR0JZoEVRIWoZq0R1xyJqWu90X9AHkEg8M-2rTOXRbfgdyETWvncK4DjOvUsf9_0EJ?gv=true',
-      color: '#10B981',
-      label: 'Book a Call',
-      target,
-    });
+    if (window.calendar && window.calendar.schedulingButton) {
+      window.calendar.schedulingButton.load({
+        url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0vwcmmCRjR0JZoEVRIWoZq0R1xyJqWu90X9AHkEg8M-2rTOXRbfgdyETWvncK4DjOvUsf9_0EJ?gv=true',
+        color: '#10B981',
+        label: 'Book a Call',
+        target,
+      });
+    } else if (target && target.parentNode) {
+      var a = document.createElement('a');
+      a.id = 'onav-cta';
+      a.href = 'https://calendar.app.google/5v6oNJ8jHkWMVzTTA';
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.textContent = 'Book a Call';
+      target.parentNode.insertBefore(a, target);
+    }
   });
 })();
 </script></span>
@@ -2131,12 +2219,22 @@ body{padding-top:68px;}
 (function() {
   var target = document.currentScript;
   window.addEventListener('load', function() {
-    calendar.schedulingButton.load({
-      url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0vwcmmCRjR0JZoEVRIWoZq0R1xyJqWu90X9AHkEg8M-2rTOXRbfgdyETWvncK4DjOvUsf9_0EJ?gv=true',
-      color: '#10B981',
-      label: 'Book a Discovery Call',
-      target,
-    });
+    if (window.calendar && window.calendar.schedulingButton) {
+      window.calendar.schedulingButton.load({
+        url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0vwcmmCRjR0JZoEVRIWoZq0R1xyJqWu90X9AHkEg8M-2rTOXRbfgdyETWvncK4DjOvUsf9_0EJ?gv=true',
+        color: '#10B981',
+        label: 'Book a Discovery Call',
+        target,
+      });
+    } else if (target && target.parentNode) {
+      var a = document.createElement('a');
+      a.id = 'onav-drw-cta';
+      a.href = 'https://calendar.app.google/5v6oNJ8jHkWMVzTTA';
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.textContent = 'Book a Discovery Call';
+      target.parentNode.insertBefore(a, target);
+    }
   });
 })();
 </script>
@@ -2148,77 +2246,132 @@ body{padding-top:68px;}
 
 <main id="main-content">
 
-<!-- HERO -->
-<header id="hero" role="banner">
+<!-- HERO: THE DIAGNOSIS -->
+<header id="hero" class="dx-hero" role="banner">
   <div class="hero-glow" aria-hidden="true"></div>
   <div class="hero-glow-2" aria-hidden="true"></div>
 
-  <p class="hero-eyebrow">Revenue Architecture</p>
+  <div class="dx-inner">
+    <h1><span class="dx-kicker">Revenue Architect (Fractional CMO) &nbsp;&middot;&nbsp; For B2B companies at $15M to $60M</span>What is holding your revenue <span class="accent">back?</span></h1>
+    <p class="hero-desc">Pick the one that sounds most like your company. See what is really going on and the fastest way to fix it.</p>
 
-  <h1>Revenue Architecture for<br>
-    <span class="accent" id="hero-rotate-wrap">
-      <!-- rotating words injected by JS -->
-    </span>
-  </h1>
-
-  <p class="hero-desc">
-    I join your team as your Revenue Architect. I build your growth plan, your marketing engine, and the reports your board wants to see. I work with medium to large enterprise companies making $15 million to $60 million a year. My job is simple: turn scattered marketing into one system that brings in steady, provable revenue.
-  </p>
-
-  <div class="hero-credentials" aria-label="Expertise areas">
-    <div class="hero-cred">
-      <svg viewBox="0 0 14 14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5L3 7.5h4L5.5 13l6-7.5H8L9.5 1.5z"/></svg>
-      Revenue Engine Builder
+    <div class="dx-grid" id="dxGrid" role="group" aria-label="Choose your situation">
+      <button type="button" class="dx-btn" data-dx="heroics" aria-pressed="true">
+        <span class="dx-num">01</span>
+        <span><span class="dx-btn-label">Growth depends on heroics</span><span class="dx-btn-sub">A few people and the founder carry every deal.</span></span>
+      </button>
+      <button type="button" class="dx-btn" data-dx="plan" aria-pressed="false">
+        <span class="dx-num">02</span>
+        <span><span class="dx-btn-label">We need a plan, fast</span><span class="dx-btn-sub">A new target or a new budget, and no strategy on paper.</span></span>
+      </button>
+      <button type="button" class="dx-btn" data-dx="churn" aria-pressed="false">
+        <span class="dx-num">03</span>
+        <span><span class="dx-btn-label">Customers leave or never grow</span><span class="dx-btn-sub">High churn. Low share of wallet.</span></span>
+      </button>
+      <button type="button" class="dx-btn" data-dx="board" aria-pressed="false">
+        <span class="dx-num">04</span>
+        <span><span class="dx-btn-label">The board wants answers</span><span class="dx-btn-sub">Marketing numbers nobody at the table can test.</span></span>
+      </button>
+      <button type="button" class="dx-btn" data-dx="ai" aria-pressed="false">
+        <span class="dx-num">05</span>
+        <span><span class="dx-btn-label">AI is all talk, no results</span><span class="dx-btn-sub">The tools are deployed. The returns are not showing up.</span></span>
+      </button>
+      <button type="button" class="dx-btn" data-dx="voice" aria-pressed="false">
+        <span class="dx-num">06</span>
+        <span><span class="dx-btn-label">Nobody knows what we stand for</span><span class="dx-btn-sub">Competitors define the problem while we stay quiet.</span></span>
+      </button>
     </div>
-    <div class="hero-cred">
-      <svg viewBox="0 0 14 14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4h8M7 2l2 2-2 2"/><path d="M13 10H5M7 8l-2 2 2 2"/></svg>
-      GTM &amp; Commercial Governance
+
+    <div class="dx-panel" id="dxPanel" aria-live="polite">
+      <div class="dx-what">
+        <p class="dx-label">What is really going on</p>
+        <h2 id="dxTitle">You have sellers. You do not have a system.</h2>
+        <p id="dxText">Revenue comes from individual effort, so it stalls whenever those people are busy. The fix is a repeatable engine: a clear ideal customer, positioning sales can use, and a channel plan with owners.</p>
+        <a class="dx-step" id="dxStep" href="revenue-engine-audit.html">
+          <span><span class="dx-step-kind" id="dxStepKind">Free first step &middot; Tool &middot; 6 min</span><span class="dx-step-title" id="dxStepTitle">Run the Revenue Engine Audit</span></span>
+          <span class="dx-step-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+      <div class="dx-fix">
+        <p class="dx-label">How Optivus fixes it</p>
+        <h3 id="dxOffer">Revenue Architect</h3>
+        <p id="dxPromise">A senior marketing leader embedded in your team. One strategy day a month, a weekly CEO check-in and a quarterly board-ready review.</p>
+        <p class="dx-format" id="dxFormat">$6,000 to $12,000 a month &middot; Starts with a 90-day Strategy Sprint</p>
+        <div class="dx-actions">
+          <a href="https://calendar.app.google/5v6oNJ8jHkWMVzTTA" target="_blank" rel="noopener" class="hero-btn-primary">BOOK A 30-MINUTE CALL <span class="hero-btn-arrow">&rarr;</span></a>
+          <a class="dx-more" id="dxMore" href="#fractional-cmo">See how it works</a>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="hero-actions">
-    <a href="https://calendar.app.google/5v6oNJ8jHkWMVzTTA" target="_blank" rel="noopener" class="hero-btn-primary">
-      BOOK A FREE DISCOVERY CALL <span class="hero-btn-arrow">→</span>
-    </a>
-  </div>
+<script>
+/* Diagnosis picker: swaps the read-out when a situation is chosen.
+   Deep link any situation with index.html?problem=board (ids: heroics, plan, churn, board, ai, voice). */
+(function(){
+  var D = {
+    heroics:{title:'You have sellers. You do not have a system.',
+      text:'Revenue comes from individual effort, so it stalls whenever those people are busy. The fix is a repeatable engine: a clear ideal customer, positioning sales can use, and a channel plan with owners.',
+      offer:'Revenue Architect', promise:'A senior marketing leader embedded in your team. One strategy day a month, a weekly CEO check-in and a quarterly board-ready review.',
+      format:'$6,000 to $12,000 a month · Starts with a 90-day Strategy Sprint', more:'#fractional-cmo',
+      kind:'Free first step · Tool · 6 min', step:'Run the Revenue Engine Audit', href:'revenue-engine-audit.html'},
+    plan:{title:'Activity is not a strategy.',
+      text:'Campaigns are running, but nobody can point to the plan they serve. You need the ideal customer, the positioning and the channel plan written down and agreed before another dollar goes out.',
+      offer:'Growth Playbook in 30 Days', promise:'A complete B2B go-to-market strategy in 30 days, written down and ready to run.',
+      format:'Fixed fee · 30 days', more:'growth-playbook.html',
+      kind:'Free first step · Tool · 2 min', step:'Generate your 30-60-90 day roadmap', href:'roadmap-generator.html'},
+    churn:{title:'The leak is after the sale.',
+      text:'Acquisition gets the attention while friction between first touch and renewal quietly drains revenue. Find where customers stall, then fix those moments first.',
+      offer:'Customer Journey & CX Audit', promise:'Finds the friction and revenue leakage from first touch to retention.',
+      format:'Fixed fee', more:'cx-audit.html',
+      kind:'Free first step · Read', step:'The 10-Point Go-To-Market Leak Finder', href:'gtm-leak-finder.html'},
+    board:{title:'Reports are not oversight.',
+      text:'Dashboards get presented and nobody challenges them. An independent commercial voice at the table tests the go-to-market plan before the market does.',
+      offer:'Board-Level Growth Advisor', promise:'An advisory seat on commercial strategy and growth at the leadership table.',
+      format:'Monthly retainer', more:'board-advisor.html',
+      kind:'Free first step · Read', step:'What a Board Actually Needs From Marketing', href:'what-a-board-needs-from-marketing.html'},
+    ai:{title:'Tools without a plan add risk, not revenue.',
+      text:'Faster content is not better pipeline. AI earns its place when it lowers the cost of a qualified opportunity while your data and your brand stay protected.',
+      offer:'AI for Marketing', promise:'Practical AI integration and training for marketing teams.',
+      format:'Project or retainer', more:'ai-for-marketing.html',
+      kind:'Free first step · Read', step:'AI Theater vs. AI Architecture', href:'ai-theater-vs-ai-architecture.html'},
+    voice:{title:'Silence is a commercial risk.',
+      text:'The executive who names the buyer’s problem owns the category. An hour of your thinking, captured well, becomes a month of visible and attributable presence.',
+      offer:'Executive Thought-Leadership Partner', promise:'Executive content and category positioning for founders.',
+      format:'Monthly retainer', more:'thought-leadership.html',
+      kind:'Free first step · Read', step:'Why B2B Executive Silence Is a Commercial Risk', href:'why-b2b-executive-silence-is-a-commercial-risk.html'}
+  };
+  var btns = document.querySelectorAll('#dxGrid .dx-btn'), panel = document.getElementById('dxPanel');
+  if(!btns.length || !panel) return;
+  function set(id, text){ var el = document.getElementById(id); if(el) el.textContent = text; }
+  function show(key){
+    var d = D[key];
+    if(!d) return false;
+    btns.forEach(function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-dx') === key ? 'true' : 'false'); });
+    set('dxTitle', d.title); set('dxText', d.text);
+    set('dxOffer', d.offer); set('dxPromise', d.promise); set('dxFormat', d.format);
+    set('dxStepKind', d.kind); set('dxStepTitle', d.step);
+    document.getElementById('dxStep').setAttribute('href', d.href);
+    document.getElementById('dxMore').setAttribute('href', d.more);
+    return true;
+  }
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){
+      var key = b.getAttribute('data-dx');
+      if(!show(key)) return;
+      if(panel.getBoundingClientRect().top > window.innerHeight - 180){
+        panel.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+      try{ history.replaceState(null, '', '?problem=' + key + location.hash); }catch(e){}
+      if(typeof window.clarity === 'function'){ window.clarity('event', 'home_problem_' + key); }
+    });
+  });
+  var wanted = null;
+  try{ wanted = new URLSearchParams(location.search).get('problem'); }catch(e){}
+  if(wanted) show(wanted);
+})();
+</script>
 </header>
-
-<!-- PROBLEM CARDS -->
-<style id="problem-cards-css">
-.problem-cards-section{background:var(--pale-blue,#D1FAE5);padding:48px 80px;}
-.problem-cards-inner{max-width:1100px;margin:0 auto;}
-.problem-cards-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
-.problem-cards-heading{text-align:center;font-size:24px;font-weight:700;color:var(--body-text,#0F172A);margin:0 auto 28px;max-width:640px;line-height:1.3;display:flex;align-items:center;justify-content:center;}
-.problem-card{background:#fff;border:2px solid #34D399;border-radius:14px;padding:20px 22px;text-decoration:none;display:block;transition:transform .15s,box-shadow .15s;}
-.problem-card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(16,185,129,.15);}
-.problem-card h3{font-size:15px;font-weight:700;color:var(--body-text,#0F172A);margin-bottom:6px;line-height:1.3;}
-.problem-card p{font-size:13px;color:var(--body-text,#0F172A);opacity:.7;line-height:1.5;margin:0;}
-@media(max-width:900px){.problem-cards-section{padding:40px 40px;}.problem-cards-grid{grid-template-columns:1fr 1fr;}}
-@media(max-width:600px){.problem-cards-section{padding:32px 20px;}.problem-cards-grid{grid-template-columns:1fr;}.problem-cards-heading{font-size:20px;}}
-</style>
-<section class="problem-cards-section" aria-label="Common revenue leaks — click to see how each is fixed">
-  <div class="problem-cards-inner">
-    <h2 class="problem-cards-heading">Is your company facing these challenges?</h2>
-    <div class="problem-cards-grid">
-      <a href="cx-audit.html" class="problem-card">
-        <h3>High Churn</h3>
-        <p>Hurts what your company is worth</p>
-      </a>
-      <a href="gtm-leak-finder.html" class="problem-card">
-        <h3>Disconnected Systems</h3>
-        <p>You lose deals because of it</p>
-      </a>
-      <a href="why-pe-backed-companies-stall-at-20m.html" class="problem-card">
-        <h3>Growth by Heroics</h3>
-        <p>If they leave, so does the value</p>
-      </a>
-      <a href="growth-playbook.html" class="problem-card">
-        <h3>Low Share of Wallet</h3>
-        <p>Money sitting on the table</p>
-      </a>
-    </div>
-  </div>
-</section>
 
 <!-- COMPANY MARQUEE RIBBON -->
 <div class="marquee-ribbon" aria-label="Companies I have worked with" role="marquee">
@@ -2227,35 +2380,28 @@ body{padding-top:68px;}
   </div>
 </div>
 
-
-<!-- SOCIAL PROOF -->
-<section class="social-proof" aria-label="Why clients choose Optivus">
-  <div class="social-proof-inner">
-    <p class="sp-eyebrow reveal">Trusted Results</p>
-    <h2 class="sp-headline reveal">What working with a senior fractional<br>marketing leader actually delivers</h2>
-
-    <div class="sp-cards">
-      <div class="sp-card reveal">
-        <span class="sp-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>
-        <h3>Strategy in weeks, not quarters</h3>
-        <p>Most companies spend six to twelve months trying to hire a full-time CMO. A fractional engagement delivers a complete go-to-market strategy, refined ICP, and demand generation engine in the first 30 to 45 days. At Veriforce, MQLs scaled from 30 to 803 a month. At TELUS, a structured program built a $989M pipeline.</p>
-        <div class="sp-card-stat">30–45<div class="sp-card-stat-label">days to strategic clarity</div></div>
+<!-- PROOF -->
+<section class="dx-section dx-proof" aria-label="Results Dean Reid has delivered">
+  <div class="dx-sec-inner">
+    <div class="dx-sec-head">
+      <h2>Done before, at scale.</h2>
+      <p>Dean Reid, 25+ years at VP and Director level: TELUS, Bell Canada, SMART Technologies, Veriforce, Userful and TEC Canada.</p>
+    </div>
+    <div class="dx-stats">
+      <div class="dx-stat">
+        <div class="dx-stat-num">$989M</div>
+        <p>pipeline built by a structured program at TELUS</p>
       </div>
-      <div class="sp-card reveal reveal-d1">
-        <span class="sp-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l5-5 4 4 9-9"/><path d="M17 7h4v4"/></svg></span>
-        <h3>Built for PE-backed growth-stage companies</h3>
-        <p>Marketing exists to drive pipeline, not populate a dashboard. I build programs that show up in the forecast. At SMART Technologies, this approach drove 48% YoY revenue expansion, scaling from $120M to $700M. At Veriforce, it produced 27x growth in qualified pipeline.</p>
-        <div class="sp-card-stat">$15M–$60M<div class="sp-card-stat-label">ideal client revenue range</div></div>
+      <div class="dx-stat">
+        <div class="dx-stat-num">27x</div>
+        <p>qualified pipeline growth at Veriforce, from 30 to 803 MQLs a month</p>
       </div>
-      <div class="sp-card reveal reveal-d2">
-        <span class="sp-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/><circle cx="9" cy="14" r="1.5"/><circle cx="15" cy="14" r="1.5"/><path d="M9 18h6"/></svg></span>
-        <h3>AI-native delivery, senior judgment</h3>
-        <p>Modern tools compress the strategy-to-execution timeline. That means richer deliverables and faster iteration, without losing the judgment that comes from 25 years of enterprise leadership.</p>
-        <div class="sp-card-stat">40–60%<div class="sp-card-stat-label">faster strategy-to-execution</div></div>
+      <div class="dx-stat">
+        <div class="dx-stat-num">$700M</div>
+        <p>revenue at SMART Technologies, up from $120M at 48% year over year</p>
       </div>
     </div>
-
-    <div class="sp-industries reveal">
+    <div class="sp-industries">
       <span class="sp-industries-label">Industries Served</span>
       <span class="sp-industry-pill">B2B SaaS</span>
       <span class="sp-industry-pill">Professional Services</span>
@@ -2269,17 +2415,31 @@ body{padding-top:68px;}
   </div>
 </section>
 
-<nav class="offerings-strip" aria-label="Jump to offerings">
-  <span class="strip-label">Offerings</span>
-  <div class="strip-items">
-    <a href="#fractional-cmo" class="strip-item">01 · Revenue Architect</a>
-    <a href="board-advisor.html" class="strip-item">02 · Board Advisor</a>
-    <a href="growth-playbook.html" class="strip-item">03 · Growth Playbook</a>
-    <a href="cx-audit.html" class="strip-item">04 · CX Audit</a>
-    <a href="ai-for-marketing.html" class="strip-item">05 · AI for Marketing</a>
-    <a href="thought-leadership.html" class="strip-item">06 · Thought Leadership</a>
+<!-- WHAT HAPPENS AFTER YOU CALL -->
+<section class="dx-section" aria-label="What happens after you call">
+  <div class="dx-sec-inner">
+    <div class="dx-sec-head">
+      <h2>What happens after you call.</h2>
+    </div>
+    <div class="dx-steps">
+      <div>
+        <p class="dx-when">Day one</p>
+        <h3>A 30-minute discovery call</h3>
+        <p>No pitch, no pressure. A direct conversation about where your marketing is and whether Optivus is the right fit.</p>
+      </div>
+      <div>
+        <p class="dx-when">Days 30 to 45</p>
+        <h3>Strategic clarity, in writing</h3>
+        <p>Your ideal customer profile, positioning and channel plan, agreed and ready to run.</p>
+      </div>
+      <div>
+        <p class="dx-when">Days 60 to 90</p>
+        <h3>Pipeline impact</h3>
+        <p>Live programs, a monthly strategy day, weekly CEO check-ins and a quarterly board-ready review.</p>
+      </div>
+    </div>
   </div>
-</nav>
+</section>
 
 <style id="cfc-css">
 .cfc-section{background:#F5F2ED;padding:88px 80px;border-bottom:1px solid #E2D9C8;}
@@ -2323,7 +2483,7 @@ body{padding-top:68px;}
       </div>
       <div class="cfc-card">
         <div class="cfc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/><circle cx="9" cy="14" r="1.5"/><circle cx="15" cy="14" r="1.5"/></svg></div>
-        <h3 class="cfc-card-title">An agency executes. A Revenue Architect makes the agency accountable.<br>makes the agency accountable.</h3>
+        <h3 class="cfc-card-title">An agency executes. A Revenue Architect<br>makes the agency accountable.</h3>
         <p class="cfc-card-body">Most B2B companies paying an agency without a strategic marketing leader are funding activity that isn&rsquo;t connected to a revenue goal. A Revenue Architect sets the strategy, writes the brief, owns the ICP and positioning, and ensures everything your team or agency executes is pulling toward the same pipeline target. Modern tools then compress delivery by 40&ndash;60%.</p>
         <div class="cfc-stat"><div class="cfc-stat-num">40&ndash;60%</div><div class="cfc-stat-lbl">faster strategy-to-execution</div></div>
       </div>
@@ -2347,7 +2507,7 @@ body{padding-top:68px;}
 
       <div class="aeo-item" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
         <h3 class="aeo-q" itemprop="name">What is a Revenue Architect (Fractional CMO)?</h3>
-        <p class="aeo-answer" itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" itemscope><span itemprop="text">A Revenue Architect is a <strong>senior chief marketing officer who embeds part-time</strong> on a monthly retainer - typically 2–3 days per week. They own strategy, GTM architecture, and team leadership without the cost of a full-time hire. For PE-backed B2B companies doing $15M–$60M, a Revenue Architect delivers the same strategic depth at <strong>20–30% of full-time CMO cost</strong>.</p>
+        <p class="aeo-answer" itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" itemscope><span itemprop="text">A Revenue Architect is a <strong>senior chief marketing officer who embeds part-time</strong> on a monthly retainer - typically 2–3 days per week. They own strategy, GTM architecture, and team leadership without the cost of a full-time hire. For B2B companies doing $15M–$60M, a Revenue Architect delivers the same strategic depth at <strong>20–30% of full-time CMO cost</strong>.</p>
       </div>
 
       <div class="aeo-item" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
@@ -2362,7 +2522,7 @@ body{padding-top:68px;}
 
       <div class="aeo-item" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
         <h3 class="aeo-q" itemprop="name">When is the right time to hire a Revenue Architect?</h3>
-        <p class="aeo-answer" itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" itemscope><span itemprop="text">When marketing has outgrown founder-led execution but a $300K full-time hire isn't justified. Signs: <strong>revenue between $15M–$60M</strong>, inconsistent pipeline, marketing budget spent without a coherent strategy, or a GTM rebuild needed after a PE transaction, pivot, or acquisition. If two of these apply, it's time.</p>
+        <p class="aeo-answer" itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" itemscope><span itemprop="text">When marketing has outgrown founder-led execution but a $300K full-time hire isn't justified. Signs: <strong>revenue between $15M–$60M</strong>, inconsistent pipeline, marketing budget spent without a coherent strategy, or a GTM rebuild needed after an ownership change, pivot, or acquisition. If two of these apply, it's time.</p>
       </div>
 
       <div class="aeo-item" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
@@ -2372,7 +2532,7 @@ body{padding-top:68px;}
 
       <div class="aeo-item" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
         <h3 class="aeo-q" itemprop="name">Does Optivus serve companies outside Calgary?</h3>
-        <p class="aeo-answer" itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" itemscope><span itemprop="text">Yes. Based in <strong>Calgary, Alberta</strong>, Optivus serves B2B companies across Western Canada - Edmonton, Vancouver, Saskatoon - and nationally. Engagements are primarily remote with optional on-site. Qualification is company stage ($15M–$60M B2B revenue, PE-backed) and fit, <strong>not geography</strong>.</p>
+        <p class="aeo-answer" itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" itemscope><span itemprop="text">Yes. Based in <strong>Calgary, Alberta</strong>, Optivus serves B2B companies across Western Canada - Edmonton, Vancouver, Saskatoon - and nationally. Engagements are primarily remote with optional on-site. Qualification is company stage ($15M–$60M B2B revenue) and fit, <strong>not geography</strong>.</p>
       </div>
 
     </div>
@@ -2512,7 +2672,7 @@ body{padding-top:68px;}
 
     <div class="site-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
       <button class="site-faq-q" aria-expanded="false"><span itemprop="name">What size of company benefits most from a Revenue Architect?</span><span class="sfq-arrow">▾</span></button>
-      <div class="site-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">The sweet spot is <strong>PE-backed B2B companies doing $15M–$60M in annual revenue</strong> that have outgrown founder-led marketing but can't yet justify a $250K–$350K full-time CMO. This includes professional services, B2B SaaS, manufacturing, engineering firms, and distribution companies with complex sales cycles that need senior marketing judgment tied to pipeline outcomes.</p></div>
+      <div class="site-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">The sweet spot is <strong>B2B companies doing $15M–$60M in annual revenue</strong> that have outgrown founder-led marketing but can't yet justify a $250K–$350K full-time CMO. This includes professional services, B2B SaaS, manufacturing, engineering firms, and distribution companies with complex sales cycles that need senior marketing judgment tied to pipeline outcomes.</p></div>
     </div>
 
     <div class="site-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
@@ -3014,61 +3174,5 @@ document.querySelectorAll('.site-faq-q').forEach(function(btn) {
 })();
 </script>
 
-<script id="hero-rotate-js">
-(function(){
-  var PHRASES=[
-    'B2B companies stuck at $20M.',
-    'PE-backed portfolios leaking pipeline.',
-    'founders who’ve outgrown word‑of‑mouth.',
-    'companies 18 months from exit.'
-  ];
-  var HOLD = 3800;   // ms each phrase is fully visible
-  var DUR  = 550;    // ms transition (matches CSS animation duration)
-
-  var wrap = document.getElementById('hero-rotate-wrap');
-  if (!wrap) return;
-
-  var idx = 0;
-
-  // Create and mount the first word
-  function makeWord(text) {
-    var s = document.createElement('span');
-    s.className = 'hero-word';
-    s.innerHTML = text;
-    return s;
-  }
-
-  var current = makeWord(PHRASES[0]);
-  current.classList.add('is-current');
-  wrap.appendChild(current);
-
-  function rotate() {
-    idx = (idx + 1) % PHRASES.length;
-
-    // Build the incoming element and append (starts off-screen via CSS default)
-    var next = makeWord(PHRASES[idx]);
-    next.classList.add('is-entering');
-    wrap.appendChild(next);
-
-    // Simultaneously exit the current
-    current.classList.remove('is-current');
-    current.classList.add('is-exiting');
-
-    var prev = current;
-    current = next;
-
-    // After animation: clean up exited element, mark new one as current
-    setTimeout(function() {
-      prev.parentNode && prev.parentNode.removeChild(prev);
-      current.classList.remove('is-entering');
-      current.classList.add('is-current');
-      // Schedule next rotation
-      setTimeout(rotate, HOLD);
-    }, DUR);
-  }
-
-  setTimeout(rotate, HOLD);
-})();
-</script>
 </body>
 </html>
