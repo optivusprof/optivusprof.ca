@@ -771,7 +771,7 @@ var SparkCore = (function () {
     }
     h.push("</section>");
     h.push('<section class="r-sec method"><h2 class="r-h">How this assessment works</h2><p>SPARK applies the Entrepreneur\'s Idea Validation Framework: ' +
-           "124 questions across 16 stages, from defining the idea to making the decision. Each scored stage has gate questions that set the minimum " +
+           "126 questions across 16 stages, from defining the idea to making the decision. Each scored stage has gate questions that set the minimum " +
            "evidence needed to pass. A stage fails only on evidence against the idea, never on missing evidence. The verdict comes from fixed rules: " +
            "the five core stages (problem, customer, validation, solution and willingness to pay) must pass for a \"Good idea\". The same answers " +
            "always produce the same report, and no AI is used.</p><p>Answer scales are built on published research and practice, including Fitzpatrick's " +
@@ -1404,7 +1404,7 @@ var SparkCore = (function () {
       }), 9);
 
     // ---- method, link and footer band
-    var m1 = wrap([R("SPARK applies the Entrepreneur's Idea Validation Framework: 124 questions across 16 stages, from defining the idea to making " +
+    var m1 = wrap([R("SPARK applies the Entrepreneur's Idea Validation Framework: 126 questions across 16 stages, from defining the idea to making " +
       "the decision. Each scored stage has gate questions that set the minimum evidence needed to pass. A stage fails only on evidence against " +
       "the idea, never on missing evidence. The verdict comes from fixed rules: the five core stages (problem, customer, validation, solution and " +
       "willingness to pay) must pass for a \"Good idea\". The same answers always produce the same report, and no AI is used.", false, C.sec)], 9.5, W);

@@ -155,7 +155,7 @@
   function renderHome(error) {
     var list = Object.keys(store.assessments).map(function (k) { return store.assessments[k]; })
       .sort(function (x, y) { return x.updated_at < y.updated_at ? 1 : -1; });
-    var h = ['<section class="hero"><h1>Is this idea worth pursuing?</h1><p class="lede">Answer 23 quick questions, mostly by tapping, and get a ' +
+    var h = ['<section class="hero"><h1>Is this idea worth pursuing?</h1><p class="lede">Answer 24 quick questions, mostly by tapping, and get a ' +
       "first verdict with the reasons behind it. Go deeper one stage at a time whenever you like.</p>" +
       '<form class="start-form" id="start-form"><label for="idea_name" class="field-label">Name your idea</label><div class="start-row">' +
       '<input id="idea_name" type="text" maxlength="200" required autocomplete="off" placeholder="e.g. Last-minute booking for dog groomers">' +
