@@ -310,10 +310,14 @@
       '<line x1="' + cx + '" y1="' + cy + '" x2="' + (cx - r + 18) + '" y2="' + cy + '" class="needle-line"/></g><circle cx="' + cx + '" cy="' + cy + '" r="9" class="needle-hub"/></svg>';
   }
 
+  // The PDF is offered only once the visitor has asked for the report by email (name, email and consent), so every
+  // download is a lead. Without a lead endpoint configured there is no form, so the download stays available.
+  function canDownload(a) { return !CFG.leadEndpoint || !!a.lead_sent; }
+
   function emailCard(a) {
     if (!CFG.leadEndpoint) return "";
-    return '<section class="insight-card email-card no-print" id="email-card" aria-labelledby="email-h"><h2 id="email-h">Email me this report</h2>' +
-      '<p class="small muted">We\'ll send the full report, with charts and your action plan, to your inbox.</p>' +
+    return '<section class="insight-card email-card no-print" id="email-card" aria-labelledby="email-h"><h2 id="email-h">Get your full report</h2>' +
+      '<p class="small muted">We\'ll email you the full report as a PDF, with the charts and your complete action plan, and you can download it here straight away.</p>' +
       '<form id="email-form" novalidate><div class="ef-row"><label for="ef-name">Your name</label><input id="ef-name" autocomplete="name" maxlength="80" required></div>' +
       '<div class="ef-row"><label for="ef-email">Email</label><input id="ef-email" type="email" autocomplete="email" maxlength="254" required></div>' +
       '<div class="ef-hp" aria-hidden="true"><label for="ef-website">Leave this empty</label><input id="ef-website" tabindex="-1" autocomplete="off"></div>' +
@@ -331,7 +335,7 @@
       (res.depth.quick_done ? "" : '<a class="btn" href="' + base + '/quick">Continue quick screen</a>') +
       '<a class="btn btn-primary" href="' + base + '/report">Open your full report</a>' +
       (CFG.leadEndpoint ? '<a class="btn" href="#email-card" data-scroll="email-card">Email me the report</a>' : "") +
-      '<button class="btn" type="button" data-download="' + a.id + '">Download PDF</button></div></div>');
+      (canDownload(a) ? '<button class="btn" type="button" data-download="' + a.id + '">Download PDF</button>' : "") + "</div></div>");
     h.push('<h1 class="idea-title">' + e(a.idea_name) + "</h1>");
     if ((a.review || []).length) h.push('<p class="notice no-print">The question bank changed, so ' + a.review.length + " answer(s) need answering again: " +
       a.review.map(function (r) { return '<a href="' + base + "/stage/" + bank.qById[r].stage + '">Q' + r + "</a>"; }).join(", ") + ".</p>");
@@ -420,8 +424,8 @@
   }
   function renderReport(a) {
     page('<div class="report-bar no-print"><a href="#/a/' + a.id + '/results">← Back to results</a><span class="toolbar-actions">' +
-      '<button class="btn" type="button" data-print-report>Print / save as PDF</button>' +
-      '<button class="btn" type="button" data-download="' + a.id + '">Download PDF</button>' +
+      (canDownload(a) ? '<button class="btn" type="button" data-print-report>Print / save as PDF</button>' +
+        '<button class="btn" type="button" data-download="' + a.id + '">Download PDF</button>' : "") +
       (CFG.leadEndpoint ? '<a class="btn btn-primary" href="#/a/' + a.id + '/results" data-goto-email>Email me the report</a>' : "") +
       '</span></div><iframe class="report-frame" id="report-frame" title="SPARK report"></iframe>', "report-page");
     var frame = document.getElementById("report-frame");
@@ -502,6 +506,7 @@
   function importShared() {
     var id = newAssessment(shared.idea_name);
     store.assessments[id].answers = JSON.parse(JSON.stringify(shared.answers));
+    store.assessments[id].lead_sent = true;   // they reached this from the report email, so they have already given their name
     saveStore(store);
     go("#/a/" + id + "/results");
   }
@@ -580,7 +585,8 @@
     } else if (el.dataset.importShared !== undefined && shared) {
       importShared();
     } else if (el.dataset.download) {
-      downloadPdf(getA(el.dataset.download));
+      var da2 = getA(el.dataset.download);
+      if (da2 && canDownload(da2)) downloadPdf(da2);
     } else if (el.dataset.printReport !== undefined) {
       var f = document.getElementById("report-frame"); if (f) f.contentWindow.print();
     } else if (el.dataset.scroll) {
@@ -684,8 +690,16 @@
       .then(function () {
         say("Thanks, " + name.split(" ")[0] + ". Your report is on its way to " + email + ". It usually arrives within a minute; check your spam folder if not.");
         form.reset();
+        a.lead_sent = true; persist(a);   // the PDF is now theirs: offer it here and on the results and report pages
+        var dl = document.createElement("button");
+        dl.className = "btn btn-primary ef-download"; dl.type = "button"; dl.dataset.download = a.id; dl.textContent = "Download your PDF now";
+        if (!form.querySelector(".ef-download")) status.parentNode.insertBefore(dl, status.nextSibling);
+        var actions = document.querySelector(".head-actions");
+        if (actions && !actions.querySelector("[data-download]")) {
+          var top = dl.cloneNode(true); top.className = "btn"; top.textContent = "Download PDF"; actions.appendChild(top);
+        }
       })
-      .catch(function () { say("We couldn't send that just now. Please check your connection and try again, or download the report instead.", true); })
+      .catch(function () { say("We couldn't send that just now. Please check your connection and try again.", true); })
       .then(function () { clearTimeout(timer); button.disabled = false; });
   }
 

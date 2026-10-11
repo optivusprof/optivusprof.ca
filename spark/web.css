@@ -17,6 +17,7 @@
 .ef-status { margin: 0; font-size: 14px; font-weight: 600; }
 .ef-status.is-ok { color: var(--emerald-deep); }
 .ef-status.is-bad { color: var(--status-danger); }
+.ef-download { justify-self: start; }
 
 /* Report view: the report renders in its own frame so its styles stay separate */
 .report-page .page { max-width: 980px; }
