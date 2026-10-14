@@ -40,6 +40,7 @@ All articles are written by Dean Reid. Statistics link to their original sources
 - [Marketing Channel Diagnostic](https://www.optivusprof.ca/marketing-channel-diagnostic.html): Prioritized cross-channel fixes for an underperforming channel and tactic.
 - [Sales and Marketing Alignment Scorecard](https://www.optivusprof.ca/alignment-scorecard.html): A 15-question assessment that scores sales and marketing alignment across five dimensions.
 - [SPARK: Is Your Startup Idea Worth Pursuing?](https://www.optivusprof.ca/spark/): A 24-question idea-viability rating from 0 to 100.
+- [The Revenue Expansion Map](https://www.optivusprof.ca/revenue-expansion-map.html): An interactive map of the five ways to grow revenue from existing customers (renewal, upsell, cross-sell, referral, price realization), with the plays and an example target metric for each.
 
 ## Services
 
