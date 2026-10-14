@@ -1,28 +1,41 @@
-OPTIVUS: INDEXING FIXES (Oct 14, 2026)
+OPTIVUS: SITE-WIDE GEO OPTIMIZATION (Oct 14, 2026)
 
-UPLOAD: drag all 35 files (everything except this README) into the repo root on
-GitHub and commit. No folders, so nothing can land in the wrong place.
+UPLOAD: drag all 42 files (everything except this README) into the repo root on
+GitHub and commit. No folders. Built on top of this morning's 08:24 upload.
 
 WHAT CHANGED
-1. All 34 pages: links to "index.html" now point to "/" (178 links).
-   Google treats index.html as a duplicate of your homepage ("Alternate page with
-   proper canonical tag"). Linking it everywhere sent mixed signals.
-2. what-is-a-fractional-cmo.html ("Crawled - currently not indexed"):
-   - eyebrow said "Guide · 2025", now 2026
-   - byline read as if you are currently VP Marketing at TEC Canada; now
-     "Fractional CMO (Revenue Architect) · Optivus · 25+ years of VP marketing
-     leadership at TELUS, Bell Canada, SMART Technologies and Veriforce"
-   - last-updated date and schema dateModified set to Oct 14, 2026
-3. The 7 new articles: share images now point to where GitHub put them (repo
-   root), and each author box links to the 3 fractional CMO guides.
-4. sitemap.xml: share-image paths fixed, guide lastmod updated.
+1. The 9 older Intelligence Series essays (Leak Finder, PE Stall at $20M, Performance
+   Theater, Revenue Architects on Price, AI Theater, Board, Financial Discipline,
+   Don't Gate, Executive Silence):
+   - Rebuilt on the Resources page design (ink + amber), same as the 7 new articles.
+     Your wording is kept. Em dashes and semicolons converted per your voice standard.
+   - Quick answer box, defined terms, key statistics with sources, question-led
+     headings with one-line answers, 3-5 new FAQs, step-by-step markup where it fits,
+     full author credentials, visible last-updated date, new LinkedIn share image.
+   - The invisible "Book a call" button text is fixed.
+2. Homepage: title, description, social tags and hero label now lead with
+   "Fractional CMO (Revenue Architect)" (the decision from website fixes #3),
+   plus a quick answer ("What does Optivus do?").
+3. Philosophy: now the master "Who is Dean Reid?" page (ProfilePage + full Person
+   credentials) with a quick answer and a 5-question FAQ. Every page's author
+   credit points here.
+4. 5 service pages: quick answer, question-led headings, credentials, updated date.
+5. 3 fractional CMO guides: credentials markup, bylines lead with Fractional CMO,
+   stale "2025" labels updated, comparison guide gets a quick answer.
+6. 4 tools (Revenue Engine Audit, Roadmap Generator, Channel Diagnostic, Alignment
+   Scorecard): readable intro AI engines can cite, FAQ, WebApplication markup.
+7. Resources: author/organization markup only. Layout untouched.
+8. llms.txt lists all 16 articles with their direct answers. sitemap.xml dates updated.
 
-THEN, IN GOOGLE SEARCH CONSOLE
-- Sitemaps: resubmit https://www.optivusprof.ca/sitemap.xml and confirm
-  Status = Success and Discovered pages = 32.
-- URL Inspection -> Request indexing, starting with:
-  what-is-a-fractional-cmo.html, resources.html, fractional-cmo-cost-canada.html,
-  fractional-cmo-vs-full-time.html, philosophy.html, then the 4 new essays.
-- "Page with redirect" and "Alternate page with proper canonical tag": these are
-  correct behaviour. Don't click "Validate fix" on them; validation will always
-  "fail" because the redirects are intentional.
+NOT CHANGED (your decision)
+- seo-playbook.html reads as an internal working plan (self-scores, a fix list,
+  competitor strategy). Options: rewrite as a public guide, or hide it from search.
+- gtm-diagnostic.html is an older version of the Revenue Engine Audit with no links
+  to it. Options: delete, or hide from search.
+- spark/: separate app you version yourself. Add an intro paragraph and FAQ in
+  your next SPARK release.
+
+THEN
+- Search Console: resubmit sitemap.xml, request indexing for the homepage,
+  philosophy.html, and the guides first.
+- Monthly: run the prompts in GEO-prompt-tracker.csv (80 prompts, 16 articles).
