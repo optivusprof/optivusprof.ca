@@ -1,0 +1,55 @@
+# Optivus
+
+> Optivus is a Canadian fractional CMO practice founded by Dean Reid, based in Cochrane, Alberta. It helps B2B companies in the $15M to $60M revenue range, including PE-backed portfolio companies, build go-to-market strategy, demand generation, and AI-ready marketing operations. Dean Reid has 25+ years of VP and Director-level marketing leadership at TELUS, Bell Canada, SMART Technologies, Veriforce, Userful, and TEC Canada.
+
+All articles are written by Dean Reid. Statistics link to their original sources. Content may be quoted with attribution to Dean Reid, Optivus, and a link to the source page.
+
+## Intelligence Series: essays
+
+- [The AI Convergence Trap: Why AI Is Making Every B2B Brand Sound the Same](https://www.optivusprof.ca/ai-convergence-trap.html): Answers "Why does AI make B2B content sound the same?" Because every vendor in a category now uses the same few AI models, trained the same way and prompted with the same playbook. Researchers call the result isomorphism: companies converge without anyone copying anyone. Default AI training measurably reduces language diversity, and polished writing no longer signals expertise, so buyers shift their trust to third-party proof such as reviews and citations.
+- [The Cost of Inaction: How 12-Month Blind Spots Hand Market Share to Agile Competitors](https://www.optivusprof.ca/cost-of-inaction.html): Answers "What is the cost of inaction in B2B strategy?" The cost of inaction is the market position a competitor builds while your leadership team is still deciding. A 12-month delay in a strategic pivot typically means missing the first procurement cycle after a market shift, and with it the reference customers, implementation partnerships, and buyer preference that decide competitive structure for years. Lost revenue is the smallest part of the cost.
+- [Stop Looking in the Mirror: Why Your Internal Strategy Audit Is Failing Your Market Position](https://www.optivusprof.ca/stop-looking-in-the-mirror.html): Answers "Why do internal strategy audits fail?" Internal strategy audits fail because they measure how well a company executes its current plan, not whether that plan still fits the market. They are run by the people who built the plan, using lagging internal metrics. The gaps that matter most, in positioning, competitive differentiation, and buyer perception, are only visible from outside, through buyer interviews and external research.
+- [Death of the Click: Why AI Citations Are the New SEO](https://www.optivusprof.ca/death-of-the-click-ai-citations.html): Answers "Why are AI citations replacing SEO rankings?" Because AI-generated answers now resolve many searches on the results screen. Pew Research found people clicked through to a website in 8% of visits when a Google AI summary appeared, versus 15% without one. Visibility now depends on whether the AI names you as a source inside its answer, and cited brands see about 35% higher organic click-through rates.
+- [The 10-Point Go-To-Market Leak Finder](https://www.optivusprof.ca/gtm-leak-finder.html): A one-page audit of where revenue leaks across the B2B sales and marketing funnel, with a benchmark for each of 10 leaks.
+- [AI Theater vs. AI Architecture](https://www.optivusprof.ca/ai-theater-vs-ai-architecture.html): Why most B2B AI marketing adoption creates risk without returns, and what an AI-native revenue architecture looks like.
+- [Why 90% of B2B Marketing Strategy Is Just Performance Theater](https://www.optivusprof.ca/why-90-percent-b2b-marketing-is-performance-theater.html): What separates marketing that builds pipeline from activity that only looks busy.
+- [What a Board Actually Needs From Marketing](https://www.optivusprof.ca/what-a-board-needs-from-marketing.html): Why independent commercial oversight of the revenue engine is a governance necessity.
+- [Why PE-Backed Companies Stall at $20M](https://www.optivusprof.ca/why-pe-backed-companies-stall-at-20m.html): The marketing infrastructure gap that stalls PE portfolio companies around $20M in revenue.
+- [Marketing Is a Financial Discipline, Not a Creative Exercise](https://www.optivusprof.ca/marketing-is-a-financial-discipline.html): Five disciplines that make marketing accountable to pipeline.
+- [Why B2B Executive Silence Is a Commercial Risk](https://www.optivusprof.ca/why-b2b-executive-silence-is-a-commercial-risk.html): Why the executive who defines the problem owns the category.
+- [Why 90% of Revenue Architects Are Competing on Price](https://www.optivusprof.ca/why-revenue-architects-compete-on-price.html): How fractional marketing leaders can position on a specific advantage instead of price.
+- [Why We Don't Gate Our Thinking](https://www.optivusprof.ca/why-we-dont-gate-our-thinking.html): The case for consulting in public and ungated B2B content.
+
+## Playbooks
+
+- [Account-Based Marketing: A Strategic Growth Playbook for High-Value B2B Accounts](https://www.optivusprof.ca/account-based-marketing-playbook.html): Answers "What is account-based marketing, and how do you run it?" Account-based marketing (ABM) is a B2B strategy where sales and marketing jointly target a defined list of high-value accounts with personalized campaigns. Run it in four steps: co-create a joint ABM playbook with sales, map each account’s buying committee, personalize content by role and account tier, and govern the program with clear ownership, shared metrics, and quarterly reviews.
+- [The Content Blueprint for High-Impact Demand Generation](https://www.optivusprof.ca/content-blueprint-demand-generation.html): Answers "What content should B2B companies create at each stage of the funnel?" At the top of the funnel (TOFU), publish educational blog posts, short videos, infographics, and SEO content. In the middle (MOFU), use case studies, webinars, comparison guides, and interactive tools. At the bottom (BOFU), offer demos, free trials, testimonials, and transparent pricing. After purchase, use onboarding, customer webinars, communities, and referral programs to drive retention and advocacy.
+- [Building a Scalable Marketing Engine: The 5-Phase Playbook](https://www.optivusprof.ca/scalable-marketing-engine-playbook.html): Answers "How do you build a scalable B2B marketing engine?" Build it in five connected phases. First, research the market, competitors, and customers. Second, define positioning, messaging, and strategic plays. Third, plan the go-to-market: channels, calendar, funnel stages, and budget. Fourth, launch multi-channel campaigns with sales. Fifth, optimize through attribution, testing, and feedback loops. Each phase ends in concrete deliverables that feed the next.
+- [The SEO & AI Search Dominance Playbook](https://www.optivusprof.ca/seo-playbook.html): Technical SEO, authority, content, local SEO, and AI engine signals, with a week-by-week plan.
+
+## Guides
+
+- [What Is a Revenue Architect? (Fractional CMO Guide)](https://www.optivusprof.ca/what-is-a-fractional-cmo.html): What a fractional CMO does, when to hire one, and what results to expect.
+- [Fractional CMO Cost in Canada](https://www.optivusprof.ca/fractional-cmo-cost-canada.html): Retainer ranges, fixed-fee options, and cost comparisons with a full-time CMO and an agency.
+- [Fractional CMO vs. Full-Time CMO](https://www.optivusprof.ca/fractional-cmo-vs-full-time.html): A 14-factor comparison of when each model makes sense.
+
+## Free tools
+
+- [Revenue Engine Audit](https://www.optivusprof.ca/revenue-engine-audit.html): Scores a go-to-market engine on 10 dimensions and ranks the three biggest revenue leaks.
+- [30-60-90 Day Roadmap Generator](https://www.optivusprof.ca/roadmap-generator.html): Builds a printable first-90-days marketing plan from five inputs.
+- [Marketing Channel Diagnostic](https://www.optivusprof.ca/marketing-channel-diagnostic.html): Prioritized cross-channel fixes for an underperforming channel and tactic.
+- [SPARK: Is Your Startup Idea Worth Pursuing?](https://www.optivusprof.ca/spark/): A 24-question idea-viability rating from 0 to 100.
+
+## Services
+
+- [Fractional CMO / Revenue Architect](https://www.optivusprof.ca/): Senior marketing leadership for B2B companies without full-time overhead.
+- [Growth Playbook in 30 Days](https://www.optivusprof.ca/growth-playbook.html): A fixed-scope B2B go-to-market strategy engagement.
+- [Board-Level Growth Advisor](https://www.optivusprof.ca/board-advisor.html): Independent commercial oversight for boards and PE sponsors.
+- [Customer Journey & CX Audit](https://www.optivusprof.ca/cx-audit.html)
+- [Executive Thought-Leadership Partner](https://www.optivusprof.ca/thought-leadership.html)
+- [AI for Marketing](https://www.optivusprof.ca/ai-for-marketing.html)
+
+## About
+
+- [Our Philosophy and About Dean Reid](https://www.optivusprof.ca/philosophy.html)
+- [All Resources & Tools](https://www.optivusprof.ca/resources.html)
