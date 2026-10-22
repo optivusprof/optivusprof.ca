@@ -39,12 +39,13 @@ All articles are written by Dean Reid. Statistics link to their original sources
 - [30-60-90 Day Roadmap Generator](https://www.optivusprof.ca/roadmap-generator.html): Builds a printable first-90-days marketing plan from five inputs.
 - [Marketing Channel Diagnostic](https://www.optivusprof.ca/marketing-channel-diagnostic.html): Prioritized cross-channel fixes for an underperforming channel and tactic.
 - [Sales and Marketing Alignment Scorecard](https://www.optivusprof.ca/alignment-scorecard.html): A 15-question assessment that scores sales and marketing alignment across five dimensions.
-- [SPARK: Is Your Startup Idea Worth Pursuing?](https://www.optivusprof.ca/spark/): A 24-question idea-viability rating from 0 to 100.
 - [The Revenue Expansion Map](https://www.optivusprof.ca/revenue-expansion-map.html): An interactive map of the five ways to grow revenue from existing customers (renewal, upsell, cross-sell, referral, price realization), with the plays and an example target metric for each.
 
 ## Services
 
-- [Fractional CMO / Revenue Architect](https://www.optivusprof.ca/): Senior marketing leadership for B2B companies without full-time overhead.
+- [Revenue Leak Review](https://www.optivusprof.ca/revenue-leak-review.html): The entry engagement. A $3,500 CAD fixed-fee, 10-business-day review that finds a B2B company's three biggest revenue leaks, estimates the annual cost of each, and delivers a 30-day fix plan. Fully credited toward a 90-day Strategy Sprint.
+- [Fractional CMO / Revenue Architect](https://www.optivusprof.ca/): Senior marketing leadership for $15M to $60M B2B companies: one strategy day a month, a weekly CEO check-in and a quarterly board-ready review, $6,000 to $12,000 CAD a month after a 90-day Strategy Sprint ($8,000 a month).
+- [Fractional CMO in Calgary](https://www.optivusprof.ca/fractional-cmo-calgary.html): On-site monthly strategy days for Calgary, Cochrane and Alberta companies; remote across Western Canada.
 - [Growth Playbook in 30 Days](https://www.optivusprof.ca/growth-playbook.html): A fixed-scope B2B go-to-market strategy engagement.
 - [Board-Level Growth Advisor](https://www.optivusprof.ca/board-advisor.html): Independent commercial oversight for boards and PE sponsors.
 - [Customer Journey & CX Audit](https://www.optivusprof.ca/cx-audit.html)

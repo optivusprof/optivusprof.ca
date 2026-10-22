@@ -2031,28 +2031,21 @@ h3 {
   </a>
   <ul id="onav-links" role="list">
     <li><a href="/">Revenue Architect</a></li>
+    <li><a href="revenue-leak-review.html">Revenue Leak Review</a></li>
+    <li><a href="revenue-engine-audit.html">Free Audit</a></li>
     <li>
-      <span>Other Services &#9662;</span>
-      <div class="onav-sub">
-        <a href="growth-playbook.html" class="cur">Growth Playbook in 30 Days</a>
-        <a href="board-advisor.html">Board-Level Growth Advisor</a>
-        <a href="cx-audit.html">Customer Journey & CX Audit</a>
-        <a href="thought-leadership.html">Executive Thought-Leadership Partner</a>
-        <a href="ai-for-marketing.html">AI for Marketing</a>
-      </div>
-    </li>
-    <li>
-      <span>Resources &#9662;</span>
+      <span>Insights &#9662;</span>
       <div class="onav-sub">
         <a href="resources.html">All Resources &amp; Tools</a>
         <a href="resources.html#blog">Intelligence Series</a>
       </div>
     </li>
     <li>
-      <span>Philosophy &#9662;</span>
+      <span>About Dean &#9662;</span>
       <div class="onav-sub">
-        <a href="philosophy.html">Our Philosophy</a>
         <a href="philosophy.html#about">About Dean Reid</a>
+        <a href="philosophy.html">Our Philosophy</a>
+        <a href="fractional-cmo-calgary.html">Fractional CMO in Calgary</a>
       </div>
     </li>
   </ul>
@@ -2063,6 +2056,7 @@ h3 {
 (function() {
   var target = document.currentScript;
   window.addEventListener('load', function() {
+    if (!window.calendar || !window.calendar.schedulingButton) return;
     calendar.schedulingButton.load({
       url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0vwcmmCRjR0JZoEVRIWoZq0R1xyJqWu90X9AHkEg8M-2rTOXRbfgdyETWvncK4DjOvUsf9_0EJ?gv=true',
       color: '#10B981',
@@ -2077,22 +2071,20 @@ h3 {
 <div id="onav-drw" aria-label="Mobile menu">
   <button id="onav-drw-x" aria-label="Close">&#x2715;</button>
   <a href="/">Revenue Architect</a>
-  <p class="onav-drw-lbl">Other Services</p>
-  <a href="growth-playbook.html" class="opt-dl">Growth Playbook in 30 Days</a>
-      <a href="board-advisor.html" class="opt-dl">Board-Level Growth Advisor</a>
-      <a href="cx-audit.html" class="opt-dl">Customer Journey & CX Audit</a>
-      <a href="thought-leadership.html" class="opt-dl">Executive Thought-Leadership Partner</a>
-      <a href="ai-for-marketing.html" class="opt-dl">AI for Marketing</a>
-  <p class="onav-drw-lbl">Resources</p>
+  <a href="revenue-leak-review.html">Revenue Leak Review</a>
+  <a href="revenue-engine-audit.html">Free Audit</a>
+  <p class="onav-drw-lbl">Insights</p>
   <a href="resources.html" class="opt-dl">All Resources &amp; Tools</a>
   <a href="resources.html#blog" class="opt-dl">Intelligence Series</a>
-  <p class="onav-drw-lbl">Philosophy</p>
-  <a href="philosophy.html">Our Philosophy</a>
-  <a href="philosophy.html#about">About Dean Reid</a>
+  <p class="onav-drw-lbl">About Dean</p>
+  <a href="philosophy.html#about" class="opt-dl">About Dean Reid</a>
+  <a href="philosophy.html" class="opt-dl">Our Philosophy</a>
+  <a href="fractional-cmo-calgary.html" class="opt-dl">Fractional CMO in Calgary</a>
   <script>
 (function() {
   var target = document.currentScript;
   window.addEventListener('load', function() {
+    if (!window.calendar || !window.calendar.schedulingButton) return;
     calendar.schedulingButton.load({
       url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0vwcmmCRjR0JZoEVRIWoZq0R1xyJqWu90X9AHkEg8M-2rTOXRbfgdyETWvncK4DjOvUsf9_0EJ?gv=true',
       color: '#10B981',
@@ -2253,21 +2245,23 @@ h3 {
 
     <!-- Nav column -->
     <div class="footer-col-nav">
-      <p class="footer-col-heading">Six Offerings</p>
+      <p class="footer-col-heading">Work with Optivus</p>
       <ul class="footer-col-links">
+        <li><a href="revenue-leak-review.html">Revenue Leak Review</a></li>
         <li><a href="/">Revenue Architect for B2B Growth</a></li>
-        <li><a href="board-advisor.html">Board-Level Growth Advisor</a></li>
         <li><a href="growth-playbook.html">Growth Playbook in 30 Days</a></li>
+        <li><a href="board-advisor.html">Board-Level Growth Advisor</a></li>
         <li><a href="cx-audit.html">Customer Journey &amp; CX Audit</a></li>
-        <li><a href="ai-for-marketing.html">Fractional Head of AI for Marketing</a></li>
+        <li><a href="ai-for-marketing.html">AI for Marketing</a></li>
         <li><a href="thought-leadership.html">Executive Thought-Leadership Partner</a></li>
+        <li><a href="fractional-cmo-calgary.html">Fractional CMO in Calgary</a></li>
       </ul>
     </div>
 
   </div>
 
   <div class="footer-bottom">
-    <p>&copy; 2026 Optivus. Revenue Architecture. Canada. &nbsp;&middot;&nbsp; <a href="privacy-policy.pdf" download style="color:rgba(255,255,255,0.6);text-decoration:none;">Privacy Policy ↓</a></p>
+    <p>&copy; 2026 Optivus. Revenue Architecture. Canada. &nbsp;&middot;&nbsp; <a href="privacy-policy.html" style="color:rgba(255,255,255,0.6);text-decoration:none;">Privacy Policy</a></p>
     <p>Revenue Architect &nbsp;&middot;&nbsp; Board Advisor &nbsp;&middot;&nbsp; AI Marketing &nbsp;&middot;&nbsp; B2B Growth Strategy &nbsp;&middot;&nbsp; Go-To-Market Consultant</p>
   </div>
 </footer>
@@ -2304,6 +2298,7 @@ sections.forEach(s => sectionObserver.observe(s));
   var hamburger = document.querySelector('.nav-hamburger');
   var drawer    = document.getElementById('nav-drawer');
   var overlay   = document.getElementById('nav-overlay');
+  if (!drawer || !hamburger) return;
   var drawerLinks = drawer.querySelectorAll('.drawer-links a, .drawer-cta');
   var closeBtn  = drawer.querySelector('.drawer-close');
 
@@ -2405,5 +2400,6 @@ document.querySelectorAll('.faq-q').forEach(function(q){
   document.addEventListener('keydown',function(e){if(e.key==='Escape')cl();});
 })();
 </script>
+<script src="assets/site.js" defer></script>
 </body>
 </html>

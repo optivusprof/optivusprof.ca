@@ -1,6 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window,document,"clarity","script","x7lbqdzww4");
+</script>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Revenue Engine Audit | Optivus</title>
@@ -430,7 +438,7 @@
      "#geo-qa"
     ]
    },
-   "abstract": "A free self-assessment that takes about six minutes. It scores your go-to-market engine on 10 revenue leaks against widely cited B2B benchmarks, ranks your three biggest leaks, and gives you a printable 30-day action plan. Your answers stay in your browser unless you choose to request the full report.",
+   "abstract": "A free self-assessment that takes about six minutes. It scores your go-to-market engine on 10 revenue leaks against widely cited B2B benchmarks, ranks your three biggest leaks, and gives you a printable 30-day action plan. Your answers stay in your browser unless you choose to request the full report, in which case your scores and contact details are sent to Dean Reid so he can follow up.",
    "about": [
     {
      "@type": "Thing",
@@ -616,10 +624,15 @@ const CONFIG = {
   productName: "Revenue Engine Audit",
   // Booking link. name + email are appended as query params for pre-fill.
   // Google Calendar widget handles booking directly
-  // Optional. Zapier / Make / n8n catch-hook URL. Leave "" to disable all network calls.
+  // Optional. Zapier / Make / n8n catch-hook URL (JSON POST). Leave "" to skip.
   webhookUrl: "",
+  // Every report request is emailed to Dean through FormSubmit (no account, no backend).
+  // The FIRST submission triggers a one-time activation email to this address: click it.
+  // After activation FormSubmit gives you a random alias; paste it here in place of the
+  // address to keep the email out of the page source.
+  leadEmailEndpoint: "https://formsubmit.co/ajax/dean.reid@optivusprof.ca",
   // Shown next to the GDPR/CCPA consent checkbox.
-  privacyUrl: "https://www.optivusprof.ca/privacy-policy.pdf", // s://optivus.io/privacy",
+  privacyUrl: "https://www.optivusprof.ca/privacy-policy.html", // s://optivus.io/privacy",
   secondsPerQuestion: 40,
   storageKey: "optivus_gtm_leak_v1"
 };
@@ -1258,7 +1271,7 @@ function renderResults(){
                 <label>Full name<input type="text" name="name" autocomplete="name" required></label>
                 <label>Work email<input type="email" name="email" autocomplete="email" required></label>
                 <label>Company<input type="text" name="company" autocomplete="organization" required></label>
-                <label>Total ARR
+                <label>Annual revenue
                   <select name="arrRange" required>
                     <option value="">Select…</option>
                     ${ARR_RANGES.map(r=>`<option value="${esc(r.label)}">${esc(r.label)}</option>`).join("")}
@@ -1270,19 +1283,24 @@ function renderResults(){
                 <span>I agree to ${esc(CONFIG.brandName)} processing my company's performance metrics and contact details to generate this report.
                 <a href="${esc(CONFIG.privacyUrl)}" target="_blank" rel="noopener">Privacy</a></span>
               </label>
+              <label class="consent">
+                <input type="checkbox" name="newsletter">
+                <span>Optional: also send me The Revenue Leak Brief, one leak and one fix every second Tuesday, from Dean Reid at Optivus (2836609 Alberta Ltd., 240 Montclair Place, Cochrane, AB T4C 0A8). Unsubscribe any time.</span>
+              </label>
               <p class="form-err" id="formErr" style="display:none"></p>
               <div class="btn-row"><button type="submit" class="btn btn-primary" id="leadSubmit">Show my full report</button></div>
-              <small class="dim">One email with your report. Unsubscribe any time.</small>
+              <small class="dim">Your full report opens on this page right away. Your scores and details go to Dean Reid, who may follow up once by email.</small>
             </form>
           </div>`}
       </div>
 
       ${gated ? `
         <div class="cta-block no-print">
-          <h2>Turn this into a plan that ships</h2>
-          <p class="dim" style="font-size:.92rem;max-width:48ch;margin:0 auto 4px">
-            Book a 30-minute Fractional CMO strategy review. We'll pressure-test your three priority leaks and map the first 30 days.</p>
+          <h2>Want these leaks measured on your real numbers?</h2>
+          <p class="dim" style="font-size:.92rem;max-width:52ch;margin:0 auto 4px">
+            This audit runs on your estimates. A <a href="revenue-leak-review.html">Revenue Leak Review</a> runs on your CRM, spend and deal data: your three biggest leaks, a dollar figure on each, and a 30-day fix plan in 10 business days. $3,500, fully credited if you continue. Or start with a free 30-minute call.</p>
           <div class="btn-row" style="justify-content:center">
+            <a class="btn btn-primary" href="revenue-leak-review.html" style="text-decoration:none">See the Revenue Leak Review</a>
             <span id="gcal-book-wrap" style="display:inline-flex;align-items:center;"></span>
             <button class="btn btn-secondary" id="pdfBtn">Free Download PDF</button>
           </div>
@@ -1395,7 +1413,8 @@ function submitLead(e){
     name: f.name.value.trim(),
     email: f.email.value.trim(),
     company: f.company.value.trim(),
-    arrRange: f.arrRange.value
+    arrRange: f.arrRange.value,
+    newsletter: !!(f.newsletter && f.newsletter.checked)
   };
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email);
   if(!data.name || !data.company || !data.arrRange || !emailOk){
@@ -1420,6 +1439,7 @@ function buildPayload(lead){
     source: "gtm-revenue-engine-audit-diagnostic",
     pageUrl: location.href,
     name: lead.name, email: lead.email, company: lead.company, arrRange: lead.arrRange,
+    Newsletter_Consent: lead.newsletter ? "YES (express, " + new Date().toISOString() + ")" : "no",
     GTM_Score: R.overall,
     Access_Score: R.access, Attract_Score: R.attract, Achieve_Score: R.achieve,
     Pull_Lever_Bottleneck: R.bottleneck,
@@ -1433,6 +1453,8 @@ function buildPayload(lead){
 }
 
 function dispatchWebhook(lead){
+  if(lead.sent) return;
+  dispatchLeadEmail(lead);
   if(!CONFIG.webhookUrl) return;
   try{
     fetch(CONFIG.webhookUrl, {
@@ -1441,6 +1463,24 @@ function dispatchWebhook(lead){
       body: JSON.stringify(buildPayload(lead)),
       keepalive:true
     }).catch(()=>{});
+  }catch(e){}
+}
+
+function dispatchLeadEmail(lead){
+  if(!CONFIG.leadEmailEndpoint) return;
+  const p = buildPayload(lead), flat = {};
+  Object.keys(p).forEach(k=>{ flat[k] = Array.isArray(p[k]) ? p[k].join(" | ") : p[k]; });
+  flat._subject = "Audit lead: " + lead.company + " (" + lead.arrRange + ") scored " + p.GTM_Score;
+  flat._replyto = lead.email;
+  flat._template = "table";
+  flat._captcha = "false";
+  try{
+    fetch(CONFIG.leadEmailEndpoint, {
+      method:"POST",
+      headers:{ "Content-Type":"application/json", "Accept":"application/json" },
+      body: JSON.stringify(flat),
+      keepalive:true
+    }).then(r=>{ if(r.ok){ state.lead.sent = true; save(); } }).catch(()=>{});
   }catch(e){}
 }
 
@@ -1495,5 +1535,6 @@ window.addEventListener('load', function() {
   }
 });
 </script>
+<script src="assets/site.js" defer></script>
 </body>
 </html>
