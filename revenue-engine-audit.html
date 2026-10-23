@@ -1470,7 +1470,9 @@ function dispatchLeadEmail(lead){
   if(!CONFIG.leadEmailEndpoint) return;
   const p = buildPayload(lead), flat = {};
   Object.keys(p).forEach(k=>{ flat[k] = Array.isArray(p[k]) ? p[k].join(" | ") : p[k]; });
-  flat._subject = "Audit lead: " + lead.company + " (" + lead.arrRange + ") scored " + p.GTM_Score;
+  flat._subject = "[Optivus lead] Audit: " + lead.company + " (" + lead.arrRange + ") scored " + p.GTM_Score;
+  // Machine-readable copy for the n8n -> Optivus Local CRM workflow (base64 JSON between markers).
+  try{ flat.crm_data = "CRM1:" + btoa(unescape(encodeURIComponent(JSON.stringify(Object.assign({type:"audit_lead"}, flat))))) + ":CRM1"; }catch(e){}
   flat._replyto = lead.email;
   flat._template = "table";
   flat._captcha = "false";

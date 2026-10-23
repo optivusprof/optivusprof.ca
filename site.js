@@ -46,7 +46,7 @@
   function track(name) {
     try { if (window.gtag) window.gtag("event", name); } catch (e) {}
     try { if (window.clarity) window.clarity("event", name); } catch (e) {}
-    try { if (window.lintrk) window.lintrk("track", { conversion_id: name }); } catch (e) {}
+    // LinkedIn conversions are set up in Campaign Manager as URL-based rules, not from here.
   }
   document.addEventListener("click", function (e) {
     var a = e.target.closest && e.target.closest("a[href]");
@@ -92,12 +92,19 @@
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { form.email.focus(); form.email.style.borderColor = "#F59E0B"; return; }
       var btn = form.querySelector("button"); btn.disabled = true; btn.textContent = "Sending...";
       var data = {
-        _subject: "Newsletter signup: " + email,
+        _subject: "[Optivus lead] Newsletter: " + email,
         _template: "table", _captcha: "false", _replyto: email,
         name: form.name.value.trim(), email: email,
         source: "Revenue Leak Brief signup", page: location.href,
         consent: "Express consent via signup form, " + new Date().toISOString()
       };
+      // Machine-readable copy for the n8n -> Optivus Local CRM workflow (base64 JSON between markers).
+      try {
+        data.crm_data = "CRM1:" + btoa(unescape(encodeURIComponent(JSON.stringify({
+          type: "newsletter_signup", name: data.name, email: email, page: data.page,
+          newsletter: true, consent: data.consent, submittedAt: new Date().toISOString()
+        })))) + ":CRM1";
+      } catch (err) {}
       function done() {
         form.innerHTML = '<p class="rlb-ok">Thanks. The next Brief will be in your inbox on the second Tuesday.</p>';
         track("newsletter_signup");
