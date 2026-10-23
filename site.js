@@ -7,7 +7,7 @@
    After turning any of these on, the privacy policy already discloses them. */
 (function () {
   var CONFIG = {
-    ga4Id: "",              // Google Analytics 4 Measurement ID, e.g. "G-XXXXXXXXXX"
+    ga4Id: "",              // Leave empty: GA4 runs through Google Tag Manager (GTM-TMNCNPFD) in each page's <head>
     linkedinPartnerId: "",  // LinkedIn Insight Tag partner ID, e.g. "1234567"
     // Newsletter signups are emailed to Dean through FormSubmit (same endpoint as the audit).
     signupEndpoint: "https://formsubmit.co/ajax/dean.reid@optivusprof.ca"
@@ -44,7 +44,8 @@
 
   // ---- Conversion events for any tool that is on
   function track(name) {
-    try { if (window.gtag) window.gtag("event", name); } catch (e) {}
+    // Google Tag Manager (GTM-TMNCNPFD) picks these up as Custom Event triggers.
+    try { (window.dataLayer = window.dataLayer || []).push({ event: name, page_path: location.pathname }); } catch (e) {}
     try { if (window.clarity) window.clarity("event", name); } catch (e) {}
     // LinkedIn conversions are set up in Campaign Manager as URL-based rules, not from here.
   }
