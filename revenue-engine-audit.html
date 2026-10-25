@@ -637,7 +637,11 @@ const CONFIG = {
   // Google Calendar widget handles booking directly
   // Optional. Zapier / Make / n8n catch-hook URL (JSON POST). Leave "" to skip.
   webhookUrl: "",
-  // Every report request is emailed to Dean through FormSubmit (no account, no backend).
+  // PRIMARY: Google Apps Script web app (WebsiteLeads.gs in the "spark leads" sheet).
+  // Paste its /exec URL here. It writes the lead to the sheet and emails Dean.
+  // While this is empty, leads fall back to FormSubmit (below).
+  leadsAppScriptUrl: "https://script.google.com/macros/s/AKfycbxtKEagOwZqv6qh88WH_kPB8gI7PMbtdR-yBliC4v1qmgCF_hWyqLcHF8oJci-Zlzohtw/exec",
+  // FALLBACK: report requests emailed to Dean through FormSubmit (no account, no backend).
   // The FIRST submission triggers a one-time activation email to this address: click it.
   // After activation FormSubmit gives you a random alias; paste it here in place of the
   // address to keep the email out of the page source.
@@ -1478,8 +1482,20 @@ function dispatchWebhook(lead){
 }
 
 function dispatchLeadEmail(lead){
+  const p = buildPayload(lead);
+  try{ (window.dataLayer = window.dataLayer || []).push({ event:"audit_report_request", audit_score:p.GTM_Score, revenue_band:lead.arrRange }); }catch(e){}
+  if(/^https:\/\/script\.google\.com\//.test(CONFIG.leadsAppScriptUrl || "")){
+    // text/plain + no-cors keeps this a "simple" request that Apps Script accepts from any site.
+    try{
+      fetch(CONFIG.leadsAppScriptUrl, {
+        method:"POST", mode:"no-cors", headers:{ "Content-Type":"text/plain;charset=utf-8" },
+        body: JSON.stringify(Object.assign({ type:"audit_lead" }, p)), keepalive:true
+      }).then(()=>{ state.lead.sent = true; save(); }).catch(()=>{});
+    }catch(e){}
+    return;
+  }
   if(!CONFIG.leadEmailEndpoint) return;
-  const p = buildPayload(lead), flat = {};
+  const flat = {};
   Object.keys(p).forEach(k=>{ flat[k] = Array.isArray(p[k]) ? p[k].join(" | ") : p[k]; });
   flat._subject = "[Optivus lead] Audit: " + lead.company + " (" + lead.arrRange + ") scored " + p.GTM_Score;
   // Machine-readable copy for the n8n -> Optivus Local CRM workflow (base64 JSON between markers).
@@ -1494,7 +1510,6 @@ function dispatchLeadEmail(lead){
       body: JSON.stringify(flat),
       keepalive:true
     }).then(r=>{ if(r.ok){ state.lead.sent = true; save(); } }).catch(()=>{});
-  try{ (window.dataLayer = window.dataLayer || []).push({ event:"audit_report_request", audit_score:p.GTM_Score, revenue_band:lead.arrRange }); }catch(e){}
   }catch(e){}
 }
 
