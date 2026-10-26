@@ -152,7 +152,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   /* ---- header ---- */
   .app-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}
-  .brand{display:flex;align-items:center;gap:10px;font-weight:680;letter-spacing:-.01em}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:680;letter-spacing:-.01em;color:inherit;text-decoration:none}
+  .brand-logo{display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:10px;background:#0F172A;flex:0 0 auto}
+  .brand-logo img{width:40px;height:auto;display:block}
+  .head-actions-r{display:flex;align-items:center;gap:10px}
+  a.ghost-btn{text-decoration:none;display:inline-flex;align-items:center}
+  .back-site{white-space:nowrap}
+  .back-site .bs-short{display:none}
+  @media (max-width:560px){.back-site .bs-long{display:none}.back-site .bs-short{display:inline}.brand-logo{width:44px;height:44px}.brand-logo img{width:34px}}
   .brand .dot{width:22px;height:22px;border-radius:7px;background:linear-gradient(135deg,#10B981,#34D399);flex:0 0 auto}
   .ghost-btn{
     background:transparent;border:1px solid var(--border-strong);color:var(--text-dim);
@@ -337,7 +344,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   @media print{
     :root{--bg:#fff;--surface:#fff;--surface-2:#f3f3f3;--text:#000;--text-dim:#333;--border:#bbb;--accent:#10B981}
     body{background:#fff}
-    .app-head .ghost-btn,.btn-row,.gate,.cta-block,.offline-banner,#restartTop,.no-print{display:none !important}
+    .app-head .ghost-btn,.back-site,.btn-row,.gate,.cta-block,.offline-banner,#restartTop,.no-print{display:none !important}
     .wrap{max-width:none;padding:0}
     .card{box-shadow:none;border:none;padding:0}
     .leak-card,.lever-card,.cta-block{break-inside:avoid}
@@ -605,8 +612,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 <div class="wrap">
   <header class="app-head">
-    <div class="brand"><span class="dot" aria-hidden="true"></span><span id="brandName">Optivus</span></div>
-    <button class="ghost-btn" id="restartTop" hidden>Start over</button>
+    <a class="brand" href="/" aria-label="Optivus home"><span class="brand-logo"><img src="assets/logo.png" alt="" width="40" height="39"></span><span id="brandName">Optivus</span></a>
+    <div class="head-actions-r">
+      <a class="ghost-btn back-site" href="/">&larr;&nbsp;<span class="bs-long">Back to optivusprof.ca</span><span class="bs-short">Home</span></a>
+      <button class="ghost-btn" id="restartTop" hidden>Start over</button>
+    </div>
   </header>
 
   <div class="offline-banner" role="status">Offline — your progress is saved on this device. It will sync when you reconnect.</div>
@@ -1300,7 +1310,7 @@ function renderResults(){
               </label>
               <label class="consent">
                 <input type="checkbox" name="newsletter">
-                <span>Optional: also send me The Revenue Leak Brief, one leak and one fix every second Tuesday, from Dean Reid at Optivus (2836609 Alberta Ltd., 240 Montclair Place, Cochrane, AB T4C 0A8). Unsubscribe any time.</span>
+                <span>Optional: also send me the Optivus Newsletter, one practical idea a month on finding and fixing revenue leaks, from Dean Reid at Optivus (2836609 Alberta Ltd., 240 Montclair Place, Cochrane, AB T4C 0A8). Unsubscribe any time.</span>
               </label>
               <p class="form-err" id="formErr" style="display:none"></p>
               <div class="btn-row"><button type="submit" class="btn btn-primary" id="leadSubmit">Show my full report</button></div>
