@@ -7,7 +7,7 @@
    After turning any of these on, the privacy policy already discloses them. */
 (function () {
   var CONFIG = {
-    ga4Id: "",              // Leave empty: GA4 runs through Google Tag Manager (GTM-TMNCNPFD) in each page's <head>
+    ga4Id: "",              // Leave empty: GA4 (G-V3QVZGP782) is installed inline in each page's <head>, after GTM-TMNCNPFD
     linkedinPartnerId: "",  // LinkedIn Insight Tag partner ID, e.g. "1234567"
     // PRIMARY: Google Apps Script web app (WebsiteLeads.gs in the "spark leads" sheet). Paste its /exec URL.
     leadsAppScriptUrl: "https://script.google.com/macros/s/AKfycbxtKEagOwZqv6qh88WH_kPB8gI7PMbtdR-yBliC4v1qmgCF_hWyqLcHF8oJci-Zlzohtw/exec",
@@ -48,6 +48,8 @@
   function track(name) {
     // Google Tag Manager (GTM-TMNCNPFD) picks these up as Custom Event triggers.
     try { (window.dataLayer = window.dataLayer || []).push({ event: name, page_path: location.pathname }); } catch (e) {}
+    // GA4 property G-V3QVZGP782 (inline gtag in each page's <head>).
+    try { if (window.gtag) window.gtag("event", name, { send_to: "G-V3QVZGP782", page_path: location.pathname }); } catch (e) {}
     try { if (window.clarity) window.clarity("event", name); } catch (e) {}
     // LinkedIn conversions are set up in Campaign Manager as URL-based rules, not from here.
   }
