@@ -1,69 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-CA">
 <head>
-<meta charset="UTF-8">
-<!-- Cookie consent: Google Consent Mode v2 defaults. MUST be the first script in <head>, before Google Tag Manager. -->
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  (function () {
-    var p = null;
-    try {
-      p = JSON.parse(localStorage.getItem('cookie_consent_preferences'));
-      if (!p || typeof p.timestamp !== 'number' || Date.now() - p.timestamp > 180 * 864e5) p = null;
-    } catch (e) { p = null; }
-    function g(on) { return on ? 'granted' : 'denied'; }
-    gtag('consent', 'default', {
-      security_storage: 'granted',
-      functionality_storage: g(p && p.functional),
-      personalization_storage: g(p && p.functional),
-      analytics_storage: g(p && p.analytics),
-      ad_storage: g(p && p.marketing),
-      ad_user_data: g(p && p.marketing),
-      ad_personalization: g(p && p.marketing),
-      wait_for_update: 500
-    });
-    gtag('set', 'ads_data_redaction', true);
-
-    // Apply every consent change to Google tags, Tag Manager and Microsoft Clarity.
-    window.addEventListener('cookie-consent-update', function (e) {
-      var c = e.detail;
-      gtag('consent', 'update', {
-        functionality_storage: g(c.functional),
-        personalization_storage: g(c.functional),
-        analytics_storage: g(c.analytics),
-        ad_storage: g(c.marketing),
-        ad_user_data: g(c.marketing),
-        ad_personalization: g(c.marketing)
-      });
-      // Tag Manager: use this Custom Event to fire tags (e.g. LinkedIn) only when marketing is allowed.
-      dataLayer.push({
-        event: 'cookie_consent_update',
-        consent_functional: c.functional,
-        consent_analytics: c.analytics,
-        consent_marketing: c.marketing
-      });
-      if (window.clarity) window.clarity('consentv2', { analytics_Storage: g(c.analytics), ad_Storage: g(c.marketing) });
-    });
-  })();
-</script>
-<!-- End cookie consent defaults -->
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-TMNCNPFD');</script>
-<!-- End Google Tag Manager -->
-<!-- Google tag (gtag.js): Optivus GA4 property G-V3QVZGP782 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3QVZGP782"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-V3QVZGP782');
-</script>
-<!-- End Google tag -->
 <!-- Microsoft Clarity -->
 <script type="text/javascript">
 (function(c,l,a,r,i,t,y){
@@ -72,6 +9,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 })(window,document,"clarity","script","x7lbqdzww4");
 </script>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Sales & Marketing Alignment Scorecard | Optivus</title>
 <meta name="description" content="Free sales and marketing alignment assessment for B2B companies. 15 questions, instant score, specific friction points. By Dean Reid, Optivus.">
@@ -100,7 +38,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "@id":"https://www.optivusprof.ca/alignment-scorecard.html#webpage",
       "url":"https://www.optivusprof.ca/alignment-scorecard.html",
       "name":"Sales & Marketing Alignment Scorecard | Optivus",
-      "dateModified": "2026-10-14",
+      "dateModified":"2026-09-04",
       "breadcrumb":{
         "@type":"BreadcrumbList",
         "itemListElement":[
@@ -290,7 +228,7 @@ body{font-family:var(--ff);background:#F8FFFE;color:var(--body);-webkit-font-smo
 .sc-friction-item:last-child{border-bottom:none;}
 .sc-friction-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:5px;}
 .sc-friction-dot.red{background:#ef4444;}
-.sc-friction-dot.amber{background:#f59e0b;}
+.sc-friction-dot.amber{background:#40E0D0;}
 .sc-friction-dot.green{background:var(--g);}
 .sc-friction-text h4{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:2px;}
 .sc-friction-text p{font-size:13px;color:var(--muted);line-height:1.55;}
@@ -352,234 +290,36 @@ footer{background:#0F172A;border-top:1px solid rgba(52,211,153,.1);}
 </style>
   <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
   <script src="https://calendar.google.com/calendar/scheduling-button-script.js" defer></script>
-<style id="geo-css">
-.geo-wrap{max-width:1100px;margin:32px auto;padding:0 24px;box-sizing:border-box;}
-.geo-qa{border:2px solid #10B981;border-radius:14px;padding:24px 28px 18px;background:#fff;position:relative;color:#0F172A;font-family:inherit;}
-.geo-lbl{position:absolute;top:-11px;left:20px;margin:0;background:#10B981;color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:3px 10px;border-radius:20px;line-height:1.4;}
-.geo-qa h2.geo-q{font-size:21px !important;line-height:1.35 !important;margin:6px 0 10px !important;padding:0 !important;border:0 !important;color:#0F172A !important;font-weight:800 !important;letter-spacing:-.005em !important;text-align:left !important;max-width:none !important;}
-.geo-qa h2.geo-q::before,.geo-qa h2.geo-q::after,.geo-faq h2::before,.geo-faq h2::after{content:none !important;display:none !important;}
-.geo-qa .geo-a{font-size:17px !important;line-height:1.75 !important;margin:0 0 12px !important;color:#0F172A !important;text-align:left !important;max-width:none !important;}
-.geo-qa .geo-def{font-size:14.5px;line-height:1.65;margin:8px 0 0;background:#F8FAFC;border-radius:8px;padding:10px 14px;color:#334155;text-align:left;}
-.geo-qa .geo-def dfn{font-style:normal;font-weight:700;color:#0F172A;}
-.geo-qa ul{margin:4px 0 12px 20px;padding:0;color:#334155;text-align:left;}
-.geo-qa li{font-size:15px;line-height:1.65;margin:0 0 6px;}
-.geo-qa .geo-by{font-size:12.5px;line-height:1.6;color:#566072;margin:14px 0 0;padding-top:12px;border-top:1px solid #E2E8F0;text-align:left;}
-.geo-qa .geo-by a{color:#0F172A;font-weight:700;text-decoration:none;}
-.geo-faq{max-width:1100px;margin:40px auto;padding:0 24px;box-sizing:border-box;color:#0F172A;}
-.geo-faq h2{font-size:26px !important;line-height:1.25 !important;font-weight:800 !important;margin:0 0 12px !important;padding:0 !important;border:0 !important;color:#0F172A !important;text-align:left !important;max-width:none !important;}
-.geo-faq details{border-bottom:1px solid #E2E8F0;}
-.geo-faq summary{cursor:pointer;list-style:none;padding:16px 36px 16px 0;position:relative;font-weight:700;font-size:16.5px;line-height:1.4;color:#0F172A;}
-.geo-faq summary::-webkit-details-marker{display:none;}
-.geo-faq summary::after{content:"+";position:absolute;right:4px;top:12px;font-size:22px;font-weight:400;color:#10B981;}
-.geo-faq details[open] summary::after{content:"\2212";}
-.geo-faq details p{font-size:15.5px;line-height:1.75;margin:0 0 16px;color:#334155;}
-@media(max-width:600px){.geo-wrap,.geo-faq{padding:0 16px;}.geo-qa{padding:22px 18px 14px;}.geo-qa h2.geo-q{font-size:19px;}.geo-qa .geo-a{font-size:16px;}}
-</style>
-<script type="application/ld+json" id="geo-schema">
-{
- "@context": "https://schema.org",
- "@graph": [
-  {
-   "@type": "WebPage",
-   "@id": "https://www.optivusprof.ca/alignment-scorecard.html#geo-webpage",
-   "url": "https://www.optivusprof.ca/alignment-scorecard.html",
-   "name": "Sales & Marketing Alignment Scorecard | Optivus",
-   "dateModified": "2026-10-14",
-   "inLanguage": "en-CA",
-   "author": {
-    "@id": "https://www.optivusprof.ca/#dean-reid"
-   },
-   "publisher": {
-    "@id": "https://www.optivusprof.ca/#optivus"
-   },
-   "isPartOf": {
-    "@type": "WebSite",
-    "@id": "https://www.optivusprof.ca/#website",
-    "url": "https://www.optivusprof.ca/",
-    "name": "Optivus"
-   },
-   "speakable": {
-    "@type": "SpeakableSpecification",
-    "cssSelector": [
-     "#geo-qa"
-    ]
-   },
-   "abstract": "The Sales and Marketing Alignment Scorecard is a free 15-question assessment that takes about four minutes. It gives B2B companies an instant alignment score and pinpoints friction across five dimensions: revenue ownership, the handoff process, how the teams work together, shared visibility, and shared direction. No email is required.",
-   "about": [
-    {
-     "@type": "Thing",
-     "name": "Sales",
-     "sameAs": "https://en.wikipedia.org/wiki/Sales"
-    },
-    {
-     "@type": "Thing",
-     "name": "Marketing strategy",
-     "sameAs": "https://en.wikipedia.org/wiki/Marketing_strategy"
-    }
-   ]
-  },
-  {
-   "@type": "Person",
-   "@id": "https://www.optivusprof.ca/#dean-reid",
-   "name": "Dean Reid",
-   "jobTitle": "Fractional CMO and Founder",
-   "url": "https://www.optivusprof.ca/philosophy.html#about",
-   "image": "https://www.optivusprof.ca/dean-reid.png",
-   "sameAs": [
-    "https://www.linkedin.com/in/deanreid1/"
-   ],
-   "worksFor": {
-    "@id": "https://www.optivusprof.ca/#optivus"
-   },
-   "alumniOf": [
-    {
-     "@type": "CollegeOrUniversity",
-     "name": "University of Calgary",
-     "sameAs": "https://en.wikipedia.org/wiki/University_of_Calgary"
-    },
-    {
-     "@type": "CollegeOrUniversity",
-     "name": "University of Alberta",
-     "sameAs": "https://en.wikipedia.org/wiki/University_of_Alberta"
-    }
-   ],
-   "hasCredential": [
-    {
-     "@type": "EducationalOccupationalCredential",
-     "name": "MBA, Finance and Marketing",
-     "credentialCategory": "degree",
-     "recognizedBy": {
-      "@type": "CollegeOrUniversity",
-      "name": "University of Calgary"
-     }
-    },
-    {
-     "@type": "EducationalOccupationalCredential",
-     "name": "Certificate in Digital Strategy",
-     "credentialCategory": "certificate",
-     "recognizedBy": {
-      "@type": "CollegeOrUniversity",
-      "name": "Massachusetts Institute of Technology",
-      "sameAs": "https://en.wikipedia.org/wiki/Massachusetts_Institute_of_Technology"
-     }
-    }
-   ],
-   "knowsAbout": [
-    "B2B marketing strategy",
-    "Go-to-market strategy",
-    "Account-based marketing",
-    "Demand generation",
-    "Generative engine optimization",
-    "Brand strategy",
-    "Private equity value creation",
-    "Marketing operations"
-   ],
-   "description": "Fractional CMO with 25+ years of VP and Director-level marketing leadership at TELUS, Bell Canada, SMART Technologies, Veriforce, Userful and TEC Canada."
-  },
-  {
-   "@type": "Organization",
-   "@id": "https://www.optivusprof.ca/#optivus",
-   "name": "Optivus",
-   "url": "https://www.optivusprof.ca/",
-   "logo": {
-    "@type": "ImageObject",
-    "url": "https://www.optivusprof.ca/assets/logo.png"
-   },
-   "founder": {
-    "@id": "https://www.optivusprof.ca/#dean-reid"
-   },
-   "areaServed": "Canada",
-   "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Cochrane",
-    "addressRegion": "AB",
-    "addressCountry": "CA"
-   },
-   "sameAs": [
-    "https://www.linkedin.com/in/deanreid1/"
-   ]
-  },
-  {
-   "@type": "FAQPage",
-   "@id": "https://www.optivusprof.ca/alignment-scorecard.html#geo-faq",
-   "mainEntity": [
-    {
-     "@type": "Question",
-     "name": "What are the five dimensions of sales and marketing alignment?",
-     "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "Revenue ownership, the handoff process, how teams work together, shared visibility, and shared direction."
-     }
-    },
-    {
-     "@type": "Question",
-     "name": "Why does sales and marketing alignment matter?",
-     "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "Misalignment is where good leads die. When the two teams define a qualified lead differently or don’t share pipeline data, opportunities stall in a handoff nobody owns."
-     }
-    },
-    {
-     "@type": "Question",
-     "name": "Is the alignment scorecard free?",
-     "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "Yes. It’s free, takes about four minutes, and needs no email."
-     }
-    }
-   ]
-  },
-  {
-   "@type": "WebApplication",
-   "@id": "https://www.optivusprof.ca/alignment-scorecard.html#app",
-   "name": "Sales and Marketing Alignment Scorecard",
-   "url": "https://www.optivusprof.ca/alignment-scorecard.html",
-   "description": "Free 15-question assessment that scores B2B sales and marketing alignment across five dimensions.",
-   "applicationCategory": "BusinessApplication",
-   "operatingSystem": "Any (web browser)",
-   "isAccessibleForFree": true,
-   "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "CAD"
-   },
-   "creator": {
-    "@id": "https://www.optivusprof.ca/#dean-reid"
-   },
-   "provider": {
-    "@id": "https://www.optivusprof.ca/#optivus"
-   }
-  }
- ]
-}
-</script>
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TMNCNPFD"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 <nav id="onav-bar" aria-label="Main navigation">
-  <a href="/" id="onav-logo" aria-label="Optivus home">
+  <a href="index.html" id="onav-logo" aria-label="Optivus home">
     <img src="assets/logo.png" alt="Optivus" width="50" height="50">
   </a>
   <ul id="onav-links" role="list">
-    <li><a href="/">Revenue Architect</a></li>
-    <li><a href="revenue-leak-review.html">Revenue Leak Review</a></li>
-    <li><a href="revenue-engine-audit.html">Free Audit</a></li>
+    <li><a href="index.html">Revenue Architect</a></li>
     <li>
-      <span>Insights &#9662;</span>
+      <span>Other Services &#9662;</span>
+      <div class="onav-sub">
+        <a href="growth-playbook.html">Growth Playbook in 30 Days</a>
+        <a href="board-advisor.html">Board-Level Growth Advisor</a>
+        <a href="cx-audit.html">Customer Journey & CX Audit</a>
+        <a href="thought-leadership.html">Executive Thought-Leadership Partner</a>
+        <a href="ai-for-marketing.html">AI for Marketing</a>
+      </div>
+    </li>
+    <li>
+      <span>Resources &#9662;</span>
       <div class="onav-sub">
         <a href="resources.html">All Resources &amp; Tools</a>
         <a href="resources.html#blog">Intelligence Series</a>
       </div>
     </li>
     <li>
-      <span>About Dean &#9662;</span>
+      <span>Philosophy &#9662;</span>
       <div class="onav-sub">
-        <a href="philosophy.html#about">About Dean Reid</a>
         <a href="philosophy.html">Our Philosophy</a>
-        <a href="fractional-cmo-calgary.html">Fractional CMO in Calgary</a>
+        <a href="philosophy.html#about">About Dean Reid</a>
       </div>
     </li>
   </ul>
@@ -590,7 +330,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 (function() {
   var target = document.currentScript;
   window.addEventListener('load', function() {
-    if (!window.calendar || !window.calendar.schedulingButton) return;
     calendar.schedulingButton.load({
       url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0vwcmmCRjR0JZoEVRIWoZq0R1xyJqWu90X9AHkEg8M-2rTOXRbfgdyETWvncK4DjOvUsf9_0EJ?gv=true',
       color: '#10B981',
@@ -604,21 +343,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div id="onav-drw" aria-label="Mobile menu">
   <button id="onav-drw-x" aria-label="Close">&#x2715;</button>
-  <a href="/">Revenue Architect</a>
-  <a href="revenue-leak-review.html">Revenue Leak Review</a>
-  <a href="revenue-engine-audit.html">Free Audit</a>
-  <p class="onav-drw-lbl">Insights</p>
+  <a href="index.html">Revenue Architect</a>
+  <p class="onav-drw-lbl">Other Services</p>
+  <a href="growth-playbook.html" class="opt-dl">Growth Playbook in 30 Days</a>
+      <a href="board-advisor.html" class="opt-dl">Board-Level Growth Advisor</a>
+      <a href="cx-audit.html" class="opt-dl">Customer Journey & CX Audit</a>
+      <a href="thought-leadership.html" class="opt-dl">Executive Thought-Leadership Partner</a>
+      <a href="ai-for-marketing.html" class="opt-dl">AI for Marketing</a>
+  <p class="onav-drw-lbl">Resources</p>
   <a href="resources.html" class="opt-dl">All Resources &amp; Tools</a>
   <a href="resources.html#blog" class="opt-dl">Intelligence Series</a>
-  <p class="onav-drw-lbl">About Dean</p>
-  <a href="philosophy.html#about" class="opt-dl">About Dean Reid</a>
-  <a href="philosophy.html" class="opt-dl">Our Philosophy</a>
-  <a href="fractional-cmo-calgary.html" class="opt-dl">Fractional CMO in Calgary</a>
+  <p class="onav-drw-lbl">Philosophy</p>
+  <a href="philosophy.html">Our Philosophy</a>
+  <a href="philosophy.html#about">About Dean Reid</a>
   <script>
 (function() {
   var target = document.currentScript;
   window.addEventListener('load', function() {
-    if (!window.calendar || !window.calendar.schedulingButton) return;
     calendar.schedulingButton.load({
       url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0vwcmmCRjR0JZoEVRIWoZq0R1xyJqWu90X9AHkEg8M-2rTOXRbfgdyETWvncK4DjOvUsf9_0EJ?gv=true',
       color: '#10B981',
@@ -646,7 +387,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 
 
-<div class="opt-bc" role="navigation" aria-label="Breadcrumb"><a href="/">Home</a><span class="opt-bc-sep">/</span><a href="resources.html">Resources</a><span class="opt-bc-sep">/</span><span class="opt-bc-cur">Alignment Scorecard</span></div>
+<div class="opt-bc" role="navigation" aria-label="Breadcrumb"><a href="index.html">Home</a><span class="opt-bc-sep">/</span><a href="resources.html">Resources</a><span class="opt-bc-sep">/</span><span class="opt-bc-cur">Alignment Scorecard</span></div>
 <div class="sc-progress-wrap" id="sc-prog-wrap">
   <div class="sc-progress-bar-bg"><div class="sc-progress-bar" id="sc-bar" style="width:20%"></div></div>
   <div class="sc-progress-label"><span id="sc-prog-label">Section 1 of 5</span><span id="sc-prog-q">Questions 1-3</span></div>
@@ -893,10 +634,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </div>
 
-
-<section class="geo-wrap" aria-labelledby="geo-q"><div class="geo-qa" id="geo-qa"><p class="geo-lbl">Quick answer</p><h2 class="geo-q" id="geo-q">How do you measure sales and marketing alignment?</h2><p class="geo-a">The Sales and Marketing Alignment Scorecard is a free 15-question assessment that takes about four minutes. It gives B2B companies an instant alignment score and pinpoints friction across five dimensions: revenue ownership, the handoff process, how the teams work together, shared visibility, and shared direction. No email is required.</p><p class="geo-by">By <a href="philosophy.html#about" rel="author">Dean Reid</a>, Fractional CMO (Revenue Architect), Optivus &middot; 25+ years of VP marketing leadership at TELUS, Bell Canada, SMART Technologies and Veriforce &middot; Last updated <time datetime="2026-10-14">October 2026</time></p></div></section>
-
-<section class="geo-faq" id="faq" aria-label="Frequently asked questions"><h2>Frequently asked questions</h2><details><summary>What are the five dimensions of sales and marketing alignment?</summary><p>Revenue ownership, the handoff process, how teams work together, shared visibility, and shared direction.</p></details><details><summary>Why does sales and marketing alignment matter?</summary><p>Misalignment is where good leads die. When the two teams define a qualified lead differently or don’t share pipeline data, opportunities stall in a handoff nobody owns.</p></details><details><summary>Is the alignment scorecard free?</summary><p>Yes. It’s free, takes about four minutes, and needs no email.</p></details></section>
 <footer>
   <div class="footer-body">
 
@@ -917,23 +654,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <!-- Nav column -->
     <div class="footer-col-nav">
-      <p class="footer-col-heading">Work with Optivus</p>
+      <p class="footer-col-heading">Six Offerings</p>
       <ul class="footer-col-links">
-        <li><a href="revenue-leak-review.html">Revenue Leak Review</a></li>
-        <li><a href="/">Revenue Architect for B2B Growth</a></li>
-        <li><a href="growth-playbook.html">Growth Playbook in 30 Days</a></li>
+        <li><a href="index.html">Revenue Architect for B2B Growth</a></li>
         <li><a href="board-advisor.html">Board-Level Growth Advisor</a></li>
+        <li><a href="growth-playbook.html">Growth Playbook in 30 Days</a></li>
         <li><a href="cx-audit.html">Customer Journey &amp; CX Audit</a></li>
-        <li><a href="ai-for-marketing.html">AI for Marketing</a></li>
+        <li><a href="ai-for-marketing.html">Fractional Head of AI for Marketing</a></li>
         <li><a href="thought-leadership.html">Executive Thought-Leadership Partner</a></li>
-        <li><a href="fractional-cmo-calgary.html">Fractional CMO in Calgary</a></li>
       </ul>
     </div>
 
   </div>
 
   <div class="footer-bottom">
-    <p>&copy; 2026 Optivus. Revenue Architecture. Calgary, Alberta, Canada. &nbsp;&middot;&nbsp; <a href="privacy-policy.html" style="color:rgba(255,255,255,0.6);text-decoration:none;">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="#" data-cookie-settings style="color:rgba(255,255,255,0.6);text-decoration:none;">Cookie Settings</a></p>
+    <p>&copy; 2025 Optivus. Revenue Architecture. Calgary, Alberta, Canada. &nbsp;&middot;&nbsp; <a href="privacy-policy.pdf" download style="color:rgba(255,255,255,0.6);text-decoration:none;">Privacy Policy ↓</a></p>
     <p>Revenue Architect &nbsp;&middot;&nbsp; Board Advisor &nbsp;&middot;&nbsp; AI Marketing &nbsp;&middot;&nbsp; B2B Growth Strategy &nbsp;&middot;&nbsp; Go-To-Market Consultant</p>
   </div>
 </footer>
@@ -1085,7 +820,7 @@ function showResults() {
     stage='Critical Misalignment'; grade='GRADE: F'; color='#ef4444';
     desc='Sales and marketing are operating as separate departments with minimal shared accountability. Revenue is being lost at every stage of the funnel - from the wrong leads being generated to deals being lost to competitors who brief their sales teams better.';
   } else if (pct <= 50) {
-    stage='Developing Alignment'; grade='GRADE: D-C'; color='#f59e0b';
+    stage='Developing Alignment'; grade='GRADE: D-C'; color='#40E0D0';
     desc='Some alignment exists but it is informal and inconsistent. Good months depend on individual effort rather than systematic process. The gap between what marketing generates and what sales closes is wide and growing.';
   } else if (pct <= 70) {
     stage='Mostly Aligned'; grade='GRADE: B'; color='#60a5fa';
@@ -1144,7 +879,4 @@ function restartQuiz() {
   window.scrollTo({top:0,behavior:'smooth'});
 }
 </script>
-<script src="assets/site.js" defer></script>
-<!-- Cookie consent banner -->
-<script src="assets/cookie-consent.js" data-position="bottom-right" data-privacy-url="privacy-policy.html" defer></script>
 </body></html>
