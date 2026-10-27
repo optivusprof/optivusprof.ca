@@ -137,3 +137,126 @@
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", mountSignup);
   else mountSignup();
 })();
+
+
+/* ==========================================================================
+   OPTIVUS BOOKING CALENDAR (sitewide)
+   --------------------------------------------------------------------------
+   Replaces Google's own pop-up (which rendered transparent over the dark
+   site and had no close button) with an Optivus pop-up:
+     - solid WHITE panel, so the calendar is always readable
+     - visible close (X) button, plus Esc key and click-outside to close
+     - focus returns to the button the visitor clicked
+   It also provides the `calendar.schedulingButton.load()` call that the
+   pages already use, so the nav buttons keep working unchanged.
+   Any link to calendar.app.google opens this pop-up instead of a new tab.
+   To change the calendar, edit BOOKING_URL below (one place, whole site).
+   See BOOKING-CALENDAR.md for the full write-up.
+   ========================================================================== */
+(function () {
+  var BOOKING_URL = "https://calendar.google.com/calendar/appointments/schedules/AcZssZ0vwcmmCRjR0JZoEVRIWoZq0R1xyJqWu90X9AHkEg8M-2rTOXRbfgdyETWvncK4DjOvUsf9_0EJ?gv=true";
+  var SHORT_URL_MATCH = "calendar.app.google";
+  var overlay, frame, closeBtn, lastFocus;
+
+  var css = ""
+    + "#optivus-book{position:fixed;inset:0;z-index:2147483000;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(15,23,42,.72);}"
+    + "#optivus-book.open{display:flex;}"
+    + "#optivus-book .ob-panel{position:relative;display:flex;flex-direction:column;width:100%;max-width:980px;height:min(90vh,800px);background:#fff;color:#0F172A;border-radius:14px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.45);}"
+    + "#optivus-book .ob-bar{display:flex;align-items:center;gap:12px;padding:10px 12px 10px 20px;background:#fff;border-bottom:1px solid #E2E8F0;flex-shrink:0;}"
+    + "#optivus-book .ob-title{font:700 15px/1.2 Inter,system-ui,sans-serif;color:#0F172A;margin-right:auto;}"
+    + "#optivus-book .ob-new{font:600 13px/1 Inter,system-ui,sans-serif;color:#0F766E;text-decoration:underline;white-space:nowrap;}"
+    + "#optivus-book .ob-close{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border:2px solid #40E0D0;border-radius:50%;background:#fff;color:#0F172A;font:700 18px/1 Inter,system-ui,sans-serif;cursor:pointer;flex-shrink:0;}"
+    + "#optivus-book .ob-close:hover{background:#40E0D0;}"
+    + "#optivus-book .ob-close:focus-visible,#optivus-book .ob-new:focus-visible{outline:3px solid #0F172A;outline-offset:2px;}"
+    + "#optivus-book .ob-body{position:relative;flex:1;background:#fff;}"
+    + "#optivus-book .ob-load{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:500 14px Inter,system-ui,sans-serif;color:#475569;}"
+    + "#optivus-book iframe{position:relative;width:100%;height:100%;border:0;background:#fff;display:block;}"
+    + "body.ob-lock{overflow:hidden;}"
+    + "@media (max-width:640px){#optivus-book{padding:0;}#optivus-book .ob-panel{max-width:none;height:100%;border-radius:0;}}";
+
+  function build() {
+    if (overlay) return;
+    var st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
+    overlay = document.createElement("div");
+    overlay.id = "optivus-book";
+    overlay.setAttribute("role", "dialog");
+    overlay.setAttribute("aria-modal", "true");
+    overlay.setAttribute("aria-label", "Book a call with Dean Reid");
+    overlay.innerHTML =
+      '<div class="ob-panel">'
+      + '<div class="ob-bar"><span class="ob-title">Book a call with Dean Reid</span>'
+      + '<a class="ob-new" href="' + BOOKING_URL + '" target="_blank" rel="noopener">Open in a new tab</a>'
+      + '<button type="button" class="ob-close" aria-label="Close booking calendar">&#x2715;</button></div>'
+      + '<div class="ob-body"><div class="ob-load">Loading calendar&hellip;</div></div>'
+      + '</div>';
+    document.body.appendChild(overlay);
+    closeBtn = overlay.querySelector(".ob-close");
+    closeBtn.addEventListener("click", close);
+    overlay.addEventListener("mousedown", function (e) { if (e.target === overlay) close(); });
+    document.addEventListener("keydown", function (e) {
+      if (!overlay.classList.contains("open")) return;
+      if (e.key === "Escape") { e.preventDefault(); close(); }
+      if (e.key === "Tab") {  // keep keyboard focus inside the pop-up
+        var f = overlay.querySelectorAll("a[href],button,iframe");
+        var first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+  }
+
+  function open(trigger) {
+    build();
+    lastFocus = trigger || document.activeElement;
+    if (!frame) {  // load Google's booking page once, on first open
+      frame = document.createElement("iframe");
+      frame.src = BOOKING_URL;
+      frame.title = "Book a call with Dean Reid";
+      frame.setAttribute("allow", "payment");
+      frame.addEventListener("load", function () {
+        var l = overlay.querySelector(".ob-load"); if (l) l.style.display = "none";
+      });
+      overlay.querySelector(".ob-body").appendChild(frame);
+    }
+    overlay.classList.add("open");
+    document.body.classList.add("ob-lock");
+    closeBtn.focus();
+    try { if (window.dataLayer) window.dataLayer.push({ event: "booking_modal_open" }); } catch (e) {}
+  }
+
+  function close() {
+    if (!overlay) return;
+    overlay.classList.remove("open");
+    document.body.classList.remove("ob-lock");
+    if (lastFocus && lastFocus.focus) { try { lastFocus.focus(); } catch (e) {} }
+  }
+
+  /* Any link to the calendar opens the pop-up. Ctrl/Cmd/Shift-click still opens a new tab. */
+  document.addEventListener("click", function (e) {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var a = e.target.closest && e.target.closest("a[href]");
+    if (!a || a.closest("#optivus-book")) return;
+    var h = a.getAttribute("href") || "";
+    if (h.indexOf(SHORT_URL_MATCH) === -1 && h.indexOf("calendar.google.com/calendar/appointments") === -1) return;
+    e.preventDefault();
+    open(a);
+  });
+
+  /* Drop-in replacement for Google's calendar.schedulingButton.load(), used by the page templates. */
+  function loadButton(opts) {
+    opts = opts || {};
+    var t = opts.target, a = document.createElement("a");
+    a.href = opts.url || BOOKING_URL;
+    a.target = "_blank"; a.rel = "noopener";
+    a.textContent = opts.label || "Book a Call";
+    a.setAttribute("data-optivus-book", "1");
+    if (a.textContent === "Book a Call" && t && t.tagName === "SCRIPT") a.id = "onav-cta";                 // nav button (styled by page CSS)
+    else if (a.textContent === "Book a Discovery Call" && t && t.tagName === "SCRIPT") a.id = "onav-drw-cta"; // mobile drawer button
+    else a.style.cssText = "display:inline-flex;align-items:center;padding:12px 22px;border-radius:999px;font:700 14px Inter,system-ui,sans-serif;text-decoration:none;color:#0F1A24;background:" + (opts.color || "#40E0D0") + ";";
+    if (!t) return;
+    if (t.tagName === "SCRIPT" && t.parentNode) t.parentNode.insertBefore(a, t); else t.appendChild(a);
+  }
+  window.calendar = window.calendar || {};
+  window.calendar.schedulingButton = { load: loadButton };
+  window.optivusBook = open;  // any custom button can call optivusBook()
+})();
