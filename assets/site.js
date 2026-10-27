@@ -7,7 +7,7 @@
    After turning any of these on, the privacy policy already discloses them. */
 (function () {
   var CONFIG = {
-    ga4Id: "",              // Leave empty: GA4 (G-V3QVZGP782) is installed inline in each page's <head>, after GTM-TMNCNPFD
+    ga4Id: "",              // Leave empty: GA4 runs through Google Tag Manager (GTM-TMNCNPFD) in each page's <head>
     linkedinPartnerId: "",  // LinkedIn Insight Tag partner ID, e.g. "1234567"
     // PRIMARY: Google Apps Script web app (WebsiteLeads.gs in the "spark leads" sheet). Paste its /exec URL.
     leadsAppScriptUrl: "https://script.google.com/macros/s/AKfycbxtKEagOwZqv6qh88WH_kPB8gI7PMbtdR-yBliC4v1qmgCF_hWyqLcHF8oJci-Zlzohtw/exec",
@@ -48,8 +48,6 @@
   function track(name) {
     // Google Tag Manager (GTM-TMNCNPFD) picks these up as Custom Event triggers.
     try { (window.dataLayer = window.dataLayer || []).push({ event: name, page_path: location.pathname }); } catch (e) {}
-    // GA4 property G-V3QVZGP782 (inline gtag in each page's <head>).
-    try { if (window.gtag) window.gtag("event", name, { send_to: "G-V3QVZGP782", page_path: location.pathname }); } catch (e) {}
     try { if (window.clarity) window.clarity("event", name); } catch (e) {}
     // LinkedIn conversions are set up in Campaign Manager as URL-based rules, not from here.
   }
@@ -95,7 +93,7 @@
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var email = form.email.value.trim();
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { form.email.focus(); form.email.style.borderColor = "#F59E0B"; return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { form.email.focus(); form.email.style.borderColor = "#40E0D0"; return; }
       var btn = form.querySelector("button"); btn.disabled = true; btn.textContent = "Sending...";
       var data = {
         _subject: "[Optivus lead] Newsletter: " + email,
@@ -130,7 +128,7 @@
       req.catch(function () {
         btn.disabled = false; btn.textContent = "Subscribe";
         var m = form.querySelector(".rlb-err") || document.createElement("small");
-        m.className = "rlb-err"; m.style.color = "#F59E0B";
+        m.className = "rlb-err"; m.style.color = "#40E0D0";
         m.innerHTML = 'That did not go through. Email <a href="mailto:dean.reid@optivusprof.ca?subject=Subscribe%20to%20the%20Optivus%20Newsletter" style="color:inherit">dean.reid@optivusprof.ca</a> and I will add you.';
         form.appendChild(m);
       });
