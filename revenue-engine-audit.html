@@ -2,6 +2,21 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TMNCNPFD');</script>
+<!-- End Google Tag Manager -->
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window,document,"clarity","script","x7lbqdzww4");
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Revenue Engine Audit | Optivus</title>
 <meta name="description" content="Score your go-to-market engine against hard benchmarks across 10 revenue leaks in under 10 minutes, and get a prioritized 30-day action plan." />
@@ -76,7 +91,7 @@
     --accent-soft:#ecfdf5;
     --good:#15803d;
     --good-soft:#e7f5ec;
-    --warn:#40E0D0;
+    --warn:#0F766E;
     --warn-soft:#E0FAF7;
     --bad:#be123c;
     --bad-soft:#fdeaef;
@@ -137,7 +152,14 @@
 
   /* ---- header ---- */
   .app-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}
-  .brand{display:flex;align-items:center;gap:10px;font-weight:680;letter-spacing:-.01em}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:680;letter-spacing:-.01em;color:inherit;text-decoration:none}
+  .brand-logo{display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:10px;background:#0F172A;flex:0 0 auto}
+  .brand-logo img{width:40px;height:auto;display:block}
+  .head-actions-r{display:flex;align-items:center;gap:10px}
+  a.ghost-btn{text-decoration:none;display:inline-flex;align-items:center}
+  .back-site{white-space:nowrap}
+  .back-site .bs-short{display:none}
+  @media (max-width:560px){.back-site .bs-long{display:none}.back-site .bs-short{display:inline}.brand-logo{width:44px;height:44px}.brand-logo img{width:34px}}
   .brand .dot{width:22px;height:22px;border-radius:7px;background:linear-gradient(135deg,#10B981,#34D399);flex:0 0 auto}
   .ghost-btn{
     background:transparent;border:1px solid var(--border-strong);color:var(--text-dim);
@@ -322,7 +344,7 @@
   @media print{
     :root{--bg:#fff;--surface:#fff;--surface-2:#f3f3f3;--text:#000;--text-dim:#333;--border:#bbb;--accent:#10B981}
     body{background:#fff}
-    .app-head .ghost-btn,.btn-row,.gate,.cta-block,.offline-banner,#restartTop,.no-print{display:none !important}
+    .app-head .ghost-btn,.back-site,.btn-row,.gate,.cta-block,.offline-banner,#restartTop,.no-print{display:none !important}
     .wrap{max-width:none;padding:0}
     .card{box-shadow:none;border:none;padding:0}
     .leak-card,.lever-card,.cta-block{break-inside:avoid}
@@ -366,7 +388,7 @@
       "@id":"https://www.optivusprof.ca/revenue-engine-audit.html#webpage",
       "url":"https://www.optivusprof.ca/revenue-engine-audit.html",
       "name":"Revenue Engine Audit | Optivus",
-      "dateModified":"2026-09-04",
+      "dateModified": "2026-10-14",
       "breadcrumb":{
         "@type":"BreadcrumbList",
         "itemListElement":[
@@ -378,19 +400,234 @@
     }
   ]
 }</script>
+<style id="geo-css">
+.geo-wrap{max-width:1100px;margin:32px auto;padding:0 24px;box-sizing:border-box;}
+.geo-qa{border:2px solid #10B981;border-radius:14px;padding:24px 28px 18px;background:#fff;position:relative;color:#0F172A;font-family:inherit;}
+.geo-lbl{position:absolute;top:-11px;left:20px;margin:0;background:#10B981;color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:3px 10px;border-radius:20px;line-height:1.4;}
+.geo-qa h2.geo-q{font-size:21px !important;line-height:1.35 !important;margin:6px 0 10px !important;padding:0 !important;border:0 !important;color:#0F172A !important;font-weight:800 !important;letter-spacing:-.005em !important;text-align:left !important;max-width:none !important;}
+.geo-qa h2.geo-q::before,.geo-qa h2.geo-q::after,.geo-faq h2::before,.geo-faq h2::after{content:none !important;display:none !important;}
+.geo-qa .geo-a{font-size:17px !important;line-height:1.75 !important;margin:0 0 12px !important;color:#0F172A !important;text-align:left !important;max-width:none !important;}
+.geo-qa .geo-def{font-size:14.5px;line-height:1.65;margin:8px 0 0;background:#F8FAFC;border-radius:8px;padding:10px 14px;color:#334155;text-align:left;}
+.geo-qa .geo-def dfn{font-style:normal;font-weight:700;color:#0F172A;}
+.geo-qa ul{margin:4px 0 12px 20px;padding:0;color:#334155;text-align:left;}
+.geo-qa li{font-size:15px;line-height:1.65;margin:0 0 6px;}
+.geo-qa .geo-by{font-size:12.5px;line-height:1.6;color:#566072;margin:14px 0 0;padding-top:12px;border-top:1px solid #E2E8F0;text-align:left;}
+.geo-qa .geo-by a{color:#0F172A;font-weight:700;text-decoration:none;}
+.geo-faq{max-width:1100px;margin:40px auto;padding:0 24px;box-sizing:border-box;color:#0F172A;}
+.geo-faq h2{font-size:26px !important;line-height:1.25 !important;font-weight:800 !important;margin:0 0 12px !important;padding:0 !important;border:0 !important;color:#0F172A !important;text-align:left !important;max-width:none !important;}
+.geo-faq details{border-bottom:1px solid #E2E8F0;}
+.geo-faq summary{cursor:pointer;list-style:none;padding:16px 36px 16px 0;position:relative;font-weight:700;font-size:16.5px;line-height:1.4;color:#0F172A;}
+.geo-faq summary::-webkit-details-marker{display:none;}
+.geo-faq summary::after{content:"+";position:absolute;right:4px;top:12px;font-size:22px;font-weight:400;color:#10B981;}
+.geo-faq details[open] summary::after{content:"\2212";}
+.geo-faq details p{font-size:15.5px;line-height:1.75;margin:0 0 16px;color:#334155;}
+@media(max-width:600px){.geo-wrap,.geo-faq{padding:0 16px;}.geo-qa{padding:22px 18px 14px;}.geo-qa h2.geo-q{font-size:19px;}.geo-qa .geo-a{font-size:16px;}}
+</style>
+<script type="application/ld+json" id="geo-schema">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebPage",
+   "@id": "https://www.optivusprof.ca/revenue-engine-audit.html#geo-webpage",
+   "url": "https://www.optivusprof.ca/revenue-engine-audit.html",
+   "name": "Revenue Engine Audit | Optivus",
+   "dateModified": "2026-10-14",
+   "inLanguage": "en-CA",
+   "author": {
+    "@id": "https://www.optivusprof.ca/#dean-reid"
+   },
+   "publisher": {
+    "@id": "https://www.optivusprof.ca/#optivus"
+   },
+   "isPartOf": {
+    "@type": "WebSite",
+    "@id": "https://www.optivusprof.ca/#website",
+    "url": "https://www.optivusprof.ca/",
+    "name": "Optivus"
+   },
+   "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": [
+     "#geo-qa"
+    ]
+   },
+   "abstract": "A free self-assessment that takes about six minutes. It scores your go-to-market engine on 10 revenue leaks against widely cited B2B benchmarks, ranks your three biggest leaks, and gives you a printable 30-day action plan. Your answers stay in your browser unless you choose to request the full report, in which case your scores and contact details are sent to Dean Reid so he can follow up.",
+   "about": [
+    {
+     "@type": "Thing",
+     "name": "Go-to-market strategy",
+     "sameAs": "https://en.wikipedia.org/wiki/Go-to-market_strategy"
+    }
+   ]
+  },
+  {
+   "@type": "Person",
+   "@id": "https://www.optivusprof.ca/#dean-reid",
+   "name": "Dean Reid",
+   "jobTitle": "Fractional CMO and Founder",
+   "url": "https://www.optivusprof.ca/philosophy.html#about",
+   "image": "https://www.optivusprof.ca/dean-reid.png",
+   "sameAs": [
+    "https://www.linkedin.com/in/deanreid1/"
+   ],
+   "worksFor": {
+    "@id": "https://www.optivusprof.ca/#optivus"
+   },
+   "alumniOf": [
+    {
+     "@type": "CollegeOrUniversity",
+     "name": "University of Calgary",
+     "sameAs": "https://en.wikipedia.org/wiki/University_of_Calgary"
+    },
+    {
+     "@type": "CollegeOrUniversity",
+     "name": "University of Alberta",
+     "sameAs": "https://en.wikipedia.org/wiki/University_of_Alberta"
+    }
+   ],
+   "hasCredential": [
+    {
+     "@type": "EducationalOccupationalCredential",
+     "name": "MBA, Finance and Marketing",
+     "credentialCategory": "degree",
+     "recognizedBy": {
+      "@type": "CollegeOrUniversity",
+      "name": "University of Calgary"
+     }
+    },
+    {
+     "@type": "EducationalOccupationalCredential",
+     "name": "Certificate in Digital Strategy",
+     "credentialCategory": "certificate",
+     "recognizedBy": {
+      "@type": "CollegeOrUniversity",
+      "name": "Massachusetts Institute of Technology",
+      "sameAs": "https://en.wikipedia.org/wiki/Massachusetts_Institute_of_Technology"
+     }
+    }
+   ],
+   "knowsAbout": [
+    "B2B marketing strategy",
+    "Go-to-market strategy",
+    "Account-based marketing",
+    "Demand generation",
+    "Generative engine optimization",
+    "Brand strategy",
+    "Private equity value creation",
+    "Marketing operations"
+   ],
+   "description": "Fractional CMO with 25+ years of VP and Director-level marketing leadership at TELUS, Bell Canada, SMART Technologies, Veriforce, Userful and TEC Canada."
+  },
+  {
+   "@type": "Organization",
+   "@id": "https://www.optivusprof.ca/#optivus",
+   "name": "Optivus",
+   "url": "https://www.optivusprof.ca/",
+   "logo": {
+    "@type": "ImageObject",
+    "url": "https://www.optivusprof.ca/assets/logo.png"
+   },
+   "founder": {
+    "@id": "https://www.optivusprof.ca/#dean-reid"
+   },
+   "areaServed": "Canada",
+   "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Cochrane",
+    "addressRegion": "AB",
+    "addressCountry": "CA"
+   },
+   "sameAs": [
+    "https://www.linkedin.com/in/deanreid1/"
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "@id": "https://www.optivusprof.ca/revenue-engine-audit.html#geo-faq",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Is the Revenue Engine Audit free?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes. There’s no sign-up to take it, and your answers stay in your browser unless you request the full report."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How long does the audit take?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "About six minutes for the questions. The result shows your three priority leaks, all 10 scores, and a 30-day action plan."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How accurate are the benchmarks?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "They’re widely cited B2B SaaS industry ranges. Treat them as directional, not as a substitute for a full diagnostic of your own data."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What should I do with my results?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Fix the cheapest of your three worst leaks first, check for measurable change at 30 days, and give one person ownership of all ten numbers."
+     }
+    }
+   ]
+  },
+  {
+   "@type": "WebApplication",
+   "@id": "https://www.optivusprof.ca/revenue-engine-audit.html#app",
+   "name": "Revenue Engine Audit",
+   "url": "https://www.optivusprof.ca/revenue-engine-audit.html",
+   "description": "Free B2B go-to-market self-assessment that scores 10 revenue leaks against benchmarks and returns a prioritized 30-day action plan.",
+   "applicationCategory": "BusinessApplication",
+   "operatingSystem": "Any (web browser)",
+   "isAccessibleForFree": true,
+   "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "CAD"
+   },
+   "creator": {
+    "@id": "https://www.optivusprof.ca/#dean-reid"
+   },
+   "provider": {
+    "@id": "https://www.optivusprof.ca/#optivus"
+   }
+  }
+ ]
+}
+</script>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TMNCNPFD"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 <div class="wrap">
   <header class="app-head">
-    <div class="brand"><span class="dot" aria-hidden="true"></span><span id="brandName">Optivus</span></div>
-    <button class="ghost-btn" id="restartTop" hidden>Start over</button>
+    <a class="brand" href="/" aria-label="Optivus home"><span class="brand-logo"><img src="assets/logo.png" alt="" width="40" height="39"></span><span id="brandName">Optivus</span></a>
+    <div class="head-actions-r">
+      <a class="ghost-btn back-site" href="/">&larr;&nbsp;<span class="bs-long">Back to optivusprof.ca</span><span class="bs-short">Home</span></a>
+      <button class="ghost-btn" id="restartTop" hidden>Start over</button>
+    </div>
   </header>
 
   <div class="offline-banner" role="status">Offline — your progress is saved on this device. It will sync when you reconnect.</div>
 
   <main id="view" aria-live="polite"></main>
 
-  <p class="foot">
+  
+<section class="geo-wrap" aria-labelledby="geo-q"><div class="geo-qa" id="geo-qa"><p class="geo-lbl">Quick answer</p><h2 class="geo-q" id="geo-q">What is the Revenue Engine Audit?</h2><p class="geo-a">A free self-assessment that takes about six minutes. It scores your go-to-market engine on 10 revenue leaks against widely cited B2B benchmarks, ranks your three biggest leaks, and gives you a printable 30-day action plan. Your answers stay in your browser unless you choose to request the full report.</p><ul><li><strong>Measures:</strong> speed to first response, lead qualification, pipeline coverage, win rate, sales cycle, CAC payback, content distinctiveness, AI answer engine visibility, martech data readiness, and retention.</li><li><strong>Built on:</strong> <a href="gtm-leak-finder.html">The 10-Point Go-To-Market Leak Finder</a> and the push-versus-pull framework from <em>The Power of Pull</em>.</li></ul><p class="geo-by">By <a href="philosophy.html#about" rel="author">Dean Reid</a>, Fractional CMO (Revenue Architect), Optivus &middot; 25+ years of VP marketing leadership at TELUS, Bell Canada, SMART Technologies and Veriforce &middot; Last updated <time datetime="2026-10-14">October 2026</time></p></div></section>
+
+<section class="geo-faq" id="faq" aria-label="Frequently asked questions"><h2>Frequently asked questions</h2><details><summary>Is the Revenue Engine Audit free?</summary><p>Yes. There’s no sign-up to take it, and your answers stay in your browser unless you request the full report.</p></details><details><summary>How long does the audit take?</summary><p>About six minutes for the questions. The result shows your three priority leaks, all 10 scores, and a 30-day action plan.</p></details><details><summary>How accurate are the benchmarks?</summary><p>They’re widely cited B2B SaaS industry ranges. Treat them as directional, not as a substitute for a full diagnostic of your own data.</p></details><details><summary>What should I do with my results?</summary><p>Fix the cheapest of your three worst leaks first, check for measurable change at 30 days, and give one person ownership of all ten numbers.</p></details></section>
+<p class="foot">
     Your answers stay in this browser unless you request the report.
     <a href="#" id="clearData">Clear my data from this browser</a><br>
     <span id="footBrand">Optivus</span> · Revenue Engine Audit · Benchmarks are widely cited B2B SaaS industry ranges and are directional, not a substitute for a full audit.
@@ -408,10 +645,19 @@ const CONFIG = {
   productName: "Revenue Engine Audit",
   // Booking link. name + email are appended as query params for pre-fill.
   // Google Calendar widget handles booking directly
-  // Optional. Zapier / Make / n8n catch-hook URL. Leave "" to disable all network calls.
+  // Optional. Zapier / Make / n8n catch-hook URL (JSON POST). Leave "" to skip.
   webhookUrl: "",
+  // PRIMARY: Google Apps Script web app (WebsiteLeads.gs in the "spark leads" sheet).
+  // Paste its /exec URL here. It writes the lead to the sheet and emails Dean.
+  // While this is empty, leads fall back to FormSubmit (below).
+  leadsAppScriptUrl: "https://script.google.com/macros/s/AKfycbxtKEagOwZqv6qh88WH_kPB8gI7PMbtdR-yBliC4v1qmgCF_hWyqLcHF8oJci-Zlzohtw/exec",
+  // FALLBACK: report requests emailed to Dean through FormSubmit (no account, no backend).
+  // The FIRST submission triggers a one-time activation email to this address: click it.
+  // After activation FormSubmit gives you a random alias; paste it here in place of the
+  // address to keep the email out of the page source.
+  leadEmailEndpoint: "https://formsubmit.co/ajax/dean.reid@optivusprof.ca",
   // Shown next to the GDPR/CCPA consent checkbox.
-  privacyUrl: "https://www.optivusprof.ca/privacy-policy.pdf", // s://optivus.io/privacy",
+  privacyUrl: "https://www.optivusprof.ca/privacy-policy.html", // s://optivus.io/privacy",
   secondsPerQuestion: 40,
   storageKey: "optivus_gtm_leak_v1"
 };
@@ -1050,7 +1296,7 @@ function renderResults(){
                 <label>Full name<input type="text" name="name" autocomplete="name" required></label>
                 <label>Work email<input type="email" name="email" autocomplete="email" required></label>
                 <label>Company<input type="text" name="company" autocomplete="organization" required></label>
-                <label>Total ARR
+                <label>Annual revenue
                   <select name="arrRange" required>
                     <option value="">Select…</option>
                     ${ARR_RANGES.map(r=>`<option value="${esc(r.label)}">${esc(r.label)}</option>`).join("")}
@@ -1062,19 +1308,24 @@ function renderResults(){
                 <span>I agree to ${esc(CONFIG.brandName)} processing my company's performance metrics and contact details to generate this report.
                 <a href="${esc(CONFIG.privacyUrl)}" target="_blank" rel="noopener">Privacy</a></span>
               </label>
+              <label class="consent">
+                <input type="checkbox" name="newsletter">
+                <span>Optional: also send me the Optivus Newsletter, one practical idea a month on finding and fixing revenue leaks, from Dean Reid at Optivus (2836609 Alberta Ltd., 240 Montclair Place, Cochrane, AB T4C 0A8). Unsubscribe any time.</span>
+              </label>
               <p class="form-err" id="formErr" style="display:none"></p>
               <div class="btn-row"><button type="submit" class="btn btn-primary" id="leadSubmit">Show my full report</button></div>
-              <small class="dim">One email with your report. Unsubscribe any time.</small>
+              <small class="dim">Your full report opens on this page right away. Your scores and details go to Dean Reid, who may follow up once by email.</small>
             </form>
           </div>`}
       </div>
 
       ${gated ? `
         <div class="cta-block no-print">
-          <h2>Turn this into a plan that ships</h2>
-          <p class="dim" style="font-size:.92rem;max-width:48ch;margin:0 auto 4px">
-            Book a 30-minute Fractional CMO strategy review. We'll pressure-test your three priority leaks and map the first 30 days.</p>
+          <h2>Want these leaks measured on your real numbers?</h2>
+          <p class="dim" style="font-size:.92rem;max-width:52ch;margin:0 auto 4px">
+            This audit runs on your estimates. A <a href="revenue-leak-review.html">Revenue Leak Review</a> runs on your CRM, spend and deal data: your three biggest leaks, a dollar figure on each, and a 30-day fix plan in 10 business days. $3,500, fully credited if you continue. Or start with a free 30-minute call.</p>
           <div class="btn-row" style="justify-content:center">
+            <a class="btn btn-primary" href="revenue-leak-review.html" style="text-decoration:none">See the Revenue Leak Review</a>
             <span id="gcal-book-wrap" style="display:inline-flex;align-items:center;"></span>
             <button class="btn btn-secondary" id="pdfBtn">Free Download PDF</button>
           </div>
@@ -1187,7 +1438,8 @@ function submitLead(e){
     name: f.name.value.trim(),
     email: f.email.value.trim(),
     company: f.company.value.trim(),
-    arrRange: f.arrRange.value
+    arrRange: f.arrRange.value,
+    newsletter: !!(f.newsletter && f.newsletter.checked)
   };
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email);
   if(!data.name || !data.company || !data.arrRange || !emailOk){
@@ -1212,6 +1464,7 @@ function buildPayload(lead){
     source: "gtm-revenue-engine-audit-diagnostic",
     pageUrl: location.href,
     name: lead.name, email: lead.email, company: lead.company, arrRange: lead.arrRange,
+    Newsletter_Consent: lead.newsletter ? "YES (express, " + new Date().toISOString() + ")" : "no",
     GTM_Score: R.overall,
     Access_Score: R.access, Attract_Score: R.attract, Achieve_Score: R.achieve,
     Pull_Lever_Bottleneck: R.bottleneck,
@@ -1225,6 +1478,8 @@ function buildPayload(lead){
 }
 
 function dispatchWebhook(lead){
+  if(lead.sent) return;
+  dispatchLeadEmail(lead);
   if(!CONFIG.webhookUrl) return;
   try{
     fetch(CONFIG.webhookUrl, {
@@ -1233,6 +1488,38 @@ function dispatchWebhook(lead){
       body: JSON.stringify(buildPayload(lead)),
       keepalive:true
     }).catch(()=>{});
+  }catch(e){}
+}
+
+function dispatchLeadEmail(lead){
+  const p = buildPayload(lead);
+  try{ (window.dataLayer = window.dataLayer || []).push({ event:"audit_report_request", audit_score:p.GTM_Score, revenue_band:lead.arrRange }); }catch(e){}
+  if(/^https:\/\/script\.google\.com\//.test(CONFIG.leadsAppScriptUrl || "")){
+    // text/plain + no-cors keeps this a "simple" request that Apps Script accepts from any site.
+    try{
+      fetch(CONFIG.leadsAppScriptUrl, {
+        method:"POST", mode:"no-cors", headers:{ "Content-Type":"text/plain;charset=utf-8" },
+        body: JSON.stringify(Object.assign({ type:"audit_lead" }, p)), keepalive:true
+      }).then(()=>{ state.lead.sent = true; save(); }).catch(()=>{});
+    }catch(e){}
+    return;
+  }
+  if(!CONFIG.leadEmailEndpoint) return;
+  const flat = {};
+  Object.keys(p).forEach(k=>{ flat[k] = Array.isArray(p[k]) ? p[k].join(" | ") : p[k]; });
+  flat._subject = "[Optivus lead] Audit: " + lead.company + " (" + lead.arrRange + ") scored " + p.GTM_Score;
+  // Machine-readable copy for the n8n -> Optivus Local CRM workflow (base64 JSON between markers).
+  try{ flat.crm_data = "CRM1:" + btoa(unescape(encodeURIComponent(JSON.stringify(Object.assign({type:"audit_lead"}, flat))))) + ":CRM1"; }catch(e){}
+  flat._replyto = lead.email;
+  flat._template = "table";
+  flat._captcha = "false";
+  try{
+    fetch(CONFIG.leadEmailEndpoint, {
+      method:"POST",
+      headers:{ "Content-Type":"application/json", "Accept":"application/json" },
+      body: JSON.stringify(flat),
+      keepalive:true
+    }).then(r=>{ if(r.ok){ state.lead.sent = true; save(); } }).catch(()=>{});
   }catch(e){}
 }
 
@@ -1287,5 +1574,6 @@ window.addEventListener('load', function() {
   }
 });
 </script>
+<script src="assets/site.js" defer></script>
 </body>
 </html>

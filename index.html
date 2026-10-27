@@ -2,52 +2,6 @@
 <html lang="en-CA">
 <head>
 <meta charset="UTF-8">
-<!-- Cookie consent: Google Consent Mode v2 defaults. MUST be the first script in <head>, before Google Tag Manager. -->
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  (function () {
-    var p = null;
-    try {
-      p = JSON.parse(localStorage.getItem('cookie_consent_preferences'));
-      if (!p || typeof p.timestamp !== 'number' || Date.now() - p.timestamp > 180 * 864e5) p = null;
-    } catch (e) { p = null; }
-    function g(on) { return on ? 'granted' : 'denied'; }
-    gtag('consent', 'default', {
-      security_storage: 'granted',
-      functionality_storage: g(p && p.functional),
-      personalization_storage: g(p && p.functional),
-      analytics_storage: g(p && p.analytics),
-      ad_storage: g(p && p.marketing),
-      ad_user_data: g(p && p.marketing),
-      ad_personalization: g(p && p.marketing),
-      wait_for_update: 500
-    });
-    gtag('set', 'ads_data_redaction', true);
-
-    // Apply every consent change to Google tags, Tag Manager and Microsoft Clarity.
-    window.addEventListener('cookie-consent-update', function (e) {
-      var c = e.detail;
-      gtag('consent', 'update', {
-        functionality_storage: g(c.functional),
-        personalization_storage: g(c.functional),
-        analytics_storage: g(c.analytics),
-        ad_storage: g(c.marketing),
-        ad_user_data: g(c.marketing),
-        ad_personalization: g(c.marketing)
-      });
-      // Tag Manager: use this Custom Event to fire tags (e.g. LinkedIn) only when marketing is allowed.
-      dataLayer.push({
-        event: 'cookie_consent_update',
-        consent_functional: c.functional,
-        consent_analytics: c.analytics,
-        consent_marketing: c.marketing
-      });
-      if (window.clarity) window.clarity('consentv2', { analytics_Storage: g(c.analytics), ad_Storage: g(c.marketing) });
-    });
-  })();
-</script>
-<!-- End cookie consent defaults -->
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -55,15 +9,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-TMNCNPFD');</script>
 <!-- End Google Tag Manager -->
-<!-- Google tag (gtag.js): Optivus GA4 property G-V3QVZGP782 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3QVZGP782"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-V3QVZGP782');
-</script>
-<!-- End Google tag -->
 <!-- Microsoft Clarity -->
 <script type="text/javascript">
 (function(c,l,a,r,i,t,y){
@@ -2707,7 +2652,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 .nfy-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
 .nfy-grid ul{list-style:none;margin:0;padding:0;display:grid;gap:14px;}
 .nfy-grid li{position:relative;padding-left:30px;line-height:1.55;font-size:15.5px;}
-.nfy-no li::before{content:"\2715";position:absolute;left:0;top:0;font-weight:700;color:#B45309;}
+.nfy-no li::before{content:"\2715";position:absolute;left:0;top:0;font-weight:700;color:#0F766E;}
 .nfy-yes li::before{content:"\2713";position:absolute;left:0;top:0;font-weight:700;color:#059669;}
 .nfy-yes::before{content:"A strong fit if:";display:block;font-weight:700;margin-bottom:2px;}
 .nfy-no::before{content:"Not a fit if:";display:block;font-weight:700;margin-bottom:2px;}
@@ -3137,7 +3082,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 
   <div class="footer-bottom">
-    <p>&copy; 2026 Optivus. Revenue Architecture. Canada. &nbsp;&middot;&nbsp; <a href="privacy-policy.html" style="color:rgba(255,255,255,0.6);text-decoration:none;">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="#" data-cookie-settings style="color:rgba(255,255,255,0.6);text-decoration:none;">Cookie Settings</a></p>
+    <p>&copy; 2025 Optivus. Revenue Architecture. Canada. &nbsp;&middot;&nbsp; <a href="privacy-policy.html" style="color:rgba(255,255,255,0.6);text-decoration:none;">Privacy Policy</a></p>
     <p>Revenue Architect &nbsp;&middot;&nbsp; Board Advisor &nbsp;&middot;&nbsp; AI Marketing &nbsp;&middot;&nbsp; B2B Growth Strategy &nbsp;&middot;&nbsp; Go-To-Market Consultant</p>
   </div>
 </footer>
@@ -3213,7 +3158,5 @@ document.querySelectorAll('.site-faq-q').forEach(function(btn) {
 </script>
 
 <script src="assets/site.js" defer></script>
-<!-- Cookie consent banner -->
-<script src="assets/cookie-consent.js" data-position="bottom-right" data-privacy-url="privacy-policy.html" defer></script>
 </body>
 </html>

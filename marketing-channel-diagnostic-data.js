@@ -4,7 +4,7 @@ const TOP5_SCORES = {"Company website":["ABM Advertising","LinkedIn Ads","Retarg
 
 const CAT_ICONS = {"Owned Digital": "monitor-dot", "Social & Community": "users-round", "Paid Digital": "megaphone", "Content Marketing": "newspaper", "Events": "calendar-check", "Direct Outreach": "phone-outgoing", "Partnership": "handshake", "PR & Earned Media": "radio-tower", "Customer/Post-Sale": "star", "Offline/Traditional": "tv-2"};
 const CAT_COLORS = {"Owned Digital": "#2563eb", "Social & Community": "#7c3aed", "Paid Digital": "#40E0D0", "Content Marketing": "#059669", "Events": "#dc2626", "Direct Outreach": "#ea580c", "Partnership": "#0891b2", "PR & Earned Media": "#65a30d", "Customer/Post-Sale": "#db2777", "Offline/Traditional": "#6d28d9"};
-const CAT_COLORS_LIGHT = {"Owned Digital": "#eff6ff", "Social & Community": "#f5f3ff", "Paid Digital": "#fffbeb", "Content Marketing": "#f0fdf4", "Events": "#fef2f2", "Direct Outreach": "#fff7ed", "Partnership": "#ecfeff", "PR & Earned Media": "#f7fee7", "Customer/Post-Sale": "#fdf2f8", "Offline/Traditional": "#ede9fe"};
+const CAT_COLORS_LIGHT = {"Owned Digital": "#eff6ff", "Social & Community": "#f5f3ff", "Paid Digital": "#E0FAF7", "Content Marketing": "#f0fdf4", "Events": "#fef2f2", "Direct Outreach": "#E0FAF7", "Partnership": "#ecfeff", "PR & Earned Media": "#f7fee7", "Customer/Post-Sale": "#fdf2f8", "Offline/Traditional": "#ede9fe"};
 
 const { cat_order, cat_tactics, row_cats, data } = MATRIX;
 
